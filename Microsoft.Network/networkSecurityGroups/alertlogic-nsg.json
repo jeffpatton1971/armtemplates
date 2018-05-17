@@ -1,0 +1,163 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "Name": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the NSG to update"
+      }
+    },
+    "SubnetPrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "The CIDR of the subnet this NSG is attached to"
+      }
+    }
+  },
+  "variables": {
+    "alertlogicIPRange1": "204.110.218.96/27",
+    "alertlogicIPRange2": "204.110.219.96/27",
+    "alertlogicIPRange3": "208.71.209.32/27"
+  },
+  "resources": [
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('Name'),'/Allow_VNET_TO_ALT_7777_INBOUND')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "description": "Allow_VNET_TO_ALT_7777_INBOUND",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "7777",
+        "sourceAddressPrefix": "VirtualNetwork",
+        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "access": "Allow",
+        "priority": 301,
+        "direction": "Inbound"
+      }
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('Name'),'/Allow_VNET_TO_ALT_443_INBOUND')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "description": "Allow_VNET_TO_ALT_443_INBOUND",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "443",
+        "sourceAddressPrefix": "VirtualNetwork",
+        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "access": "Allow",
+        "priority": 302,
+        "direction": "Inbound"
+      }
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('Name'),'/ssh-rule-1')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "description": "Allow SSH",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "22",
+        "sourceAddressPrefix": "[variables('alertlogicIPRange1')]",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 2000,
+        "direction": "Inbound"
+      }
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('Name'),'/ssh-rule-2')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "description": "Allow SSH",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "22",
+        "sourceAddressPrefix": "[variables('alertlogicIPRange2')]",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 2100,
+        "direction": "Inbound"
+      }
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('Name'),'/ssh-rule-3')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "description": "Allow SSH",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "22",
+        "sourceAddressPrefix": "[variables('alertlogicIPRange3')]",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 2200,
+        "direction": "Inbound"
+      }
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('Name'),'/pwaf-rule-1')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "description": "Allow WSM UI",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "4849",
+        "sourceAddressPrefix": "[variables('alertlogicIPRange1')]",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 2210,
+        "direction": "Inbound"
+      }
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('Name'),'/pwaf-rule-2')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "description": "Allow WSM UI",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "4849",
+        "sourceAddressPrefix": "[variables('alertlogicIPRange2')]",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 2220,
+        "direction": "Inbound"
+      }
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('Name'),'/pwaf-rule-3')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "description": "Allow WSM UI",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "4849",
+        "sourceAddressPrefix": "[variables('alertlogicIPRange3')]",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 2230,
+        "direction": "Inbound"
+      }
+    }
+  ],
+  "outputs": {
+  }
+}
