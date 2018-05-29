@@ -1,0 +1,105 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "LoadBalancerPrefix": {
+      "type": "string",
+      "defaultValue": "g-win-solr"
+    },
+    "SitecoreVersion": {
+      "type": "string",
+      "allowedValues": [
+        "v8",
+        "v9"
+      ],
+      "defaultValue": "v9"
+    },
+    "NetworkName": {
+      "type": "string",
+      "defaultValue": "eus-vnet01"
+    },
+    "NetworkResourceGroupName": {
+      "type": "string",
+      "defaultValue": "eus-vnet"
+    },
+    "SubnetName": {
+      "type": "string",
+      "defaultValue": "eus-vnet01-g-solr"
+    }
+  },
+  "variables": {
+    "prefix": "[concat(parameters('LoadBalancerPrefix'))]",
+    "loadBalancerPrefix": "[concat(variables('prefix'),'-ilb')]",
+    "LoadBalancerName": "[tolower(concat(variables('loadBalancerPrefix'),'-01'))]",
+    "FrontendIpConfigurationName": "[tolower(concat(variables('loadBalancerPrefix'),'-fe'))]",
+    "BackendAddressPoolName": "[tolower(concat(variables('loadBalancerPrefix'),'-be'))]",
+    "LoadbalancingProbeName": "[tolower(concat(variables('loadBalancerPrefix'),'-pb-8983'))]",
+    "LoadBalancingRuleName": "[tolower(concat(variables('prefix'),'-8983'))]",
+    "vnetId": "[resourceId(parameters('NetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks',parameters('NetworkName'))]",
+    "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('SubnetName'))]",
+    "requestPath": "[if(equals(parameters('SitecoreVersion'),'v9'),'/solr/XP1PROD_core_index/admin/ping','/solr/sitecore_web_index/admin/ping')]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/loadBalancers",
+      "name": "[variables('LoadBalancerName')]",
+      "apiVersion": "2017-09-01",
+      "dependsOn": [],
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "frontendIPConfigurations": [
+          {
+            "name": "[variables('FrontendIpConfigurationName')]",
+            "properties": {
+              "subnet": {
+                "id": "[variables('subnetId')]"
+              },
+              "privateIPAddress": "",
+              "privateIPAllocationMethod": "Dynamic"
+            }
+          }
+        ],
+        "backendAddressPools": [
+          {
+            "name": "[variables('BackendAddressPoolName')]"
+          }
+        ],
+        "loadBalancingRules": [
+          {
+            "name": "[variables('LoadBalancingRuleName')]",
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/frontendIPConfigurations/',variables('FrontendIpConfigurationName'))]"
+              },
+              "backendAddressPool": {
+                "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/backendAddressPools/',variables('BackendAddressPoolName'))]"
+              },
+              "protocol": "Tcp",
+              "loadDistribution": "Default",
+              "frontendPort": 8983,
+              "backendPort": 8983,
+              "enableFloatingIP": false,
+              "idleTimeoutInMinutes": 5,
+              "probe": {
+                "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/probes/',variables('LoadbalancingProbeName'))]"
+              }
+            }
+          }
+        ],
+        "probes": [
+          {
+            "name": "[variables('LoadbalancingProbeName')]",
+            "properties": {
+              "protocol": "Http",
+              "port": 8983,
+              "requestPath": "[variables('requestPath')]",
+              "intervalInSeconds": 5,
+              "numberOfProbes": 2
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "outputs": {}
+}
