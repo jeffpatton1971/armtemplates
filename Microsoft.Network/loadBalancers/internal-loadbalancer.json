@@ -14,7 +14,7 @@
     "SubnetName": {
       "type": "string"
     },
-    "lbConfig": {
+    "loadBalancingRules": {
       "type": "array"
     },
     "probe": {
@@ -122,9 +122,9 @@
         "copy": [
           {
             "name": "loadBalancingRules",
-            "count": "[length(parameters('lbConfig'))]",
+            "count": "[length(parameters('loadBalancingRules'))]",
             "input": {
-              "name": "[concat(variables('LoadBalancingRuleName'),'-',add(copyIndex('lbConfig'),1))]",
+              "name": "[concat(variables('LoadBalancingRuleName'),'-',add(copyIndex('loadBalancingRules'),1))]",
               "properties": {
                 "frontendIPConfiguration": {
                   "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/frontendIPConfigurations/',variables('FrontendIpConfigurationName'))]"
@@ -132,9 +132,9 @@
                 "backendAddressPool": {
                   "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/backendAddressPools/',variables('BackendAddressPoolName'))]"
                 },
-                "protocol": "[parameters('lbConfig')[copyIndex('lbConfig')].protocol]",
-                "frontendPort": "[parameters('lbConfig')[copyIndex('lbConfig')].frontendPort]",
-                "backendPort": "[parameters('lbConfig')[copyIndex('lbConfig')].backendPort]",
+                "protocol": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].protocol]",
+                "frontendPort": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].frontendPort]",
+                "backendPort": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].backendPort]",
                 "probe": {
                   "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/probes/',variables('LoadbalancingProbeName'))]"
                 }

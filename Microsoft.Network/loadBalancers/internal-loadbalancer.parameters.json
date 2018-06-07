@@ -14,7 +14,7 @@
     "SubnetName": {
       "value": ""
     },
-    "lbConfig": {
+    "loadBalancingRules": {
       "value": [
         {
           "protocol": "Tcp",
