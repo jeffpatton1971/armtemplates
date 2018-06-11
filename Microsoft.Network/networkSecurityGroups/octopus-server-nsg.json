@@ -18,7 +18,8 @@
       "type": "string",
       "metadata": {
         "description": "The CIDR of the subnet this NSG is attached to"
-      }
+      },
+      "defaultValue": "VirtualNetwork"
     },
     "Mode": {
       "type": "string",
@@ -26,10 +27,10 @@
         "Polling",
         "Listening"
       ],
-      "defaultValue": "Listening"
-    },
-    "metadata": {
-      "description": "This is the Octopus agent mode, determines the set of rules to deploy"
+      "defaultValue": "Listening",
+      "metadata": {
+        "description": "This is the Octopus agent mode, determines the set of rules to deploy"
+      }
     }
   },
   "variables": {
@@ -49,7 +50,7 @@
         "sourceAddressPrefix": "[parameters('AgentPrefix')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 210,
+        "priority": 220,
         "direction": "Inbound"
       }
     },
@@ -67,7 +68,7 @@
         "sourceAddressPrefix": "[parameters('AgentPrefix')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 210,
+        "priority": 220,
         "direction": "Inbound"
       }
     },
@@ -85,7 +86,7 @@
         "sourceAddressPrefix": "[parameters('AgentPrefix')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 211,
+        "priority": 221,
         "direction": "Inbound"
       }
     }
