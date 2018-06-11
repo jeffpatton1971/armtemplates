@@ -1,0 +1,42 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "administratorLogin": {
+      "value": ""
+    },
+    "administratorLoginPassword": {
+      "value": ""
+    },
+    "SourceDatabaseName": {
+      "value": ""
+    },
+    "SourceSqlServer": {
+      "value": ""
+    },
+    "SourceResourceGroup": {
+      "value": ""
+    },
+    "location": {
+      "value": "westus"
+    },
+    "serverName": {
+      "value": ""
+    },
+    "createMode": {
+      "value": "OnlineSecondary"
+    },
+    "skuName": {
+      "value": "S7"
+    },
+    "tier": {
+      "value": "Standard"
+    },
+    "zoneRedundant": {
+      "value": false
+    },
+    "licenseType": {
+      "value": ""
+    }
+  }
+}
