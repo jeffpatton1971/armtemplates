@@ -81,23 +81,6 @@
     "BackendAddressPoolName": "[concat(parameters('name'),'-bep')]",
     "LoadBalancingRuleName": "[concat(parameters('name'),'-rul')]",
     "LoadbalancingProbeName": "[concat(parameters('name'),'-prb')]",
-    "probes": {
-      "copy": [
-        {
-          "name": "probes",
-          "count": "[length(parameters('loadBalancingRules'))]",
-          "input": {
-            "name": "[concat('probe-',parameters('loadBalancingRules')[copyIndex('probes')].backendPort)]",
-            "properties": {
-              "protocol": "[parameters('loadBalancingRules')[copyIndex('probes')].protocol]",
-              "port": "[parameters('loadBalancingRules')[copyIndex('probes')].backendPort]",
-              "intervalInSeconds": "[parameters('loadBalancingRules')[copyIndex('probes')].intervalInSeconds]",
-              "numberOfProbes": "[parameters('loadBalancingRules')[copyIndex('probes')].numberOfProbes]"
-            }
-          }
-        }
-      ]
-    },
     "vnetId": "[resourceId(parameters('NetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks',parameters('NetworkName'))]",
     "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('SubnetName'))]",
     "tags": {
@@ -154,9 +137,21 @@
                 }
               }
             }
+          },
+          {
+            "name": "probes",
+            "count": "[length(parameters('loadBalancingRules'))]",
+            "input": {
+              "name": "[concat(variables('LoadbalancingProbeName'),'-',parameters('loadBalancingRules')[copyIndex('probes')].backendPort)]",
+              "properties": {
+                "protocol": "[parameters('loadBalancingRules')[copyIndex('probes')].protocol]",
+                "port": "[parameters('loadBalancingRules')[copyIndex('probes')].backendPort]",
+                "intervalInSeconds": "[parameters('loadBalancingRules')[copyIndex('probes')].intervalInSeconds]",
+                "numberOfProbes": "[parameters('loadBalancingRules')[copyIndex('probes')].numberOfProbes]"
+              }
+            }
           }
-        ],
-        "probes": "[variables('probes').probes]"
+        ]
       },
       "tags": "[variables('tags')]"
     }
