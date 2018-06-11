@@ -19,22 +19,18 @@
         {
           "protocol": "Tcp",
           "frontendPort": 80,
-          "backendPort": 80
+          "backendPort": 80,
+          "intervalInSeconds": 5,
+          "numberOfProbes": 2
         },
         {
           "protocol": "Tcp",
           "frontendPort": 443,
-          "backendPort": 443
+          "backendPort": 443,
+          "intervalInSeconds": 5,
+          "numberOfProbes": 2
         }
       ]
-    },
-    "probe": {
-      "value": {
-        "protocol": "Tcp",
-        "port": 80,
-        "intervalInSeconds": 5,
-        "numberOfProbes": 2
-      }
     },
     "environment": {
       "value": "Development"
