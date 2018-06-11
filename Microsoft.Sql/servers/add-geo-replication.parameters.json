@@ -9,7 +9,7 @@
       "value": ""
     },
     "SourceDatabaseName": {
-      "value": ""
+      "value": [      ]
     },
     "SourceSqlServer": {
       "value": ""
@@ -18,7 +18,7 @@
       "value": ""
     },
     "location": {
-      "value": "westus"
+      "value": ""
     },
     "serverName": {
       "value": ""

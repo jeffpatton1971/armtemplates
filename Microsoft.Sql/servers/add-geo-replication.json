@@ -9,7 +9,7 @@
       "type": "securestring"
     },
     "SourceDatabaseName": {
-      "type": "string"
+      "type": "array"
     },
     "SourceSqlServer": {
       "type": "string"
@@ -42,7 +42,7 @@
     }
   },
   "variables": {
-    "sourceDatabaseId": "[resourceId(parameters('SourceResourceGroup'),'/Microsoft.Sql/servers/',concat(parameters('SourceSqlServer'),'/databases/',parameters('SourceDatabaseName')))]"
+    "sqlResourceId": "[resourceId(parameters('SourceResourceGroup'),'Microsoft.Sql/servers',parameters('SourceSqlServer'))]"
   },
   "resources": [
     {
@@ -57,25 +57,6 @@
       },
       "resources": [
         {
-          "type": "databases",
-          "sku": {
-            "name": "[parameters('skuName')]",
-            "tier": "[parameters('tier')]"
-          },
-          "name": "[parameters('SourceDatabaseName')]",
-          "apiVersion": "2017-10-01-preview",
-          "location": "[parameters('location')]",
-          "properties": {
-            "createMode": "[parameters('createMode')]",
-            "sourceDatabaseId": "[variables('sourceDatabaseId')]",
-            "zoneRedundant": "[parameters('zoneRedundant')]",
-            "licenseType": "[parameters('licenseType')]"
-          },
-          "dependsOn": [
-            "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
-          ]
-        },
-        {
           "type": "firewallrules",
           "name": "AllowAllWindowsAzureIps",
           "apiVersion": "2014-04-01-preview",
@@ -89,6 +70,29 @@
           ]
         }
       ]
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases",
+      "apiVersion": "2017-10-01-preview",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
+      ],
+      "copy": {
+        "name": "databases",
+        "count": "[length(parameters('SourceDatabaseName'))]"
+      },
+      "name": "[concat(parameters('serverName'), '/',parameters('SourceDatabaseName')[copyIndex()])]",
+      "properties": {
+        "createMode": "[parameters('createMode')]",
+        "sourceDatabaseId": "[concat(variables('sqlResourceId'),'/databases/',parameters('SourceDatabaseName')[copyIndex()])]",
+        "zoneRedundant": "[parameters('zoneRedundant')]",
+        "licenseType": "[parameters('licenseType')]"
+      },
+      "sku": {
+        "name": "[parameters('skuName')]",
+        "tier": "[parameters('tier')]"
+      }
     }
   ],
   "outputs": {
