@@ -1,0 +1,58 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "Name": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the NSG to update"
+      }
+    },
+    "SubnetPrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "The CIDR of the subnet this NSG is attached to"
+      }
+    }
+  },
+  "variables": {
+  },
+  "resources": [
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('Name'),'/Allow_Internet_Inbound_HTTP')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "description": "Allows inbound http to the Application Gateway subnet",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "80",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "access": "Allow",
+        "priority": 210,
+        "direction": "Inbound"
+      }
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('Name'),'/Allow_Internet_Inbound_HTTPS')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "description": "Allows inbound https to the Application Gateway subnet",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "443",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "access": "Allow",
+        "priority": 211,
+        "direction": "Inbound"
+      }
+    }
+  ],
+  "outputs": {
+  }
+}
