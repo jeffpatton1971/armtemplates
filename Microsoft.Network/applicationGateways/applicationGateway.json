@@ -233,14 +233,7 @@
               }
             }
           }
-        ],
-        "webApplicationFirewallConfiguration": {
-          "enabled": "[if(equals(parameters('Tier'),'WAF'),'true','false')]",
-          "firewallMode": "Detection",
-          "ruleSetType": "OWASP",
-          "ruleSetVersion": "[parameters('RuleSet')]",
-          "disabledRuleGroups": []
-        }
+        ]
       }
     }
   ],
