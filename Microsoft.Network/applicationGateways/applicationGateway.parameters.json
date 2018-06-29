@@ -3,16 +3,16 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "name": {
-      "value": ""
+      "value": "appgw"
     },
     "NetworkResourceGroupName": {
-      "value": ""
+      "value": "TESTING-RG"
     },
     "NetworkName": {
-      "value": ""
+      "value": "sample-vnet01"
     },
     "SubnetName": {
-      "value": ""
+      "value": "dmz"
     },
     "applicationGatewayRules": {
       "value": [
@@ -22,8 +22,12 @@
           "protocol": "http",
           "affinity": "Disabled",
           "backendPool": [
-            "1.2.3.4",
-            "2.4.6.8"
+            {
+              "IpAddress": "1.2.3.4"
+            },
+            {
+              "IpAddress": "2.4.6.8"
+            }
           ],
           "sslCertificate": null
         },
@@ -33,18 +37,22 @@
           "protocol": "http",
           "affinity": "Enabled",
           "backendPool": [
-            "1.2.3.4",
-            "2.4.6.8"
+            {
+              "IpAddress": "1.2.3.4"
+            },
+            {
+              "IpAddress": "2.4.6.8"
+            }
           ],
           "sslCertificate": null
         }
       ]
     },
     "Size": {
-      "value": ""
+      "value": "Small"
     },
     "Tier": {
-      "value": ""
+      "value": "Standard"
     },
     "Instances": {
       "value": 1
@@ -56,7 +64,7 @@
       "value": "Development"
     },
     "buildDate": {
-      "value": "06/07/2018"
+      "value": "06/29/2018"
     },
     "buildBy": {
       "value": "jeffrey.patton2@rackspace.com"
