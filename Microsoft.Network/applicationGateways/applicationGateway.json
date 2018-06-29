@@ -108,7 +108,7 @@
     "GatewayIpConfigurationName": "[concat(parameters('name'),'-gip')]",
     "FrontendIpConfigurationName": "[concat(parameters('name'),'-ipc')]",
     "FrontEndPortName": "[concat(parameters('name'),'-fep')]",
-    "BackendSettingsName": "[concat(parameters('name'),'-bes')]",
+    "BackendSettingsName": "[concat(parameters('name'),'-set')]",
     "BackendAddressPoolName": "[concat(parameters('name'),'-bep')]",
     "HttpListenerName": "[concat(parameters('name'),'-lst')]",
     "ApplicationGatewayRuleName": "[concat(parameters('name'),'-rul')]",
@@ -129,7 +129,12 @@
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
-    "rules": {
+    "webApplicationFirewallConfiguration": {
+      "enabled": "[if(equals(parameters('Tier'),'WAF'),'true','false')]",
+      "firewallMode": "Detection",
+      "ruleSetType": "OWASP",
+      "ruleSetVersion": "[parameters('RuleSet')]",
+      "disabledRuleGroups": []
     }
   },
   "resources": [
@@ -233,7 +238,8 @@
               }
             }
           }
-        ]
+        ],
+        "webApplicationFirewallConfiguration": "[if(equals(parameters('Tier'),'WAF'),variables('webApplicationFirewallConfiguration'),json('null'))]"
       }
     }
   ],
