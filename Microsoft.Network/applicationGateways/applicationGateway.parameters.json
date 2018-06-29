@@ -1,0 +1,68 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "value": ""
+    },
+    "NetworkResourceGroupName": {
+      "value": ""
+    },
+    "NetworkName": {
+      "value": ""
+    },
+    "SubnetName": {
+      "value": ""
+    },
+    "applicationGatewayRules": {
+      "value": [
+        {
+          "frontendPort": 80,
+          "backendPort": 80,
+          "protocol": "http",
+          "affinity": "Disabled",
+          "backendPool": [
+            "1.2.3.4",
+            "2.4.6.8"
+          ],
+          "sslCertificate": null
+        },
+        {
+          "frontendPort": 8080,
+          "backendPort": 8080,
+          "protocol": "http",
+          "affinity": "Enabled",
+          "backendPool": [
+            "1.2.3.4",
+            "2.4.6.8"
+          ],
+          "sslCertificate": null
+        }
+      ]
+    },
+    "Size": {
+      "value": ""
+    },
+    "Tier": {
+      "value": ""
+    },
+    "Instances": {
+      "value": 1
+    },
+    "RuleSet": {
+      "value": "3.0"
+    },
+    "environment": {
+      "value": "Development"
+    },
+    "buildDate": {
+      "value": "06/07/2018"
+    },
+    "buildBy": {
+      "value": "jeffrey.patton2@rackspace.com"
+    },
+    "RaxAutomationExclude": {
+      "value": "None"
+    }
+  }
+}
