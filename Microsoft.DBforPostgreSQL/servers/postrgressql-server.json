@@ -1,0 +1,246 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "type": "string",
+      "metadata": {
+        "description": "Resource name"
+      }
+    },
+    "administratorLogin": {
+      "type": "string",
+      "metadata": {
+        "description": "The administrator's login name of a server. Can only be specified when the server is being created (and is required for creation)."
+      }
+    },
+    "administratorLoginPassword": {
+      "type": "string",
+      "metadata": {
+        "description": "The password of the administrator login."
+      }
+    },
+    "sslEnforcement": {
+      "type": "string",
+      "allowedValues": [
+        "Disabled",
+        "Enabled"
+      ],
+      "defaultValue": "Enabled",
+      "metadata": {
+        "description": "Enable ssl enforcement or not when connect to server."
+      }
+    },
+    "version": {
+      "type": "string",
+      "allowedValues": [
+        "9.5",
+        "9.6"
+      ],
+      "defaultValue": "9.5",
+      "metadata": {
+        "description": "Server version."
+      }
+    },
+    "backupRetentionDays": {
+      "type": "int",
+      "minValue": 7,
+      "maxValue": 35,
+      "defaultValue": 7,
+      "metadata": {
+        "description": "Backup retention days for the server."
+      }
+    },
+    "geoRedundantBackup": {
+      "type": "string",
+      "allowedValues": [
+        "Disabled",
+        "Enabled"
+      ],
+      "defaultValue": "Disabled",
+      "metadata": {
+        "description": "Enable Geo-redundant or not for server backup."
+      }
+    },
+    "storageMB": {
+      "type": "int",
+      "minValue": 5,
+      "maxValue": 1024,
+      "defaultValue": 5,
+      "metadata": {
+        "description": "The size code, to be interpreted by resource as appropriate."
+      }
+    },
+    "capacity": {
+      "type": "int",
+      "minValue": 1,
+      "maxValue": 32,
+      "defaultValue": 2,
+      "metadata": {
+        "description": "The scale up/out capacity, representing server's compute units."
+      }
+    },
+    "family": {
+      "type": "string",
+      "allowedValues": [
+        "Gen4",
+        "Gen5"
+      ],
+      "defaultValue": "Gen5",
+      "metadata": {
+        "description": "The family of hardware."
+      }
+    },
+    "tier": {
+      "type": "string",
+      "allowedValues": [
+        "Basic",
+        "GeneralPurpose",
+        "MemoryOptimized"
+      ],
+      "defaultValue": "GeneralPurpose",
+      "metadata": {
+        "description": "The tier of the particular SKU, e.g. Basic."
+      }
+    },
+    "environment": {
+      "type": "string",
+      "allowedValues": [
+        "Production",
+        "Staging",
+        "Test",
+        "UAT",
+        "Development",
+        "Disaster Recovery",
+        "Q/A",
+        "Other"
+      ],
+      "metadata": {
+        "description": "The Environment type we are building",
+        "group": "Tags",
+        "order": 1,
+        "question": "Please enter environment type : "
+      },
+      "defaultValue": "Production"
+    },
+    "buildDate": {
+      "type": "string",
+      "metadata": {
+        "description": "The date of this build",
+        "group": "Tags",
+        "order": 2,
+        "question": "Please enter todays date (mm/dd/yyyy) : "
+      },
+      "defaultValue": "mm/dd/yyyy"
+    },
+    "buildBy": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the person who build this environment",
+        "group": "Tags",
+        "order": 3,
+        "question": "Please enter your full name : "
+      },
+      "defaultValue": "First Last"
+    },
+    "RaxAutomationExclude": {
+      "type": "string",
+      "allowedValues": [
+        "None",
+        "Monitoring",
+        "Passport",
+        "Antimalware"
+      ],
+      "metadata": {
+        "description": "Select the automation type you will like to exclude for this VM",
+        "group": "Tags",
+        "order": 4,
+        "label": "Automation Exluce",
+        "question": "Choose the type of automation you will like to exclude this from"
+      },
+      "defaultValue": "None"
+    }
+  },
+  "variables": {
+    "tiers": {
+      "Basic": {
+        "name": "Basic",
+        "abbrev": "B"
+      },
+      "GeneralPurpose": {
+        "name": "GeneralPurpose",
+        "abbrev": "GP"
+      },
+      "MemoryOptimized": {
+        "name": "MemoryOptimized",
+        "abbrev": "MO"
+      }
+    },
+    "skuName": "[concat(variables('tiers')[parameters('tier')].abbrev,'_',parameters('family'),'_',parameters('capacity'))]",
+    "size": "[mul(parameters('storageMB'), 1024)]",
+    "PostgresSQL": {
+      "apiVersion": "2017-12-01",
+      "type": "Microsoft.DBforPostgreSQL/servers",
+      "kind": "",
+      "location": "[resourceGroup().location]",
+      "name": "[parameters('name')]",
+      "properties": {
+        "version": "[parameters('version')]",
+        "administratorLogin": "[parameters('administratorLogin')]",
+        "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
+        "storageProfile": {
+          "storageMB": "[variables('size')]",
+          "backupRetentionDays": "[parameters('backupRetentionDays')]",
+          "geoRedundantBackup": "[parameters('geoRedundantBackup')]"
+        }
+      },
+      "sku": {
+        "name": "[variables('skuName')]",
+        "tier": "[parameters('tier')]",
+        "capacity": "[parameters('capacity')]",
+        "size": "[variables('size')]",
+        "family": "[parameters('family')]"
+      }
+    },
+    "tags": {
+      "displayName": "InternalLoadBalancer",
+      "Environment": "[parameters('environment')]",
+      "BuildDate": "[parameters('buildDate')]",
+      "BuildBy": "[parameters('buildBy')]",
+      "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2017-12-01",
+      "type": "Microsoft.DBforPostgreSQL/servers",
+      "kind": "",
+      "location": "[resourceGroup().location]",
+      "name": "[parameters('name')]",
+      "tags": "[variables('tags')]",
+      "properties": {
+        "version": "[parameters('version')]",
+        "administratorLogin": "[parameters('administratorLogin')]",
+        "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
+        "storageProfile": {
+          "storageMB": "[variables('size')]",
+          "backupRetentionDays": "[parameters('backupRetentionDays')]",
+          "geoRedundantBackup": "[parameters('geoRedundantBackup')]"
+        }
+      },
+      "sku": {
+        "name": "[variables('skuName')]",
+        "tier": "[parameters('tier')]",
+        "capacity": "[parameters('capacity')]",
+        "size": "[variables('size')]",
+        "family": "[parameters('family')]"
+      }
+    }
+  ],
+  "outputs": {
+    "PostgresSQL": {
+      "type": "object",
+      "value": "[variables('PostgresSQL')]"
+    }
+  }
+}
