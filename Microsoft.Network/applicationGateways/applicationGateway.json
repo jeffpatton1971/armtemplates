@@ -113,6 +113,7 @@
     "HttpListenerName": "[concat(parameters('name'),'-lst')]",
     "ApplicationGatewayRuleName": "[concat(parameters('name'),'-rul')]",
     "LoadbalancingProbeName": "[concat(parameters('name'),'-prb')]",
+    "PublicIpAddressName": "[concat(parameters('name'),'-pip')]",
     "vnetId": "[resourceId(parameters('NetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks',parameters('NetworkName'))]",
     "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('SubnetName'))]",
     "SkuNamePass1": "[concat(parameters('Tier'),'_',parameters('Size'))]",
@@ -139,14 +140,24 @@
   },
   "resources": [
     {
+      "apiVersion": "2017-03-01",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[variables('PublicIpAddressName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic"
+      }
+    },
+    {
       "apiVersion": "2017-06-01",
       "name": "[variables('ApplicationGatewayName')]",
       "type": "Microsoft.Network/applicationGateways",
       "location": "[resourceGroup().location]",
-      "dependsOn": [],
+      "dependsOn": [
+        "[variables('PublicIpAddressName')]"
+      ],
       "properties": {
         "sku": "[variables('Sku')]",
-
         "gatewayIPConfigurations": [
           {
             "name": "[variables('GatewayIpConfigurationName')]",
@@ -159,13 +170,42 @@
         ],
         "frontendIPConfigurations": [
           {
-            "name": "[variables('FrontendIpConfigurationName')]",
+            "name": "[concat(variables('FrontendIpConfigurationName'),'-int')]",
             "properties": {
               "subnet": {
                 "id": "[variables('subnetId')]"
               },
               "privateIPAddress": "",
               "privateIPAllocationMethod": "Dynamic"
+            }
+          },
+          {
+            "name": "[concat(variables('FrontendIpConfigurationName'),'-ext')]",
+            "properties": {
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('PublicIpAddressName'))]"
+              }
+            }
+          }
+        ],
+        "probes": [
+          {
+            "name": "probe1",
+            "properties": {
+              "protocol": "Http",
+              "host": "1.2.3.4",
+              "path": "/root/ping.html",
+              "interval": 30,
+              "timeout": 30,
+              "unhealthyThreshold": 3,
+              "pickHostNameFromBackendHttpSettings": false,
+              "minServers": 0,
+              "match": {
+                "body": "",
+                "statusCodes": [
+                  "200-399"
+                ]
+              }
             }
           }
         ],
@@ -209,7 +249,7 @@
               "name": "[concat(variables('HttpListenerName'),'-',add(copyIndex('httpListeners'),1))]",
               "properties": {
                 "FrontendIPConfiguration": {
-                  "Id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', variables('ApplicationGatewayName')) ,'/frontendIPConfigurations/',variables('FrontendIpConfigurationName'))]"
+                  "Id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', variables('ApplicationGatewayName')) ,'/frontendIPConfigurations/',variables('FrontendIpConfigurationName'),'-int')]"
                 },
                 "FrontendPort": {
                   "Id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', variables('ApplicationGatewayName')) , '/frontendPorts/',variables('FrontEndPortName'),'-',add(copyIndex('httpListeners'),1))]"
