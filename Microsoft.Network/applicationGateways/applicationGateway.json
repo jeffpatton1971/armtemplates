@@ -153,6 +153,7 @@
       "name": "[variables('ApplicationGatewayName')]",
       "type": "Microsoft.Network/applicationGateways",
       "location": "[resourceGroup().location]",
+      "tags": "[variables('tags')]",
       "dependsOn": [
         "[variables('PublicIpAddressName')]"
       ],
