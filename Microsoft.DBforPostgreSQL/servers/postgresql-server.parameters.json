@@ -18,16 +18,16 @@
       "value": "9.5"
     },
     "backupRetentionDays": {
-      "value": "7"
+      "value": 7
     },
     "geoRedundantBackup": {
       "value": "Disabled"
     },
     "storageMB": {
-      "value": "5"
+      "value": 5
     },
     "capacity": {
-      "value": "2"
+      "value": 2
     },
     "family": {
       "value": "Gen5"
