@@ -178,12 +178,13 @@
     },
     "skuName": "[concat(variables('tiers')[parameters('tier')].abbrev,'_',parameters('family'),'_',parameters('capacity'))]",
     "size": "[mul(parameters('storageMB'), 1024)]",
-    "PostgresSQL": {
+    "PostgreSQL": {
       "apiVersion": "2017-12-01",
       "type": "Microsoft.DBforPostgreSQL/servers",
       "kind": "",
       "location": "[resourceGroup().location]",
       "name": "[parameters('name')]",
+      "tags": "[variables('tags')]",
       "properties": {
         "version": "[parameters('version')]",
         "administratorLogin": "[parameters('administratorLogin')]",
@@ -238,9 +239,9 @@
     }
   ],
   "outputs": {
-    "PostgresSQL": {
+    "PostgreSQL": {
       "type": "object",
-      "value": "[variables('PostgresSQL')]"
+      "value": "[variables('PostgreSQL')]"
     }
   }
 }
