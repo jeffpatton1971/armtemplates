@@ -183,7 +183,7 @@
       "type": "Microsoft.DBforPostgreSQL/servers",
       "kind": "",
       "location": "[resourceGroup().location]",
-      "name": "[parameters('name')]",
+      "name": "[toLower(parameters('name'))]",
       "tags": "[variables('tags')]",
       "properties": {
         "version": "[parameters('version')]",
