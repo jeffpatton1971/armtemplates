@@ -124,7 +124,7 @@
       "capacity": "[parameters('Instances')]"
     },
     "tags": {
-      "displayName": "InternalLoadBalancer",
+      "displayName": "ApplicationGateway",
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",

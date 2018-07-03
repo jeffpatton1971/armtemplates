@@ -204,7 +204,7 @@
       }
     },
     "tags": {
-      "displayName": "InternalLoadBalancer",
+      "displayName": "PostgreSQL",
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
