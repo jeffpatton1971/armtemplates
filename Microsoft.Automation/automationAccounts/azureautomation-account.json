@@ -8,8 +8,8 @@
     "Sku": {
       "type": "string",
       "allowedValues": [
-        "free",
-        "basic"
+        "Free",
+        "Basic"
       ]
     },
     "environment": {
