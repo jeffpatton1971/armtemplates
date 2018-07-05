@@ -24,6 +24,20 @@
       "type": "int",
       "metadata": {
         "description": "Number of days you want to retain the backup"
+      },
+      "defaultValue": 7
+    },
+    "weeklyRetentionDurationCount": {
+      "type": "int",
+      "metadata": {
+        "description": "Number of weeks you want to retain the backup"
+      },
+      "defaultValue": 4
+    },
+    "daysOfTheWeek": {
+      "type": "array",
+      "metadata": {
+        "description": "Days of the week backup should be trigger. e.g Sunday, Tuesday"
       }
     }
   },
@@ -64,6 +78,16 @@
               "durationType": "Days"
             }
           },
+          "weeklySchedule": {
+            "daysOfTheWeek": "[parameters('daysOfTheWeek')]",
+            "retentionTimes": [ "2018-07-05T22:00:00.000Z" ],
+            "retentionDuration": {
+              "count": "[parameters('weeklyRetentionDurationCount')]",
+              "durationType": "Weeks"
+            }
+          },
+          "monthlySchedule": null,
+          "yearlySchedule": null,
           "retentionPolicyType": "LongTermRetentionPolicy"
         }
       }

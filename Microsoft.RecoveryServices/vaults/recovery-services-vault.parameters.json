@@ -3,16 +3,22 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "vaultName": {
-      "value": ""
+      "value": "RSV-904199-ETSTSS-Atlassian"
     },
     "policyName": {
-      "value": "DailyBackups-3a"
+      "value": "BKP-POL-DAILY10PM-RET7D4W"
     },
     "scheduleRunTimes": {
-      "value": ["2018-06-04T03:00:00.000Z"]
+      "value": [ "2018-06-04T22:00:00.000Z" ]
     },
     "dailyRetentionDurationCount": {
-      "value": 14
+      "value": 7
+    },
+    "weeklyRetentionDurationCount": {
+      "value": 4
+    },
+    "daysOfTheWeek": {
+      "value": [ "Sunday" ]
     }
   }
 }
