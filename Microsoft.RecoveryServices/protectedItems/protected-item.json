@@ -44,22 +44,7 @@
   "variables": {
     "backupFabric": "Azure",
     "v2VmContainer": "iaasvmcontainer;iaasvmcontainerv2;",
-    "v2Vm": "vm;iaasvmcontainerv2;",
-    "prevResource": {
-      "name": "[concat(parameters('RecoveryVault'), '/', variables('backupFabric'), '/', variables('v2VmContainer'), concat(parameters('ProtectedItemResourceGroup'),';',parameters('ProtectedItems')[copyIndex()]), '/', variables('v2Vm'), concat(parameters('ProtectedItemResourceGroup'),';',parameters('ProtectedItems')[copyIndex()]))]",
-      "apiVersion": "2016-12-01",
-      "location": "[resourceGroup().location]",
-      "type": "Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems",
-      "copy": {
-        "name": "v2VmsCopy",
-        "count": "[length(parameters('ProtectedItems'))]"
-      },
-      "properties": {
-        "protectedItemType": "[parameters('ItemType')]",
-        "policyId": "[resourceId(parameters('RecoveryVaultResourceGroup'),'Microsoft.RecoveryServices/vaults/backupPolicies',parameters('RecoveryVault'),parameters('BackupPolicy') )]",
-        "sourceResourceId": "[resourceId(subscription().subscriptionId,parameters('ProtectedItemResourceGroup'),'Microsoft.Compute/virtualMachines',parameters('ProtectedItems')[copyIndex()])]"
-      }
-    }
+    "v2Vm": "vm;iaasvmcontainerv2;"
   },
   "resources": [
     {
