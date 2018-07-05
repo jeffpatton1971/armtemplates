@@ -1,0 +1,24 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "value": "AA-959506-Pharma-Llamasoft"
+    },
+    "Sku": {
+      "value": "Basic"
+    },
+    "environment": {
+      "value": "Development"
+    },
+    "buildDate": {
+      "value": "06/29/2018"
+    },
+    "buildBy": {
+      "value": "jeffrey.patton2@rackspace.com"
+    },
+    "RaxAutomationExclude": {
+      "value": "None"
+    }
+  }
+}
