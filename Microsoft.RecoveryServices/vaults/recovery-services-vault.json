@@ -65,10 +65,10 @@
       "properties": {
         "backupManagementType": "AzureIaasVM",
         "schedulePolicy": {
+          "schedulePolicyType": "SimpleSchedulePolicy",
+          "scheduleRunDays": [],
           "scheduleRunFrequency": "Daily",
-          "scheduleRunDays": null,
-          "scheduleRunTimes": "[parameters('scheduleRunTimes')]",
-          "schedulePolicyType": "SimpleSchedulePolicy"
+          "scheduleRunTimes": "[parameters('scheduleRunTimes')]"
         },
         "retentionPolicy": {
           "dailySchedule": {
@@ -80,7 +80,7 @@
           },
           "weeklySchedule": {
             "daysOfTheWeek": "[parameters('daysOfTheWeek')]",
-            "retentionTimes": [ "2018-07-05T22:00:00.000Z" ],
+            "retentionTimes": "[parameters('scheduleRunTimes')]",
             "retentionDuration": {
               "count": "[parameters('weeklyRetentionDurationCount')]",
               "durationType": "Weeks"
