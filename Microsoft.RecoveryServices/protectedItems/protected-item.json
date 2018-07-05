@@ -44,10 +44,8 @@
   "variables": {
     "backupFabric": "Azure",
     "v2VmContainer": "iaasvmcontainer;iaasvmcontainerv2;",
-    "v2Vm": "vm;iaasvmcontainerv2;"
-  },
-  "resources": [
-    {
+    "v2Vm": "vm;iaasvmcontainerv2;",
+    "prevResource": {
       "name": "[concat(parameters('RecoveryVault'), '/', variables('backupFabric'), '/', variables('v2VmContainer'), concat(parameters('ProtectedItemResourceGroup'),';',parameters('ProtectedItems')[copyIndex()]), '/', variables('v2Vm'), concat(parameters('ProtectedItemResourceGroup'),';',parameters('ProtectedItems')[copyIndex()]))]",
       "apiVersion": "2016-12-01",
       "location": "[resourceGroup().location]",
@@ -60,6 +58,22 @@
         "protectedItemType": "[parameters('ItemType')]",
         "policyId": "[resourceId(parameters('RecoveryVaultResourceGroup'),'Microsoft.RecoveryServices/vaults/backupPolicies',parameters('RecoveryVault'),parameters('BackupPolicy') )]",
         "sourceResourceId": "[resourceId(subscription().subscriptionId,parameters('ProtectedItemResourceGroup'),'Microsoft.Compute/virtualMachines',parameters('ProtectedItems')[copyIndex()])]"
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems",
+      "name": "[concat(parameters('RecoveryVault'), '/', variables('backupFabric'), '/',variables('v2VmContainer'),parameters('ProtectedItemResourceGroup'),';',parameters('ProtectedItems')[copyIndex()], '/', variables('v2Vm'),parameters('ProtectedItemResourceGroup'),';',parameters('ProtectedItems')[copyIndex()])]",
+      "apiVersion": "2016-06-01",
+      "copy": {
+        "name": "protectedItemsCopy",
+        "count": "[length(parameters('protectedItems'))]"
+      },
+      "properties": {
+        "protectedItemType": "Microsoft.ClassicCompute/virtualMachines",
+        "policyId": "[resourceId('Microsoft.RecoveryServices/vaults/backupPolicies', parameters('RecoveryVault'), parameters('BackupPolicy'))]",
+        "sourceResourceId": "[resourceId(parameters('ProtectedItemResourceGroup'),'Microsoft.Compute/virtualMachines/',parameters('ProtectedItems')[copyIndex()])]"
       }
     }
   ],
