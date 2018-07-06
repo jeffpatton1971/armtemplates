@@ -608,7 +608,7 @@
       "location": "[resourceGroup().location]",
       "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
       "properties": {
-        "licenseType": "[parameters('LicenseType')]",
+        "licenseType": "[if(equals(parameters('LicenseType'),'None'),json('null'),parameters('LicenseType'))]",
         "availabilitySet": {
           "id": "[resourceId(resourceGroup().name,'/Microsoft.Compute/availabilitySets/',parameters('AvailabilitySetName'))]"
         },
