@@ -37,7 +37,7 @@
   },
   "resources": [
     {
-      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "type": "[concat('Microsoft.Compute/virtualMachines/',parameters('VirtualMachine'),'/extensions')]",
       "name": "[variables('Name')]",
       "apiVersion": "2015-06-15",
       "location": "[resourceGroup().location]",
