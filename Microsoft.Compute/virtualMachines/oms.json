@@ -38,7 +38,7 @@
   "resources": [
     {
       "type": "[concat('Microsoft.Compute/virtualMachines/',parameters('VirtualMachine'),'/extensions')]",
-      "name": "[variables('Name')]",
+      "name": "Microsoft.EnterpriseCloud.Monitoring",
       "apiVersion": "2015-06-15",
       "location": "[resourceGroup().location]",
       "dependsOn": [],
