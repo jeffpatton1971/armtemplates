@@ -6,7 +6,7 @@
       "value": ""
     },
     "ProtectedItems": {
-      "value": []
+      "value": ""
     },
     "ItemType": {
       "value": "Microsoft.Compute/virtualMachines"
@@ -18,7 +18,7 @@
       "value": ""
     },
     "BackupPolicy": {
-      "value": []
+      "value": ""
     }
   }
 }
