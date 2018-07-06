@@ -13,8 +13,8 @@
     }
   },
   "variables": {
-    "Type": "[concat('Microsoft.Compute/virtualMachines/',parameters('VirtualMachine'),'/extensions')]",
-    "Name": "[concat('Microsoft.EnterpriseCloud.Monitoring')]",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('VirtualMachine'),'/Monitoring')]",
     "resource": {
       "type": "[variables('Type')]",
       "name": "[variables('Name')]",
@@ -37,8 +37,8 @@
   },
   "resources": [
     {
-      "type": "[concat('Microsoft.Compute/virtualMachines/',parameters('VirtualMachine'),'/extensions')]",
-      "name": "LogAnalytics",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('VirtualMachine'),'/Monitoring')]",
       "apiVersion": "2015-06-15",
       "location": "[resourceGroup().location]",
       "dependsOn": [],
