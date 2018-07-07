@@ -628,8 +628,8 @@
               "count": "[length(parameters('DataDisks'))]",
               "input": {
                 "diskSizeGB": "[variables('Disk')[parameters('DataDisks')[copyIndex()].size].size]",
-                "caching": "ReadOnly",
-                "lun": "[copyIndex()]",
+                "caching": "[parameters('DataDisks')[copyIndex()].caching]",
+                "lun": "[parameters('DataDisks')[copyIndex()].lun]",
                 "managedDisk": {
                   "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/disks/',concat(variables('DataDiskName'),padleft(add(copyIndex(),1),2,0)))]"
                 },
