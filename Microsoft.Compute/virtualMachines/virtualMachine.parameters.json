@@ -3,16 +3,16 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "AvailabilitySetName": {
-      "value": ""
+      "value": "vm01-avset"
     },
     "VirtualNetworkName": {
-      "value": ""
+      "value": "vnet-ERPServicesWest"
     },
     "VirtualNetworkResourceGroupName": {
-      "value": ""
+      "value": "rg-vnet-ERPServicesWest"
     },
     "SubnetName": {
-      "value": ""
+      "value": "sb-atlassian"
     },
     "DataDisks": {
       "value": [
@@ -29,13 +29,13 @@
       ]
     },
     "VirtualMachineName": {
-      "value": ""
+      "value": "vm01"
     },
     "LicenseType": {
-      "value": ""
+      "value": "None"
     },
     "Size": {
-      "value": ""
+      "value": "DS1_v2"
     },
     "GalleryImage": {
       "value": {
@@ -50,13 +50,13 @@
       "value": ""
     },
     "OperatingSystem": {
-      "value": ""
+      "value": "CustomLinux"
     },
     "AdminUserName": {
-      "value": ""
+      "value": "root"
     },
     "AdminPassword": {
-      "value": ""
+      "value": "P@ssword12345"
     },
     "Count": {
       "value": 1

@@ -629,7 +629,7 @@
         "diskSizeGB": "[variables('Disk')[parameters('DataDisks')[copyIndex()].size].size]"
       },
       "sku": {
-        "name": "[variables('Disk')[parameters('DataDisks')[copyIndex()].sku].sku]"
+        "name": "[variables('Disk')[parameters('DataDisks')[copyIndex()].size].sku]"
       }
     },
     {
