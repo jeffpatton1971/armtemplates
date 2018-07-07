@@ -108,6 +108,8 @@
     "OperatingSystem": {
       "type": "string",
       "allowedValues": [
+        "CustomLinux",
+        "CustomWindows",
         "Linux - Centos 6",
         "Linux - Centos 7",
         "Linux - Redhat 6",
@@ -288,6 +290,20 @@
     "OsDiskName": "[concat(variables('NamePrefix'),'-os')]",
     "vmSize": "[concat('Standard_',parameters('Size'))]",
     "OsArray": {
+      "CustomLinux": {
+        "imagePublisher": "",
+        "imageOffer": "",
+        "imageSKU": "",
+        "version": "",
+        "type": "linux"
+      },
+      "CustomWindows": {
+        "imagePublisher": "",
+        "imageOffer": "",
+        "imageSKU": "",
+        "version": "",
+        "type": "windows"
+      },
       "Linux - Centos 6": {
         "imagePublisher": "OpenLogic",
         "imageOffer": "CentOS",
@@ -514,7 +530,6 @@
       }
     },
     "tags": {
-      "displayName": "InternalLoadBalancer",
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
