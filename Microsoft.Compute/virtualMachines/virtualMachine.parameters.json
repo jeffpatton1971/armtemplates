@@ -1,0 +1,65 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "AvailabilitySetName": {
+      "value": ""
+    },
+    "VirtualNetworkName": {
+      "value": ""
+    },
+    "VirtualNetworkResourceGroupName": {
+      "value": ""
+    },
+    "SubnetName": {
+      "value": ""
+    },
+    "DataDisks": {
+      "value": [
+        {
+          "caching": "ReadWrite",
+          "lun": 0,
+          "size": "p30"
+        },
+        {
+          "caching": "ReadOnly",
+          "lun": 1,
+          "size": "p10"
+        }
+      ]
+    },
+    "VirtualMachineName": {
+      "value": ""
+    },
+    "LicenseType": {
+      "value": ""
+    },
+    "Size": {
+      "value": ""
+    },
+    "ImageReferenceId": {
+      "value": ""
+    },
+    "OperatingSystem": {
+      "value": ""
+    },
+    "AdminUserName": {
+      "value": ""
+    },
+    "AdminPassword": {
+      "value": ""
+    },
+    "environment": {
+      "value": "Development"
+    },
+    "buildDate": {
+      "value": "06/29/2018"
+    },
+    "buildBy": {
+      "value": "jeffrey.patton2@rackspace.com"
+    },
+    "RaxAutomationExclude": {
+      "value": "None"
+    }
+  }
+}
