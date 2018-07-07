@@ -657,11 +657,12 @@
               "name": "dataDisks",
               "count": "[length(parameters('DataDisks'))]",
               "input": {
-                "diskSizeGB": "[variables('Disk')[parameters('DataDisks')[copyIndex()].size].size]",
-                "caching": "[parameters('DataDisks')[copyIndex()].caching]",
-                "lun": "[parameters('DataDisks')[copyIndex()].lun]",
+                "name": "[concat(variables('DataDiskName'),padleft(add(copyIndex('dataDisks'),1),2,0))]",
+                "diskSizeGB": "[variables('Disk')[parameters('DataDisks')[copyIndex('dataDisks')].size].size]",
+                "caching": "[parameters('DataDisks')[copyIndex('dataDisks')].caching]",
+                "lun": "[parameters('DataDisks')[copyIndex('dataDisks')].lun]",
                 "managedDisk": {
-                  "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/disks/',concat(variables('DataDiskName'),padleft(add(copyIndex(),1),2,0)))]"
+                  "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/disks/',concat(variables('DataDiskName'),padleft(add(copyIndex('dataDisks'),1),2,0)))]"
                 },
                 "createOption": "Attach"
               }
