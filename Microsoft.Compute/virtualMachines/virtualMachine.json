@@ -641,7 +641,7 @@
       "properties": {
         "licenseType": "[if(equals(parameters('LicenseType'),'None'),json('null'),parameters('LicenseType'))]",
         "availabilitySet": {
-          "id": "[resourceId(resourceGroup().name,'/Microsoft.Compute/availabilitySets/',parameters('AvailabilitySetName'))]"
+          "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/availabilitySets/',parameters('AvailabilitySetName'))]"
         },
         "hardwareProfile": {
           "vmSize": "[variables('vmSize')]"
