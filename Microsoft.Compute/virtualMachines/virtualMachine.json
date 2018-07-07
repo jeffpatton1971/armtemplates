@@ -614,8 +614,9 @@
     {
       "type": "Microsoft.Compute/disks",
       "apiVersion": "2017-03-30",
+      "name": "[concat(variables('DataDiskName'),padleft(add(copyIndex(),1),2,'0'))]",
       "copy": {
-        "name": "[concat(variables('DataDiskName'),padleft(add(copyIndex(),1),2,'0'))]",
+        "name": "DataDiskLoop",
         "count": "[length(parameters('DataDisks'))]"
       },
       "location": "[resourceGroup().location]",
