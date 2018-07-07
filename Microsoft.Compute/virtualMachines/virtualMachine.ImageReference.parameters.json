@@ -41,10 +41,10 @@
       "value": {}
     },
     "ImageReferenceId": {
-      "value": ""
+      "value": "/subscriptions/3b5a73fa-06fc-4444-bd00-fe534eec7a83/resourceGroups/core-images-westus/providers/Microsoft.Compute/images/RHEL-7-CIS"
     },
     "OperatingSystem": {
-      "value": "Windows Server 2016 DataCenter"
+      "value": "CustomLinux"
     },
     "AdminUserName": {
       "value": "azureuser"

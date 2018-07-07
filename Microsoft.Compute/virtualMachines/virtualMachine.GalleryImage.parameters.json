@@ -38,13 +38,19 @@
       "value": "DS1_v2"
     },
     "GalleryImage": {
-      "value": {}
+      "value": {
+        "imagePublisher": "Canonical",
+        "imageOffer": "UbuntuServer",
+        "imageSKU": "18.04-LTS",
+        "version": "18.04.201806170",
+        "type": "linux"
+      }
     },
     "ImageReferenceId": {
       "value": ""
     },
     "OperatingSystem": {
-      "value": "Windows Server 2016 DataCenter"
+      "value": "CustomLinux"
     },
     "AdminUserName": {
       "value": "azureuser"
