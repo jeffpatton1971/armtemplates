@@ -216,7 +216,7 @@
   },
   "variables": {
     "NamePrefix": "[toLower(parameters('VirtualMachineName'))]",
-    "VirtualNetworkId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks/',parameters('VirtualNetworkName'))]",
+    "VirtualNetworkId": "[resourceId(parameters('VirtualNetworkResourceGroupName'),'Microsoft.Network/virtualNetworks/',parameters('VirtualNetworkName'))]",
     "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('SubnetName'))]",
     "NetworkInterfaceName": "[concat(variables('NamePrefix'),'-nic')]",
     "NetworkInterfaceIpConfigurationName": "[concat(variables('NamePrefix'),'-ipc')]",
