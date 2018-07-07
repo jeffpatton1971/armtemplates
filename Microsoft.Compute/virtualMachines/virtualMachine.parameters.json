@@ -37,6 +37,15 @@
     "Size": {
       "value": ""
     },
+    "GalleryImage": {
+      "value": {
+        "imagePublisher": "alertlogic",
+        "imageOffer": "alert-logic-tm",
+        "imageSKU": "20215000100-tmpbyol",
+        "version": "1.5.0",
+        "type": "linux"
+      }
+    },
     "ImageReferenceId": {
       "value": ""
     },
@@ -48,6 +57,12 @@
     },
     "AdminPassword": {
       "value": ""
+    },
+    "Count": {
+      "value": 1
+    },
+    "Index": {
+      "value": 1
     },
     "environment": {
       "value": "Development"

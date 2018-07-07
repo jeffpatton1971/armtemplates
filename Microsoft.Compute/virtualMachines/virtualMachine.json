@@ -101,6 +101,10 @@
       "type": "string",
       "defaultValue": ""
     },
+    "GalleryImage": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "OperatingSystem": {
       "type": "string",
       "allowedValues": [
@@ -139,6 +143,16 @@
     },
     "AdminPassword": {
       "type": "securestring"
+    },
+    "Count": {
+      "type": "int",
+      "minValue": 1,
+      "defaultValue": 1
+    },
+    "Index": {
+      "type": "int",
+      "minValue": 1,
+      "defaultValue": 1
     },
     "environment": {
       "type": "string",
@@ -273,7 +287,7 @@
     "DataDiskName": "[concat(variables('NamePrefix'),'-datadisk-')]",
     "OsDiskName": "[concat(variables('NamePrefix'),'-os')]",
     "vmSize": "[concat('Standard_',parameters('Size'))]",
-    "OS": {
+    "OsArray": {
       "Linux - Centos 6": {
         "imagePublisher": "OpenLogic",
         "imageOffer": "CentOS",
@@ -471,6 +485,7 @@
         "type": "windows"
       }
     },
+    "OS": "[if(empty(parameters('GalleryImage')),variables('OS')[parameters('OperatingSystem')],parameters('GalleryImage'))]",
     "regions": {
       "southcentralus": {
         "location": "southcentralus",
@@ -507,10 +522,10 @@
     },
     "imageReferenceArray": [
       {
-        "publisher": "[concat(variables('OS')[parameters('OperatingSystem')].imagePublisher)]",
-        "offer": "[concat(variables('OS')[parameters('OperatingSystem')].imageOffer)]",
-        "sku": "[concat(variables('OS')[parameters('OperatingSystem')].imageSKU)]",
-        "version": "[concat(variables('OS')[parameters('OperatingSystem')].version)]"
+        "publisher": "[variables('OS').imagePublisher]",
+        "offer": "[variables('OS').imageOffer]",
+        "sku": "[variables('OS').imageSKU]",
+        "version": "[variables('OS').version]"
       },
       {
         "id": "[parameters('imageReferenceId')]"
@@ -539,7 +554,7 @@
         }
       }
     ],
-    "osProfile": "[if(equals(variables('OS')[parameters('OperatingSystem')].type,'linux'),variables('osProfileArray')[0],variables('osProfileArray')[1])]"
+    "osProfile": "[if(equals(variables('OS').type,'linux'),variables('osProfileArray')[0],variables('osProfileArray')[1])]"
   },
   "resources": [
     {
