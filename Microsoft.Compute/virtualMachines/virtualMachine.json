@@ -562,7 +562,7 @@
       "name": "[parameters('AvailabilitySetName')]",
       "type": "Microsoft.Compute/availabilitySets",
       "location": "[resourceGroup().location]",
-      "dependsOn": null,
+      "dependsOn": [],
       "tags": "[variables('tags')]",
       "sku": {
         "name": "Aligned"
