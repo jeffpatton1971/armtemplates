@@ -501,7 +501,7 @@
         "type": "windows"
       }
     },
-    "OS": "[if(empty(parameters('GalleryImage')),variables('OS')[parameters('OperatingSystem')],parameters('GalleryImage'))]",
+    "OS": "[if(empty(parameters('GalleryImage')),variables('OsArray')[parameters('OperatingSystem')],parameters('GalleryImage'))]",
     "regions": {
       "southcentralus": {
         "location": "southcentralus",
