@@ -8,6 +8,9 @@
     "Sku": {
       "value": "Basic"
     },
+    "location": {
+      "value": "eastus2"
+    },
     "environment": {
       "value": "Development"
     },

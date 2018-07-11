@@ -12,6 +12,24 @@
         "Basic"
       ]
     },
+    "location": {
+      "type": "string",
+      "allowedValues": [
+        "japaneast",
+        "eastus2",
+        "westeurope",
+        "southeastasia",
+        "southcentralus",
+        "brazilsouth",
+        "uksouth",
+        "westcentralus",
+        "northeurope",
+        "canadacentral",
+        "australiasoutheast",
+        "centralindia"
+      ],
+      "defaultValue": "eastus2"
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -91,7 +109,7 @@
           "capacity": null
         }
       },
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "tags": "[variables('tags')]"
     }
   ],
