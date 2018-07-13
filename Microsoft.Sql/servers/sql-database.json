@@ -106,6 +106,10 @@
       "type": "bool",
       "defaultValue": false
     },
+    "ElasticPoolId": {
+      "type": "string",
+      "defaultValue": ""
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -203,6 +207,7 @@
       },
       "name": "[concat(parameters('serverName'), '/',parameters('DatabaseNames')[copyIndex('thisDatabase')])]",
       "properties": {
+        "elasticPoolId": "[if(empty(parameters('ElasticPoolId')),json('null'),parameters('ElasticPoolId'))]",
         "catalogCollation": "[parameters('CatalogCollation')]",
         "collation": "[parameters('Collation')]",
         "createMode": "[parameters('createMode')]",
