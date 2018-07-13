@@ -96,7 +96,7 @@
         "version": "[parameters('version')]"
       },
       "resources": [],
-      "tags": ""
+      "tags": "[variables('tags')]"
     }
   ],
   "outputs": {
