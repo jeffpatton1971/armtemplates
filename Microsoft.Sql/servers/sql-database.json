@@ -36,10 +36,6 @@
       ],
       "defaultValue": "Default"
     },
-    "ElasticPoolId": {
-      "type": "string",
-      "defaultValue": ""
-    },
     "LicenseType": {
       "type": "string",
       "allowedValues": [
@@ -207,6 +203,7 @@
       },
       "name": "[concat(parameters('serverName'), '/',parameters('DatabaseNames')[copyIndex('thisDatabase')])]",
       "properties": {
+        "catalogCollation": "[parameters('CatalogCollation')]",
         "collation": "[parameters('Collation')]",
         "createMode": "[parameters('createMode')]",
         "zoneRedundant": "[parameters('zoneRedundant')]",
