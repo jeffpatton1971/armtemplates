@@ -165,10 +165,10 @@
     }
   },
   "variables": {
-    "TierAbbrev": "[if(equals(parameters('Tier'),'GeneralPurpose'),'GP',if(equals(parameters('Tier'),'BusinessCritical'),'BC','null'))]",
+    "Tier": "[if(equals(parameters('Tier'),'GeneralPurpose'),'GP',if(equals(parameters('Tier'),'BusinessCritical'),'BC','null'))]",
     "vCore": "[if(empty(parameters('vCore')),1,int(parameters('vCore')))]",
     "Cores": "[if(and(equals(parameters('Family'),'Gen4'),greater(variables('vCore'),24)),24,variables('vCore'))]",
-    "SkuName": "[concat(variables('TierAbbrev'),'_',parameters('Family'),'_',variables('Cores'))]",
+    "SkuName": "[concat(variables('Tier'),'_',parameters('Family'),'_',variables('Cores'))]",
     "Skus": {
       "Basic": {
         "name": "Basic",
