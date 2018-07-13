@@ -1,0 +1,54 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "Name": {
+      "value": ""
+    },
+    "ServerName": {
+      "value": ""
+    },
+    "LicenseType": {
+      "value": "LicenseIncluded"
+    },
+    "Family": {
+      "value": ""
+    },
+    "Tier": {
+      "value": "Basic"
+    },
+    "vCore": {
+      "value": ""
+    },
+    "minCore": {
+      "value": ""
+    },
+    "maxCore": {
+      "value": ""
+    },
+    "eDTU": {
+      "value": "50"
+    },
+    "minDTU": {
+      "value": "0"
+    },
+    "maxDTU": {
+      "value": "5"
+    },
+    "zoneRedundant": {
+      "value": false
+    },
+    "environment": {
+      "value": "Development"
+    },
+    "buildDate": {
+      "value": "06/29/2018"
+    },
+    "buildBy": {
+      "value": "jeffrey.patton2@rackspace.com"
+    },
+    "RaxAutomationExclude": {
+      "value": "None"
+    }
+  }
+}
