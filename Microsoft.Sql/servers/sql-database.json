@@ -106,7 +106,7 @@
       "type": "bool",
       "defaultValue": false
     },
-    "ElasticPoolId": {
+    "ElasticPoolName": {
       "type": "string",
       "defaultValue": ""
     },
@@ -188,6 +188,7 @@
       }
     },
     "sku": "[if(equals(parameters('Tier'),'Basic'),variables('Skus').Basic,if(or(equals(parameters('Tier'),'Standard'),equals(parameters('Tier'),'Premium')),variables('Skus').StandardPremium,variables('Skus').vCore))]",
+    "ElasticPoolId": "[if(not(empty(parameters('ElasticPoolName'))),resourceId('Microsoft.Sql/servers/elasticPools',parameters('ServerName'),parameters('ElasticPoolName')),json('null'))]",
     "tags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
@@ -207,14 +208,15 @@
       },
       "name": "[concat(parameters('serverName'), '/',parameters('DatabaseNames')[copyIndex('thisDatabase')])]",
       "properties": {
-        "elasticPoolId": "[if(empty(parameters('ElasticPoolId')),json('null'),parameters('ElasticPoolId'))]",
+        "elasticPoolId": "[variables('ElasticPoolId')]",
+        "requestedServiceObjectiveName": "ElasticPool",
+        "elasticPoolName": "[parameters('ElasticPoolName')]",
         "catalogCollation": "[parameters('CatalogCollation')]",
         "collation": "[parameters('Collation')]",
         "createMode": "[parameters('createMode')]",
         "zoneRedundant": "[parameters('zoneRedundant')]",
         "licenseType": "[parameters('licenseType')]"
       },
-      "sku": "[variables('sku')]",
       "tags": "[variables('tags')]"
     }
   ],

@@ -103,7 +103,7 @@
         "3500",
         "4000"
       ],
-      "defaultValue": "0"
+      "defaultValue": "50"
     },
     "minDTU": {
       "type": "string",
@@ -130,6 +130,7 @@
       "type": "string",
       "allowedValues": [
         "0",
+        "5",
         "50",
         "100",
         "200",
@@ -145,7 +146,7 @@
         "3500",
         "4000"
       ],
-      "defaultValue": "[parameters('eDTU')]"
+      "defaultValue": "5"
     },
     "zoneRedundant": {
       "type": "bool",
@@ -226,11 +227,11 @@
         "capacity": "[parameters('vCore')]"
       }
     },
-    "sku": "[if(equals(parameters('Tier'),'Basic'),variables('Skus').Basic,if(or(equals(parameters('Tier'),'Standard'),equals(parameters('Tier'),'Premium')),variables('Skus').StandardPremium,variables('Skus').vCore))]",
+    "sku": "[if(equals(parameters('Tier'),'Basic'),variables('Skus').eDTU,if(or(equals(parameters('Tier'),'Standard'),equals(parameters('Tier'),'Premium')),variables('Skus').eDTU,variables('Skus').vCore))]",
     "DatabaseSettings": {
       "eDTU": {
-        "minCapacity": "[parameters('minDTU')]",
-        "maxCapacity": "[parameters('maxDTU')]"
+        "minCapacity": "[if(equals(parameters('Tier'),'Basic'),'0',parameters('minDTU'))]",
+        "maxCapacity": "[if(equals(parameters('Tier'),'Basic'),'5',parameters('maxDTU'))]"
       },
       "vCore": {
         "minCapacity": "[parameters('minCore')]",
@@ -251,7 +252,6 @@
       "location": "[resourceGroup().location]",
       "type": "Microsoft.Sql/servers/elasticpools",
       "apiVersion": "2017-10-01-preview",
-      "sku": "[variables('sku')]",
       "properties": {
         "perDatabaseSettings": "[variables('perDatabaseSettings')]",
         "zoneRedundant": "[parameters('zoneRedundant')]",
