@@ -244,6 +244,18 @@
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
+    },
+    "ep": {
+      "name": "[concat(parameters('serverName'), '/', parameters('Name'))]",
+      "location": "[resourceGroup().location]",
+      "type": "Microsoft.Sql/servers/elasticpools",
+      "apiVersion": "2017-10-01-preview",
+      "properties": {
+        "perDatabaseSettings": "[variables('perDatabaseSettings')]",
+        "zoneRedundant": "[parameters('zoneRedundant')]",
+        "licenseType": "[parameters('licenseType')]"
+      },
+      "tags": "[variables('tags')]"
     }
   },
   "resources": [
@@ -257,7 +269,10 @@
         "zoneRedundant": "[parameters('zoneRedundant')]",
         "licenseType": "[parameters('licenseType')]"
       },
-      "tags": "[variables('tags')]"
+      "tags": "[variables('tags')]",
+      "sku": "[variables('sku')]"
     }
-  ]
+  ],
+  "outputs": {
+  }
 }
