@@ -208,9 +208,9 @@
       },
       "name": "[concat(parameters('serverName'), '/',parameters('DatabaseNames')[copyIndex('thisDatabase')])]",
       "properties": {
-        "elasticPoolId": "[variables('ElasticPoolId')]",
-        "requestedServiceObjectiveName": "ElasticPool",
-        "elasticPoolName": "[parameters('ElasticPoolName')]",
+        "elasticPoolId": "[if(not(empty(parameters('ElasticPoolName'))),resourceId('Microsoft.Sql/servers/elasticPools',parameters('ServerName'),parameters('ElasticPoolName')),json('null'))]",
+        "requestedServiceObjectiveName": "[if(not(empty(parameters('ElasticPoolName'))),'ElasticPool',json('null'))]",
+        "elasticPoolName": "[if(not(empty(parameters('ElasticPoolName'))),parameters('ElasticPoolName'),json('null'))]",
         "catalogCollation": "[parameters('CatalogCollation')]",
         "collation": "[parameters('Collation')]",
         "createMode": "[parameters('createMode')]",
