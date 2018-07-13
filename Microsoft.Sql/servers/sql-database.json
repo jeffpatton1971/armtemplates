@@ -43,6 +43,7 @@
     "LicenseType": {
       "type": "string",
       "allowedValues": [
+        "",
         "BasePrices",
         "LicenseIncluded"
       ],
@@ -104,9 +105,6 @@
         "P15"
       ],
       "defaultValue": "Basic"
-    },
-    "Size": {
-      "type": "string"
     },
     "zoneRedundant": {
       "type": "bool",
@@ -181,12 +179,12 @@
         "tier": "Basic"
       },
       "StandardPremium": {
-        "name": "[parameters('Tier')]",
-        "tier": "[parameters('Capacity')]"
+        "name": "[parameters('Capacity')]",
+        "tier": "[parameters('Tier')]"
       },
       "vCore": {
-        "name": "[parameters('Tier')]",
-        "tier": "[variables('SkuName')]"
+        "name": "[variables('SkuName')]",
+        "tier": "[parameters('Tier')]"
       }
     },
     "sku": "[if(equals(parameters('Tier'),'Basic'),variables('Skus').Basic,if(or(equals(parameters('Tier'),'Standard'),equals(parameters('Tier'),'Premium')),variables('Skus').StandardPremium,variables('Skus').vCore))]",
@@ -209,6 +207,7 @@
       },
       "name": "[concat(parameters('serverName'), '/',parameters('DatabaseNames')[copyIndex('thisDatabase')])]",
       "properties": {
+        "collation": "[parameters('Collation')]",
         "createMode": "[parameters('createMode')]",
         "zoneRedundant": "[parameters('zoneRedundant')]",
         "licenseType": "[parameters('licenseType')]"
