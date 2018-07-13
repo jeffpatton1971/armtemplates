@@ -54,7 +54,8 @@
         "",
         "Gen4",
         "Gen5"
-      ]
+      ],
+      "defaultValue": ""
     },
     "Tier": {
       "type": "string",
@@ -64,7 +65,8 @@
         "Premium",
         "GeneralPurpose",
         "BusinessCritical"
-      ]
+      ],
+      "defaultValue": "Basic"
     },
     "vCore": {
       "type": "string",
@@ -78,7 +80,8 @@
         "24",
         "32",
         "80"
-      ]
+      ],
+      "defaultValue": ""
     },
     "Capacity": {
       "type": "string",
@@ -99,14 +102,15 @@
         "P6",
         "P11",
         "P15"
-      ]
+      ],
+      "defaultValue": "Basic"
     },
     "Size": {
       "type": "string"
     },
     "zoneRedundant": {
-      "defaultValue": false,
-      "type": "bool"
+      "type": "bool",
+      "defaultValue": false
     },
     "environment": {
       "type": "string",
@@ -171,22 +175,20 @@
     "vCore": "[if(empty(parameters('vCore')),1,int(parameters('vCore')))]",
     "Cores": "[if(and(equals(parameters('Family'),'Gen4'),greater(variables('vCore'),24)),24,variables('vCore'))]",
     "SkuName": "[concat(variables('TierAbbrev'),'_',parameters('Family'),'_',variables('Cores'))]",
-    "Skus": [
-      {
-        "Basic": {
-          "name": "Basic",
-          "tier": "Basic"
-        },
-        "StandardPremium": {
-          "name": "[parameters('Tier')]",
-          "tier": "[parameters('Capacity')]"
-        },
-        "vCore": {
-          "name": "[parameters('Tier')]",
-          "tier": "[variables('SkuName')]"
-        }
+    "Skus": {
+      "Basic": {
+        "name": "Basic",
+        "tier": "Basic"
+      },
+      "StandardPremium": {
+        "name": "[parameters('Tier')]",
+        "tier": "[parameters('Capacity')]"
+      },
+      "vCore": {
+        "name": "[parameters('Tier')]",
+        "tier": "[variables('SkuName')]"
       }
-    ],
+    },
     "sku": "[if(equals(parameters('Tier'),'Basic'),variables('Skus').Basic,if(or(equals(parameters('Tier'),'Standard'),equals(parameters('Tier'),'Premium')),variables('Skus').StandardPremium,variables('Skus').vCore))]",
     "tags": {
       "Environment": "[parameters('environment')]",
