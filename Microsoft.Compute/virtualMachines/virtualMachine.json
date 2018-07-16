@@ -808,7 +808,8 @@
         },
         "diagnosticsProfile": {}
       },
-      "resources": null
+      "resources": null,
+      "tags": "[variables('tags')]"
     }
   ],
   "outputs": {}
