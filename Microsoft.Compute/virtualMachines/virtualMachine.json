@@ -696,7 +696,10 @@
         }
       }
     ],
-    "osProfile": "[if(equals(variables('OS').type,'linux'),variables('osProfileArray')[0],variables('osProfileArray')[1])]"
+    "osProfile": "[if(equals(variables('OS').type,'linux'),variables('osProfileArray')[0],variables('osProfileArray')[1])]",
+    "Disks": "[if(empty(parameters('DataDisks')),createArray(json('{\"caching\": \"ReadOnly\",\"lun\": \"1\",\"size\": \"p30\"}')),parameters('DataDisks'))]",
+    "isPresent": "[if(empty(parameters('DataDisks')),0,1)]",
+    "diskCount": "[if(empty(parameters('DataDisks')),1,length(parameters('DataDisks')))]"
   },
   "resources": [
     {
@@ -739,78 +742,177 @@
       "tags": "[variables('tags')]"
     },
     {
-      "type": "Microsoft.Compute/disks",
-      "apiVersion": "2017-03-30",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
       "name": "[concat(variables('DataDiskName'),padleft(add(copyIndex(),1),2,'0'))]",
+      "condition": "[greaterOrEquals(variables('isPresent'),1)]",
+      "dependsOn": [],
       "copy": {
-        "name": "DataDiskLoop",
-        "count": "[length(parameters('DataDisks'))]"
+        "name": "iterator",
+        "count": "[variables('diskCount')]"
       },
-      "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('AvailabilitySetName')]" ],
-      "tags": "[variables('tags')]",
       "properties": {
-        "creationData": {
-          "createOption": "Empty"
-        },
-        "diskSizeGB": "[variables('Disk')[parameters('DataDisks')[copyIndex()].size].size]"
-      },
-      "sku": {
-        "name": "[variables('Disk')[parameters('DataDisks')[copyIndex()].size].sku]"
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {
+          },
+          "variables": {
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Compute/disks",
+              "apiVersion": "2017-03-30",
+              "name": "[concat(variables('DataDiskName'),padleft(add(copyIndex(),1),2,'0'))]",
+              "location": "[resourceGroup().location]",
+              "dependsOn": [],
+              "tags": "[variables('tags')]",
+              "properties": {
+                "creationData": {
+                  "createOption": "Empty"
+                },
+                "diskSizeGB": "[variables('Disk')[parameters('DataDisks')[copyIndex()].size].size]"
+              },
+              "sku": {
+                "name": "[variables('Disk')[parameters('DataDisks')[copyIndex()].size].sku]"
+              }
+            }
+          ],
+          "outputs": {
+          }
+        }
       }
     },
     {
-      "apiVersion": "2017-03-30",
-      "type": "Microsoft.Compute/virtualMachines",
-      "name": "[parameters('VirtualMachineName')]",
-      "location": "[resourceGroup().location]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "[concat(parameters('VirtualMachineName'),'_',variables('diskCount'),'_disks')]",
+      "condition": "[greaterOrEquals(variables('isPresent'),1)]",
       "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
       "properties": {
-        "licenseType": "[if(equals(parameters('LicenseType'),'None'),json('null'),parameters('LicenseType'))]",
-        "availabilitySet": {
-          "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/availabilitySets/',parameters('AvailabilitySetName'))]"
-        },
-        "hardwareProfile": {
-          "vmSize": "[variables('vmSize')]"
-        },
-        "storageProfile": {
-          "imageReference": "[variables('imageReference')]",
-          "osDisk": {
-            "name": "[variables('OsDiskName')]",
-            "caching": "ReadOnly",
-            "createOption": "FromImage"
-          },
-          "copy": [
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "resources": [
             {
-              "name": "dataDisks",
-              "count": "[length(parameters('DataDisks'))]",
-              "input": {
-                "name": "[concat(variables('DataDiskName'),padleft(add(copyIndex('dataDisks'),1),2,'0'))]",
-                "diskSizeGB": "[variables('Disk')[parameters('DataDisks')[copyIndex('dataDisks')].size].size]",
-                "caching": "[parameters('DataDisks')[copyIndex('dataDisks')].caching]",
-                "lun": "[parameters('DataDisks')[copyIndex('dataDisks')].lun]",
-                "managedDisk": {
-                  "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/disks/',concat(variables('DataDiskName'),padleft(add(copyIndex('dataDisks'),1),2,'0')))]"
+              "apiVersion": "2017-03-30",
+              "type": "Microsoft.Compute/virtualMachines",
+              "name": "[parameters('VirtualMachineName')]",
+              "location": "[resourceGroup().location]",
+              "dependsOn": [],
+              "properties": {
+                "licenseType": "[if(equals(parameters('LicenseType'),'None'),json('null'),parameters('LicenseType'))]",
+                "availabilitySet": {
+                  "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/availabilitySets/',parameters('AvailabilitySetName'))]"
                 },
-                "createOption": "Attach"
-              }
+                "hardwareProfile": {
+                  "vmSize": "[variables('vmSize')]"
+                },
+                "storageProfile": {
+                  "imageReference": "[variables('imageReference')]",
+                  "osDisk": {
+                    "name": "[variables('OsDiskName')]",
+                    "caching": "ReadOnly",
+                    "createOption": "FromImage"
+                  },
+                  "copy": [
+                    {
+                      "name": "dataDisks",
+                      "count": "[variables('diskCount')]",
+                      "input": {
+                        "name": "[concat(variables('DataDiskName'),padleft(add(copyIndex('dataDisks'),1),2,'0'))]",
+                        "diskSizeGB": "[variables('Disk')[variables('Disks')[copyIndex('dataDisks')].size].size]",
+                        "caching": "[variables('Disks')[copyIndex('dataDisks')].caching]",
+                        "lun": "[variables('Disks')[copyIndex('dataDisks')].lun]",
+                        "managedDisk": {
+                          "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/disks/',concat(variables('DataDiskName'),padleft(add(copyIndex('dataDisks'),1),2,'0')))]"
+                        },
+                        "createOption": "Attach"
+                      }
+                    }
+                  ]
+                },
+                "osProfile": "[variables('osProfile')]",
+                "networkProfile": {
+                  "networkInterfaces": [
+                    {
+                      "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces/',variables('NetworkInterfaceName'))]",
+                      "primary": true
+                    }
+                  ]
+                },
+                "diagnosticsProfile": {}
+              },
+              "resources": null
             }
-          ]
+          ],
+          "outputs": {
+          }
         },
-        "osProfile": "[variables('osProfile')]",
-        "networkProfile": {
-          "networkInterfaces": [
+        "debugSetting": {
+          "detailLevel": "requestContent, responseContent"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "[concat(parameters('VirtualMachineName'),'_0_disks')]",
+      "condition": "[equals(variables('isPresent'),0)]",
+      "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "resources": [
             {
-              "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces/',variables('NetworkInterfaceName'))]",
-              "primary": true
+              "apiVersion": "2017-03-30",
+              "type": "Microsoft.Compute/virtualMachines",
+              "name": "[parameters('VirtualMachineName')]",
+              "location": "[resourceGroup().location]",
+              "dependsOn": [],
+              "properties": {
+                "licenseType": "[if(equals(parameters('LicenseType'),'None'),json('null'),parameters('LicenseType'))]",
+                "availabilitySet": {
+                  "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/availabilitySets/',parameters('AvailabilitySetName'))]"
+                },
+                "hardwareProfile": {
+                  "vmSize": "[variables('vmSize')]"
+                },
+                "storageProfile": {
+                  "imageReference": "[variables('imageReference')]",
+                  "osDisk": {
+                    "name": "[variables('OsDiskName')]",
+                    "caching": "ReadOnly",
+                    "createOption": "FromImage"
+                  }
+                },
+                "osProfile": "[variables('osProfile')]",
+                "networkProfile": {
+                  "networkInterfaces": [
+                    {
+                      "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces/',variables('NetworkInterfaceName'))]",
+                      "primary": true
+                    }
+                  ]
+                },
+                "diagnosticsProfile": {}
+              },
+              "resources": null
             }
-          ]
+          ],
+          "outputs": {
+          }
         },
-        "diagnosticsProfile": {}
-      },
-      "resources": null,
-      "tags": "[variables('tags')]"
+        "debugSetting": {
+          "detailLevel": "requestContent, responseContent"
+        }
+      }
     }
   ],
-  "outputs": {}
+  "outputs": {
+  }
 }
