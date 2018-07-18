@@ -7,25 +7,29 @@
       "type": "string"
     },
     "solutionType": {
-      "type": "string",
-      "allowedValues": [
-        "AzureAutomation",
-        "Updates"
-      ]
+      "type": "array"
     }
   },
   "variables": {
+    "Automation": [
+      "AzureAutomation"
+    ],
+    "Solution": "[concat(parameters('solutionType'),variables('Automation'))]"
   },
   "resources": [
     {
-      "id": "[resourceId(resourceGroup().name,'Microsoft.OperationsManagement/solutions',concat(parameters('solutionType'), '(', parameters('workspaceName'), ')'))]",
+      "id": "[resourceId(resourceGroup().name,'Microsoft.OperationsManagement/solutions',concat(variables('Solution')[copyIndex('SolutionCopy')], '(', parameters('workspaceName'), ')'))]",
       "type": "Microsoft.OperationsManagement/solutions",
-      "name": "[concat(parameters('solutionType'), '(', parameters('workspaceName'), ')')]",
+      "name": "[concat(variables('Solution')[copyIndex('SolutionCopy')], '(', parameters('workspaceName'), ')')]",
       "apiVersion": "2015-11-01-preview",
       "location": "[resourceGroup().location]",
+      "copy": {
+        "name": "SolutionCopy",
+        "count": "[length(variables('Solution'))]"
+      },
       "plan": {
-        "name": "[concat(parameters('solutionType'), '(', parameters('workspaceName'), ')')]",
-        "product": "[concat('OMSGallery/', parameters('solutionType'))]",
+        "name": "[concat(variables('Solution')[copyIndex('SolutionCopy')], '(', parameters('workspaceName'), ')')]",
+        "product": "[concat('OMSGallery/', variables('Solution')[copyIndex('SolutionCopy')])]",
         "promotionCode": "",
         "publisher": "Microsoft"
       },
