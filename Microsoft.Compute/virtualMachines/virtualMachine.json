@@ -273,16 +273,6 @@
     "AdminPassword": {
       "type": "securestring"
     },
-    "Count": {
-      "type": "int",
-      "minValue": 1,
-      "defaultValue": 1
-    },
-    "Index": {
-      "type": "int",
-      "minValue": 1,
-      "defaultValue": 1
-    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -850,9 +840,6 @@
           ],
           "outputs": {
           }
-        },
-        "debugSetting": {
-          "detailLevel": "requestContent, responseContent"
         }
       }
     },
@@ -906,9 +893,6 @@
           ],
           "outputs": {
           }
-        },
-        "debugSetting": {
-          "detailLevel": "requestContent, responseContent"
         }
       }
     }

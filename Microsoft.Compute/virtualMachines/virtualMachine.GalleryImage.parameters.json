@@ -58,12 +58,6 @@
     "AdminPassword": {
       "value": "P@ssword12345"
     },
-    "Count": {
-      "value": 1
-    },
-    "Index": {
-      "value": 1
-    },
     "environment": {
       "value": "Development"
     },
