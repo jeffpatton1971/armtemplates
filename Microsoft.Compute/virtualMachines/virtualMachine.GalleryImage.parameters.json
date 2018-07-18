@@ -1,0 +1,74 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "2018.07.01.0",
+  "parameters": {
+    "AvailabilitySetName": {
+      "value": "vm01-avset"
+    },
+    "VirtualNetworkName": {
+      "value": "vnet-ERPServicesWest"
+    },
+    "VirtualNetworkResourceGroupName": {
+      "value": "rg-vnet-ERPServicesWest"
+    },
+    "SubnetName": {
+      "value": "sb-atlassian"
+    },
+    "DataDisks": {
+      "value": [
+        {
+          "caching": "ReadWrite",
+          "lun": 0,
+          "size": "p30"
+        },
+        {
+          "caching": "ReadOnly",
+          "lun": 1,
+          "size": "p10"
+        }
+      ]
+    },
+    "VirtualMachineName": {
+      "value": "vm01"
+    },
+    "LicenseType": {
+      "value": "None"
+    },
+    "Size": {
+      "value": "DS1_v2"
+    },
+    "GalleryImage": {
+      "value": {
+        "imagePublisher": "Canonical",
+        "imageOffer": "UbuntuServer",
+        "imageSKU": "18.04-LTS",
+        "version": "18.04.201806170",
+        "type": "linux"
+      }
+    },
+    "ImageReferenceId": {
+      "value": ""
+    },
+    "OperatingSystem": {
+      "value": "CustomLinux"
+    },
+    "AdminUserName": {
+      "value": "azureuser"
+    },
+    "AdminPassword": {
+      "value": "P@ssword12345"
+    },
+    "environment": {
+      "value": "Development"
+    },
+    "buildDate": {
+      "value": "06/29/2018"
+    },
+    "buildBy": {
+      "value": "jeffrey.patton2@rackspace.com"
+    },
+    "RaxAutomationExclude": {
+      "value": "None"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "2018.07.01.0",
+  "parameters": {
+    "name": {
+      "value": ""
+    },
+    "administratorLogin": {
+      "value": ""
+    },
+    "administratorLoginPassword": {
+      "value": ""
+    },
+    "sslEnforcement": {
+      "value": "Enabled"
+    },
+    "version": {
+      "value": "9.5"
+    },
+    "backupRetentionDays": {
+      "value": 7
+    },
+    "geoRedundantBackup": {
+      "value": "Disabled"
+    },
+    "storageMB": {
+      "value": 5
+    },
+    "capacity": {
+      "value": 2
+    },
+    "family": {
+      "value": "Gen5"
+    },
+    "tier": {
+      "value": "GeneralPurpose"
+    },
+    "environment": {
+      "value": "Development"
+    },
+    "buildDate": {
+      "value": "06/07/2018"
+    },
+    "buildBy": {
+      "value": "jeffrey.patton2@rackspace.com"
+    },
+    "RaxAutomationExclude": {
+      "value": "None"
+    }
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2018.07.01.0",
+  "parameters": {
+    "CMS": {
+      "type": "object"
+    },
+    "CD": {
+      "type": "object"
+    },
+    "SOLR": {
+      "type": "object"
+    },
+    "XDB": {
+      "type": "object"
+    }
+  },
+  "variables": {
+    "sitecoreObjectExample": {
+      "NSGResourceGroup": "eus-vnet",
+      "NSGName": "eus-vnet01-service-nsg",
+      "SubnetPrefix": "192.168.1.1/24"
+    },
+    "cmsRules": [
+      {
+        "apiVersion": "2016-03-30",
+        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+        "name": "[concat(parameters('CMS').NSGName,'/Allow_SITECORE_80_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow inbound sitecore endpoint access",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "80",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('CMS').SubnetPrefix]",
+          "access": "Allow",
+          "priority": 200,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "apiVersion": "2016-03-30",
+        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+        "name": "[concat(parameters('CMS').NSGName,'/Allow_SITECORE_443_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow inbound sitecore endpoint access",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "443",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('CMS').SubnetPrefix]",
+          "access": "Allow",
+          "priority": 201,
+          "direction": "Inbound"
+        }
+      }
+    ],
+    "solrRules": [
+      {
+        "apiVersion": "2016-03-30",
+        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+        "name": "[concat(parameters('SOLR').NSGName,'/Allow_SITECORE_80_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow inbound sitecore endpoint access",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "80",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('SOLR').SubnetPrefix]",
+          "access": "Allow",
+          "priority": 200,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "apiVersion": "2016-03-30",
+        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+        "name": "[concat(parameters('SOLR').NSGName,'/Allow_SITECORE_443_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow inbound sitecore endpoint access",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "443",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('SOLR').SubnetPrefix]",
+          "access": "Allow",
+          "priority": 201,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "apiVersion": "2016-03-30",
+        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+        "name": "[concat(parameters('SOLR').NSGName,'/Allow_SOLR_8983_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow inbound solr endpoint access",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "8983",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('SOLR').SubnetPrefix]",
+          "access": "Allow",
+          "priority": 203,
+          "direction": "Inbound"
+        }
+      }
+    ],
+    "xdbRules": [
+      {
+        "apiVersion": "2016-03-30",
+        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+        "name": "[concat(parameters('XDB').NSGName,'/Allow_SITECORE_80_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow inbound sitecore endpoint access",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "80",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('XDB').SubnetPrefix]",
+          "access": "Allow",
+          "priority": 200,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "apiVersion": "2016-03-30",
+        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+        "name": "[concat(parameters('XDB').NSGName,'/Allow_SITECORE_443_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow inbound sitecore endpoint access",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "443",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('XDB').SubnetPrefix]",
+          "access": "Allow",
+          "priority": 201,
+          "direction": "Inbound"
+        }
+      }
+    ]
+  },
+  "resources": [
+    {
+      "name": "DeployCMSRules",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "resourceGroup": "[parameters('CMS').NSGResourceGroup]",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "2018.07.01.0",
+          "resources": "[variables('cmsRules')]"
+        }
+      }
+    },
+    {
+      "name": "DeploySOLRRules",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "resourceGroup": "[parameters('SOLR').NSGResourceGroup]",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "2018.07.01.0",
+          "resources": "[variables('solrRules')]"
+        }
+      }
+    },
+    {
+      "name": "DeployXDBRules",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "resourceGroup": "[parameters('XDB').NSGResourceGroup]",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "2018.07.01.0",
+          "resources": "[variables('xdbRules')]"
+        }
+      }
+    }
+  ],
+  "outputs": {
+  }
+}

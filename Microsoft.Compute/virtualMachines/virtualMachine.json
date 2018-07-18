@@ -1,0 +1,902 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2018.07.01.0",
+  "parameters": {
+    "AvailabilitySetName": {
+      "type": "string"
+    },
+    "VirtualNetworkName": {
+      "type": "string"
+    },
+    "VirtualNetworkResourceGroupName": {
+      "type": "string"
+    },
+    "SubnetName": {
+      "type": "string"
+    },
+    "DataDisks": {
+      "type": "array"
+    },
+    "VirtualMachineName": {
+      "type": "string"
+    },
+    "LicenseType": {
+      "type": "string",
+      "allowedValues": [
+        "None",
+        "WindowsServer",
+        "WindowsClient"
+      ]
+    },
+    "Size": {
+      "type": "string",
+      "allowedValues": [
+        "B1ms",
+        "B1s",
+        "B2ms",
+        "B2s",
+        "B4ms",
+        "B8ms",
+        "DS1_v2",
+        "DS2_v2",
+        "DS3_v2",
+        "DS4_v2",
+        "DS5_v2",
+        "DS11-1_v2",
+        "DS11_v2",
+        "DS12-1_v2",
+        "DS12-2_v2",
+        "DS12_v2",
+        "DS13-2_v2",
+        "DS13-4_v2",
+        "DS13_v2",
+        "DS14-4_v2",
+        "DS14-8_v2",
+        "DS14_v2",
+        "DS15_v2",
+        "DS2_v2_Promo",
+        "DS3_v2_Promo",
+        "DS4_v2_Promo",
+        "DS5_v2_Promo",
+        "DS11_v2_Promo",
+        "DS12_v2_Promo",
+        "DS13_v2_Promo",
+        "DS14_v2_Promo",
+        "F1s",
+        "F2s",
+        "F4s",
+        "F8s",
+        "F16s",
+        "D2s_v3",
+        "D4s_v3",
+        "D8s_v3",
+        "D16s_v3",
+        "D32s_v3",
+        "A0",
+        "A1",
+        "A2",
+        "A3",
+        "A5",
+        "A4",
+        "A6",
+        "A7",
+        "D1_v2",
+        "D2_v2",
+        "D3_v2",
+        "D4_v2",
+        "D5_v2",
+        "D11_v2",
+        "D12_v2",
+        "D13_v2",
+        "D14_v2",
+        "D15_v2",
+        "D2_v2_Promo",
+        "D3_v2_Promo",
+        "D4_v2_Promo",
+        "D5_v2_Promo",
+        "D11_v2_Promo",
+        "D12_v2_Promo",
+        "D13_v2_Promo",
+        "D14_v2_Promo",
+        "F1",
+        "F2",
+        "F4",
+        "F8",
+        "F16",
+        "A1_v2",
+        "A2m_v2",
+        "A2_v2",
+        "A4m_v2",
+        "A4_v2",
+        "A8m_v2",
+        "A8_v2",
+        "D2_v3",
+        "D4_v3",
+        "D8_v3",
+        "D16_v3",
+        "D32_v3",
+        "H8",
+        "H16",
+        "H8m",
+        "H16m",
+        "H16r",
+        "H16mr",
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D11",
+        "D12",
+        "D13",
+        "D14",
+        "NV6",
+        "NV12",
+        "NV24",
+        "NC6s_v2",
+        "NC12s_v2",
+        "NC24rs_v2",
+        "NC24s_v2",
+        "NC6",
+        "NC12",
+        "NC24",
+        "NC24r",
+        "F2s_v2",
+        "F4s_v2",
+        "F8s_v2",
+        "F16s_v2",
+        "F32s_v2",
+        "F64s_v2",
+        "F72s_v2",
+        "D64_v3",
+        "D64s_v3",
+        "E2_v3",
+        "E4_v3",
+        "E8_v3",
+        "E16_v3",
+        "E32_v3",
+        "E64i_v3",
+        "E64_v3",
+        "E2s_v3",
+        "E4-2s_v3",
+        "E4s_v3",
+        "E8-2s_v3",
+        "E8-4s_v3",
+        "E8s_v3",
+        "E16-4s_v3",
+        "E16-8s_v3",
+        "E16s_v3",
+        "E32-8s_v3",
+        "E32-16s_v3",
+        "E32s_v3",
+        "E64-16s_v3",
+        "E64-32s_v3",
+        "E64is_v3",
+        "E64s_v3",
+        "DS1",
+        "DS2",
+        "DS3",
+        "DS4",
+        "DS11",
+        "DS12",
+        "DS13",
+        "DS14",
+        "NC6s_v3",
+        "NC12s_v3",
+        "NC24rs_v3",
+        "NC24s_v3",
+        "L4s",
+        "L8s",
+        "L16s",
+        "L32s",
+        "L8s_v2",
+        "L16s_v2",
+        "ND6s",
+        "ND12s",
+        "ND24rs",
+        "ND24s",
+        "A8",
+        "A9",
+        "A10",
+        "A11",
+        "M8-2ms",
+        "M8-4ms",
+        "M8ms",
+        "M16-4ms",
+        "M16-8ms",
+        "M16ms",
+        "M32-8ms",
+        "M32-16ms",
+        "M32ls",
+        "M32ms",
+        "M32ts",
+        "M64-16ms",
+        "M64-32ms",
+        "M64ls",
+        "M64ms",
+        "M64s",
+        "M128-32ms",
+        "M128-64ms",
+        "M128ms",
+        "M128s",
+        "M64",
+        "M64m",
+        "M128",
+        "M128m"
+      ]
+    },
+    "ImageReferenceId": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "GalleryImage": {
+      "type": "object",
+      "defaultValue": {}
+    },
+    "OperatingSystem": {
+      "type": "string",
+      "allowedValues": [
+        "CustomLinux",
+        "CustomWindows",
+        "Linux - Centos 6",
+        "Linux - Centos 7",
+        "Linux - Redhat 6",
+        "Linux - Redhat 7",
+        "Linux - Ubuntu 14.04 LTS",
+        "Linux - Ubuntu 16.04 LTS",
+        "Windows Server 2008 R2 SP1",
+        "Windows Server 2012 R2",
+        "Windows Server 2016 Nano Server",
+        "Windows Server 2016 DataCenter",
+        "Windows 2012 R2 SQL Server 2014 SP2 Express",
+        "Windows 2012 R2 SQL Server 2014 SP2 Web",
+        "Windows 2012 R2 SQL Server 2014 SP2 Standard",
+        "Windows 2012 R2 SQL Server 2014 SP2 Standard - BYOL",
+        "Windows 2012 R2 SQL Server 2014 SP2 Enterprise",
+        "Windows 2012 R2 SQL Server 2014 SP2 Enterprise - BYOL",
+        "Windows 2012 R2 SQL Server 2016 Express",
+        "Windows 2012 R2 SQL Server 2016 Web",
+        "Windows 2012 R2 SQL Server 2016 Standard",
+        "Windows 2012 R2 SQL Server 2016 Standard - BYOL",
+        "Windows 2012 R2 SQL Server 2016 Enterprise",
+        "Windows 2012 R2 SQL Server 2016 Enterprise - BYOL",
+        "Windows 2016 SQL Server 2016 SP1 Express",
+        "Windows 2016 SQL Server 2016 SP1 Web",
+        "Windows 2016 SQL Server 2016 SP1 Standard",
+        "Windows 2016 SQL Server 2016 SP1 Standard - BYOL",
+        "Windows 2016 SQL Server 2016 SP1 Enterprise",
+        "Windows 2016 SQL Server 2016 SP1 Enterprise - BYOL"
+      ]
+    },
+    "AdminUserName": {
+      "type": "string"
+    },
+    "AdminPassword": {
+      "type": "securestring"
+    },
+    "environment": {
+      "type": "string",
+      "allowedValues": [
+        "Production",
+        "Staging",
+        "Test",
+        "UAT",
+        "Development",
+        "Disaster Recovery",
+        "Q/A",
+        "Other"
+      ],
+      "metadata": {
+        "description": "The Environment type we are building",
+        "group": "Tags",
+        "order": 1,
+        "question": "Please enter environment type : "
+      },
+      "defaultValue": "Production"
+    },
+    "buildDate": {
+      "type": "string",
+      "metadata": {
+        "description": "The date of this build",
+        "group": "Tags",
+        "order": 2,
+        "question": "Please enter todays date (mm/dd/yyyy) : "
+      },
+      "defaultValue": "mm/dd/yyyy"
+    },
+    "buildBy": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the person who build this environment",
+        "group": "Tags",
+        "order": 3,
+        "question": "Please enter your full name : "
+      },
+      "defaultValue": "First Last"
+    },
+    "RaxAutomationExclude": {
+      "type": "string",
+      "allowedValues": [
+        "None",
+        "Monitoring",
+        "Passport",
+        "Antimalware"
+      ],
+      "metadata": {
+        "description": "Select the automation type you will like to exclude for this VM",
+        "group": "Tags",
+        "order": 4,
+        "label": "Automation Exluce",
+        "question": "Choose the type of automation you will like to exclude this from"
+      },
+      "defaultValue": "None"
+    }
+  },
+  "variables": {
+    "NamePrefix": "[toLower(parameters('VirtualMachineName'))]",
+    "VirtualNetworkId": "[resourceId(parameters('VirtualNetworkResourceGroupName'),'Microsoft.Network/virtualNetworks/',parameters('VirtualNetworkName'))]",
+    "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('SubnetName'))]",
+    "NetworkInterfaceName": "[concat(variables('NamePrefix'),'-nic')]",
+    "NetworkInterfaceIpConfigurationName": "[concat(variables('NamePrefix'),'-ipc')]",
+    "Disk": {
+      "p4": {
+        "size": 32,
+        "sku": "Premium_LRS"
+      },
+      "p6": {
+        "size": 64,
+        "sku": "Premium_LRS"
+      },
+      "p10": {
+        "size": 128,
+        "sku": "Premium_LRS"
+      },
+      "p15": {
+        "size": 256,
+        "sku": "Premium_LRS"
+      },
+      "p20": {
+        "size": 512,
+        "sku": "Premium_LRS"
+      },
+      "p30": {
+        "size": 1023,
+        "sku": "Premium_LRS"
+      },
+      "p40": {
+        "size": 2047,
+        "sku": "Premium_LRS"
+      },
+      "p50": {
+        "size": 4095,
+        "sku": "Premium_LRS"
+      },
+      "s4": {
+        "size": 32,
+        "sku": "Standard_LRS"
+      },
+      "s6": {
+        "size": 64,
+        "sku": "Standard_LRS"
+      },
+      "s10": {
+        "size": 128,
+        "sku": "Standard_LRS"
+      },
+      "s15": {
+        "size": 256,
+        "sku": "Standard_LRS"
+      },
+      "s20": {
+        "size": 512,
+        "sku": "Standard_LRS"
+      },
+      "s30": {
+        "size": 1023,
+        "sku": "Standard_LRS"
+      },
+      "s40": {
+        "size": 2047,
+        "sku": "Standard_LRS"
+      },
+      "s50": {
+        "size": 4095,
+        "sku": "Standard_LRS"
+      }
+    },
+    "DataDiskName": "[concat(variables('NamePrefix'),'-datadisk-')]",
+    "OsDiskName": "[concat(variables('NamePrefix'),'-os')]",
+    "vmSize": "[concat('Standard_',parameters('Size'))]",
+    "OsArray": {
+      "CustomLinux": {
+        "imagePublisher": "",
+        "imageOffer": "",
+        "imageSKU": "",
+        "version": "",
+        "type": "linux"
+      },
+      "CustomWindows": {
+        "imagePublisher": "",
+        "imageOffer": "",
+        "imageSKU": "",
+        "version": "",
+        "type": "windows"
+      },
+      "Linux - Centos 6": {
+        "imagePublisher": "OpenLogic",
+        "imageOffer": "CentOS",
+        "imageSKU": "6.9",
+        "version": "latest",
+        "type": "linux"
+      },
+      "Linux - Centos 7": {
+        "imagePublisher": "OpenLogic",
+        "imageOffer": "CentOS",
+        "imageSKU": "7.3",
+        "version": "latest",
+        "type": "linux"
+      },
+      "Linux - Redhat 6": {
+        "imagePublisher": "RedHat",
+        "imageOffer": "RHEL",
+        "imageSKU": "6.9",
+        "version": "latest",
+        "type": "linux"
+      },
+      "Linux - Redhat 7": {
+        "imagePublisher": "RedHat",
+        "imageOffer": "RHEL",
+        "imageSKU": "7.4",
+        "version": "latest",
+        "type": "linux"
+      },
+      "Linux - Ubuntu 14.04 LTS": {
+        "imagePublisher": "Canonical",
+        "imageOffer": "UbuntuServer",
+        "imageSKU": "14.04.4-LTS",
+        "version": "latest",
+        "type": "linux"
+      },
+      "Linux - Ubuntu 16.04 LTS": {
+        "imagePublisher": "Canonical",
+        "imageOffer": "UbuntuServer",
+        "imageSKU": "16.04.0-LTS",
+        "version": "latest",
+        "type": "linux"
+      },
+      "Windows Server 2008 R2 SP1": {
+        "imagePublisher": "MicrosoftWindowsServer",
+        "imageOffer": "WindowsServer",
+        "imageSKU": "2008-R2-SP1",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows Server 2012 R2": {
+        "imagePublisher": "MicrosoftWindowsServer",
+        "imageOffer": "WindowsServer",
+        "imageSKU": "2012-R2-Datacenter",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows Server 2016 Nano Server": {
+        "imagePublisher": "MicrosoftWindowsServer",
+        "imageOffer": "WindowsServer",
+        "imageSKU": "2016-Nano-Server",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows Server 2016 DataCenter": {
+        "imagePublisher": "MicrosoftWindowsServer",
+        "imageOffer": "WindowsServer",
+        "imageSKU": "2016-Datacenter",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2012 R2 SQL Server 2014 SP2 Express": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2014SP2-WS2012R2",
+        "imageSKU": "Express",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2012 R2 SQL Server 2014 SP2 Web": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2014SP2-WS2012R2",
+        "imageSKU": "Web",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2012 R2 SQL Server 2014 SP2 Standard": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2014SP2-WS2012R2",
+        "imageSKU": "Standard",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2012 R2 SQL Server 2014 SP2 Standard - BYOL": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2014SP2-WS2012R2-BYOL",
+        "imageSKU": "Standard",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2012 R2 SQL Server 2014 SP2 Enterprise": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2014SP2-WS2012R2",
+        "imageSKU": "Enterprise",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2012 R2 SQL Server 2014 SP2 Enterprise - BYOL": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2014SP2-WS2012R2-BYOL",
+        "imageSKU": "Enterprise",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2012 R2 SQL Server 2016 Express": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016-WS2012R2",
+        "imageSKU": "Express",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2012 R2 SQL Server 2016 Web": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016-WS2012R2",
+        "imageSKU": "Web",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2012 R2 SQL Server 2016 Standard": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016-WS2012R2",
+        "imageSKU": "Standard",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2012 R2 SQL Server 2016 Standard - BYOL": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016-WS2012R2-BYOL",
+        "imageSKU": "Standard",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2012 R2 SQL Server 2016 Enterprise": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016-WS2012R2",
+        "imageSKU": "Enterprise",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2012 R2 SQL Server 2016 Enterprise - BYOL": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016-WS2012R2-BYOL",
+        "imageSKU": "Enterprise",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2016 SP1 Express": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016SP1-WS2016",
+        "imageSKU": "Express",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2016 SP1 Web": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016SP1-WS2016",
+        "imageSKU": "Web",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2016 SP1 Standard": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016SP1-WS2016",
+        "imageSKU": "Standard",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2016 SP1 Standard - BYOL": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016SP1-WS2016-BYOL",
+        "imageSKU": "Standard",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2016 SP1 Enterprise": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016SP1-WS2016",
+        "imageSKU": "Enterprise",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2016 SP1 Enterprise - BYOL": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016SP1-WS2016-BYOL",
+        "imageSKU": "Enterprise",
+        "version": "latest",
+        "type": "windows"
+      }
+    },
+    "OS": "[if(empty(parameters('GalleryImage')),variables('OsArray')[parameters('OperatingSystem')],parameters('GalleryImage'))]",
+    "regions": {
+      "southcentralus": {
+        "location": "southcentralus",
+        "abbreviation": "scu",
+        "timezone": "Central Standard Time"
+      },
+      "eastus": {
+        "location": "eastus",
+        "abbreviation": "eus",
+        "timezone": "Eastern Standard Time"
+      },
+      "eastus2": {
+        "location": "eastus2",
+        "abbreviation": "eus",
+        "timezone": "Eastern Standard Time"
+      },
+      "westus": {
+        "location": "westus",
+        "abbreviation": "wus",
+        "timezone": "Pacific Standard Time"
+      },
+      "westus2": {
+        "location": "westus2",
+        "abbreviation": "wus",
+        "timezone": "Pacific Standard Time"
+      }
+    },
+    "tags": {
+      "Environment": "[parameters('environment')]",
+      "BuildDate": "[parameters('buildDate')]",
+      "BuildBy": "[parameters('buildBy')]",
+      "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
+    },
+    "imageReferenceArray": [
+      {
+        "publisher": "[variables('OS').imagePublisher]",
+        "offer": "[variables('OS').imageOffer]",
+        "sku": "[variables('OS').imageSKU]",
+        "version": "[variables('OS').version]"
+      },
+      {
+        "id": "[parameters('imageReferenceId')]"
+      }
+    ],
+    "imageReference": "[if(empty(parameters('imageReferenceId')),variables('imageReferenceArray')[0],variables('imageReferenceArray')[1])]",
+    "osProfileArray": [
+      {
+        "computerName": "[parameters('VirtualMachineName')]",
+        "adminUsername": "[parameters('AdminUserName')]",
+        "adminPassword": "[parameters('AdminPassword')]",
+        "linuxConfiguration": {
+          "disablePasswordAuthentication": false,
+          "ssh": {
+            "publicKeys": []
+          }
+        }
+      },
+      {
+        "computerName": "[parameters('VirtualMachineName')]",
+        "adminUsername": "[parameters('AdminUsername')]",
+        "adminPassword": "[parameters('AdminPassword')]",
+        "windowsConfiguration": {
+          "provisionVMAgent": true,
+          "timeZone": "[variables('regions')[resourceGroup().location].timezone]"
+        }
+      }
+    ],
+    "osProfile": "[if(equals(variables('OS').type,'linux'),variables('osProfileArray')[0],variables('osProfileArray')[1])]",
+    "Disks": "[if(empty(parameters('DataDisks')),createArray(json('{\"caching\": \"ReadOnly\",\"lun\": \"1\",\"size\": \"p30\"}')),parameters('DataDisks'))]",
+    "isPresent": "[if(empty(parameters('DataDisks')),0,1)]",
+    "diskCount": "[if(empty(parameters('DataDisks')),1,length(parameters('DataDisks')))]"
+  },
+  "resources": [
+    {
+      "apiVersion": "2017-03-30",
+      "name": "[parameters('AvailabilitySetName')]",
+      "type": "Microsoft.Compute/availabilitySets",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [],
+      "tags": "[variables('tags')]",
+      "sku": {
+        "name": "Aligned"
+      },
+      "properties": {
+        "platformUpdateDomainCount": 5,
+        "platformFaultDomainCount": 3
+      }
+    },
+    {
+      "apiVersion": "2017-10-01",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[variables('NetworkInterfaceName')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('AvailabilitySetName')]" ],
+      "properties": {
+        "dnsSettings": {},
+        "enableAcceleratedNetworking": false,
+        "ipConfigurations": [
+          {
+            "name": "[variables('NetworkInterfaceIpConfigurationName')]",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "privateIPAddressVersion": "IPv4",
+              "subnet": {
+                "id": "[variables('SubnetId')]"
+              }
+            }
+          }
+        ]
+      },
+      "tags": "[variables('tags')]"
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "[concat(variables('DataDiskName'),padleft(add(copyIndex(),1),2,'0'))]",
+      "condition": "[greaterOrEquals(variables('isPresent'),1)]",
+      "dependsOn": [],
+      "copy": {
+        "name": "iterator",
+        "count": "[variables('diskCount')]"
+      },
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "2018.07.01.0",
+          "parameters": {
+          },
+          "variables": {
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Compute/disks",
+              "apiVersion": "2017-03-30",
+              "name": "[concat(variables('DataDiskName'),padleft(add(copyIndex(),1),2,'0'))]",
+              "location": "[resourceGroup().location]",
+              "dependsOn": [],
+              "tags": "[variables('tags')]",
+              "properties": {
+                "creationData": {
+                  "createOption": "Empty"
+                },
+                "diskSizeGB": "[variables('Disk')[parameters('DataDisks')[copyIndex()].size].size]"
+              },
+              "sku": {
+                "name": "[variables('Disk')[parameters('DataDisks')[copyIndex()].size].sku]"
+              }
+            }
+          ],
+          "outputs": {
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "[concat(parameters('VirtualMachineName'),'_',variables('diskCount'),'_disks')]",
+      "condition": "[greaterOrEquals(variables('isPresent'),1)]",
+      "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "2018.07.01.0",
+          "resources": [
+            {
+              "apiVersion": "2017-03-30",
+              "type": "Microsoft.Compute/virtualMachines",
+              "name": "[parameters('VirtualMachineName')]",
+              "location": "[resourceGroup().location]",
+              "dependsOn": [],
+              "properties": {
+                "licenseType": "[if(equals(parameters('LicenseType'),'None'),json('null'),parameters('LicenseType'))]",
+                "availabilitySet": {
+                  "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/availabilitySets/',parameters('AvailabilitySetName'))]"
+                },
+                "hardwareProfile": {
+                  "vmSize": "[variables('vmSize')]"
+                },
+                "storageProfile": {
+                  "imageReference": "[variables('imageReference')]",
+                  "osDisk": {
+                    "name": "[variables('OsDiskName')]",
+                    "caching": "ReadOnly",
+                    "createOption": "FromImage"
+                  },
+                  "copy": [
+                    {
+                      "name": "dataDisks",
+                      "count": "[variables('diskCount')]",
+                      "input": {
+                        "name": "[concat(variables('DataDiskName'),padleft(add(copyIndex('dataDisks'),1),2,'0'))]",
+                        "diskSizeGB": "[variables('Disk')[variables('Disks')[copyIndex('dataDisks')].size].size]",
+                        "caching": "[variables('Disks')[copyIndex('dataDisks')].caching]",
+                        "lun": "[variables('Disks')[copyIndex('dataDisks')].lun]",
+                        "managedDisk": {
+                          "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/disks/',concat(variables('DataDiskName'),padleft(add(copyIndex('dataDisks'),1),2,'0')))]"
+                        },
+                        "createOption": "Attach"
+                      }
+                    }
+                  ]
+                },
+                "osProfile": "[variables('osProfile')]",
+                "networkProfile": {
+                  "networkInterfaces": [
+                    {
+                      "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces/',variables('NetworkInterfaceName'))]",
+                      "primary": true
+                    }
+                  ]
+                },
+                "diagnosticsProfile": {}
+              },
+              "resources": null
+            }
+          ],
+          "outputs": {
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "[concat(parameters('VirtualMachineName'),'_0_disks')]",
+      "condition": "[equals(variables('isPresent'),0)]",
+      "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "2018.07.01.0",
+          "resources": [
+            {
+              "apiVersion": "2017-03-30",
+              "type": "Microsoft.Compute/virtualMachines",
+              "name": "[parameters('VirtualMachineName')]",
+              "location": "[resourceGroup().location]",
+              "dependsOn": [],
+              "properties": {
+                "licenseType": "[if(equals(parameters('LicenseType'),'None'),json('null'),parameters('LicenseType'))]",
+                "availabilitySet": {
+                  "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/availabilitySets/',parameters('AvailabilitySetName'))]"
+                },
+                "hardwareProfile": {
+                  "vmSize": "[variables('vmSize')]"
+                },
+                "storageProfile": {
+                  "imageReference": "[variables('imageReference')]",
+                  "osDisk": {
+                    "name": "[variables('OsDiskName')]",
+                    "caching": "ReadOnly",
+                    "createOption": "FromImage"
+                  }
+                },
+                "osProfile": "[variables('osProfile')]",
+                "networkProfile": {
+                  "networkInterfaces": [
+                    {
+                      "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces/',variables('NetworkInterfaceName'))]",
+                      "primary": true
+                    }
+                  ]
+                },
+                "diagnosticsProfile": {}
+              },
+              "resources": null
+            }
+          ],
+          "outputs": {
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {
+  }
+}

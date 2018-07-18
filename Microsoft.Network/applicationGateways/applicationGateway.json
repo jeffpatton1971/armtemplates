@@ -1,0 +1,288 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2018.07.01.0",
+  "parameters": {
+    "name": {
+      "type": "string"
+    },
+    "NetworkResourceGroupName": {
+      "type": "string"
+    },
+    "NetworkName": {
+      "type": "string"
+    },
+    "SubnetName": {
+      "type": "string"
+    },
+    "applicationGatewayRules": {
+      "type": "array"
+    },
+    "Size": {
+      "type": "string",
+      "allowedValues": [
+        "Small",
+        "Medium",
+        "Large"
+      ]
+    },
+    "Tier": {
+      "type": "string",
+      "allowedValues": [
+        "Standard",
+        "WAF"
+      ]
+    },
+    "Instances": {
+      "type": "int",
+      "minValue": 1,
+      "maxValue": 10
+    },
+    "RuleSet": {
+      "type": "string",
+      "allowedValues": [
+        "3.0",
+        "2.2.9"
+      ],
+      "defaultValue": "3.0"
+    },
+    "environment": {
+      "type": "string",
+      "allowedValues": [
+        "Production",
+        "Staging",
+        "Test",
+        "UAT",
+        "Development",
+        "Disaster Recovery",
+        "Q/A",
+        "Other"
+      ],
+      "metadata": {
+        "description": "The Environment type we are building",
+        "group": "Tags",
+        "order": 1,
+        "question": "Please enter environment type : "
+      },
+      "defaultValue": "Production"
+    },
+    "buildDate": {
+      "type": "string",
+      "metadata": {
+        "description": "The date of this build",
+        "group": "Tags",
+        "order": 2,
+        "question": "Please enter todays date (mm/dd/yyyy) : "
+      },
+      "defaultValue": "mm/dd/yyyy"
+    },
+    "buildBy": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the person who build this environment",
+        "group": "Tags",
+        "order": 3,
+        "question": "Please enter your full name : "
+      },
+      "defaultValue": "First Last"
+    },
+    "RaxAutomationExclude": {
+      "type": "string",
+      "allowedValues": [
+        "None",
+        "Monitoring",
+        "Passport",
+        "Antimalware"
+      ],
+      "metadata": {
+        "description": "Select the automation type you will like to exclude for this VM",
+        "group": "Tags",
+        "order": 4,
+        "label": "Automation Exluce",
+        "question": "Choose the type of automation you will like to exclude this from"
+      },
+      "defaultValue": "None"
+    }
+  },
+  "variables": {
+    "ApplicationGatewayName": "[parameters('name')]",
+    "GatewayIpConfigurationName": "[concat(parameters('name'),'-gip')]",
+    "FrontendIpConfigurationName": "[concat(parameters('name'),'-ipc')]",
+    "FrontEndPortName": "[concat(parameters('name'),'-fep')]",
+    "BackendSettingsName": "[concat(parameters('name'),'-set')]",
+    "BackendAddressPoolName": "[concat(parameters('name'),'-bep')]",
+    "HttpListenerName": "[concat(parameters('name'),'-lst')]",
+    "ApplicationGatewayRuleName": "[concat(parameters('name'),'-rul')]",
+    "LoadbalancingProbeName": "[concat(parameters('name'),'-prb')]",
+    "PublicIpAddressName": "[concat(parameters('name'),'-pip')]",
+    "vnetId": "[resourceId(parameters('NetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks',parameters('NetworkName'))]",
+    "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('SubnetName'))]",
+    "SkuNamePass1": "[concat(parameters('Tier'),'_',parameters('Size'))]",
+    "SkuName": "[if(equals(variables('SkuNamePass1'),'WAF_Small'),'WAF_Medium',variables('SkuNamePass1'))]",
+    "Sku": {
+      "name": "[variables('SkuName')]",
+      "tier": "[parameters('Tier')]",
+      "capacity": "[parameters('Instances')]"
+    },
+    "tags": {
+      "displayName": "ApplicationGateway",
+      "Environment": "[parameters('environment')]",
+      "BuildDate": "[parameters('buildDate')]",
+      "BuildBy": "[parameters('buildBy')]",
+      "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
+    },
+    "webApplicationFirewallConfiguration": {
+      "enabled": "[if(equals(parameters('Tier'),'WAF'),'true','false')]",
+      "firewallMode": "Detection",
+      "ruleSetType": "OWASP",
+      "ruleSetVersion": "[parameters('RuleSet')]",
+      "disabledRuleGroups": []
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2017-03-01",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[variables('PublicIpAddressName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic"
+      }
+    },
+    {
+      "apiVersion": "2017-06-01",
+      "name": "[variables('ApplicationGatewayName')]",
+      "type": "Microsoft.Network/applicationGateways",
+      "location": "[resourceGroup().location]",
+      "tags": "[variables('tags')]",
+      "dependsOn": [
+        "[variables('PublicIpAddressName')]"
+      ],
+      "properties": {
+        "sku": "[variables('Sku')]",
+        "gatewayIPConfigurations": [
+          {
+            "name": "[variables('GatewayIpConfigurationName')]",
+            "properties": {
+              "subnet": {
+                "id": "[variables('subnetId')]"
+              }
+            }
+          }
+        ],
+        "frontendIPConfigurations": [
+          {
+            "name": "[concat(variables('FrontendIpConfigurationName'),'-int')]",
+            "properties": {
+              "subnet": {
+                "id": "[variables('subnetId')]"
+              },
+              "privateIPAddress": "",
+              "privateIPAllocationMethod": "Dynamic"
+            }
+          },
+          {
+            "name": "[concat(variables('FrontendIpConfigurationName'),'-ext')]",
+            "properties": {
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('PublicIpAddressName'))]"
+              }
+            }
+          }
+        ],
+        "probes": [
+          {
+            "name": "probe1",
+            "properties": {
+              "protocol": "Http",
+              "host": "1.2.3.4",
+              "path": "/root/ping.html",
+              "interval": 30,
+              "timeout": 30,
+              "unhealthyThreshold": 3,
+              "pickHostNameFromBackendHttpSettings": false,
+              "minServers": 0,
+              "match": {
+                "body": "",
+                "statusCodes": [
+                  "200-399"
+                ]
+              }
+            }
+          }
+        ],
+        "copy": [
+          {
+            "name": "frontendPorts",
+            "count": "[length(parameters('applicationGatewayRules'))]",
+            "input": {
+              "name": "[concat(variables('FrontEndPortName'),'-',add(copyIndex('frontendPorts'),1))]",
+              "properties": {
+                "Port": "[parameters('applicationGatewayRules')[copyIndex('frontendPorts')].frontendPort]"
+              }
+            }
+          },
+          {
+            "name": "backendHttpSettingsCollection",
+            "count": "[length(parameters('applicationGatewayRules'))]",
+            "input": {
+              "name": "[concat(variables('BackendSettingsName'),'-',add(copyIndex('backendHttpSettingsCollection'),1))]",
+              "properties": {
+                "Port": "[parameters('applicationGatewayRules')[copyIndex('backendHttpSettingsCollection')].frontendPort]",
+                "Protocol": "[parameters('applicationGatewayRules')[copyIndex('backendHttpSettingsCollection')].protocol]",
+                "CookieBasedAffinity": "[parameters('applicationGatewayRules')[copyIndex('backendHttpSettingsCollection')].affinity]"
+              }
+            }
+          },
+          {
+            "name": "backendAddressPools",
+            "count": "[length(parameters('applicationGatewayRules'))]",
+            "input": {
+              "name": "[concat(variables('BackendAddressPoolName'),'-',add(copyIndex('backendAddressPools'),1))]",
+              "properties": {
+                "BackendAddresses": "[parameters('applicationGatewayRules')[copyIndex('backendAddressPools')].backendPool]"
+              }
+            }
+          },
+          {
+            "name": "httpListeners",
+            "count": "[length(parameters('applicationGatewayRules'))]",
+            "input": {
+              "name": "[concat(variables('HttpListenerName'),'-',add(copyIndex('httpListeners'),1))]",
+              "properties": {
+                "FrontendIPConfiguration": {
+                  "Id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', variables('ApplicationGatewayName')) ,'/frontendIPConfigurations/',variables('FrontendIpConfigurationName'),'-int')]"
+                },
+                "FrontendPort": {
+                  "Id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', variables('ApplicationGatewayName')) , '/frontendPorts/',variables('FrontEndPortName'),'-',add(copyIndex('httpListeners'),1))]"
+                },
+                "Protocol": "[parameters('applicationGatewayRules')[copyIndex('httpListeners')].protocol]",
+                "SslCertificate": "[parameters('applicationGatewayRules')[copyIndex('httpListeners')].sslCertificate]"
+              }
+            }
+          },
+          {
+            "name": "requestRoutingRules",
+            "count": "[length(parameters('applicationGatewayRules'))]",
+            "input": {
+              "Name": "[concat(variables('ApplicationGatewayRuleName'),'-',add(copyIndex('requestRoutingRules'),1))]",
+              "properties": {
+                "RuleType": "Basic",
+                "httpListener": {
+                  "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', variables('ApplicationGatewayName')) , '/httpListeners/',variables('HttpListenerName'),'-',add(copyIndex('requestRoutingRules'),1))]"
+                },
+                "backendAddressPool": {
+                  "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', variables('ApplicationGatewayName')) , '/backendAddressPools/',variables('BackendAddressPoolName'),'-',add(copyIndex('requestRoutingRules'),1))]"
+                },
+                "backendHttpSettings": {
+                  "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', variables('ApplicationGatewayName')) , '/backendHttpSettingsCollection/',variables('BackendSettingsName'),'-',add(copyIndex('requestRoutingRules'),1))]"
+                }
+              }
+            }
+          }
+        ],
+        "webApplicationFirewallConfiguration": "[if(equals(parameters('Tier'),'WAF'),variables('webApplicationFirewallConfiguration'),json('null'))]"
+      }
+    }
+  ],
+  "outputs": {}
+}

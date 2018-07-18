@@ -1,0 +1,61 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2018.07.01.0",
+  "parameters": {
+    "VirtualMachine": {
+      "type": "string"
+    },
+    "WorkspaceId": {
+      "type": "string"
+    },
+    "WorkspaceKey": {
+      "type": "string"
+    }
+  },
+  "variables": {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('VirtualMachine'),'/Monitoring')]",
+    "resource": {
+      "type": "[variables('Type')]",
+      "name": "[variables('Name')]",
+      "apiVersion": "2015-06-15",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [],
+      "properties": {
+        "publisher": "Microsoft.EnterpriseCloud.Monitoring",
+        "type": "MicrosoftMonitoringAgent",
+        "typeHandlerVersion": "1.0",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "workspaceId": "[parameters('WorkspaceId')]"
+        },
+        "protectedSettings": {
+          "workspaceKey": "[parameters('WorkspaceKey')]"
+        }
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('VirtualMachine'),'/Monitoring')]",
+      "apiVersion": "2015-06-15",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [],
+      "properties": {
+        "publisher": "Microsoft.EnterpriseCloud.Monitoring",
+        "type": "MicrosoftMonitoringAgent",
+        "typeHandlerVersion": "1.0",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "workspaceId": "[parameters('WorkspaceId')]"
+        },
+        "protectedSettings": {
+          "workspaceKey": "[parameters('WorkspaceKey')]"
+        }
+      }
+    }
+  ],
+  "outputs": {
+  }
+}

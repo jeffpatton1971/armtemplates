@@ -1,0 +1,68 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "2018.07.01.0",
+  "parameters": {
+    "AvailabilitySetName": {
+      "value": "vm01-avset"
+    },
+    "VirtualNetworkName": {
+      "value": "vnet-ERPServicesWest"
+    },
+    "VirtualNetworkResourceGroupName": {
+      "value": "rg-vnet-ERPServicesWest"
+    },
+    "SubnetName": {
+      "value": "sb-atlassian"
+    },
+    "DataDisks": {
+      "value": [
+        {
+          "caching": "ReadWrite",
+          "lun": 0,
+          "size": "p30"
+        },
+        {
+          "caching": "ReadOnly",
+          "lun": 1,
+          "size": "p10"
+        }
+      ]
+    },
+    "VirtualMachineName": {
+      "value": "vm01"
+    },
+    "LicenseType": {
+      "value": "None"
+    },
+    "Size": {
+      "value": "DS1_v2"
+    },
+    "GalleryImage": {
+      "value": {}
+    },
+    "ImageReferenceId": {
+      "value": ""
+    },
+    "OperatingSystem": {
+      "value": "Windows Server 2016 DataCenter"
+    },
+    "AdminUserName": {
+      "value": "azureuser"
+    },
+    "AdminPassword": {
+      "value": "P@ssword12345"
+    },
+    "environment": {
+      "value": "Development"
+    },
+    "buildDate": {
+      "value": "06/29/2018"
+    },
+    "buildBy": {
+      "value": "jeffrey.patton2@rackspace.com"
+    },
+    "RaxAutomationExclude": {
+      "value": "None"
+    }
+  }
+}

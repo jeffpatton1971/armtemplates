@@ -1,0 +1,30 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "2018.07.01.0",
+  "parameters": {
+    "Name": {
+      "value": ""
+    },
+    "administratorLogin": {
+      "value": "azureuser"
+    },
+    "administratorLoginPassword": {
+      "value": "P@ssword12345"
+    },
+    "version": {
+      "value": "12.0"
+    },
+    "environment": {
+      "value": "Development"
+    },
+    "buildDate": {
+      "value": "06/29/2018"
+    },
+    "buildBy": {
+      "value": "jeffrey.patton2@rackspace.com"
+    },
+    "RaxAutomationExclude": {
+      "value": "None"
+    }
+  }
+}

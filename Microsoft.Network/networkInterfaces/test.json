@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2018.07.01.0",
+  "parameters": {
+    "LoadBalancerName": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "loadBalancer": ""
+  },
+  "resources": [
+  ],
+  "outputs": {
+    "loadBalancer": {
+      "type": "object",
+      "value": "[reference(concat('Microsoft.Network/loadBalancers/',parameters('LoadBalancerName')),'2017-06-01')]"
+    }
+  }
+}
