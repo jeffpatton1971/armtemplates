@@ -60,10 +60,10 @@ There are several branches to choose from as of this writing there are 4
 - master
 - 2018.07.01.0 (locked)
 
-If you're not sure, use master, it will always have the "current" version of supported templates available. As we progress in our lifecycle you will see additional locked repos that resemble api versions. These are the state of our templates over time, as the API changes so to must our tempaltes change. If for some reason you need to go back to some previous set of templates, you can very easily do this by selecting the appropriate branch.
+If you're not sure, use master, it will always have the "current" version of supported templates available. As we progress in our lifecycle you will see additional locked repos that resemble api versions. These are the state of our templates over time, as the API changes so to must our templates change. If for some reason you need to go back to some previous set of templates, you can very easily do this by selecting the appropriate branch.
 
 ## Edit Template Files
-You will want to grab the parameter files from the build templates for the various resources you wish to deploy.
+You will want to grab the parameter files from the build templates for the various resources you wish to deploy. One technique that may be worth exploring is naming your parameter file for the resource you are deploying, we'll cover the reason when we talk about Release Definitions. While you can grab the templates and edit them as well, we are trying to get to a place where the only thing we need to edit in this method are the parameter files.
 
 ## Create Build Definition
 
