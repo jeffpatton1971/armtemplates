@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-08-01/deploymentParameters.json",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "siteName": {
+      "value": "amcds-avivaapi"
+    },
+    "appServicePlanName": {
+      "value": "EUNRPASP303A01D01"
+    },
+    "appServiceEnvironmentName": {
+      "value": "EUNRPASE01"
+    },
+    "existingAseLocation": {
+      "value": "North Europe"
+    },
+    "workerPool": {
+      "value": "3"
+    }
+  }
+}
