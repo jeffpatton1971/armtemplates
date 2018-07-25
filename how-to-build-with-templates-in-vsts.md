@@ -121,7 +121,7 @@ As we mentioned earlier, the Environments can be thought of as Azure resources. 
 - An Azure PowerShell task to add additional user accounts
 - An Azure PowerShell task to add users and groups to local groups 
 
-As you can see there are several pieces involved with deploying a Virtual Machine and this simple Environment covers most. You are welcome to add anything you like to suite the needs of your build.
+As you can see there are several pieces involved with deploying a Virtual Machine and this simple Environment covers most. You are welcome to add anything you like to suite the needs of your build. Please see the rsbuild environments document for details about some pre-defined environments for your build.
 
 #### Final Environment
 The Final Environment contains a DeleteFiles task that cleans up the agent before we're done.
