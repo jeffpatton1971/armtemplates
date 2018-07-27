@@ -18,6 +18,14 @@ This envrionment will deploy the OMS workspace into a subscription.
 - templateAlias       : This is the GIT Artifact SourceAlias property for the rsazure-internal-buildtemplates repo
 - WorkspaceRSG        : The Resource Group deploy into
 
+### rsBuild Deploy Internal LoadBalancer
+This envrionment will deploy an Internal LoadBalancer into a subscription.
+#### Variables
+- Location            : The Azure reqion to be deployed into
+- scriptAlias         : This is the GIT Artifact SourceAlias property for the rsazure-internal-buildscripts repo
+- templateAlias       : This is the GIT Artifact SourceAlias property for the rsazure-internal-buildtemplates repo
+- RSG        : The Resource Group deploy into
+
 ### rsBuild Add OMS to MSCloud
 This environment will connect the OMS workspace to MSCloud so tickets can be created in core.
 #### Variables

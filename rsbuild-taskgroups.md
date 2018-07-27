@@ -7,6 +7,8 @@ Several taskgroups have been created for the rsBuild environments, these are mai
 
 ### Test AAA Template
 
+### Test Internal LoadBalancer Template
+
 ### Test OMS Template
 
 ### Test RSV Template
