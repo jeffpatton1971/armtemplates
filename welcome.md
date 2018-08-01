@@ -1,0 +1,2 @@
+# Rackspace Build Wiki
+Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that are used, and processes that are followed to deploy a customer environment into Azure.

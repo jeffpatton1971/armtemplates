@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.07.01.0",
+  "contentVersion": "2018.08.01.0",
   "parameters": {
     "AvailabilitySetName": {
       "type": "string"
@@ -115,6 +115,11 @@
         "D8_v3",
         "D16_v3",
         "D32_v3",
+        "D2s_v3",
+        "D4s_v3",
+        "D8s_v3",
+        "D16s_v3",
+        "D32s_v3",
         "H8",
         "H16",
         "H8m",
@@ -745,7 +750,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.07.01.0",
+          "contentVersion": "2018.08.01.0",
           "parameters": {
           },
           "variables": {
@@ -784,7 +789,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.07.01.0",
+          "contentVersion": "2018.08.01.0",
           "resources": [
             {
               "apiVersion": "2017-03-30",
@@ -853,7 +858,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.07.01.0",
+          "contentVersion": "2018.08.01.0",
           "resources": [
             {
               "apiVersion": "2017-03-30",

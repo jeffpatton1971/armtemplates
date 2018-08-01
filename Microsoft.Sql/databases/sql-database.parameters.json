@@ -1,0 +1,57 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "2018.08.01.0",
+  "parameters": {
+    "DatabaseNames": {
+      "value": []
+    },
+    "ServerName": {
+      "value": ""
+    },
+    "CatalogCollation": {
+      "value": "SQL_Latin1_General_CP1_CI_AS"
+    },
+    "Collation": {
+      "value": "SQL_Latin1_General_CP1_CI_AS"
+    },
+    "CreateMode": {
+      "value": "Default"
+    },
+    "ElasticPoolId": {
+      "value": ""
+    },
+    "LicenseType": {
+      "value": "LicenseIncluded"
+    },
+    "Family": {
+      "value": ""
+    },
+    "Tier": {
+      "value": "Basic"
+    },
+    "vCore": {
+      "value": ""
+    },
+    "Capacity": {
+      "value": "Basic"
+    },
+    "Size": {
+      "value": ""
+    },
+    "zoneRedundant": {
+      "value": false
+    },
+    "environment": {
+      "value": "Development"
+    },
+    "buildDate": {
+      "value": "06/29/2018"
+    },
+    "buildBy": {
+      "value": "jeffrey.patton2@rackspace.com"
+    },
+    "RaxAutomationExclude": {
+      "value": "None"
+    }
+  }
+}

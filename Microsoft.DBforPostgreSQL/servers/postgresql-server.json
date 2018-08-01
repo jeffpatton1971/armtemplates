@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.07.01.0",
+  "contentVersion": "2018.08.01.0",
   "parameters": {
     "name": {
       "type": "string",
@@ -35,7 +35,9 @@
       "type": "string",
       "allowedValues": [
         "9.5",
-        "9.6"
+        "9.6",
+        "10.0",
+        "10.2"
       ],
       "defaultValue": "9.5",
       "metadata": {
