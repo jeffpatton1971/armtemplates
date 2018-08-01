@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.07.01.0",
+  "contentVersion": "2018.08.01.0",
   "parameters": {
     "CMS": {
       "type": "object"
@@ -158,7 +158,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.07.01.0",
+          "contentVersion": "2018.08.01.0",
           "resources": "[variables('cmsRules')]"
         }
       }
@@ -173,7 +173,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.07.01.0",
+          "contentVersion": "2018.08.01.0",
           "resources": "[variables('solrRules')]"
         }
       }
@@ -188,7 +188,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.07.01.0",
+          "contentVersion": "2018.08.01.0",
           "resources": "[variables('xdbRules')]"
         }
       }
