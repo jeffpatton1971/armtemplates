@@ -771,7 +771,8 @@
               },
               "sku": {
                 "name": "[variables('Disk')[parameters('DataDisks')[copyIndex()].size].sku]"
-              }
+              },
+              "tags": "[variables('tags')]"
             }
           ],
           "outputs": {
@@ -840,7 +841,8 @@
                 },
                 "diagnosticsProfile": {}
               },
-              "resources": null
+              "resources": null,
+              "tags": "[variables('tags')]"
             }
           ],
           "outputs": {
@@ -893,7 +895,8 @@
                 },
                 "diagnosticsProfile": {}
               },
-              "resources": null
+              "resources": null,
+              "tags": "[variables('tags')]"
             }
           ],
           "outputs": {
