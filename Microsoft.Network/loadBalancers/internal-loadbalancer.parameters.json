@@ -5,10 +5,10 @@
     "name": {
       "value": ""
     },
-    "NetworkResourceGroupName": {
+    "VirtualNetworkResourceGroupName": {
       "value": ""
     },
-    "NetworkName": {
+    "VirtualNetworkName": {
       "value": ""
     },
     "SubnetName": {
