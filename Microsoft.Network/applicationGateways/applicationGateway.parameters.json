@@ -5,14 +5,14 @@
     "name": {
       "value": "appgw"
     },
-    "NetworkResourceGroupName": {
-      "value": "TESTING-RG"
+    "VirtualNetworkResourceGroupName": {
+      "value": ""
     },
-    "NetworkName": {
-      "value": "sample-vnet01"
+    "VirtualNetworkName": {
+      "value": ""
     },
     "SubnetName": {
-      "value": "dmz"
+      "value": ""
     },
     "applicationGatewayRules": {
       "value": [

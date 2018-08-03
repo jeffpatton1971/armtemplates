@@ -5,10 +5,10 @@
     "name": {
       "type": "string"
     },
-    "NetworkResourceGroupName": {
+    "VirtualNetworkResourceGroupName": {
       "type": "string"
     },
-    "NetworkName": {
+    "VirtualNetworkName": {
       "type": "string"
     },
     "SubnetName": {
@@ -81,7 +81,7 @@
     "BackendAddressPoolName": "[concat(parameters('name'),'-bep')]",
     "LoadBalancingRuleName": "[concat(parameters('name'),'-rul')]",
     "LoadbalancingProbeName": "[concat(parameters('name'),'-prb')]",
-    "vnetId": "[resourceId(parameters('NetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks',parameters('NetworkName'))]",
+    "vnetId": "[resourceId(parameters('VirtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks',parameters('VirtualNetworkName'))]",
     "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('SubnetName'))]",
     "tags": {
       "displayName": "InternalLoadBalancer",
