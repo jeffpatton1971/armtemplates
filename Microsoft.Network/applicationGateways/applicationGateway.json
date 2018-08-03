@@ -5,10 +5,10 @@
     "name": {
       "type": "string"
     },
-    "NetworkResourceGroupName": {
+    "VirtualNetworkResourceGroupName": {
       "type": "string"
     },
-    "NetworkName": {
+    "VirtualNetworkName": {
       "type": "string"
     },
     "SubnetName": {
@@ -114,7 +114,7 @@
     "ApplicationGatewayRuleName": "[concat(parameters('name'),'-rul')]",
     "LoadbalancingProbeName": "[concat(parameters('name'),'-prb')]",
     "PublicIpAddressName": "[concat(parameters('name'),'-pip')]",
-    "vnetId": "[resourceId(parameters('NetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks',parameters('NetworkName'))]",
+    "vnetId": "[resourceId(parameters('VirtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks',parameters('VirtualNetworkName'))]",
     "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('SubnetName'))]",
     "SkuNamePass1": "[concat(parameters('Tier'),'_',parameters('Size'))]",
     "SkuName": "[if(equals(variables('SkuNamePass1'),'WAF_Small'),'WAF_Medium',variables('SkuNamePass1'))]",
