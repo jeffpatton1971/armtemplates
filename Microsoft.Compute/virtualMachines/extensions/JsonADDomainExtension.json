@@ -27,9 +27,7 @@
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('name'),'/joindomain')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('name'))]"
-      ],
+      "dependsOn": [ ],
       "properties": {
         "publisher": "Microsoft.Compute",
         "type": "JsonADDomainExtension",
