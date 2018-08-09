@@ -72,6 +72,23 @@
         "question": "Please enter your full name : "
       },
       "defaultValue": "First Last"
+    },
+    "RaxAutomationExclude": {
+      "type": "string",
+      "allowedValues": [
+        "None",
+        "Monitoring",
+        "Passport",
+        "Antimalware"
+      ],
+      "metadata": {
+        "description": "Select the automation type you will like to exclude for this VM",
+        "group": "Tags",
+        "order": 4,
+        "label": "Automation Exluce",
+        "question": "Choose the type of automation you will like to exclude this from"
+      },
+      "defaultValue": "None"
     }
   },
   "variables": {
@@ -86,7 +103,8 @@
     "tags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
-      "BuildBy": "[parameters('buildBy')]"
+      "BuildBy": "[parameters('buildBy')]",
+      "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     }
   },
   "resources": [
