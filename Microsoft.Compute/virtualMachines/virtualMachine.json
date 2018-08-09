@@ -713,7 +713,7 @@
       }
     ],
     "osProfile": "[if(equals(variables('OS').type,'linux'),variables('osProfileArray')[0],variables('osProfileArray')[1])]",
-    "Disks": "[if(empty(parameters('DataDisks')),createArray(json('{\"caching\": \"ReadOnly\",\"lun\": \"1\",\"size\": \"p30\"}')),parameters('DataDisks'))]",
+    "Disks": "[if(empty(parameters('DataDisks')),createArray(json('{\"name\": \"notUsed\",\"caching\": \"ReadOnly\",\"lun\": \"1\",\"size\": \"p30\"}')),parameters('DataDisks'))]",
     "isPresent": "[if(empty(parameters('DataDisks')),0,1)]",
     "diskCount": "[if(empty(parameters('DataDisks')),1,length(parameters('DataDisks')))]"
   },
