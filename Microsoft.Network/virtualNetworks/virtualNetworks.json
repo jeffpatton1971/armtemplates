@@ -117,7 +117,9 @@
       "dependsOn": [],
       "properties": {
         "addressSpace": {
-          "addressPrefixes": "[parameters('addressSpace')]"
+          "addressPrefixes": [
+            "[parameters('addressSpace')]"
+          ]
         },
         "dhcpOptions": {
           "dnsServers": "[if(empty(parameters('dhcpOptions')),json('null'),parameters('dhcpOptions'))]"
