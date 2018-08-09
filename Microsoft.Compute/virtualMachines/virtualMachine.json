@@ -641,11 +641,6 @@
     },
     "OS": "[if(empty(parameters('GalleryImage')),variables('OsArray')[parameters('OperatingSystem')],parameters('GalleryImage'))]",
     "regions": {
-      "southcentralus": {
-        "location": "southcentralus",
-        "abbreviation": "scu",
-        "timezone": "Central Standard Time"
-      },
       "centralus": {
         "location": "southcentralus",
         "abbreviation": "cus",
@@ -660,6 +655,21 @@
         "location": "eastus2",
         "abbreviation": "eus",
         "timezone": "Eastern Standard Time"
+      },
+      "northcentralus": {
+        "location": "northcentralus",
+        "abbreviation": "ncu",
+        "timezone": "Central Standard Time"
+      },
+      "southcentralus": {
+        "location": "southcentralus",
+        "abbreviation": "scu",
+        "timezone": "Central Standard Time"
+      },
+      "westcentralus": {
+        "location": "westcentralus",
+        "abbreviation": "wcu",
+        "timezone": "Pacific Standard Time"
       },
       "westus": {
         "location": "westus",
