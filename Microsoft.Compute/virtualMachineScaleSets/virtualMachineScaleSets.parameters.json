@@ -14,11 +14,13 @@
     "DataDisks": {
       "value": [
         {
+          "name": "Logs",
           "caching": "ReadWrite",
           "lun": 0,
           "size": "p30"
         },
         {
+          "name": "Temp",
           "caching": "ReadOnly",
           "lun": 1,
           "size": "p10"

@@ -17,11 +17,13 @@
     "DataDisks": {
       "value": [
         {
+          "name": "Applications",
           "caching": "ReadWrite",
           "lun": 0,
           "size": "p30"
         },
         {
+          "name": "Backups",
           "caching": "ReadOnly",
           "lun": 1,
           "size": "p10"

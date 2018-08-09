@@ -250,7 +250,9 @@
         "Linux - Ubuntu 16.04 LTS",
         "Windows Server 2008 R2 SP1",
         "Windows Server 2012 R2",
+        "Windows Server 2016 Core Server",
         "Windows Server 2016 Nano Server",
+        "Windows Server 2016 Containers",
         "Windows Server 2016 DataCenter",
         "Windows 2012 R2 SQL Server 2014 SP2 Express",
         "Windows 2012 R2 SQL Server 2014 SP2 Web",
@@ -482,6 +484,20 @@
         "version": "latest",
         "type": "windows"
       },
+      "Windows Server 2016 Core Server": {
+        "imagePublisher": "MicrosoftWindowsServer",
+        "imageOffer": "WindowsServer",
+        "imageSKU": "2016-Datacenter-Server-Core",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows Server 2016 Containers": {
+        "imagePublisher": "MicrosoftWindowsServer",
+        "imageOffer": "WindowsServer",
+        "imageSKU": "2016-Datacenter-with-Containers",
+        "version": "latest",
+        "type": "windows"
+      },
       "Windows Server 2016 Nano Server": {
         "imagePublisher": "MicrosoftWindowsServer",
         "imageOffer": "WindowsServer",
@@ -630,6 +646,11 @@
         "abbreviation": "scu",
         "timezone": "Central Standard Time"
       },
+      "centralus": {
+        "location": "southcentralus",
+        "abbreviation": "cus",
+        "timezone": "Central Standard Time"
+      },
       "eastus": {
         "location": "eastus",
         "abbreviation": "eus",
@@ -751,15 +772,13 @@
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
           "contentVersion": "2018.08.01.0",
-          "parameters": {
-          },
-          "variables": {
-          },
+          "parameters": {},
+          "variables": {},
           "resources": [
             {
               "type": "Microsoft.Compute/disks",
               "apiVersion": "2017-03-30",
-              "name": "[concat(variables('DataDiskName'),padleft(add(copyIndex(),1),2,'0'))]",
+              "name": "[parameters('DataDisks')[copyIndex()].name]",
               "location": "[resourceGroup().location]",
               "dependsOn": [],
               "tags": "[variables('tags')]",
@@ -771,12 +790,10 @@
               },
               "sku": {
                 "name": "[variables('Disk')[parameters('DataDisks')[copyIndex()].size].sku]"
-              },
-              "tags": "[variables('tags')]"
+              }
             }
           ],
-          "outputs": {
-          }
+          "outputs": {}
         }
       }
     },
@@ -818,7 +835,7 @@
                       "name": "dataDisks",
                       "count": "[variables('diskCount')]",
                       "input": {
-                        "name": "[concat(variables('DataDiskName'),padleft(add(copyIndex('dataDisks'),1),2,'0'))]",
+                        "name": "[variables('Disks')[copyIndex('dataDisks')].name]",
                         "diskSizeGB": "[variables('Disk')[variables('Disks')[copyIndex('dataDisks')].size].size]",
                         "caching": "[variables('Disks')[copyIndex('dataDisks')].caching]",
                         "lun": "[variables('Disks')[copyIndex('dataDisks')].lun]",
@@ -845,8 +862,7 @@
               "tags": "[variables('tags')]"
             }
           ],
-          "outputs": {
-          }
+          "outputs": {}
         }
       }
     },
@@ -899,12 +915,10 @@
               "tags": "[variables('tags')]"
             }
           ],
-          "outputs": {
-          }
+          "outputs": {}
         }
       }
     }
   ],
-  "outputs": {
-  }
+  "outputs": {}
 }
