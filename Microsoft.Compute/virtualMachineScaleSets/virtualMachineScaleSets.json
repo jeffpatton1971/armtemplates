@@ -277,6 +277,10 @@
     "AdminPassword": {
       "type": "securestring"
     },
+    "TimeZone": {
+      "type": "string",
+      "defaultValue": ""
+    },
     "Count": {
       "type": "int",
       "minValue": 1,
@@ -644,15 +648,55 @@
     },
     "OS": "[if(empty(parameters('GalleryImage')),variables('OsArray')[parameters('OperatingSystem')],parameters('GalleryImage'))]",
     "regions": {
-      "southcentralus": {
-        "location": "southcentralus",
-        "abbreviation": "scu",
-        "timezone": "Central Standard Time"
+      "australiacentral": {
+        "location": "australiacentral",
+        "abbreviation": "ace",
+        "timezone": "E. Australia Standard Time"
+      },
+      "australiacentral2": {
+        "location": "australiacentral2",
+        "abbreviation": "ac2",
+        "timezone": "E. Australia Standard Time"
+      },
+      "australiaeast": {
+        "location": "australiaeast",
+        "abbreviation": "aue",
+        "timezone": "E. Australia Standard Time"
+      },
+      "australiasoutheast": {
+        "location": "australiasoutheast",
+        "abbreviation": "ase",
+        "timezone": "E. Australia Standard Time"
+      },
+      "brazilsouth": {
+        "location": "brazilsouth",
+        "abbreviation": "bzs",
+        "timezone": "Central Brazilian Standard Time"
+      },
+      "canadacentral": {
+        "location": "canadacentral",
+        "abbreviation": "cac",
+        "timezone": "Canada Central Standard Time"
+      },
+      "canadaeast": {
+        "location": "canadaeast",
+        "abbreviation": "cae",
+        "timezone": "Eastern Standard Time"
+      },
+      "centralindia": {
+        "location": "centralindia",
+        "abbreviation": "cin",
+        "timezone": "India Standard Time"
       },
       "centralus": {
         "location": "southcentralus",
         "abbreviation": "cus",
         "timezone": "Central Standard Time"
+      },
+      "eastasia": {
+        "location": "eastasia",
+        "abbreviation": "eas",
+        "timezone": "SE Asia Standard Time"
       },
       "eastus": {
         "location": "eastus",
@@ -663,6 +707,86 @@
         "location": "eastus2",
         "abbreviation": "eus",
         "timezone": "Eastern Standard Time"
+      },
+      "francecentral": {
+        "location": "francecentral",
+        "abbreviation": "frc",
+        "timezone": "Romance Standard Time"
+      },
+      "francesouth": {
+        "location": "francesouth",
+        "abbreviation": "frs",
+        "timezone": "Romance Standard Time"
+      },
+      "japaneast": {
+        "location": "japaneast",
+        "abbreviation": "jpe",
+        "timezone": "Tokyo Standard Time"
+      },
+      "japanwest": {
+        "location": "japanwest",
+        "abbreviation": "jpw",
+        "timezone": "Tokyo Standard Tim"
+      },
+      "koreacentral": {
+        "location": "koreacentral",
+        "abbreviation": "kce",
+        "timezone": "Korea Standard Time"
+      },
+      "koreasouth": {
+        "location": "koreasouth",
+        "abbreviation": "kos",
+        "timezone": "Korea Standard Time"
+      },
+      "northcentralus": {
+        "location": "northcentralus",
+        "abbreviation": "ncu",
+        "timezone": "Central Standard Time"
+      },
+      "northeurope": {
+        "location": "northeurope",
+        "abbreviation": "neu",
+        "timezone": "GMT Standard Time"
+      },
+      "southcentralus": {
+        "location": "southcentralus",
+        "abbreviation": "scu",
+        "timezone": "Central Standard Time"
+      },
+      "southeastasia": {
+        "location": "southeastasia",
+        "abbreviation": "sea",
+        "timezone": "SE Asia Standard Time"
+      },
+      "southindia": {
+        "location": "southindia",
+        "abbreviation": "soi",
+        "timezone": "India Standard Time"
+      },
+      "uksouth": {
+        "location": "uksouth",
+        "abbreviation": "uks",
+        "timezone": "GMT Standard Time"
+      },
+      "ukwest": {
+        "location": "ukwest",
+        "abbreviation": "ukw",
+        "timezone": "GMT Standard Time"
+      },
+      "westcentralus": {
+        "location": "westcentralus",
+        "abbreviation": "wcu",
+        "timezone": "Pacific Standard Time"
+      },
+      "westeurope": {
+        "location": "westeurope",
+        "abbreviation": "weu",
+        "timezone": "GMT Standard Time"
+      },
+      "westindia": {
+        "location": "westindia",
+        "abbreviation": "win",
+        "timezone": "India Standard Time"
       },
       "westus": {
         "location": "westus",
@@ -675,6 +799,7 @@
         "timezone": "Pacific Standard Time"
       }
     },
+    "timeZone": "[if(empty(parameters('TimeZone')),variables('regions')[resourceGroup().location].timezone,parameters('Timezone'))]",
     "tags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
@@ -711,7 +836,7 @@
         "adminPassword": "[parameters('AdminPassword')]",
         "windowsConfiguration": {
           "provisionVMAgent": true,
-          "timeZone": "[variables('regions')[resourceGroup().location].timezone]"
+          "timeZone": "[variables('timezone')]"
         }
       }
     ],
