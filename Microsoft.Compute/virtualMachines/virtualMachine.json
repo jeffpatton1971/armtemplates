@@ -965,7 +965,7 @@
                         "caching": "[variables('Disks')[copyIndex('dataDisks')].caching]",
                         "lun": "[variables('Disks')[copyIndex('dataDisks')].lun]",
                         "managedDisk": {
-                          "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/disks/',concat(variables('DataDiskName'),padleft(add(copyIndex('dataDisks'),1),2,'0')))]"
+                          "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/disks/',variables('Disks')[copyIndex('dataDisks')].name)]"
                         },
                         "createOption": "Attach"
                       }
