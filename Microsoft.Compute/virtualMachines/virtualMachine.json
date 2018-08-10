@@ -2,6 +2,9 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "2018.08.01.0",
   "parameters": {
+    "Name": {
+      "type": "string"
+    },
     "AvailabilitySetName": {
       "type": "string"
     },
@@ -16,9 +19,6 @@
     },
     "DataDisks": {
       "type": "array"
-    },
-    "VirtualMachineName": {
-      "type": "string"
     },
     "LicenseType": {
       "type": "string",
@@ -343,7 +343,7 @@
     }
   },
   "variables": {
-    "NamePrefix": "[toLower(parameters('VirtualMachineName'))]",
+    "NamePrefix": "[toLower(parameters('Name'))]",
     "VirtualNetworkId": "[resourceId(parameters('VirtualNetworkResourceGroupName'),'Microsoft.Network/virtualNetworks/',parameters('VirtualNetworkName'))]",
     "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('SubnetName'))]",
     "NetworkInterfaceName": "[concat(variables('NamePrefix'),'-nic')]",
@@ -817,7 +817,7 @@
     "imageReference": "[if(empty(parameters('imageReferenceId')),variables('imageReferenceArray')[0],variables('imageReferenceArray')[1])]",
     "osProfileArray": [
       {
-        "computerName": "[parameters('VirtualMachineName')]",
+        "computerName": "[parameters('Name')]",
         "adminUsername": "[parameters('AdminUserName')]",
         "adminPassword": "[parameters('AdminPassword')]",
         "linuxConfiguration": {
@@ -828,7 +828,7 @@
         }
       },
       {
-        "computerName": "[parameters('VirtualMachineName')]",
+        "computerName": "[parameters('Name')]",
         "adminUsername": "[parameters('AdminUsername')]",
         "adminPassword": "[parameters('AdminPassword')]",
         "windowsConfiguration": {
@@ -925,7 +925,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
-      "name": "[concat(parameters('VirtualMachineName'),'_',variables('diskCount'),'_disks')]",
+      "name": "[concat(parameters('Name'),'_',variables('diskCount'),'_disks')]",
       "condition": "[greaterOrEquals(variables('isPresent'),1)]",
       "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
       "properties": {
@@ -937,7 +937,7 @@
             {
               "apiVersion": "2017-03-30",
               "type": "Microsoft.Compute/virtualMachines",
-              "name": "[parameters('VirtualMachineName')]",
+              "name": "[parameters('Name')]",
               "location": "[resourceGroup().location]",
               "dependsOn": [],
               "properties": {
@@ -994,7 +994,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
-      "name": "[concat(parameters('VirtualMachineName'),'_0_disks')]",
+      "name": "[concat(parameters('Name'),'_0_disks')]",
       "condition": "[equals(variables('isPresent'),0)]",
       "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
       "properties": {
@@ -1006,7 +1006,7 @@
             {
               "apiVersion": "2017-03-30",
               "type": "Microsoft.Compute/virtualMachines",
-              "name": "[parameters('VirtualMachineName')]",
+              "name": "[parameters('Name')]",
               "location": "[resourceGroup().location]",
               "dependsOn": [],
               "properties": {

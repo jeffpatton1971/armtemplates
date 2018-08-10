@@ -27,7 +27,7 @@
         }
       ]
     },
-    "VirtualMachineName": {
+    "Name": {
       "value": "vm01"
     },
     "LicenseType": {
