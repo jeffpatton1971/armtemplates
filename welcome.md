@@ -1,6 +1,10 @@
 # Rackspace Build Wiki
 Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that are used, and processes that are followed to deploy a customer environment into Azure.
 
+# TODO
+- Need to update the build environments to accomodate new template locations and udpates
+- Need a domain join DSC/Runbook
+
 # Change Log
 - 08/14 : Updated avset for VM template to accomodate an existing avset with differing faultdomain/updatedomain values
 - 08/14 : Updated RSV template to leverage the timeZone property in the same fashion the VM template does, pull from deployed region, or passed in via param. Also added tag support as that was missing.
@@ -13,3 +17,4 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 08/02 : Added the domainjoin extension
 - 08/02 : Updated loadBalancer template to accomodate both public and private load balancers
 - 08/01 : Added support for passing datadisk names
+- 08/01 : Added caching support to the build schema
