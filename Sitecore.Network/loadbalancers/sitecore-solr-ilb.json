@@ -95,7 +95,28 @@
     "LoadBalancingRuleName": "[tolower(concat(parameters('name'),'-8983'))]",
     "vnetId": "[resourceId(parameters('NetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks',parameters('NetworkName'))]",
     "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('SubnetName'))]",
-    "requestPath": "[if(equals(parameters('SitecoreVersion'),'v9'),'/solr/XP1PROD_core_index/admin/ping','/solr/sitecore_web_index/admin/ping')]",
+    "probes": [
+      {
+        "name": "[variables('LoadbalancingProbeName')]",
+        "properties": {
+          "protocol": "Tcp",
+          "port": 8983,
+          "intervalInSeconds": 5,
+          "numberOfProbes": 2
+        }
+      },
+      {
+        "name": "[variables('LoadbalancingProbeName')]",
+        "properties": {
+          "protocol": "Http",
+          "port": 8983,
+          "requestPath": "/solr/sitecore_web_index/admin/ping",
+          "intervalInSeconds": 5,
+          "numberOfProbes": 2
+        }
+      }
+    ],
+    "probe": "[if(equals(parameters('SitecoreVersion'),'v9'),variables('probes')[0],variables('probes')[1])]",
     "tags": {
       "displayName": "InternalLoadBalancer",
       "Environment": "[parameters('environment')]",
@@ -151,18 +172,7 @@
             }
           }
         ],
-        "probes": [
-          {
-            "name": "[variables('LoadbalancingProbeName')]",
-            "properties": {
-              "protocol": "Http",
-              "port": 8983,
-              "requestPath": "[variables('requestPath')]",
-              "intervalInSeconds": 5,
-              "numberOfProbes": 2
-            }
-          }
-        ]
+        "probes": "[createArray(variables('probe'))]"
       },
       "tags": "[variables('tags')]"
     }
