@@ -284,6 +284,14 @@
       "type": "string",
       "defaultValue": ""
     },
+    "platformUpdateDomainCount": {
+      "type": "int",
+      "defaultValue": 5
+    },
+    "platformFaultDomainCount": {
+      "type": "int",
+      "defaultValue": 3
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -854,8 +862,8 @@
         "name": "Aligned"
       },
       "properties": {
-        "platformUpdateDomainCount": 5,
-        "platformFaultDomainCount": 3
+        "platformUpdateDomainCount": "[parameters('platformUpdateDomainCount')]",
+        "platformFaultDomainCount": "[parameters('platformFaultDomainCount')]"
       }
     },
     {
