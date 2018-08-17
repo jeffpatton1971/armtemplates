@@ -21,9 +21,10 @@
       "type": "string",
       "allowedValues": [
         "None",
-        "WindowsServer",
-        "WindowsClient"
-      ]
+        "Windows_Server",
+        "Windows_Client"
+      ],
+      "defaultValue": "None"
     },
     "Size": {
       "type": "string",
