@@ -6,6 +6,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need a domain join DSC/Runbook
 
 # Change Log
+- 08/27 : Updated VM/VMSS added interface object that contains, VirtualNetworkResourceGroupName, VirtualNetworkName, SubnetName, and Name. This will make copy/paste operations between the schema and template easier.
 - 08/17 : Updated VM/VMSS LicenseType param to proper values, Windows_Server, Windows_Client and set a defaultValue to None.
 - 08/14 : Updated the siteCore LB template to properly work with v9 solr.  As the new solr requires the use of SSL the old ping path will fail, probe must use tcp 8983.
 - 08/14 : Updated avset for VM template to accomodate an existing avset with differing faultdomain/updatedomain values
