@@ -5,14 +5,13 @@
     "AvailabilitySetName": {
       "value": "vm01-avset"
     },
-    "VirtualNetworkName": {
-      "value": "vnet-ERPServicesWest"
-    },
-    "VirtualNetworkResourceGroupName": {
-      "value": "rg-vnet-ERPServicesWest"
-    },
-    "SubnetName": {
-      "value": "sb-atlassian"
+    "Interface": {
+      "value": {
+        "name": "vm01-avset-nic",
+        "VirtualNetworkResourceGroupName": "rg-vnet-ERPServicesWest",
+        "VirtualNetworkName": "vnet-ERPServicesWest",
+        "SubnetName": "sb-atlassian"
+      }
     },
     "DataDisks": {
       "value": [

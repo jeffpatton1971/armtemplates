@@ -8,14 +8,8 @@
     "AvailabilitySetName": {
       "type": "string"
     },
-    "VirtualNetworkName": {
-      "type": "string"
-    },
-    "VirtualNetworkResourceGroupName": {
-      "type": "string"
-    },
-    "SubnetName": {
-      "type": "string"
+    "Interface":{
+      "type" : "object"
     },
     "DataDisks": {
       "type": "array"
@@ -353,10 +347,10 @@
   },
   "variables": {
     "NamePrefix": "[toLower(parameters('Name'))]",
-    "VirtualNetworkId": "[resourceId(parameters('VirtualNetworkResourceGroupName'),'Microsoft.Network/virtualNetworks/',parameters('VirtualNetworkName'))]",
-    "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('SubnetName'))]",
-    "NetworkInterfaceName": "[concat(variables('NamePrefix'),'-nic')]",
-    "NetworkInterfaceIpConfigurationName": "[concat(variables('NamePrefix'),'-ipc')]",
+    "VirtualNetworkId": "[resourceId(parameters('Interface').VirtualNetworkResourceGroupName,'Microsoft.Network/virtualNetworks/',parameters('Interface').VirtualNetworkName)]",
+    "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('Interface').SubnetName)]",
+    "NetworkInterfaceName": "[parameters('Interface').name]",
+    "NetworkInterfaceIpConfigurationName": "[concat(variables('NetworkInterfaceName'),'-ipc')]",
     "Disk": {
       "p4": {
         "size": 32,
