@@ -3,9 +3,13 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 
 # TODO
 - Need to update the build environments to accomodate new template locations and udpates
-- Need a domain join DSC/Runbook
+- Need Domain Setup DSC/Script with ordering for bringing up 2 DC's in sequence
+- Need to update Schema to add DB Tier and Sizing options
+- Need script to change Temp Drive
+- Need Script/DSC to make local admin/admingroup sql sysad's
 
 # Change Log
+- 08/27 : Updated LB/APPWG added network object that contains, VirtualNetworkResourceGroupname, VirtualNetworkName and SubnetName. This will make copy/paste operations between schema and template easier.
 - 08/27 : Updated VM/VMSS added interface object that contains, VirtualNetworkResourceGroupName, VirtualNetworkName, SubnetName, and Name. This will make copy/paste operations between the schema and template easier.
 - 08/17 : Updated VM/VMSS LicenseType param to proper values, Windows_Server, Windows_Client and set a defaultValue to None.
 - 08/14 : Updated the siteCore LB template to properly work with v9 solr.  As the new solr requires the use of SSL the old ping path will fail, probe must use tcp 8983.

@@ -5,14 +5,12 @@
     "name": {
       "value": ""
     },
-    "VirtualNetworkResourceGroupName": {
-      "value": ""
-    },
-    "VirtualNetworkName": {
-      "value": ""
-    },
-    "SubnetName": {
-      "value": ""
+    "Network": {
+      "value": {
+        "VirtualNetworkResourceGroupName": "",
+        "VirtualNetworkName": "",
+        "SubnetName": ""
+      }
     },
     "loadBalancingRules": {
       "value": [

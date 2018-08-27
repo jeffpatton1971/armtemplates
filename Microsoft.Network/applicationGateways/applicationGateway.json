@@ -5,14 +5,8 @@
     "name": {
       "type": "string"
     },
-    "VirtualNetworkResourceGroupName": {
-      "type": "string"
-    },
-    "VirtualNetworkName": {
-      "type": "string"
-    },
-    "SubnetName": {
-      "type": "string"
+    "Network": {
+      "type": "object"
     },
     "applicationGatewayRules": {
       "type": "array"
@@ -114,8 +108,8 @@
     "ApplicationGatewayRuleName": "[concat(parameters('name'),'-rul')]",
     "LoadbalancingProbeName": "[concat(parameters('name'),'-prb')]",
     "PublicIpAddressName": "[concat(parameters('name'),'-pip')]",
-    "vnetId": "[resourceId(parameters('VirtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks',parameters('VirtualNetworkName'))]",
-    "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('SubnetName'))]",
+    "vnetId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName)]",
+    "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('Network').SubnetName)]",
     "SkuNamePass1": "[concat(parameters('Tier'),'_',parameters('Size'))]",
     "SkuName": "[if(equals(variables('SkuNamePass1'),'WAF_Small'),'WAF_Medium',variables('SkuNamePass1'))]",
     "Sku": {

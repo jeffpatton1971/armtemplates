@@ -5,14 +5,12 @@
     "name": {
       "value": "appgw"
     },
-    "VirtualNetworkResourceGroupName": {
-      "value": ""
-    },
-    "VirtualNetworkName": {
-      "value": ""
-    },
-    "SubnetName": {
-      "value": ""
+    "Network": {
+      "value": {
+        "VirtualNetworkResourceGroupName": "",
+        "VirtualNetworkName": "",
+        "SubnetName": ""
+      }
     },
     "applicationGatewayRules": {
       "value": [
