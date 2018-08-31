@@ -2,14 +2,17 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "2018.08.01.0",
   "parameters": {
-    "OMSworkspaceName": {
+    "Name": {
       "value": ""
     },
-    "OMSserviceTier": {
+    "Tier": {
       "value": "pernode"
     },
-    "OMSlocation": {
+    "Location": {
       "value": "East US"
+    },
+    "environment": {
+      "value": "Development"
     },
     "buildDate": {
       "value": "09/01/2018"
