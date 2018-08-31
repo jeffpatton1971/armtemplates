@@ -9,6 +9,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need Script/DSC to make local admin/admingroup sql sysad's
 
 # Change Log
+- 08/31 : Updated OMS Template, modified parameters to remove redundant OMS from name, also udpated parameter file with missing environment param
 - 08/27 : Updated LB/APPWG added network object that contains, VirtualNetworkResourceGroupname, VirtualNetworkName and SubnetName. This will make copy/paste operations between schema and template easier.
 - 08/27 : Updated VM/VMSS added interface object that contains, VirtualNetworkResourceGroupName, VirtualNetworkName, SubnetName, and Name. This will make copy/paste operations between the schema and template easier.
 - 08/17 : Updated VM/VMSS LicenseType param to proper values, Windows_Server, Windows_Client and set a defaultValue to None.
