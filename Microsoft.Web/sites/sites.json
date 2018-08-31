@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
-  "contentVersion": "1.0.0.0",
+  "contentVersion": "2018.08.01.0",
   "parameters": {
     "Name": {
       "type": "string",
@@ -20,6 +20,92 @@
       "metadata": {
         "description": "The name of the App Service Environment where the app service plan will be created."
       }
+    },
+    "netFrameworkVersion": {
+      "type": "string",
+      "defaultValue": "v4.6",
+      "allowedValues": [
+        "v3.5",
+        "v4.7"
+      ]
+    },
+    "phpVersion": {
+      "type": "string",
+      "defaultValue": "Off",
+      "allowedValues": [
+        "Off",
+        "5.5",
+        "5.6",
+        "7.0",
+        "7.1"
+      ]
+    },
+    "pythonVersion": {
+      "type": "string",
+      "defaultValue": "Off",
+      "allowedValues": [
+        "Off",
+        "2.7",
+        "3.4"
+      ]
+    },
+    "32Bit": {
+      "type": "string",
+      "defaultValue": "false",
+      "allowedValues": [
+        "true",
+        "false"
+      ]
+    },
+    "webSockets": {
+      "type": "string",
+      "defaultValue": "false",
+      "allowedValues": [
+        "true",
+        "false"
+      ]
+    },
+    "alwaysOn": {
+      "type": "string",
+      "defaultValue": "true",
+      "allowedValues": [
+        "true",
+        "false"
+      ]
+    },
+    "webServerLogging": {
+      "type": "string",
+      "defaultValue": "true",
+      "allowedValues": [
+        "true",
+        "false"
+      ]
+    },
+    "detailedErrors": {
+      "type": "string",
+      "defaultValue": "true",
+      "allowedValues": [
+        "true",
+        "false"
+      ]
+    },
+    "failedRequestTrace": {
+      "type": "string",
+      "defaultValue": "true",
+      "allowedValues": [
+        "true",
+        "false"
+      ]
+    },
+    "clientAffinityEnabled": {
+      "type": "string",
+      "defaultValue": "false"
+    },
+    "logSize": {
+      "type": "int",
+      "defaultValue": 25,
+      "minValue": 25,
+      "maxValue": 100
     },
     "environment": {
       "type": "string",
@@ -97,6 +183,19 @@
       "dependsOn": [],
       "properties": {
         "serverFarmId": "[resourceId('Microsoft.Web/serverFarms',parameters('AspName'))]",
+        "siteConfig": {
+          "netFrameworkVersion": "[parameters('netFrameworkVersion')]",
+          "PhpVersion": "[parameters('phpVersion')]",
+          "pythonVersion": "[parameters('pythonVersion')]",
+          "use32BitWorkerProcess": "[parameters('32Bit')]",
+          "webSocketsEnabled": "[parameters('webSockets')]",
+          "alwaysOn": "[parameters('alwaysOn')]",
+          "requestTracingEnabled": "[parameters('failedRequestTrace')]",
+          "httpLoggingEnabled": "[parameters('webServerLogging')]",
+          "logsDirectorySizeLimit": "[parameters('logSize')]",
+          "detailedErrorLoggingEnabled": "[parameters('detailedErrors')]"
+        },
+        "clientAffinityEnabled": "[parameters('clientAffinityEnabled')]",
         "hostingEnvironmentProfile": "[variables('hostingEnvironmentProfile')]"
       },
       "tags": "[variables('tags')]"
