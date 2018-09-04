@@ -2,28 +2,23 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "2018.08.01.0",
   "parameters": {
-    "VirtualNetworkName": {
+    "Name": {
       "type": "string"
     },
-    "VirtualNetworkResourceGroupName": {
-      "type": "string"
-    },
-    "SubnetName": {
-      "type": "string"
+    "Interface":{
+      "type" : "object"
     },
     "DataDisks": {
       "type": "array"
-    },
-    "VirtualMachineName": {
-      "type": "string"
     },
     "LicenseType": {
       "type": "string",
       "allowedValues": [
         "None",
-        "WindowsServer",
-        "WindowsClient"
-      ]
+        "Windows_Server",
+        "Windows_Client"
+      ],
+      "defaultValue": "None"
     },
     "Size": {
       "type": "string",
@@ -277,6 +272,10 @@
     "AdminPassword": {
       "type": "securestring"
     },
+    "TimeZone": {
+      "type": "string",
+      "defaultValue": ""
+    },
     "Count": {
       "type": "int",
       "minValue": 1,
@@ -342,11 +341,11 @@
     }
   },
   "variables": {
-    "NamePrefix": "[toLower(parameters('VirtualMachineName'))]",
-    "VirtualNetworkId": "[resourceId(parameters('VirtualNetworkResourceGroupName'),'Microsoft.Network/virtualNetworks/',parameters('VirtualNetworkName'))]",
-    "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('SubnetName'))]",
-    "NetworkInterfaceName": "[concat(variables('NamePrefix'),'-nic')]",
-    "NetworkInterfaceIpConfigurationName": "[concat(variables('NamePrefix'),'-ipc')]",
+    "NamePrefix": "[toLower(parameters('Name'))]",
+    "VirtualNetworkId": "[resourceId(parameters('Interface').VirtualNetworkResourceGroupName,'Microsoft.Network/virtualNetworks/',parameters('Interface').VirtualNetworkName)]",
+    "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('Interface').SubnetName)]",
+    "NetworkInterfaceName": "[parameters('Interface').name]",
+    "NetworkInterfaceIpConfigurationName": "[concat(variables('NetworkInterfaceName'),'-ipc')]",
     "Disk": {
       "p4": {
         "size": 32,
@@ -644,15 +643,55 @@
     },
     "OS": "[if(empty(parameters('GalleryImage')),variables('OsArray')[parameters('OperatingSystem')],parameters('GalleryImage'))]",
     "regions": {
-      "southcentralus": {
-        "location": "southcentralus",
-        "abbreviation": "scu",
-        "timezone": "Central Standard Time"
+      "australiacentral": {
+        "location": "australiacentral",
+        "abbreviation": "ace",
+        "timezone": "E. Australia Standard Time"
+      },
+      "australiacentral2": {
+        "location": "australiacentral2",
+        "abbreviation": "ac2",
+        "timezone": "E. Australia Standard Time"
+      },
+      "australiaeast": {
+        "location": "australiaeast",
+        "abbreviation": "aue",
+        "timezone": "E. Australia Standard Time"
+      },
+      "australiasoutheast": {
+        "location": "australiasoutheast",
+        "abbreviation": "ase",
+        "timezone": "E. Australia Standard Time"
+      },
+      "brazilsouth": {
+        "location": "brazilsouth",
+        "abbreviation": "bzs",
+        "timezone": "Central Brazilian Standard Time"
+      },
+      "canadacentral": {
+        "location": "canadacentral",
+        "abbreviation": "cac",
+        "timezone": "Canada Central Standard Time"
+      },
+      "canadaeast": {
+        "location": "canadaeast",
+        "abbreviation": "cae",
+        "timezone": "Eastern Standard Time"
+      },
+      "centralindia": {
+        "location": "centralindia",
+        "abbreviation": "cin",
+        "timezone": "India Standard Time"
       },
       "centralus": {
         "location": "southcentralus",
         "abbreviation": "cus",
         "timezone": "Central Standard Time"
+      },
+      "eastasia": {
+        "location": "eastasia",
+        "abbreviation": "eas",
+        "timezone": "SE Asia Standard Time"
       },
       "eastus": {
         "location": "eastus",
@@ -663,6 +702,86 @@
         "location": "eastus2",
         "abbreviation": "eus",
         "timezone": "Eastern Standard Time"
+      },
+      "francecentral": {
+        "location": "francecentral",
+        "abbreviation": "frc",
+        "timezone": "Romance Standard Time"
+      },
+      "francesouth": {
+        "location": "francesouth",
+        "abbreviation": "frs",
+        "timezone": "Romance Standard Time"
+      },
+      "japaneast": {
+        "location": "japaneast",
+        "abbreviation": "jpe",
+        "timezone": "Tokyo Standard Time"
+      },
+      "japanwest": {
+        "location": "japanwest",
+        "abbreviation": "jpw",
+        "timezone": "Tokyo Standard Tim"
+      },
+      "koreacentral": {
+        "location": "koreacentral",
+        "abbreviation": "kce",
+        "timezone": "Korea Standard Time"
+      },
+      "koreasouth": {
+        "location": "koreasouth",
+        "abbreviation": "kos",
+        "timezone": "Korea Standard Time"
+      },
+      "northcentralus": {
+        "location": "northcentralus",
+        "abbreviation": "ncu",
+        "timezone": "Central Standard Time"
+      },
+      "northeurope": {
+        "location": "northeurope",
+        "abbreviation": "neu",
+        "timezone": "GMT Standard Time"
+      },
+      "southcentralus": {
+        "location": "southcentralus",
+        "abbreviation": "scu",
+        "timezone": "Central Standard Time"
+      },
+      "southeastasia": {
+        "location": "southeastasia",
+        "abbreviation": "sea",
+        "timezone": "SE Asia Standard Time"
+      },
+      "southindia": {
+        "location": "southindia",
+        "abbreviation": "soi",
+        "timezone": "India Standard Time"
+      },
+      "uksouth": {
+        "location": "uksouth",
+        "abbreviation": "uks",
+        "timezone": "GMT Standard Time"
+      },
+      "ukwest": {
+        "location": "ukwest",
+        "abbreviation": "ukw",
+        "timezone": "GMT Standard Time"
+      },
+      "westcentralus": {
+        "location": "westcentralus",
+        "abbreviation": "wcu",
+        "timezone": "Pacific Standard Time"
+      },
+      "westeurope": {
+        "location": "westeurope",
+        "abbreviation": "weu",
+        "timezone": "GMT Standard Time"
+      },
+      "westindia": {
+        "location": "westindia",
+        "abbreviation": "win",
+        "timezone": "India Standard Time"
       },
       "westus": {
         "location": "westus",
@@ -675,6 +794,7 @@
         "timezone": "Pacific Standard Time"
       }
     },
+    "timeZone": "[if(empty(parameters('TimeZone')),variables('regions')[resourceGroup().location].timezone,parameters('Timezone'))]",
     "tags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
@@ -695,7 +815,7 @@
     "imageReference": "[if(empty(parameters('imageReferenceId')),variables('imageReferenceArray')[0],variables('imageReferenceArray')[1])]",
     "osProfileArray": [
       {
-        "computerName": "[parameters('VirtualMachineName')]",
+        "computerName": "[parameters('Name')]",
         "adminUsername": "[parameters('AdminUserName')]",
         "adminPassword": "[parameters('AdminPassword')]",
         "linuxConfiguration": {
@@ -706,12 +826,12 @@
         }
       },
       {
-        "computerName": "[parameters('VirtualMachineName')]",
+        "computerName": "[parameters('Name')]",
         "adminUsername": "[parameters('AdminUsername')]",
         "adminPassword": "[parameters('AdminPassword')]",
         "windowsConfiguration": {
           "provisionVMAgent": true,
-          "timeZone": "[variables('regions')[resourceGroup().location].timezone]"
+          "timeZone": "[variables('timezone')]"
         }
       }
     ],
@@ -791,7 +911,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
-      "name": "[concat(parameters('VirtualMachineName'),'_',variables('diskCount'),'_disks')]",
+      "name": "[concat(parameters('Name'),'_',variables('diskCount'),'_disks')]",
       "condition": "[greaterOrEquals(variables('isPresent'),1)]",
       "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
       "properties": {
@@ -803,7 +923,7 @@
             {
               "apiVersion": "2017-12-01",
               "type": "Microsoft.Compute/virtualMachineScaleSets",
-              "name": "[parameters('VirtualMachineName')]",
+              "name": "[parameters('Name')]",
               "location": "[resourceGroup().location]",
               "dependsOn": [],
               "sku": {
@@ -863,7 +983,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
-      "name": "[concat(parameters('VirtualMachineName'),'_0_disks')]",
+      "name": "[concat(parameters('Name'),'_0_disks')]",
       "condition": "[equals(variables('isPresent'),0)]",
       "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
       "properties": {
@@ -875,7 +995,7 @@
             {
               "apiVersion": "2017-12-01",
               "type": "Microsoft.Compute/virtualMachineScaleSets",
-              "name": "[parameters('VirtualMachineName')]",
+              "name": "[parameters('Name')]",
               "location": "[resourceGroup().location]",
               "dependsOn": [],
               "sku": {

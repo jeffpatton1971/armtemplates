@@ -19,6 +19,18 @@
     },
     "daysOfTheWeek": {
       "value": [ "Sunday" ]
+    },
+    "environment": {
+      "value": "Development"
+    },
+    "buildDate": {
+      "value": "09/01/2018"
+    },
+    "buildBy": {
+      "value": "jeffrey.patton2@rackspace.com"
+    },
+    "RaxAutomationExclude": {
+      "value": "None"
     }
   }
 }

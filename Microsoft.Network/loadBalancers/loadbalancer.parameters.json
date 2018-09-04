@@ -5,14 +5,12 @@
     "name": {
       "value": ""
     },
-    "VirtualNetworkResourceGroupName": {
-      "value": ""
-    },
-    "VirtualNetworkName": {
-      "value": ""
-    },
-    "SubnetName": {
-      "value": ""
+    "Network": {
+      "value": {
+        "VirtualNetworkResourceGroupName": "",
+        "VirtualNetworkName": "",
+        "SubnetName": ""
+      }
     },
     "loadBalancingRules": {
       "value": [
@@ -36,7 +34,7 @@
       "value": "Development"
     },
     "buildDate": {
-      "value": "06/07/2018"
+      "value": "09/01/2018"
     },
     "buildBy": {
       "value": "jeffrey.patton2@rackspace.com"

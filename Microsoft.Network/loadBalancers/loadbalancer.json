@@ -5,14 +5,8 @@
     "name": {
       "type": "string"
     },
-    "VirtualNetworkResourceGroupName": {
-      "type": "string"
-    },
-    "VirtualNetworkName": {
-      "type": "string"
-    },
-    "SubnetName": {
-      "type": "string"
+    "Network": {
+      "type": "object"
     },
     "loadBalancingRules": {
       "type": "array"
@@ -97,8 +91,8 @@
     "BackendAddressPoolName": "[concat(parameters('name'),'-bep')]",
     "LoadBalancingRuleName": "[concat(parameters('name'),'-rul')]",
     "LoadbalancingProbeName": "[concat(parameters('name'),'-prb')]",
-    "vnetId": "[resourceId(parameters('VirtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks',parameters('VirtualNetworkName'))]",
-    "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('SubnetName'))]",
+    "vnetId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName)]",
+    "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('Network').SubnetName)]",
     "isExternal": "[if(parameters('ExternalLoadBalancer'),0,1)]",
     "tags": {
       "Environment": "[parameters('environment')]",
