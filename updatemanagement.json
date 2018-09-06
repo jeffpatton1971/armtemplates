@@ -1,0 +1,252 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "automationAccountName": {
+      "type": "string",
+      "defaultValue": "updatetry1"
+    },
+    "updatedeploymentName": {
+      "type": "string",
+      "defaultValue": "Tier1VMs"
+    },
+    "operatingSystem": {
+      "type": "string",
+      "defaultValue": "Windows",
+      "allowedValues": [
+        "Windows",
+        "Linux"
+      ]
+    },
+    "includedUpdateClassifications": {
+      "type": "string",
+      "defaultValue": "Critical, Security, UpdateRollup, FeaturePack, ServicePack, Definition, Tools, Updates"
+    },
+    "excludedKbNumbers": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "includedKbNumbers": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "includedPackageClassifications": {
+      "type": "string",
+      "defaultValue": "Critical, Security, Other"
+    },
+    "excludedPackageNameMasks": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "includedPackageNameMasks": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "rebootSetting": {
+      "type": "string",
+      "defaultValue": "IfRequired"
+    },
+    "duration": {
+      "type": "string",
+      "defaultValue": "PT2H"
+    },
+    "scheduleInfo": {
+      "type": "object",
+      "defaultValue": {
+        "startTime": "2018-07-4T02:55:00-04:00",
+        "expiryTime": "9999-12-31T18:59:00-05:00",
+        "timeZone": "America/New_York",
+        "interval": 1,
+        "frequency": "Month",
+        "advancedSchedule": {
+          "monthDays": null,
+          "monthlyOccurrences": [
+            {
+              "day": "Sunday",
+              "occurrence": 1
+            }
+          ],
+          "weekDays": null
+        }
+      }
+    },
+    "azureVirtualMachines": {
+      "type": "array",
+      "defaultValue": [
+        {
+          "ResourceGroupName": "wu2-serg0734-ws2",
+          "Name": "ws20121"
+        },
+        {
+          "ResourceGroupName": "WU2-SERG0734-OracleDB",
+          "Name": "OracleDB01"
+        }
+      ]
+    },
+    "nonAzureComputerNames": {
+      "type": "array",
+      "defaultValue": []
+    }
+  },
+  "variables": {
+    "azureVirtualMachine": "[deployment().properties.template.variables.azureVirtualMachine]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "get-VMid-0",
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {
+          },
+          "variables": {
+          },
+          "resources": [
+          ],
+          "outputs": {
+            "vmID": {
+              "type": "array",
+              "value": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "[concat('get-VMid-',copyIndex(1))]",
+      "condition": "[greater(length(parameters('azureVirtualMachines')), 0)]",
+      "dependsOn": [ "get-VMid-0" ],
+      "copy": {
+        "name": "iazureVirtualMachine",
+        "count": "[length(parameters('azureVirtualMachines'))]",
+        "mode": "Serial"
+      },
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {
+          },
+          "variables": {
+            "azureVirtualMachine": "[resourceId(parameters('azureVirtualMachines')[copyIndex()].ResourceGroupName,'Microsoft.Compute/virtualMachines',parameters('azureVirtualMachines')[copyIndex()].Name)]"
+          },
+          "resources": [
+          ],
+          "outputs": {
+            "vmID": {
+              "type": "array",
+              "value": "[union(array(deployment().properties.template.variables.azureVirtualMachine),reference(concat('get-VMid-',copyIndex())).outputs.vmID.value)]"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "dependsOn": [ "iazureVirtualMachine" ],
+      "apiVersion": "2017-05-10",
+      "name": "set-softwareUpdateConfigurations-Windows",
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {
+          },
+          "variables": {
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Automation/automationAccounts/softwareUpdateConfigurations",
+              "name": "[concat(parameters('automationAccountName'), '/', parameters('updatedeploymentName'),'-Windows')]",
+              "condition": "[equals(parameters('operatingSystem'),'Windows')]",
+              "apiVersion": "2017-05-15-preview",
+              "properties": {
+                "updateConfiguration": {
+                  "operatingSystem": "Windows",
+                  "windows": {
+                    "includedUpdateClassifications": "[parameters('includedUpdateClassifications')]",
+                    "excludedKbNumbers": "[parameters('excludedKbNumbers')]",
+                    "includedKbNumbers": "[parameters('includedKbNumbers')]",
+                    "rebootSetting": "[parameters('rebootSetting')]"
+                  },
+                  "duration": "[parameters('duration')]",
+                  "azureVirtualMachines": "[reference(concat('get-VMid-',length(parameters('azureVirtualMachines')))).outputs.vmID.value]",
+                  "nonAzureComputerNames": "[parameters('nonAzureComputerNames')]"
+                },
+                "scheduleInfo": {
+                  "startTime": "[parameters('scheduleInfo').startTime]",
+                  "expiryTime": "[parameters('scheduleInfo').expiryTime]",
+                  "interval": "[parameters('scheduleInfo').interval]",
+                  "frequency": "[parameters('scheduleInfo').frequency]",
+                  "timeZone": "[parameters('scheduleInfo').timeZone]",
+                  "advancedSchedule": "[parameters('scheduleInfo').advancedSchedule]"
+                }
+              }
+            }
+          ],
+          "outputs": {
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "dependsOn": [ "iazureVirtualMachine" ],
+      "apiVersion": "2017-05-10",
+      "name": "set-softwareUpdateConfigurations-Linux",
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {
+          },
+          "variables": {
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Automation/automationAccounts/softwareUpdateConfigurations",
+              "name": "[concat(parameters('automationAccountName'), '/', parameters('updatedeploymentName'),'-Linux')]",
+              "condition": "[equals(parameters('operatingSystem'),'Linux')]",
+              "apiVersion": "2017-05-15-preview",
+              "properties": {
+                "updateConfiguration": {
+                  "operatingSystem": "Linux",
+                  "linux": {
+                    "includedPackageClassifications": "[parameters('includedPackageClassifications')]",
+                    "excludedPackageNameMasks": "[parameters('excludedPackageNameMasks')]",
+                    "includedPackageNameMasks": "[parameters('includedPackageNameMasks')]",
+                    "rebootSetting": "[parameters('rebootSetting')]"
+                  },
+                  "duration": "[parameters('duration')]",
+                  "azureVirtualMachines": "[reference(concat('get-VMid-',length(parameters('azureVirtualMachines')))).outputs.vmID.value]",
+                  "nonAzureComputerNames": "[parameters('nonAzureComputerNames')]"
+                },
+                "scheduleInfo": {
+                  "startTime": "[parameters('scheduleInfo').startTime]",
+                  "expiryTime": "[parameters('scheduleInfo').expiryTime]",
+                  "interval": "[parameters('scheduleInfo').interval]",
+                  "frequency": "[parameters('scheduleInfo').frequency]",
+                  "timeZone": "[parameters('scheduleInfo').timeZone]",
+                  "advancedSchedule": "[parameters('scheduleInfo').advancedSchedule]"
+                }
+              }
+            }
+          ],
+          "outputs": {
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {
+  }
+}
