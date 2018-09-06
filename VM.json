@@ -1,0 +1,584 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "buildDate": {
+      "type": "string",
+      "metadata": {
+        "description": "Date of this build"
+      },
+      "defaultValue": "01/01/2999"
+    },
+    "buildBy": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the engineer who build this environment"
+      },
+      "defaultValue": "First.Last@company.com"
+    },
+    "vmName": {
+      "type": "string",
+      "metadata": {
+        "description": "Computer name prefix"
+      },
+      "minLength": 2,
+      "maxLength": 30,
+      "defaultValue": "EUSWS2012AP01"
+    },
+    "vmOSVHDstorageAcc": {
+      "type": "string",
+      "metadata": {
+        "description": "Storage Account Name for OS VHDs"
+      },
+      "defaultValue": "usemanageddisk"
+    },
+    "osDisksize": {
+      "type": "int",
+      "defaultValue": 128,
+      "metadata": {
+        "description": "Size of OS Disk, GB"
+      }
+    },
+    "dataDisks": {
+      "type": "array",
+      "defaultValue": []
+    },
+    "VMAdminUserName": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[concat(parameters('vmName'),'-admn')]"
+    },
+    "VMAdminPassword": {
+      "type": "securestring"
+    },
+    "VMAdminSSHKey": {
+      "type": "string",
+      "defaultValue": "none"
+    },
+    "VMImagePublisher": {
+      "type": "string",
+      "defaultValue": "MicrosoftWindowsServer"
+    },
+    "VMImageOffer": {
+      "type": "string",
+      "defaultValue": "WindowsServer"
+    },
+    "VMImageSku": {
+      "type": "string",
+      "defaultValue": "2012-R2-Datacenter"
+    },
+    "VMImageVersion": {
+      "type": "string",
+      "defaultValue": "latest"
+    },
+    "vnetRGName": {
+      "type": "string",
+      "defaultValue": "WUS_VNET01",
+      "minLength": 1,
+      "metadata": {
+        "description": "Name of the Resource Group where VNET is"
+      }
+    },
+    "vnetName": {
+      "type": "string",
+      "defaultValue": "WUS_VNET01",
+      "minLength": 1,
+      "metadata": {
+        "description": "Name of an existing vnet"
+      }
+    },
+    "subnetName": {
+      "type": "string",
+      "defaultValue": "Test",
+      "minLength": 1,
+      "metadata": {
+        "description": "Name of the Subnet inside of the provided VNET where you want to deploy this Virtual Machine."
+      }
+    },
+    "VmSize": {
+      "type": "string",
+      "defaultValue": "Standard_D2s_v3"
+    },
+    "availabilitySetName": {
+      "type": "string",
+      "defaultValue": "availabilitySetName"
+    },
+    "enableAcceleratedNetworking": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "enableIPForwarding": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "privateIPAddress": {
+      "type": "string",
+      "defaultValue": "firstAvailableIp"
+    },
+    "timeZone": {
+      "type": "string",
+      "defaultValue": "Pacific Standard Time",
+      "allowedValues": [
+        "Pacific Standard Time",
+        "Eastern Standard Time",
+        "Central Standard Time",
+        "UTC",
+        "W. Europe Standard Time"
+      ]
+    },
+    "osProfile": {
+      "type": "string",
+      "defaultValue": "Generic",
+      "allowedValues": [
+        "Generic",
+        "Windows",
+        "Linux_SSHKEY_and_PWD",
+        "Linux_SSHKEY_noPWD"
+      ]
+    },
+    "osDiskSku": {
+      "type": "string",
+      "defaultValue": "p10"
+    },
+    "LicenseType": {
+      "type": "string",
+      "defaultValue": "None",
+      "allowedValues": [
+        "None",
+        "WindowsServer",
+        "WindowsClient"
+      ]
+    },
+
+    "VMConfigHash": {
+      "type": "object",
+      "defaultValue": {
+        "environment": "Build.Test01",
+        "DiagSAName": "diagnosticAccountName",
+        "DiagSARGName": "DIAGLOGS",
+        "OMSRGName": "WU2-SERG0734-buildtest",
+        "OMSName": "OMS WS Name",
+        "BackupvaultName": "Name of RSV",
+        "BackuppolicyName": "Default"
+      }
+    }
+  },
+  "variables": {
+
+    "MDiskSku": {
+      "p4": {
+        "size": 32,
+        "sku": "Premium_LRS"
+      },
+      "p6": {
+        "size": 64,
+        "sku": "Premium_LRS"
+      },
+      "p10": {
+        "size": 128,
+        "sku": "Premium_LRS"
+      },
+      "p15": {
+        "size": 256,
+        "sku": "Premium_LRS"
+      },
+      "p20": {
+        "size": 512,
+        "sku": "Premium_LRS"
+      },
+      "p30": {
+        "size": 1023,
+        "sku": "Premium_LRS"
+      },
+      "p40": {
+        "size": 2047,
+        "sku": "Premium_LRS"
+      },
+      "p50": {
+        "size": 4095,
+        "sku": "Premium_LRS"
+      },
+      "s4": {
+        "size": 32,
+        "sku": "Standard_LRS"
+      },
+      "s6": {
+        "size": 64,
+        "sku": "Standard_LRS"
+      },
+      "s10": {
+        "size": 128,
+        "sku": "Standard_LRS"
+      },
+      "s15": {
+        "size": 256,
+        "sku": "Standard_LRS"
+      },
+      "s20": {
+        "size": 512,
+        "sku": "Standard_LRS"
+      },
+      "s30": {
+        "size": 1023,
+        "sku": "Standard_LRS"
+      },
+      "s40": {
+        "size": 2047,
+        "sku": "Standard_LRS"
+      },
+      "s50": {
+        "size": 4095,
+        "sku": "Standard_LRS"
+      },
+      "usenonmanageddisk": {
+        "size": 4095,
+        "sku": "Standard_LRS"
+      }
+    },
+
+    "vnetId": "[resourceId(parameters('vnetRGName'),'Microsoft.Network/virtualnetworks',parameters('vnetName'))]",
+    "subnetRef": "[concat(variables('vnetId'),'/subnets/',parameters('subnetName'))]",
+
+
+    "osProfileHash": {
+      "Generic": {
+        "computerName": "[parameters('vmName')]",
+        "adminUsername": "[parameters('VMAdminUsername')]",
+        "adminPassword": "[parameters('VMAdminPassword')]"
+      },
+      "Windows": {
+        "computerName": "[parameters('vmName')]",
+        "adminUsername": "[parameters('VMAdminUsername')]",
+        "adminPassword": "[parameters('VMAdminPassword')]",
+        "WindowsConfiguration": {
+          "provisionVMAgent": "true",
+          "enableAutomaticUpdates": "false",
+          "timeZone": "[parameters('timeZone')]"
+        }
+      },
+      "Linux_SSHKEY_and_PWD": {
+        "computerName": "[parameters('vmName')]",
+        "adminUsername": "[parameters('VMAdminUsername')]",
+        "adminPassword": "[parameters('VMAdminPassword')]",
+        "linuxConfiguration": {
+          "disablePasswordAuthentication": false,
+          "ssh": {
+            "publicKeys": [
+              {
+                "path": "[concat('/home/',parameters('VMAdminUserName'),'/.ssh/authorized_keys')]",
+                "keyData": "[parameters('VMAdminSSHKey')]"
+              }
+            ]
+          }
+        }
+      },
+      "Linux_SSHKEY_noPWD": {
+        "computerName": "[parameters('vmName')]",
+        "adminUsername": "[parameters('VMAdminUsername')]",
+        "linuxConfiguration": {
+          "disablePasswordAuthentication": true,
+          "ssh": {
+            "publicKeys": [
+              {
+                "path": "[concat('/home/',parameters('VMAdminUserName'),'/.ssh/authorized_keys')]",
+                "keyData": "[parameters('VMAdminSSHKey')]"
+              }
+            ]
+          }
+        }
+      },
+
+      "Sample": {
+        "computerName": "[parameters('vmName')]",
+        "adminUsername": "[parameters('VMAdminUsername')]",
+        "adminPassword": "[parameters('VMAdminPassword')]",
+        "linuxConfiguration": {
+          "disablePasswordAuthentication": false,
+          "ssh": {
+            "publicKeys": [
+              {
+                "path": "[concat('/home/',parameters('VMAdminUserName'),'/.ssh/authorized_keys')]",
+                "keyData": "[parameters('VMAdminSSHKey')]"
+              }
+            ]
+          }
+        },
+        "WindowsConfiguration": {
+          "provisionVMAgent": "true",
+          "enableAutomaticUpdates": "false",
+          "timeZone": "Eastern Standard Time",
+          "additionalUnattendContent": [],
+          "winRM": {
+            "listeners": [
+              {
+                "protocol": "Http"
+              },
+              {
+                "protocol": "Https",
+                "certificateUrl": ""
+              }
+            ]
+          }
+        },
+        "secrets": [
+          {
+            "sourceVault": {
+              "id": "vaultResourceId"
+            },
+            "vaultCertificates": [
+              {
+                "certificateUrl": "certificateUrl",
+                "certificateStore": "My"
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    "osProfile": "[variables('osProfileHash')[parameters('osProfile')]]",
+
+    "osDiskHash": {
+      "VHD": {
+        "name": "[concat(parameters('vmName'),'-OS')]",
+        "caching": "ReadWrite",
+        "createOption": "FromImage",
+        "diskSizeGB": "[parameters('osDisksize')]",
+        "vhd": {
+          "uri": "[concat('https://', parameters('vmOSVHDstorageAcc'), '.blob.core.windows.net/', 'vhds-',toLower(parameters('vmName')), '/', parameters('vmName'), '-OS', '.vhd')]"
+        }
+      },
+      "MD": {
+        "name": "[concat(parameters('vmName'),'-OS')]",
+        "caching": "ReadWrite",
+        "createOption": "FromImage",
+        "diskSizeGB": "[variables('MDiskSku')[parameters('osDiskSku')].size]",
+        "managedDisk": {
+          "storageAccountType": "[variables('MDiskSku')[parameters('osDiskSku')].sku]"
+        }
+      }
+    },
+    "osDisk": "[if(equals(parameters('vmOSVHDstorageAcc'), 'usemanageddisk'), variables('osDiskHash').MD, variables('osDiskHash').VHD)]",
+
+    "copy": [
+      {
+        "name": "dataDisksArray",
+        "count": "[length(variables('dataDisks'))]",
+        "input": {
+          "lun": "[variables('dataDisks')[copyIndex('dataDisksArray')].lun]",
+          "name": "[variables('dataDisks')[copyIndex('dataDisksArray')].name]",
+          "createOption": "[variables('dataDisks')[copyIndex('dataDisksArray')].createOption]",
+          "vhd": {
+            "uri": "[concat('https://', variables('dataDisks')[copyIndex('dataDisksArray')].SAName, '.blob.core.windows.net/', 'vhds-',toLower(parameters('vmName')), '/', parameters('vmName'),'-', variables('dataDisks')[copyIndex('dataDisksArray')].name, '.vhd')]"
+          },
+          "caching": "[variables('dataDisks')[copyIndex('dataDisksArray')].caching]",
+          "diskSizeGB": "[variables('dataDisks')[copyIndex('dataDisksArray')].diskSizeGB]"
+        }
+      },
+      {
+        "name": "ManageddataDisksArray",
+        "count": "[length(variables('dataDisks'))]",
+        "input": {
+          "lun": "[variables('dataDisks')[copyIndex('ManageddataDisksArray')].lun]",
+          "name": "[concat(parameters('vmName'),'-',variables('dataDisks')[copyIndex('ManageddataDisksArray')].name)]",
+          "createOption": "[variables('dataDisks')[copyIndex('ManageddataDisksArray')].createOption]",
+          "managedDisk": {
+            "storageAccountType": "[variables('MDiskSku')[variables('dataDisks')[copyIndex('ManageddataDisksArray')].DiskSku].sku]"
+          },
+          "caching": "[variables('dataDisks')[copyIndex('ManageddataDisksArray')].caching]",
+          "diskSizeGB": "[variables('MDiskSku')[variables('dataDisks')[copyIndex('ManageddataDisksArray')].DiskSku].size]"
+        }
+      }
+    ],
+
+    "NodataDisks": [
+      {
+        "lun": "none",
+        "name": "none",
+        "createOption": "none",
+        "vhd": {
+          "uri": "none"
+        },
+        "caching": "none",
+        "diskSizeGB": "none",
+        "SAName": "none",
+        "DiskSku": "p10"
+      }
+    ],
+
+    "dataDisks": "[if(greater(length(parameters('dataDisks')), 0), parameters('dataDisks'), variables('NodataDisks'))]",
+
+    "dataDisksVHD": "[if(greater(length(parameters('dataDisks')), 0), variables('dataDisksArray'), '')]",
+    "dataDisksMD": "[if(greater(length(parameters('dataDisks')), 0), variables('ManageddataDisksArray'), '')]",
+    "dataDisksDef": "[if(equals(parameters('vmOSVHDstorageAcc'), 'usemanageddisk'), variables('dataDisksMD'), variables('dataDisksVHD'))]",
+
+
+    "nicpropertiesHash": {
+      "specificIp": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Static",
+              "privateIPAddress": "[parameters('privateIPAddress')]",
+              "subnet": {
+                "id": "[variables('subnetRef')]"
+              }
+            }
+          }
+        ],
+        "enableAcceleratedNetworking": "[parameters('enableAcceleratedNetworking')]",
+        "enableIPForwarding": "[parameters('enableIPForwarding')]"
+      },
+      "firstAvailableIp": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[variables('subnetRef')]"
+              }
+            }
+          }
+        ],
+        "enableAcceleratedNetworking": "[parameters('enableAcceleratedNetworking')]",
+        "enableIPForwarding": "[parameters('enableIPForwarding')]"
+      }
+    },
+    "nicProperties": "[if(equals(parameters('privateIPAddress'), 'firstAvailableIp'), variables('nicpropertiesHash').firstAvailableIp, variables('nicpropertiesHash').specificIp)]",
+
+
+  },
+  "resources": [
+    {
+      "apiVersion": "2016-04-30-preview",
+      "type": "Microsoft.Compute/availabilitySets",
+      "name": "[parameters('availabilitySetName')]",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "AvailabilitySet",
+        "Environment": "[parameters('VMConfigHash').environment]",
+        "BuildDate": "[parameters('buildDate')]",
+        "BuildBy": "[parameters('buildBy')]"
+      },
+      "properties": {
+        "managed": "[if(equals(parameters('vmOSVHDstorageAcc'), 'usemanageddisk'), 'true', 'false')]",
+        "platformFaultDomainCount": 2,
+        "platformUpdateDomainCount": 5
+      }
+    },
+    {
+      "apiVersion": "2018-04-01",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[parameters('vmName')]",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "NetworkInterface",
+        "Environment": "[parameters('VMConfigHash').environment]",
+        "BuildDate": "[parameters('buildDate')]",
+        "BuildBy": "[parameters('buildBy')]"
+      },
+      "dependsOn": [],
+      "properties": "[variables('nicProperties')]"
+    },
+    {
+      "name": "[parameters('vmName')]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2018-04-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkInterfaces/', parameters('vmName'))]",
+        "[resourceId('Microsoft.Compute/availabilitySets/', parameters('availabilitySetName'))]"
+      ],
+      "tags": {
+        "displayName": "VM",
+        "Environment": "[parameters('VMConfigHash').environment]",
+        "BuildDate": "[parameters('buildDate')]",
+        "BuildBy": "[parameters('buildBy')]"
+      },
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('VmSize')]"
+        },
+        "availabilitySet": {
+          "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySetName'))]"
+        },
+
+        "osProfile": "[variables('osProfile')]",
+
+        "storageProfile": {
+          "imageReference": {
+            "offer": "[parameters('VMImageOffer')]",
+            "publisher": "[parameters('VMImagePublisher')]",
+            "sku": "[parameters('VMImageSku')]",
+            "version": "[parameters('VMImageVersion')]"
+          },
+          "osDisk": "[variables('osDisk')]",
+          "dataDisks": "[variables('dataDisksDef')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('vmName'))]"
+            }
+          ]
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": true,
+            "storageUri": "[concat('https://', parameters('VMConfigHash').DiagSAName, '.blob.core.windows.net/')]"
+          }
+        },
+        "licenseType": "[if(equals(parameters('LicenseType'),'None'),json('null'),parameters('LicenseType'))]"
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "condition": "[equals(parameters('privateIPAddress'), 'firstAvailableIp')]",
+      "dependsOn": [ "[parameters('vmName')]" ],
+      "name": "SetStaticIP",
+      "properties": {
+        "mode": "Incremental",
+        "parameters": {},
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {
+          },
+          "variables": {
+          },
+          "resources": [
+            {
+              "apiVersion": "2018-04-01",
+              "type": "Microsoft.Network/networkInterfaces",
+              "name": "[parameters('vmName')]",
+              "location": "[resourceGroup().location]",
+              "dependsOn": [],
+              "properties": {
+                "ipConfigurations": [
+                  {
+                    "name": "ipconfig1",
+                    "properties": {
+                      "privateIPAllocationMethod": "Static",
+                      "privateIPAddress": "[reference(concat('Microsoft.Network/networkInterfaces/',parameters('vmName'))).ipConfigurations[0].properties.privateIPAddress]",
+                      "subnet": {
+                        "id": "[variables('subnetRef')]"
+                      }
+                    }
+                  }
+                ],
+                "enableAcceleratedNetworking": "[parameters('enableAcceleratedNetworking')]",
+                "enableIPForwarding": "[parameters('enableIPForwarding')]"
+              }
+            }
+          ],
+          "outputs": {
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {}
+}
