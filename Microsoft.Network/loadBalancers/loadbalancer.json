@@ -5,6 +5,14 @@
     "name": {
       "type": "string"
     },
+    "sku":{
+      "type": "string",
+      "allowedValues": [
+        "Basic",
+        "Standard"
+      ],
+      "defaultValue": "Basic"
+    },
     "Network": {
       "type": "object"
     },
