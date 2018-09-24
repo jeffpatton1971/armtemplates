@@ -35,7 +35,7 @@
     "Paritioning": {
       "type": "bool",
       "defaultValue": true
-    }
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
