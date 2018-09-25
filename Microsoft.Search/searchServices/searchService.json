@@ -21,7 +21,8 @@
       "allowedValues": [
         "default",
         "highDensity"
-      ]
+      ],
+      "defaultValue": "default"
     },
     "ReplicaCount": {
       "type": "int",
