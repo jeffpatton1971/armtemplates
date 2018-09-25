@@ -11,7 +11,7 @@
     },
     "Manage": {
       "type": "bool",
-      "defaultValue": false
+      "defaultValue": true
     },
     "environment": {
       "type": "string",
