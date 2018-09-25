@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.08.01.0",
+  "contentVersion": "2018.10.01.0",
   "parameters": {
     "name": {
       "type": "string"
@@ -112,7 +112,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.08.01.0",
+          "contentVersion": "2018.10.01.0",
           "resources": [
             {
               "apiVersion": "2017-09-01",
@@ -208,7 +208,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.08.01.0",
+          "contentVersion": "2018.10.01.0",
           "resources": [
             {
               "type": "Microsoft.Network/loadBalancers",
