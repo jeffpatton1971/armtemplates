@@ -1,0 +1,132 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "Name": {
+      "type": "string"
+    },
+    "Sku": {
+      "type": "string",
+      "allowedValues": [
+        "free",
+        "basic",
+        "standard",
+        "standard2",
+        "standard3"
+      ],
+      "defaultValue": "free"
+    },
+    "HostingMode": {
+      "type": "string",
+      "allowedValues": [
+        "default",
+        "highDensity"
+      ]
+    },
+    "ReplicaCount": {
+      "type": "int",
+      "minValue": 1,
+      "maxValue": 12,
+      "defaultValue": 1
+    },
+    "PartitionCount": {
+      "type": "int",
+      "minValue": 1,
+      "maxValue": 12,
+      "allowedValues": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        12
+      ],
+      "defaultValue": 1
+    },
+    "environment": {
+      "type": "string",
+      "allowedValues": [
+        "Production",
+        "Staging",
+        "Test",
+        "UAT",
+        "Development",
+        "Disaster Recovery",
+        "Q/A",
+        "Other"
+      ],
+      "metadata": {
+        "description": "The Environment type we are building",
+        "group": "Tags",
+        "order": 1,
+        "question": "Please enter environment type : "
+      },
+      "defaultValue": "Production"
+    },
+    "buildDate": {
+      "type": "string",
+      "metadata": {
+        "description": "The date of this build",
+        "group": "Tags",
+        "order": 2,
+        "question": "Please enter todays date (mm/dd/yyyy) : "
+      },
+      "defaultValue": "mm/dd/yyyy"
+    },
+    "buildBy": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the person who build this environment",
+        "group": "Tags",
+        "order": 3,
+        "question": "Please enter your full name : "
+      },
+      "defaultValue": "First Last"
+    },
+    "RaxAutomationExclude": {
+      "type": "string",
+      "allowedValues": [
+        "None",
+        "Monitoring",
+        "Passport",
+        "Antimalware"
+      ],
+      "metadata": {
+        "description": "Select the automation type you will like to exclude for this VM",
+        "group": "Tags",
+        "order": 4,
+        "label": "Automation Exluce",
+        "question": "Choose the type of automation you will like to exclude this from"
+      },
+      "defaultValue": "None"
+    }
+  },
+  "variables": {
+    "basic": "[if(and(equals(parameters('Sku'),'basic'),greater(parameters('ReplicaCount'),3)),3,parameters('ReplicaCount'))]",
+    "tags": {
+      "Environment": "[parameters('environment')]",
+      "BuildDate": "[parameters('buildDate')]",
+      "BuildBy": "[parameters('buildBy')]",
+      "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
+    }
+  },
+  "resources": [
+    {
+      "name": "[parameters('Name')]",
+      "type": "Microsoft.Search/searchServices",
+      "apiVersion": "2015-08-19",
+      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "[parameters('Sku')]"
+      },
+      "scale": null,
+      "properties": {
+        "replicaCount": "[if(equals(parameters('Sku'),'free'),1,if(equals(parameters('Sku'),'basic'),variables('basic'),parameters('ReplicaCount')))]",
+        "partitionCount": "[if(or(equals(parameters('Sku'),'basic'),equals(parameters('Sku'),'free')),1,parameters('PartitionCount'))]",
+        "hostingMode": "[if(equals(parameters('Sku'),'standard3'),parameters('HostingMode'),'default')]"
+      },
+      "tags": "[variables('tags')]"
+    }
+  ]
+}
