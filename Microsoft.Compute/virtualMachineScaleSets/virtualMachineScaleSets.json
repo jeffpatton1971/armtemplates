@@ -5,8 +5,8 @@
     "Name": {
       "type": "string"
     },
-    "Interface":{
-      "type" : "object"
+    "Interface": {
+      "type": "object"
     },
     "DataDisks": {
       "type": "array"
@@ -263,7 +263,13 @@
         "Windows 2016 SQL Server 2016 SP1 Standard",
         "Windows 2016 SQL Server 2016 SP1 Standard - BYOL",
         "Windows 2016 SQL Server 2016 SP1 Enterprise",
-        "Windows 2016 SQL Server 2016 SP1 Enterprise - BYOL"
+        "Windows 2016 SQL Server 2016 SP1 Enterprise - BYOL",
+        "Windows 2016 SQL Server 2017 Express",
+        "Windows 2016 SQL Server 2017 Web",
+        "Windows 2016 SQL Server 2017 Standard",
+        "Windows 2016 SQL Server 2017 Standard - BYOL",
+        "Windows 2016 SQL Server 2017 Enterprise",
+        "Windows 2016 SQL Server 2017 Enterprise - BYOL"
       ]
     },
     "AdminUserName": {
@@ -636,6 +642,48 @@
       "Windows 2016 SQL Server 2016 SP1 Enterprise - BYOL": {
         "imagePublisher": "MicrosoftSQLServer",
         "imageOffer": "SQL2016SP1-WS2016-BYOL",
+        "imageSKU": "Enterprise",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2017 Express": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2017-WS2016",
+        "imageSKU": "Express",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2017 Web": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2017-WS2016",
+        "imageSKU": "Web",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2017 Standard": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2017-WS2016",
+        "imageSKU": "Standard",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2017 Standard - BYOL": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2017-WS2016-BYOL",
+        "imageSKU": "Standard",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2017 Enterprise": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2017-WS2016",
+        "imageSKU": "Enterprise",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2017 Enterprise - BYOL": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2017-WS2016-BYOL",
         "imageSKU": "Enterprise",
         "version": "latest",
         "type": "windows"
