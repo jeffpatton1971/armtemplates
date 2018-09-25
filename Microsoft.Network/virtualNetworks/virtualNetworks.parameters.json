@@ -11,9 +11,7 @@
       ]
     },
     "dhcpOptions": {
-      "value": [
-        ""
-      ]
+      "value": [ ]
     },
     "enableDdosProtection": {
       "value": false

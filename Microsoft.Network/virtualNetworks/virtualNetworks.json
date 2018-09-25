@@ -101,7 +101,6 @@
   },
   "variables": {
     "tags": {
-      "displayName": "InternalLoadBalancer",
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
@@ -117,9 +116,7 @@
       "dependsOn": [],
       "properties": {
         "addressSpace": {
-          "addressPrefixes": [
-            "[parameters('addressSpace')]"
-          ]
+          "addressPrefixes": "[parameters('addressSpace')]"
         },
         "dhcpOptions": {
           "dnsServers": "[if(empty(parameters('dhcpOptions')),json('null'),parameters('dhcpOptions'))]"

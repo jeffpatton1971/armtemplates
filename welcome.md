@@ -9,6 +9,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need Script/DSC to make local admin/admingroup sql sysad's
 
 # Change Log
+
+- 09/13 : Corrected a mistake in the loadbalancer, missing sku for internal, and changed sku of pip instead of load balancer for external
 - 08/31 : Updated sites.json, copied the siteconfig section from the webapp-uk.json via Bob Larkin
 - 08/31 : Updated OMS Template, modified parameters to remove redundant OMS from name, also udpated parameter file with missing environment param
 - 08/27 : Updated LB/APPWG added network object that contains, VirtualNetworkResourceGroupname, VirtualNetworkName and SubnetName. This will make copy/paste operations between schema and template easier.
