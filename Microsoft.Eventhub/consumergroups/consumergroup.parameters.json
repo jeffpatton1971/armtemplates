@@ -1,0 +1,27 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "2018.08.01.0",
+  "parameters": {
+    "Namespace": {
+      "value": ""
+    },
+    "Eventhub": {
+      "value": ""
+    },
+    "ConsumerGroup": {
+      "value": "$Default"
+    },
+    "environment": {
+      "value": "Development"
+    },
+    "buildDate": {
+      "value": "10/01/2018"
+    },
+    "buildBy": {
+      "value": "jeffrey.patton2@rackspace.com"
+    },
+    "RaxAutomationExclude": {
+      "value": "None"
+    }
+  }
+}
