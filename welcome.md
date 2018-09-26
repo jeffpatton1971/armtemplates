@@ -9,6 +9,18 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need Script/DSC to make local admin/admingroup sql sysad's
 
 # Change Log
+- 09/26 : Updated serverfarms template and added a parameters files
+- 09/25 : Updated contentVersion in advance of October template release
+- 09/25 : Added parameter files for all new templates
+- 09/24 : Added Eventhub namespace template
+- 09/24 : Added Eventhub eventhubs template
+- 09/24 : Added Eventhub consumergroups template
+- 09/24 : Added Eventhub authorizationRules template
+- 09/24 : Added ServiceBus namespace template
+- 09/24 : Added ServiceBus queues template
+- 09/24 : Added ServiceBus topics template
+- 09/24 : Added ServiceBus authorizationRules template
+- 09/24 : Added AzureSearch template
 - 09/18 : Updated Virtualnetwork template and parameter, removed misleading null value for dhcpOptions, and corrected the array for addressPrefixes
 - 09/17 : Updated VirtualMachine/Scaleset template to support Windows 2016 and SQL 2017
 - 09/13 : Corrected a mistake in the loadbalancer, missing sku for internal, and changed sku of pip instead of load balancer for external
