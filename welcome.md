@@ -9,6 +9,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need Script/DSC to make local admin/admingroup sql sysad's
 
 # Change Log
+- 09/26 : Added sites parameters file
 - 09/26 : Updated serverfarms template and added a parameters files
 - 09/25 : Updated contentVersion in advance of October template release
 - 09/25 : Added parameter files for all new templates
