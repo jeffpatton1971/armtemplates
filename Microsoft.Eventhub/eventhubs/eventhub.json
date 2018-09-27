@@ -123,7 +123,7 @@
   },
   "resources": [
     {
-      "name": "[concat(parameters('Namespace'),'/',parameters('Name'))]",
+      "name": "[concat(parameters('Namespace'),'/',parameters('EventHub'))]",
       "type": "Microsoft.EventHub/namespaces/eventhubs",
       "apiVersion": "2017-04-01",
       "location": "[resourceGroup().location]",
