@@ -123,8 +123,8 @@
       },
       "scale": null,
       "properties": {
-        "replicaCount": "[if(equals(parameters('Sku'),'free'),1,if(equals(parameters('Sku'),'basic'),variables('basic'),parameters('ReplicaCount')))]",
-        "partitionCount": "[if(or(equals(parameters('Sku'),'basic'),equals(parameters('Sku'),'free')),1,parameters('PartitionCount'))]",
+        "replicaCount": "[parameters('ReplicaCount')]",
+        "partitionCount": "[parameters('PartitionCount')]",
         "hostingMode": "[if(equals(parameters('Sku'),'standard3'),parameters('HostingMode'),'default')]"
       },
       "tags": "[variables('tags')]"
