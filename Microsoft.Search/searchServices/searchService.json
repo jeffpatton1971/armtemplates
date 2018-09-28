@@ -109,6 +109,21 @@
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
+    },
+    "searchService": {
+      "apiVersion": "2015-08-19",
+      "name": "[parameters('Name')]",
+      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "[parameters('Sku')]"
+      },
+      "type": "Microsoft.Search/searchServices",
+      "properties": {
+        "replicaCount": "[parameters('ReplicaCount')]",
+        "partitionCount": "[parameters('PartitionCount')]",
+        "hostingMode": "[parameters('HostingMode')]"
+      },
+      "tags": "[variables('tags')]"
     }
   },
   "resources": [
@@ -127,5 +142,11 @@
       },
       "tags": "[variables('tags')]"
     }
-  ]
+  ],
+  "outputs": {
+    "searchService": {
+      "type": "object",
+      "value": "[variables('searchService')]"
+    }
+  }
 }
