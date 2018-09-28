@@ -6,13 +6,16 @@
       "type": "string"
     },
     "originHostHeader": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": ""
     },
     "isHttpAllowed": {
-      "type": "bool"
+      "type": "bool",
+      "defaultValue": true
     },
     "isHttpsAllowed": {
-      "type": "bool"
+      "type": "bool",
+      "defaultValue": true
     },
     "queryStringCachingBehavior": {
       "type": "string",
@@ -28,7 +31,8 @@
       "type": "string"
     },
     "isCompressionEnabled": {
-      "type": "bool"
+      "type": "bool",
+      "defaultValue": false
     },
     "optimizationType": {
       "type": "string",

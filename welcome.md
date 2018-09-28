@@ -9,6 +9,9 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need Script/DSC to make local admin/admingroup sql sysad's
 
 # Change Log
+- 09/29 : Updated endpoint with default values
+- 09/28 : Renamed endpoint and profile templates
+- 09/28 : Added CDN and Profile parameter files
 - 09/26 : Updated eventhub template, referenced an old parameter
 - 09/26 : Added sites parameters file
 - 09/26 : Updated serverfarms template and added a parameters files
