@@ -91,7 +91,7 @@
       },
       "sku": {
         "name": "[parameters('Sku')]"
-      }
+      },
       "tags": "[variables('tags')]"
     }
   ],
