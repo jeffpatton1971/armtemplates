@@ -15,7 +15,7 @@
       "value": ""
     },
     "AppServiceEnvironment": {
-      "value": ""
+      "value": {}
     },
     "environment": {
       "value": "Development"
