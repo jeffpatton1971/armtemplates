@@ -7,9 +7,11 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need to update Schema to add DB Tier and Sizing options
 - Need script to change Temp Drive
 - Need Script/DSC to make local admin/admingroup sql sysad's
+- Need updated traffic manager template to accomodate endpoints and more properties
 
 # Change Log
-- 09/29 : Updated endpoint with default values
+- 09/28 : Added basic traffic manager templates
+- 09/28 : Updated endpoint with default values
 - 09/28 : Renamed endpoint and profile templates
 - 09/28 : Added CDN and Profile parameter files
 - 09/26 : Updated eventhub template, referenced an old parameter
