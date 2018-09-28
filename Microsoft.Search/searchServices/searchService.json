@@ -113,14 +113,13 @@
   },
   "resources": [
     {
-      "name": "[parameters('Name')]",
-      "type": "Microsoft.Search/searchServices",
       "apiVersion": "2015-08-19",
+      "name": "[parameters('Name')]",
       "location": "[resourceGroup().location]",
       "sku": {
         "name": "[parameters('Sku')]"
       },
-      "scale": null,
+      "type": "Microsoft.Search/searchServices",
       "properties": {
         "replicaCount": "[parameters('ReplicaCount')]",
         "partitionCount": "[parameters('PartitionCount')]",
