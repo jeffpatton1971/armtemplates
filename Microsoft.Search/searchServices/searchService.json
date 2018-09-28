@@ -104,7 +104,6 @@
     }
   },
   "variables": {
-    "basic": "[if(and(equals(parameters('Sku'),'basic'),greater(parameters('ReplicaCount'),3)),3,parameters('ReplicaCount'))]",
     "tags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
@@ -125,7 +124,7 @@
       "properties": {
         "replicaCount": "[parameters('ReplicaCount')]",
         "partitionCount": "[parameters('PartitionCount')]",
-        "hostingMode": "[if(equals(parameters('Sku'),'standard3'),parameters('HostingMode'),'default')]"
+        "hostingMode": "[parameters('HostingMode')]"
       },
       "tags": "[variables('tags')]"
     }
