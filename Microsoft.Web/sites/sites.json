@@ -166,7 +166,7 @@
     }
   },
   "variables": {
-    "hostingEnvironmentProfile": "[if(empty(parameters('AseName')),json('null'),resourceId('Microsoft.Web/hostingEnvironments',parameters('AseName')))]",
+    "hostingEnvironmentProfile": "[if(empty(parameters('AseName')),'',resourceId('Microsoft.Web/hostingEnvironments',parameters('AseName')))]",
     "tags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
