@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.08.01.0",
+  "contentVersion": "2018.10.01.0",
   "parameters": {
     "Name": {
       "type": "string"
@@ -266,7 +266,13 @@
         "Windows 2016 SQL Server 2016 SP1 Standard",
         "Windows 2016 SQL Server 2016 SP1 Standard - BYOL",
         "Windows 2016 SQL Server 2016 SP1 Enterprise",
-        "Windows 2016 SQL Server 2016 SP1 Enterprise - BYOL"
+        "Windows 2016 SQL Server 2016 SP1 Enterprise - BYOL",
+        "Windows 2016 SQL Server 2017 Express",
+        "Windows 2016 SQL Server 2017 Web",
+        "Windows 2016 SQL Server 2017 Standard",
+        "Windows 2016 SQL Server 2017 Standard - BYOL",
+        "Windows 2016 SQL Server 2017 Enterprise",
+        "Windows 2016 SQL Server 2017 Enterprise - BYOL"
       ]
     },
     "AdminUserName": {
@@ -644,6 +650,48 @@
         "imageSKU": "Enterprise",
         "version": "latest",
         "type": "windows"
+      },
+      "Windows 2016 SQL Server 2017 Express": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2017-WS2016",
+        "imageSKU": "Express",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2017 Web": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2017-WS2016",
+        "imageSKU": "Web",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2017 Standard": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2017-WS2016",
+        "imageSKU": "Standard",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2017 Standard - BYOL": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2017-WS2016-BYOL",
+        "imageSKU": "Standard",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2017 Enterprise": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2017-WS2016",
+        "imageSKU": "Enterprise",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2017 Enterprise - BYOL": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2017-WS2016-BYOL",
+        "imageSKU": "Enterprise",
+        "version": "latest",
+        "type": "windows"
       }
     },
     "OS": "[if(empty(parameters('GalleryImage')),variables('OsArray')[parameters('OperatingSystem')],parameters('GalleryImage'))]",
@@ -899,7 +947,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.08.01.0",
+          "contentVersion": "2018.10.01.0",
           "parameters": {},
           "variables": {},
           "resources": [
@@ -935,7 +983,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.08.01.0",
+          "contentVersion": "2018.10.01.0",
           "resources": [
             {
               "apiVersion": "2017-03-30",
@@ -1004,7 +1052,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.08.01.0",
+          "contentVersion": "2018.10.01.0",
           "resources": [
             {
               "apiVersion": "2017-03-30",

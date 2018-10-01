@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
-  "contentVersion": "2018.08.01.0",
+  "contentVersion": "2018.10.01.0",
   "parameters": {
     "Name": {
       "type": "string",
@@ -166,7 +166,7 @@
     }
   },
   "variables": {
-    "hostingEnvironmentProfile": "[if(empty(parameters('AseName')),json('null'),resourceId('Microsoft.Web/hostingEnvironments',parameters('AseName')))]",
+    "hostingEnvironmentProfile": "[if(empty(parameters('AseName')),'',resourceId('Microsoft.Web/hostingEnvironments',parameters('AseName')))]",
     "tags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",

@@ -1,19 +1,18 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
-  "contentVersion": "2018.08.01.0",
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2018.10.01.0",
   "parameters": {
-    "name": {
+    "Name": {
       "type": "string"
     },
     "Sku": {
       "type": "string",
       "allowedValues": [
-        "Custom_Verizon",
-        "Premium_Verizon",
-        "Standard_Akamai",
-        "Standard_ChinaCdn",
-        "Standard_Verizon"
-      ]
+        "Basic",
+        "Standard",
+        "Premium"
+      ],
+      "defaultValue": "Basic"
     },
     "environment": {
       "type": "string",
@@ -83,18 +82,17 @@
   },
   "resources": [
     {
-      "apiVersion": "2017-10-12",
-      "name": "[parameters('name')]",
-      "type": "Microsoft.Cdn/profiles",
+      "name": "[parameters('Name')]",
+      "type": "Microsoft.ServiceBus/namespaces",
+      "apiVersion": "2017-04-01",
       "location": "[resourceGroup().location]",
-      "properties": {
-      },
       "sku": {
-        "name": "[parameters('Sku')]"
-      }
+        "name": "[parameters('Sku')]",
+        "tier": "[parameters('Sku')]"
+      },
+      "scale": null,
+      "properties": {},
       "tags": "[variables('tags')]"
     }
-  ],
-  "outputs": {
-  }
+  ]
 }

@@ -1,0 +1,156 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+  "contentVersion": "2018.10.01.0",
+  "parameters": {
+    "name": {
+      "type": "string"
+    },
+    "originHostHeader": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "isHttpAllowed": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "isHttpsAllowed": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "queryStringCachingBehavior": {
+      "type": "string",
+      "allowedValues": [
+        "BypassCaching",
+        "IgnoreQueryString",
+        "NotSet",
+        "UseQueryString"
+      ],
+      "defaultValue": "IgnoreQueryString"
+    },
+    "originPath": {
+      "type": "string"
+    },
+    "isCompressionEnabled": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "optimizationType": {
+      "type": "string",
+      "allowedValues": [
+        "DynamicSiteAcceleration",
+        "GeneralMediaStreaming",
+        "GeneralWebDelivery",
+        "LargeFileDownload",
+        "VideoOnDemandMediaStreaming"
+      ],
+      "defaultValue": "GeneralWebDelivery"
+    },
+    "environment": {
+      "type": "string",
+      "allowedValues": [
+        "Production",
+        "Staging",
+        "Test",
+        "UAT",
+        "Development",
+        "Disaster Recovery",
+        "Q/A",
+        "Other"
+      ],
+      "metadata": {
+        "description": "The Environment type we are building",
+        "group": "Tags",
+        "order": 1,
+        "question": "Please enter environment type : "
+      },
+      "defaultValue": "Production"
+    },
+    "buildDate": {
+      "type": "string",
+      "metadata": {
+        "description": "The date of this build",
+        "group": "Tags",
+        "order": 2,
+        "question": "Please enter todays date (mm/dd/yyyy) : "
+      },
+      "defaultValue": "mm/dd/yyyy"
+    },
+    "buildBy": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the person who build this environment",
+        "group": "Tags",
+        "order": 3,
+        "question": "Please enter your full name : "
+      },
+      "defaultValue": "First Last"
+    },
+    "RaxAutomationExclude": {
+      "type": "string",
+      "allowedValues": [
+        "None",
+        "Monitoring",
+        "Passport",
+        "Antimalware"
+      ],
+      "metadata": {
+        "description": "Select the automation type you will like to exclude for this VM",
+        "group": "Tags",
+        "order": 4,
+        "label": "Automation Exluce",
+        "question": "Choose the type of automation you will like to exclude this from"
+      },
+      "defaultValue": "None"
+    }
+  },
+  "variables": {
+    "tags": {
+      "Environment": "[parameters('environment')]",
+      "BuildDate": "[parameters('buildDate')]",
+      "BuildBy": "[parameters('buildBy')]",
+      "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
+    }
+  },
+  "resources": [
+    {
+      "name": "[parameters('name')]",
+      "apiVersion": "2017-10-12",
+      "type": "Microsoft.Cdn/profiles/endpoints",
+      "tags": "[variables('tags')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "originHostHeader": "[parameters('originHostHeader')]",
+        "isHttpAllowed": "[parameters('isHttpAllowed')]",
+        "isHttpsAllowed": "[parameters('isHttpsAllowed')]",
+        "queryStringCachingBehavior": "[parameters('queryStringCachingBehavior')]",
+        "originPath": "[parameters('originPath')]",
+        "origins": [
+          {
+            "name": "[replace(parameters('originHostHeader'),'.','-')]",
+            "properties": {
+              "hostName": "[parameters('originHostHeader')]",
+              "httpPort": null,
+              "httpsPort": null
+            }
+          }
+        ],
+        "customDomains": [],
+        "contentTypesToCompress": [
+          "text/plain",
+          "text/html",
+          "text/css",
+          "text/javascript",
+          "application/x-javascript",
+          "application/javascript",
+          "application/json",
+          "application/xml"
+        ],
+        "isCompressionEnabled": "[parameters('isCompressionEnabled')]",
+        "optimizationType": "[parameters('optimizationType')]",
+        "geoFilters": []
+      }
+    }
+  ],
+  "outputs": {
+  }
+}
