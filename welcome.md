@@ -7,10 +7,30 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need to update Schema to add DB Tier and Sizing options
 - Need script to change Temp Drive
 - Need Script/DSC to make local admin/admingroup sql sysad's
+- Need updated traffic manager template to accomodate endpoints and more properties
 
 # Change Log
-- 09/13 : Updated Loadbalancer template to use SKU parameter
-- 09/11 : Updated Loadbalancer with Basic/Standard SKU options
+- 09/28 : Added basic traffic manager templates
+- 09/28 : Updated endpoint with default values
+- 09/28 : Renamed endpoint and profile templates
+- 09/28 : Added CDN and Profile parameter files
+- 09/26 : Updated eventhub template, referenced an old parameter
+- 09/26 : Added sites parameters file
+- 09/26 : Updated serverfarms template and added a parameters files
+- 09/25 : Updated contentVersion in advance of October template release
+- 09/25 : Added parameter files for all new templates
+- 09/24 : Added Eventhub namespace template
+- 09/24 : Added Eventhub eventhubs template
+- 09/24 : Added Eventhub consumergroups template
+- 09/24 : Added Eventhub authorizationRules template
+- 09/24 : Added ServiceBus namespace template
+- 09/24 : Added ServiceBus queues template
+- 09/24 : Added ServiceBus topics template
+- 09/24 : Added ServiceBus authorizationRules template
+- 09/24 : Added AzureSearch template
+- 09/18 : Updated Virtualnetwork template and parameter, removed misleading null value for dhcpOptions, and corrected the array for addressPrefixes
+- 09/17 : Updated VirtualMachine/Scaleset template to support Windows 2016 and SQL 2017
+- 09/13 : Corrected a mistake in the loadbalancer, missing sku for internal, and changed sku of pip instead of load balancer for external
 - 08/31 : Updated sites.json, copied the siteconfig section from the webapp-uk.json via Bob Larkin
 - 08/31 : Updated OMS Template, modified parameters to remove redundant OMS from name, also udpated parameter file with missing environment param
 - 08/27 : Updated LB/APPWG added network object that contains, VirtualNetworkResourceGroupname, VirtualNetworkName and SubnetName. This will make copy/paste operations between schema and template easier.
