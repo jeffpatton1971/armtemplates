@@ -7,14 +7,17 @@
     },
     "Network": {
       "value": {
-        "VirtualNetworkResourceGroupName": "",
-        "VirtualNetworkName": "",
-        "SubnetName": ""
+        "VirtualNetworkResourceGroupName": "testing-rg",
+        "VirtualNetworkName": "sample-vnet",
+        "SubnetName": "default"
       }
     },
     "loadBalancingRules": {
       "value": [
         {
+          "FrontendIpConfigurationName": "fe-aoag",
+          "privateIPAddress": "",
+          "privateIPAllocationMethod": "Dynamic",
           "protocol": "Tcp",
           "frontendPort": 80,
           "backendPort": 80,
@@ -22,9 +25,12 @@
           "numberOfProbes": 2
         },
         {
+          "FrontendIpConfigurationName": "fe-ntclus",
+          "privateIPAddress": "",
+          "privateIPAllocationMethod": "Dynamic",
           "protocol": "Tcp",
-          "frontendPort": 443,
-          "backendPort": 443,
+          "frontendPort": 81,
+          "backendPort": 81,
           "intervalInSeconds": 5,
           "numberOfProbes": 2
         }

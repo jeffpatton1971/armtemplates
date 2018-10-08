@@ -19,11 +19,7 @@
     "loadBalancingRules": {
       "type": "array"
     },
-    "privateIPAddress": {
-      "type": "string",
-      "defaultValue": ""
-    },
-    "privateIPAllocationMethod": {
+    "publicIPAllocationMethod": {
       "type": "string",
       "allowedValues": [
         "Static",
@@ -100,7 +96,7 @@
     "LoadBalancingRuleName": "[concat(parameters('name'),'-rul')]",
     "LoadbalancingProbeName": "[concat(parameters('name'),'-prb')]",
     "vnetId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName)]",
-    "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('Network').SubnetName)]",
+    "subnetId": "[concat(resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName),'/subnets/',parameters('Network').SubnetName)]",
     "isExternal": "[if(parameters('ExternalLoadBalancer'),0,1)]",
     "tags": {
       "Environment": "[parameters('environment')]",
@@ -132,7 +128,7 @@
                 "name": "Basic"
               },
               "properties": {
-                "publicIPAllocationMethod": "[parameters('privateIPAllocationMethod')]",
+                "publicIPAllocationMethod": "[parameters('publicIPAllocationMethod')]",
                 "idleTimeoutInMinutes": 4,
                 "publicIpAddressVersion": "IPv4"
               }
@@ -231,18 +227,6 @@
                 "name": "[parameters('sku')]"
               },
               "properties": {
-                "frontendIPConfigurations": [
-                  {
-                    "name": "[variables('FrontendIpConfigurationName')]",
-                    "properties": {
-                      "subnet": {
-                        "id": "[variables('subnetId')]"
-                      },
-                      "privateIPAddress": "[parameters('privateIPAddress')]",
-                      "privateIPAllocationMethod": "[parameters('privateIPAllocationMethod')]"
-                    }
-                  }
-                ],
                 "backendAddressPools": [
                   {
                     "name": "[variables('BackendAddressPoolName')]"
@@ -256,7 +240,7 @@
                       "name": "[concat(variables('LoadBalancingRuleName'),'-',add(copyIndex('loadBalancingRules'),1))]",
                       "properties": {
                         "frontendIPConfiguration": {
-                          "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/frontendIPConfigurations/',variables('FrontendIpConfigurationName'))]"
+                          "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/frontendIPConfigurations/',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].FrontendIpConfigurationName)]"
                         },
                         "backendAddressPool": {
                           "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/backendAddressPools/',variables('BackendAddressPoolName'))]"
@@ -280,6 +264,20 @@
                         "port": "[parameters('loadBalancingRules')[copyIndex('probes')].backendPort]",
                         "intervalInSeconds": "[parameters('loadBalancingRules')[copyIndex('probes')].intervalInSeconds]",
                         "numberOfProbes": "[parameters('loadBalancingRules')[copyIndex('probes')].numberOfProbes]"
+                      }
+                    }
+                  },
+                  {
+                    "name": "frontendIPConfigurations",
+                    "count": "[length(parameters('loadBalancingRules'))]",
+                    "input": {
+                      "name": "[parameters('loadBalancingRules')[copyIndex('frontendIPConfigurations')].FrontendIpConfigurationName]",
+                      "properties": {
+                        "subnet": {
+                          "id": "[variables('subnetId')]"
+                        },
+                        "privateIPAddress": "[parameters('loadBalancingRules')[copyIndex('frontendIPConfigurations')].privateIPAddress]",
+                        "privateIPAllocationMethod": "[parameters('loadBalancingRules')[copyIndex('frontendIPConfigurations')].privateIPAllocationMethod]"
                       }
                     }
                   }

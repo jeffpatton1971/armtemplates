@@ -10,6 +10,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need updated traffic manager template to accomodate endpoints and more properties
 
 # Change Log
+- 10/01 : Creating a frontendIpConfiguration array parameter, to accomodate having multiple frontend IP's (McKesson req)
 - 09/28 : Added basic traffic manager templates
 - 09/28 : Updated endpoint with default values
 - 09/28 : Renamed endpoint and profile templates
