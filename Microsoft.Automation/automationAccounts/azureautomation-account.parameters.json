@@ -2,7 +2,7 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "2018.10.01.0",
   "parameters": {
-    "AutomationAccountName": {
+    "Name": {
       "value": "AA-959506-Pharma-Llamasoft"
     },
     "Sku": {

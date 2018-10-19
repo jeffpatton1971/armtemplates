@@ -10,6 +10,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need updated traffic manager template to accomodate endpoints and more properties
 
 # Change Log
+- 10/19 : Updated automationAccountName parameter to just Name
 - 10/19 : Changing up interface to match where it's referenced as network in other resources
 - 10/12 : Updated LB template to accept a location parameter, otherwise pull in ResourceGroup
 - 10/11 : Updated VM template to accept a location parameter, otherwise pull in ResourceGroup
