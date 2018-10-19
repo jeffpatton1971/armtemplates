@@ -10,6 +10,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need updated traffic manager template to accomodate endpoints and more properties
 
 # Change Log
+- 10/19 : Updated VaultName parameter to just Name
 - 10/19 : Renamed recovery-services-vault and recovery-services-vault.parameters to vault and vault.paramters
 - 10/19 : Renamed oms-workspace and oms-workspace.parameters to workspace and workspace.paramters
 - 10/19 : Updated VirtualnetworkGateway, removed ipconfigurations array (not used), added network object, provided examples for bgpSettings and sku objects
