@@ -8,14 +8,8 @@
         "description": "Resource name."
       }
     },
-    "NetworkResourceGroupName": {
-      "type": "string"
-    },
-    "NetworkName": {
-      "type": "string"
-    },
-    "SubnetName": {
-      "type": "string"
+    "Network": {
+      "type": "object"
     },
     "privateIPAllocationMethod": {
       "type": "string",
@@ -56,12 +50,6 @@
       ],
       "metadata": {
         "description": "The type of this virtual network gateway. Possible values are: 'Vpn' and 'ExpressRoute'."
-      }
-    },
-    "ipConfigurations": {
-      "type": "array",
-      "metadata": {
-        "description": "IP configurations for virtual network gateway."
       }
     },
     "vpnType": {
@@ -144,8 +132,8 @@
     "vpnGwCondition": "[if(parameters('enableBgp'),3,if(and(not(parameters('enableBgp')),parameters('activeActive')),2,1))]",
     "FrontendIpConfigurationName": "[concat(parameters('name'),'-ipc')]",
     "PublicIpAddressName": "[concat(parameters('name'),'-pip')]",
-    "vnetId": "[resourceId(parameters('NetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks',parameters('NetworkName'))]",
-    "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('SubnetName'))]",
+    "vnetId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName)]",
+    "subnetId": "[concat(resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName),'/subnets/',parameters('Network').SubnetName)]",
     "tags": {
       "displayName": "InternalLoadBalancer",
       "Environment": "[parameters('environment')]",
@@ -198,6 +186,7 @@
                     }
                   }
                 },
+                "vpnType": "[parameters('vpnType')]",
                 "sku": "[parameters('sku')]"
               },
               "tags": "[variables('tags')]"

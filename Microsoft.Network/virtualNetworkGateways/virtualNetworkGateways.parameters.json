@@ -5,14 +5,12 @@
     "name": {
       "value": ""
     },
-    "NetworkResourceGroupName": {
-      "value": ""
-    },
-    "NetworkName": {
-      "value": ""
-    },
-    "SubnetName": {
-      "value": ""
+    "Network": {
+      "value": {
+        "VirtualNetworkResourceGroupName": "testing-rg",
+        "VirtualNetworkName": "sample-vnet",
+        "SubnetName": "default"
+      }
     },
     "privateIPAllocationMethod": {
       "value": "Dynamic"
@@ -28,6 +26,12 @@
     },
     "gatewayType": {
       "value": "Vpn"
+    },
+    "sku": {
+      "value": {
+        "name": "VpnGw1",
+        "tier": "VpnGw1"
+      }
     },
     "environment": {
       "value": "Development"
