@@ -5,7 +5,7 @@
     "AvailabilitySetName": {
       "value": "vm01-avset"
     },
-    "Interface": {
+    "Network": {
       "value": {
         "name": "vm01-avset-nic",
         "VirtualNetworkResourceGroupName": "rg-vnet-ERPServicesWest",

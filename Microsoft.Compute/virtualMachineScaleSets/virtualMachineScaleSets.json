@@ -5,7 +5,7 @@
     "Name": {
       "type": "string"
     },
-    "Interface": {
+    "Network": {
       "type": "object"
     },
     "DataDisks": {
@@ -348,9 +348,9 @@
   },
   "variables": {
     "NamePrefix": "[toLower(parameters('Name'))]",
-    "VirtualNetworkId": "[resourceId(parameters('Interface').VirtualNetworkResourceGroupName,'Microsoft.Network/virtualNetworks/',parameters('Interface').VirtualNetworkName)]",
-    "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('Interface').SubnetName)]",
-    "NetworkInterfaceName": "[parameters('Interface').name]",
+    "VirtualNetworkId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName,'Microsoft.Network/virtualNetworks/',parameters('Network').VirtualNetworkName)]",
+    "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('Network').SubnetName)]",
+    "NetworkInterfaceName": "[parameters('Network').name]",
     "NetworkInterfaceIpConfigurationName": "[concat(variables('NetworkInterfaceName'),'-ipc')]",
     "Disk": {
       "p4": {
