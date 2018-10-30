@@ -10,7 +10,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need updated traffic manager template to accomodate endpoints and more properties
 
 # Change Log
-- 10/39 : Cleaned up the storage account template, added racksapce tagging, and a parameters file.
+- 10/30 : Cleaned up the storage account template, added racksapce tagging, and a parameters file.
 - 10/28 : Added storage account template
 - 10/19 : Renamed postgresql-server and postgresql-server.parameters to server and server.parameters
 - 10/19 : Renamed virtualMachineScaleSets and virtualMachineScaleSets.parameters to virtualMachineScaleSet and virtualMachineScaleSet.parameters
