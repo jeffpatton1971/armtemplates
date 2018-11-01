@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.10.01.0",
+  "contentVersion": "2018.11.01.0",
   "parameters": {
     "name": {
       "type": "string"
@@ -19,11 +19,7 @@
     "loadBalancingRules": {
       "type": "array"
     },
-    "privateIPAddress": {
-      "type": "string",
-      "defaultValue": ""
-    },
-    "privateIPAllocationMethod": {
+    "publicIPAllocationMethod": {
       "type": "string",
       "allowedValues": [
         "Static",
@@ -34,6 +30,10 @@
     "ExternalLoadBalancer": {
       "type": "bool",
       "defaultValue": false
+    },
+    "Location": {
+      "type": "string",
+      "defaultValue": ""
     },
     "environment": {
       "type": "string",
@@ -94,13 +94,14 @@
     }
   },
   "variables": {
+    "location": "[if(empty(parameters('Location')),resourceGroup().location,parameters('Location'))]",
     "LoadBalancerName": "[parameters('name')]",
     "FrontendIpConfigurationName": "[concat(parameters('name'),'-ipc')]",
     "BackendAddressPoolName": "[concat(parameters('name'),'-bep')]",
     "LoadBalancingRuleName": "[concat(parameters('name'),'-rul')]",
     "LoadbalancingProbeName": "[concat(parameters('name'),'-prb')]",
     "vnetId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName)]",
-    "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('Network').SubnetName)]",
+    "subnetId": "[concat(resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName),'/subnets/',parameters('Network').SubnetName)]",
     "isExternal": "[if(parameters('ExternalLoadBalancer'),0,1)]",
     "tags": {
       "Environment": "[parameters('environment')]",
@@ -120,19 +121,19 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.10.01.0",
+          "contentVersion": "2018.11.01.0",
           "resources": [
             {
               "apiVersion": "2017-09-01",
               "type": "Microsoft.Network/publicIPAddresses",
               "name": "[concat(parameters('name'),'-pip')]",
-              "location": "[resourceGroup().location]",
+              "location": "[variables('location')]",
               "dependsOn": [],
               "sku": {
                 "name": "Basic"
               },
               "properties": {
-                "publicIPAllocationMethod": "[parameters('privateIPAllocationMethod')]",
+                "publicIPAllocationMethod": "[parameters('publicIPAllocationMethod')]",
                 "idleTimeoutInMinutes": 4,
                 "publicIpAddressVersion": "IPv4"
               }
@@ -219,33 +220,18 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.10.01.0",
+          "contentVersion": "2018.11.01.0",
           "resources": [
             {
               "type": "Microsoft.Network/loadBalancers",
               "name": "[variables('LoadBalancerName')]",
               "apiVersion": "2017-09-01",
               "dependsOn": [],
-              "sku": {
-                "name": "[parameters('sku')]"
-              },
-              "location": "[resourceGroup().location]",
+              "location": "[variables('location')]",
               "sku": {
                 "name": "[parameters('sku')]"
               },
               "properties": {
-                "frontendIPConfigurations": [
-                  {
-                    "name": "[variables('FrontendIpConfigurationName')]",
-                    "properties": {
-                      "subnet": {
-                        "id": "[variables('subnetId')]"
-                      },
-                      "privateIPAddress": "[parameters('privateIPAddress')]",
-                      "privateIPAllocationMethod": "[parameters('privateIPAllocationMethod')]"
-                    }
-                  }
-                ],
                 "backendAddressPools": [
                   {
                     "name": "[variables('BackendAddressPoolName')]"
@@ -259,7 +245,7 @@
                       "name": "[concat(variables('LoadBalancingRuleName'),'-',add(copyIndex('loadBalancingRules'),1))]",
                       "properties": {
                         "frontendIPConfiguration": {
-                          "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/frontendIPConfigurations/',variables('FrontendIpConfigurationName'))]"
+                          "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/frontendIPConfigurations/',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].FrontendIpConfigurationName)]"
                         },
                         "backendAddressPool": {
                           "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/backendAddressPools/',variables('BackendAddressPoolName'))]"
@@ -283,6 +269,20 @@
                         "port": "[parameters('loadBalancingRules')[copyIndex('probes')].backendPort]",
                         "intervalInSeconds": "[parameters('loadBalancingRules')[copyIndex('probes')].intervalInSeconds]",
                         "numberOfProbes": "[parameters('loadBalancingRules')[copyIndex('probes')].numberOfProbes]"
+                      }
+                    }
+                  },
+                  {
+                    "name": "frontendIPConfigurations",
+                    "count": "[length(parameters('loadBalancingRules'))]",
+                    "input": {
+                      "name": "[parameters('loadBalancingRules')[copyIndex('frontendIPConfigurations')].FrontendIpConfigurationName]",
+                      "properties": {
+                        "subnet": {
+                          "id": "[variables('subnetId')]"
+                        },
+                        "privateIPAddress": "[parameters('loadBalancingRules')[copyIndex('frontendIPConfigurations')].privateIPAddress]",
+                        "privateIPAllocationMethod": "[parameters('loadBalancingRules')[copyIndex('frontendIPConfigurations')].privateIPAllocationMethod]"
                       }
                     }
                   }
