@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.10.01.0",
+  "contentVersion": "2018.11.01.0",
   "parameters": {
     "name": {
       "type": "string",
@@ -8,14 +8,8 @@
         "description": "Resource name."
       }
     },
-    "NetworkResourceGroupName": {
-      "type": "string"
-    },
-    "NetworkName": {
-      "type": "string"
-    },
-    "SubnetName": {
-      "type": "string"
+    "Network": {
+      "type": "object"
     },
     "privateIPAllocationMethod": {
       "type": "string",
@@ -56,12 +50,6 @@
       ],
       "metadata": {
         "description": "The type of this virtual network gateway. Possible values are: 'Vpn' and 'ExpressRoute'."
-      }
-    },
-    "ipConfigurations": {
-      "type": "array",
-      "metadata": {
-        "description": "IP configurations for virtual network gateway."
       }
     },
     "vpnType": {
@@ -144,8 +132,8 @@
     "vpnGwCondition": "[if(parameters('enableBgp'),3,if(and(not(parameters('enableBgp')),parameters('activeActive')),2,1))]",
     "FrontendIpConfigurationName": "[concat(parameters('name'),'-ipc')]",
     "PublicIpAddressName": "[concat(parameters('name'),'-pip')]",
-    "vnetId": "[resourceId(parameters('NetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks',parameters('NetworkName'))]",
-    "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('SubnetName'))]",
+    "vnetId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName)]",
+    "subnetId": "[concat(resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName),'/subnets/',parameters('Network').SubnetName)]",
     "tags": {
       "displayName": "InternalLoadBalancer",
       "Environment": "[parameters('environment')]",
@@ -176,7 +164,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.10.01.0",
+          "contentVersion": "2018.11.01.0",
           "resources": [
             {
               "apiVersion": "2017-09-01",
@@ -198,6 +186,7 @@
                     }
                   }
                 },
+                "vpnType": "[parameters('vpnType')]",
                 "sku": "[parameters('sku')]"
               },
               "tags": "[variables('tags')]"
@@ -218,7 +207,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.10.01.0",
+          "contentVersion": "2018.11.01.0",
           "resources": [
             {
               "apiVersion": "2017-09-01",
@@ -262,7 +251,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.10.01.0",
+          "contentVersion": "2018.11.01.0",
           "resources": [
             {
               "apiVersion": "2017-09-01",

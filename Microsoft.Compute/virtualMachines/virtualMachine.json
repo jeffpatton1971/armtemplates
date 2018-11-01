@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.10.01.0",
+  "contentVersion": "2018.11.01.0",
   "parameters": {
     "Name": {
       "type": "string"
@@ -8,8 +8,8 @@
     "AvailabilitySetName": {
       "type": "string"
     },
-    "Interface":{
-      "type" : "object"
+    "Network": {
+      "type": "object"
     },
     "DataDisks": {
       "type": "array"
@@ -285,6 +285,10 @@
       "type": "string",
       "defaultValue": ""
     },
+    "Location": {
+      "type": "string",
+      "defaultValue": ""
+    },
     "platformUpdateDomainCount": {
       "type": "int",
       "defaultValue": 5
@@ -353,9 +357,9 @@
   },
   "variables": {
     "NamePrefix": "[toLower(parameters('Name'))]",
-    "VirtualNetworkId": "[resourceId(parameters('Interface').VirtualNetworkResourceGroupName,'Microsoft.Network/virtualNetworks/',parameters('Interface').VirtualNetworkName)]",
-    "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('Interface').SubnetName)]",
-    "NetworkInterfaceName": "[parameters('Interface').name]",
+    "VirtualNetworkId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName,'Microsoft.Network/virtualNetworks/',parameters('Network').VirtualNetworkName)]",
+    "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('Network').SubnetName)]",
+    "NetworkInterfaceName": "[parameters('Network').name]",
     "NetworkInterfaceIpConfigurationName": "[concat(variables('NetworkInterfaceName'),'-ipc')]",
     "Disk": {
       "p4": {
@@ -847,7 +851,8 @@
         "timezone": "Pacific Standard Time"
       }
     },
-    "timeZone": "[if(empty(parameters('TimeZone')),variables('regions')[resourceGroup().location].timezone,parameters('Timezone'))]",
+    "location": "[if(empty(parameters('Location')),resourceGroup().location,parameters('Location'))]",
+    "timeZone": "[if(empty(parameters('TimeZone')),variables('regions')[variables('location')].timezone,parameters('Timezone'))]",
     "tags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
@@ -898,7 +903,7 @@
       "apiVersion": "2017-03-30",
       "name": "[parameters('AvailabilitySetName')]",
       "type": "Microsoft.Compute/availabilitySets",
-      "location": "[resourceGroup().location]",
+      "location": "[variables('location')]",
       "dependsOn": [],
       "tags": "[variables('tags')]",
       "sku": {
@@ -913,7 +918,7 @@
       "apiVersion": "2017-10-01",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('NetworkInterfaceName')]",
-      "location": "[resourceGroup().location]",
+      "location": "[variables('location')]",
       "dependsOn": [ "[parameters('AvailabilitySetName')]" ],
       "properties": {
         "dnsSettings": {},
@@ -947,7 +952,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.10.01.0",
+          "contentVersion": "2018.11.01.0",
           "parameters": {},
           "variables": {},
           "resources": [
@@ -955,7 +960,7 @@
               "type": "Microsoft.Compute/disks",
               "apiVersion": "2017-03-30",
               "name": "[parameters('DataDisks')[copyIndex()].name]",
-              "location": "[resourceGroup().location]",
+              "location": "[variables('location')]",
               "dependsOn": [],
               "tags": "[variables('tags')]",
               "properties": {
@@ -983,13 +988,13 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.10.01.0",
+          "contentVersion": "2018.11.01.0",
           "resources": [
             {
               "apiVersion": "2017-03-30",
               "type": "Microsoft.Compute/virtualMachines",
               "name": "[parameters('Name')]",
-              "location": "[resourceGroup().location]",
+              "location": "[variables('location')]",
               "dependsOn": [],
               "properties": {
                 "licenseType": "[if(equals(parameters('LicenseType'),'None'),json('null'),parameters('LicenseType'))]",
@@ -1052,13 +1057,13 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.10.01.0",
+          "contentVersion": "2018.11.01.0",
           "resources": [
             {
               "apiVersion": "2017-03-30",
               "type": "Microsoft.Compute/virtualMachines",
               "name": "[parameters('Name')]",
-              "location": "[resourceGroup().location]",
+              "location": "[variables('location')]",
               "dependsOn": [],
               "properties": {
                 "licenseType": "[if(equals(parameters('LicenseType'),'None'),json('null'),parameters('LicenseType'))]",

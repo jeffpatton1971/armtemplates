@@ -1,11 +1,11 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.10.01.0",
+  "contentVersion": "2018.11.01.0",
   "parameters": {
     "Name": {
       "type": "string"
     },
-    "Interface": {
+    "Network": {
       "type": "object"
     },
     "DataDisks": {
@@ -348,9 +348,9 @@
   },
   "variables": {
     "NamePrefix": "[toLower(parameters('Name'))]",
-    "VirtualNetworkId": "[resourceId(parameters('Interface').VirtualNetworkResourceGroupName,'Microsoft.Network/virtualNetworks/',parameters('Interface').VirtualNetworkName)]",
-    "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('Interface').SubnetName)]",
-    "NetworkInterfaceName": "[parameters('Interface').name]",
+    "VirtualNetworkId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName,'Microsoft.Network/virtualNetworks/',parameters('Network').VirtualNetworkName)]",
+    "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('Network').SubnetName)]",
+    "NetworkInterfaceName": "[parameters('Network').name]",
     "NetworkInterfaceIpConfigurationName": "[concat(variables('NetworkInterfaceName'),'-ipc')]",
     "Disk": {
       "p4": {
@@ -927,7 +927,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.10.01.0",
+          "contentVersion": "2018.11.01.0",
           "parameters": {
           },
           "variables": {
@@ -966,7 +966,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.10.01.0",
+          "contentVersion": "2018.11.01.0",
           "resources": [
             {
               "apiVersion": "2017-12-01",
@@ -1038,7 +1038,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.10.01.0",
+          "contentVersion": "2018.11.01.0",
           "resources": [
             {
               "apiVersion": "2017-12-01",

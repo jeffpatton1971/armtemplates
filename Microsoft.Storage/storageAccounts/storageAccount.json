@@ -1,22 +1,39 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.10.01.0",
+  "contentVersion": "2018.11.01.0",
   "parameters": {
-    "Name": {
+    "name": {
       "type": "string"
     },
-    "administratorLogin": {
-      "type": "string"
+    "sku": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_GRS",
+        "Standard_RAGRS",
+        "Standard_ZRS",
+        "Premium_LRS"
+      ]
     },
-    "administratorLoginPassword": {
-      "type": "securestring"
-    },
-    "version": {
+    "kind": {
       "type": "string",
       "allowedValues": [
-        "12.0"
+        "Storage",
+        "StorageV2",
+        "BlobStorage",
+        "FileStorage",
+        "BlockBlobStorage"
       ],
-      "defaultValue": "12.0"
+      "defaultValue": "Storage"
+    },
+    "Location": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "encryption": {
+      "type": "bool",
+      "defaultValue": false
     },
     "environment": {
       "type": "string",
@@ -77,6 +94,7 @@
     }
   },
   "variables": {
+    "location": "[if(empty(parameters('Location')),resourceGroup().location,parameters('Location'))]",
     "tags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
@@ -86,16 +104,24 @@
   },
   "resources": [
     {
-      "type": "Microsoft.Sql/servers",
-      "name": "[parameters('Name')]",
-      "apiVersion": "2015-05-01-preview",
-      "location": "[resourceGroup().location]",
-      "properties": {
-        "administratorLogin": "[parameters('administratorLogin')]",
-        "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
-        "version": "[parameters('version')]"
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[parameters('name')]",
+      "apiVersion": "2018-07-01",
+      "location": "[variables('location')]",
+      "sku": {
+        "name": "[parameters('sku')]"
       },
-      "resources": [],
+      "kind": "[parameters('kind')]",
+      "properties": {
+        "encryption": {
+          "keySource": "Microsoft.Storage",
+          "services": {
+            "blob": {
+              "enabled": "[parameters('encryption')]"
+            }
+          }
+        }
+      },
       "tags": "[variables('tags')]"
     }
   ],

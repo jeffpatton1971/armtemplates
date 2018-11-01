@@ -1,6 +1,6 @@
 ﻿{
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-  "contentVersion": "2018.10.01.0",
+  "contentVersion": "2018.11.01.0",
   "parameters": {
     "name": {
       "value": ""
@@ -10,14 +10,17 @@
     },
     "Network": {
       "value": {
-        "VirtualNetworkResourceGroupName": "",
-        "VirtualNetworkName": "",
-        "SubnetName": ""
+        "VirtualNetworkResourceGroupName": "testing-rg",
+        "VirtualNetworkName": "sample-vnet",
+        "SubnetName": "default"
       }
     },
     "loadBalancingRules": {
       "value": [
         {
+          "FrontendIpConfigurationName": "fe-aoag",
+          "privateIPAddress": "",
+          "privateIPAllocationMethod": "Dynamic",
           "protocol": "Tcp",
           "frontendPort": 80,
           "backendPort": 80,
@@ -25,9 +28,12 @@
           "numberOfProbes": 2
         },
         {
+          "FrontendIpConfigurationName": "fe-ntclus",
+          "privateIPAddress": "",
+          "privateIPAllocationMethod": "Dynamic",
           "protocol": "Tcp",
-          "frontendPort": 443,
-          "backendPort": 443,
+          "frontendPort": 81,
+          "backendPort": 81,
           "intervalInSeconds": 5,
           "numberOfProbes": 2
         }
@@ -37,7 +43,7 @@
       "value": "Development"
     },
     "buildDate": {
-      "value": "10/01/2018"
+      "value": "11/01/2018"
     },
     "buildBy": {
       "value": "jeffrey.patton2@rackspace.com"

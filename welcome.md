@@ -10,6 +10,26 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need updated traffic manager template to accomodate endpoints and more properties
 
 # Change Log
+- 11/01 : Updated Build and ContentVersion values to current build and date
+- 11/01 : Renamed virtualNetworks and virtualNetworks.parameters to virtualNetwork and virtualNetwork.parameters
+- 11/01 : Renamed virtualNetworkGateways and virtualNetworkGateways.parameters to virtualNetworkGateway and virtualNetworkGateway.parameters
+- 10/30 : Cleaned up the storage account template, added racksapce tagging, and a parameters file.
+- 10/28 : Added storage account template
+- 10/19 : Renamed postgresql-server and postgresql-server.parameters to server and server.parameters
+- 10/19 : Renamed virtualMachineScaleSets and virtualMachineScaleSets.parameters to virtualMachineScaleSet and virtualMachineScaleSet.parameters
+- 10/19 : Renamed azureautomation-account and azureautomation-account.parameters to automationaccount and automationaccount.parameters
+- 10/19 : Renamed sql-server and sql-server.parameters to server and server.parameters
+- 10/19 : Renamed sql-elasticpool and sql-elasticpool.parameters to elasticpool and elasticpool.parameters
+- 10/19 : Renamed sql-database and sql-database.parameters to database and database.parameters
+- 10/19 : Updated VaultName parameter to just Name
+- 10/19 : Renamed recovery-services-vault and recovery-services-vault.parameters to vault and vault.paramters
+- 10/19 : Renamed oms-workspace and oms-workspace.parameters to workspace and workspace.paramters
+- 10/19 : Updated VirtualnetworkGateway, removed ipconfigurations array (not used), added network object, provided examples for bgpSettings and sku objects
+- 10/19 : Updated automationAccountName parameter to just Name
+- 10/19 : Changing up interface to match where it's referenced as network in other resources
+- 10/12 : Updated LB template to accept a location parameter, otherwise pull in ResourceGroup
+- 10/11 : Updated VM template to accept a location parameter, otherwise pull in ResourceGroup
+- 10/01 : Creating a frontendIpConfiguration array parameter, to accomodate having multiple frontend IP's (McKesson req)
 - 09/28 : Added basic traffic manager templates
 - 09/28 : Updated endpoint with default values
 - 09/28 : Renamed endpoint and profile templates
