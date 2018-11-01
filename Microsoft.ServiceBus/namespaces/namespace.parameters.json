@@ -1,6 +1,6 @@
 {
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-  "contentVersion": "2018.10.01.0",
+  "contentVersion": "2018.11.01.0",
   "parameters": {
     "Name": {
       "value": ""
@@ -12,7 +12,7 @@
       "value": "Development"
     },
     "buildDate": {
-      "value": "10/01/2018"
+      "value": "11/01/2018"
     },
     "buildBy": {
       "value": "jeffrey.patton2@rackspace.com"

@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.10.01.0",
+  "contentVersion": "2018.11.01.0",
   "parameters": {
     "Name": {
       "type": "string"
@@ -952,7 +952,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.10.01.0",
+          "contentVersion": "2018.11.01.0",
           "parameters": {},
           "variables": {},
           "resources": [
@@ -988,7 +988,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.10.01.0",
+          "contentVersion": "2018.11.01.0",
           "resources": [
             {
               "apiVersion": "2017-03-30",
@@ -1057,7 +1057,7 @@
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.10.01.0",
+          "contentVersion": "2018.11.01.0",
           "resources": [
             {
               "apiVersion": "2017-03-30",

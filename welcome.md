@@ -10,6 +10,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need updated traffic manager template to accomodate endpoints and more properties
 
 # Change Log
+- 11/01 : Updated Build and ContentVersion values to current build and date
 - 11/01 : Renamed virtualNetworks and virtualNetworks.parameters to virtualNetwork and virtualNetwork.parameters
 - 11/01 : Renamed virtualNetworkGateways and virtualNetworkGateways.parameters to virtualNetworkGateway and virtualNetworkGateway.parameters
 - 10/30 : Cleaned up the storage account template, added racksapce tagging, and a parameters file.
