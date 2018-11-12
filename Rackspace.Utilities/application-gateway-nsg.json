@@ -20,14 +20,6 @@
   "resources": [
     {
       "apiVersion": "2016-03-30",
-      "type": "Microsoft.Network/networkSecurityGroups",
-      "name": "[parameters('Name')]",
-      "location": "[resourceGroup().location]",
-      "properties": {
-      }
-    },
-    {
-      "apiVersion": "2016-03-30",
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_Internet_Inbound_HTTP')]",
       "location": "[resourceGroup().location]",
@@ -59,6 +51,24 @@
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
         "priority": 211,
+        "direction": "Inbound"
+      }
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('Name'),'/Allow_TCP_UDP_65200_65535')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
+      "properties": {
+        "description": "Allow TCP and UDP 65200_65535",
+        "protocol": "*",
+        "sourcePortRange": "*",
+        "destinationPortRange": "65200-65535",
+        "sourceAddressPrefix": "VirtualNetwork",
+        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "access": "Allow",
+        "priority": 212,
         "direction": "Inbound"
       }
     }

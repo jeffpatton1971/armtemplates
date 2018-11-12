@@ -10,6 +10,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need updated traffic manager template to accomodate endpoints and more properties
 
 # Change Log
+- 11/12 : Created a default NSG template, removed the NSG deployment from the rules, adjusted priority
 - 11/12 : Updated nsg templates to deploy an empty nsg
 - 11/12 : Corrected extra properties block in ad-nsg template
 - 11/01 : Updated Build and ContentVersion values to current build and date
