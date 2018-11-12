@@ -49,7 +49,7 @@
         "sourceAddressPrefix": "[parameters('OctopusPrefix')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 220,
+        "priority": 138,
         "direction": "Inbound"
       }
     },
@@ -67,7 +67,7 @@
         "sourceAddressPrefix": "[parameters('SubnetPrefix')]",
         "destinationAddressPrefix": "[parameters('OctopusPrefix')]",
         "access": "Allow",
-        "priority": 220,
+        "priority": 139,
         "direction": "Outbound"
       }
     },
@@ -85,7 +85,7 @@
         "sourceAddressPrefix": "[parameters('SubnetPrefix')]",
         "destinationAddressPrefix": "[parameters('OctopusPrefix')]",
         "access": "Allow",
-        "priority": 221,
+        "priority": 140,
         "direction": "Outbound"
       }
     }

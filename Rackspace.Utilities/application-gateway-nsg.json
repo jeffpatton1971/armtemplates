@@ -31,7 +31,7 @@
         "sourceAddressPrefix": "*",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 210,
+        "priority": 133,
         "direction": "Inbound"
       }
     },
@@ -48,7 +48,7 @@
         "sourceAddressPrefix": "*",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 211,
+        "priority": 134,
         "direction": "Inbound"
       }
     },
@@ -65,7 +65,7 @@
         "sourceAddressPrefix": "VirtualNetwork",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 212,
+        "priority": 135,
         "direction": "Inbound"
       }
     }

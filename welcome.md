@@ -10,6 +10,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need updated traffic manager template to accomodate endpoints and more properties
 
 # Change Log
+- 11/12 : Renumbered all priorities across all NSG templates
 - 11/12 : Corrected casing difference between template and parameters
 - 11/12 : Added parameter file for networkSecurityGroup.json
 - 11/12 : Removed dependancy on NSG in rules templates

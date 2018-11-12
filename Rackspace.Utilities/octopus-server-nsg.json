@@ -50,7 +50,7 @@
         "sourceAddressPrefix": "[parameters('AgentPrefix')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 220,
+        "priority": 141,
         "direction": "Inbound"
       }
     },
@@ -68,7 +68,7 @@
         "sourceAddressPrefix": "[parameters('AgentPrefix')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 220,
+        "priority": 142,
         "direction": "Inbound"
       }
     },
@@ -86,7 +86,7 @@
         "sourceAddressPrefix": "[parameters('AgentPrefix')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 221,
+        "priority": 143,
         "direction": "Inbound"
       }
     }

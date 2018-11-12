@@ -45,7 +45,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionDFW')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 126,
+        "priority": 144,
         "direction": "Inbound"
       }
     },
@@ -62,7 +62,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionIAD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 127,
+        "priority": 145,
         "direction": "Inbound"
       }
     },
@@ -79,7 +79,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionORD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 128,
+        "priority": 146,
         "direction": "Inbound"
       }
     },
@@ -96,7 +96,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionHKG')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 129,
+        "priority": 147,
         "direction": "Inbound"
       }
     },
@@ -113,7 +113,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionLON')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 130,
+        "priority": 148,
         "direction": "Inbound"
       }
     },
@@ -130,7 +130,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionLON5')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 131,
+        "priority": 149,
         "direction": "Inbound"
       }
     },
@@ -147,7 +147,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionSYD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 132,
+        "priority": 150,
         "direction": "Inbound"
       }
     },
@@ -164,7 +164,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionDFW')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 133,
+        "priority": 151,
         "direction": "Inbound"
       }
     },
@@ -181,7 +181,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionIAD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 134,
+        "priority": 152,
         "direction": "Inbound"
       }
     },
@@ -198,7 +198,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionORD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 135,
+        "priority": 153,
         "direction": "Inbound"
       }
     },
@@ -215,7 +215,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionHKG')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 136,
+        "priority": 154,
         "direction": "Inbound"
       }
     },
@@ -232,7 +232,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionLON')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 137,
+        "priority": 155,
         "direction": "Inbound"
       }
     },
@@ -250,7 +250,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionLON5')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 138,
+        "priority": 156,
         "direction": "Inbound"
       }
     },
@@ -267,7 +267,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionSYD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 139,
+        "priority": 157,
         "direction": "Inbound"
       }
     },
@@ -284,7 +284,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionDFW')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 140,
+        "priority": 158,
         "direction": "Inbound"
       }
     },
@@ -301,7 +301,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionIAD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 141,
+        "priority": 159,
         "direction": "Inbound"
       }
     },
@@ -318,7 +318,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionORD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 142,
+        "priority": 160,
         "direction": "Inbound"
       }
     },
@@ -335,7 +335,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionHKG')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 143,
+        "priority": 167,
         "direction": "Inbound"
       }
     },
@@ -352,7 +352,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionLON')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 144,
+        "priority": 168,
         "direction": "Inbound"
       }
     },
@@ -369,7 +369,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionLON5')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 145,
+        "priority": 169,
         "direction": "Inbound"
       }
     },
@@ -386,7 +386,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionSYD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 146,
+        "priority": 170,
         "direction": "Inbound"
       }
     },
@@ -403,7 +403,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionLON')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 147,
+        "priority": 171,
         "direction": "Inbound"
       }
     },
@@ -420,7 +420,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionLON5')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 148,
+        "priority": 172,
         "direction": "Inbound"
       }
     },
@@ -437,7 +437,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionDFW')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 149,
+        "priority": 173,
         "direction": "Inbound"
       }
     },
@@ -454,7 +454,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionORD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 150,
+        "priority": 174,
         "direction": "Inbound"
       }
     },
@@ -471,7 +471,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionIAD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 151,
+        "priority": 175,
         "direction": "Inbound"
       }
     },
@@ -488,7 +488,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionHKG')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 152,
+        "priority": 176,
         "direction": "Inbound"
       }
     },
@@ -505,7 +505,7 @@
         "sourceAddressPrefix": "[variables('rackspaceBastionSYD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 153,
+        "priority": 177,
         "direction": "Inbound"
       }
     },
@@ -523,7 +523,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionDFW')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 154,
+        "priority": 178,
         "direction": "Inbound"
       }
     },
@@ -540,7 +540,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionDFW')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 155,
+        "priority": 179,
         "direction": "Inbound"
       }
     },
@@ -557,7 +557,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionDFW')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 156,
+        "priority": 180,
         "direction": "Inbound"
       }
     },
@@ -574,7 +574,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionDFW')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 157,
+        "priority": 181,
         "direction": "Inbound"
       }
     },
@@ -591,7 +591,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionIAD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 158,
+        "priority": 182,
         "direction": "Inbound"
       }
     },
@@ -608,7 +608,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionIAD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 159,
+        "priority": 183,
         "direction": "Inbound"
       }
     },
@@ -625,7 +625,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionIAD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 160,
+        "priority": 184,
         "direction": "Inbound"
       }
     },
@@ -642,7 +642,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionIAD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 161,
+        "priority": 185,
         "direction": "Inbound"
       }
     },
@@ -659,7 +659,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionORD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 162,
+        "priority": 186,
         "direction": "Inbound"
       }
     },
@@ -676,7 +676,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionORD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 163,
+        "priority": 187,
         "direction": "Inbound"
       }
     },
@@ -693,7 +693,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionORD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 164,
+        "priority": 188,
         "direction": "Inbound"
       }
     },
@@ -710,7 +710,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionORD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 165,
+        "priority": 189,
         "direction": "Inbound"
       }
     },
@@ -727,7 +727,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionHKG')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 166,
+        "priority": 190,
         "direction": "Inbound"
       }
     },
@@ -744,7 +744,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionHKG')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 167,
+        "priority": 191,
         "direction": "Inbound"
       }
     },
@@ -761,7 +761,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionHKG')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 168,
+        "priority": 192,
         "direction": "Inbound"
       }
     },
@@ -778,7 +778,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionHKG')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 169,
+        "priority": 193,
         "direction": "Inbound"
       }
     },
@@ -795,7 +795,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionLON')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 170,
+        "priority": 194,
         "direction": "Inbound"
       }
     },
@@ -812,7 +812,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionLON')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 171,
+        "priority": 195,
         "direction": "Inbound"
       }
     },
@@ -829,7 +829,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionLON')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 172,
+        "priority": 196,
         "direction": "Inbound"
       }
     },
@@ -846,7 +846,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionLON')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 173,
+        "priority": 197,
         "direction": "Inbound"
       }
     },
@@ -863,7 +863,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionLON5')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 174,
+        "priority": 198,
         "direction": "Inbound"
       }
     },
@@ -880,7 +880,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionLON5')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 175,
+        "priority": 199,
         "direction": "Inbound"
       }
     },
@@ -897,7 +897,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionLON5')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 176,
+        "priority": 200,
         "direction": "Inbound"
       }
     },
@@ -914,7 +914,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionLON5')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 177,
+        "priority": 201,
         "direction": "Inbound"
       }
     },
@@ -931,7 +931,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionSYD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 178,
+        "priority": 202,
         "direction": "Inbound"
       }
     },
@@ -948,7 +948,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionSYD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 179,
+        "priority": 203,
         "direction": "Inbound"
       }
     },
@@ -965,7 +965,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionSYD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 180,
+        "priority": 204,
         "direction": "Inbound"
       }
     },
@@ -982,7 +982,7 @@
         "sourceAddressPrefix": "[variables('rackspacepBastionSYD')]",
         "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
         "access": "Allow",
-        "priority": 181,
+        "priority": 205,
         "direction": "Inbound"
       }
     }
