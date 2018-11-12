@@ -23,7 +23,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
+
       "properties": {
         "description": "Allows intra-subnet communication",
         "protocol": "*",
@@ -41,7 +41,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_AZURE_LB_INBOUND')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
+
       "properties": {
         "description": "Allows inbound traffic from Azure Load Balancer",
         "protocol": "*",
@@ -59,7 +59,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Deny_ALL_INBOUND_UDP')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
+
       "properties": {
         "description": "Deny all inbound UDP",
         "protocol": "Udp",
@@ -77,7 +77,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Deny_ALL_INBOUND_TCP')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
+
       "properties": {
         "description": "Deny all inbound TCP",
         "protocol": "Tcp",

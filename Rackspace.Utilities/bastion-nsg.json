@@ -37,7 +37,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_RDP_DFW')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows RDP",
         "protocol": "*",
@@ -55,7 +54,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_RDP_IAD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows RDP",
         "protocol": "*",
@@ -73,7 +71,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_RDP_ORD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows RDP",
         "protocol": "*",
@@ -91,7 +88,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_RDP_HKG')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows RDP",
         "protocol": "*",
@@ -109,7 +105,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_RDP_LON')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows RDP",
         "protocol": "*",
@@ -127,7 +122,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_RDP_LON5')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows RDP",
         "protocol": "*",
@@ -145,7 +139,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_RDP_SYD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows RDP",
         "protocol": "*",
@@ -163,7 +156,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_SSH_DFW')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows SSH",
         "protocol": "Tcp",
@@ -181,7 +173,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_SSH_IAD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows SSH",
         "protocol": "Tcp",
@@ -199,7 +190,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_SSH_ORD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows SSH",
         "protocol": "Tcp",
@@ -217,7 +207,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_SSH_HKG')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows SSH",
         "protocol": "Tcp",
@@ -235,7 +224,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_SSH_LON')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows SSH",
         "protocol": "Tcp",
@@ -253,7 +241,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_SSH_LON5')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
+
       "properties": {
         "description": "Allows SSH",
         "protocol": "Tcp",
@@ -271,7 +259,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_SSH_SYD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows SSH",
         "protocol": "Tcp",
@@ -289,7 +276,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_HTTPS_DFW')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows HTTPS",
         "protocol": "Tcp",
@@ -307,7 +293,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_HTTPS_IAD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows HTTPS",
         "protocol": "Tcp",
@@ -325,7 +310,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_HTTPS_ORD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows HTTPS",
         "protocol": "Tcp",
@@ -343,7 +327,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_HTTPS_HKG')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows HTTPS",
         "protocol": "Tcp",
@@ -361,7 +344,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_HTTPS_LON')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows HTTPS",
         "protocol": "Tcp",
@@ -379,7 +361,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_HTTPS_LON5')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows HTTPS",
         "protocol": "Tcp",
@@ -397,7 +378,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_HTTPS_SYD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows HTTPS",
         "protocol": "Tcp",
@@ -415,7 +395,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_WinRM_LON')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows WinRM",
         "protocol": "Tcp",
@@ -433,7 +412,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_WinRM_LON5')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows WinRM",
         "protocol": "Tcp",
@@ -451,7 +429,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_WinRM_DFW')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows WinRM",
         "protocol": "Tcp",
@@ -469,7 +446,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_WinRM_ORD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows WinRM",
         "protocol": "Tcp",
@@ -487,7 +463,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_WinRM_IAD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows WinRM",
         "protocol": "Tcp",
@@ -505,7 +480,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_WinRM_HKG')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows WinRM",
         "protocol": "Tcp",
@@ -523,7 +497,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_WinRM_SYD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows WinRM",
         "protocol": "Tcp",
@@ -541,7 +514,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_RDP_PDFW')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
+
       "properties": {
         "description": "Allows RDP",
         "protocol": "*",
@@ -559,7 +532,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_SSH_PDFW')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows SSH",
         "protocol": "Tcp",
@@ -577,7 +549,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_HTTPS_PDFW')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows HTTPS",
         "protocol": "Tcp",
@@ -595,7 +566,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_WinRM_PDFW')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows WinRM",
         "protocol": "Tcp",
@@ -613,7 +583,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_RDP_PIAD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows RDP",
         "protocol": "*",
@@ -631,7 +600,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_SSH_PIAD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows SSH",
         "protocol": "Tcp",
@@ -649,7 +617,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_HTTPS_PIAD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows HTTPS",
         "protocol": "Tcp",
@@ -667,7 +634,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_WinRM_PIAD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows WinRM",
         "protocol": "Tcp",
@@ -685,7 +651,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_RDP_PORD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows RDP",
         "protocol": "*",
@@ -703,7 +668,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_SSH_PORD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows SSH",
         "protocol": "Tcp",
@@ -721,7 +685,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_HTTPS_PORD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows HTTPS",
         "protocol": "Tcp",
@@ -739,7 +702,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_WinRM_PORD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows WinRM",
         "protocol": "Tcp",
@@ -757,7 +719,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_RDP_PHKG')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows RDP",
         "protocol": "*",
@@ -775,7 +736,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_SSH_PHKG')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows SSH",
         "protocol": "Tcp",
@@ -793,7 +753,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_HTTPS_PHKG')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows HTTPS",
         "protocol": "Tcp",
@@ -811,7 +770,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_WinRM_PHKG')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows WinRM",
         "protocol": "Tcp",
@@ -829,7 +787,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_RDP_PLON')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows RDP",
         "protocol": "*",
@@ -847,7 +804,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_SSH_PLON')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows SSH",
         "protocol": "Tcp",
@@ -865,7 +821,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_HTTPS_PLON')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows HTTPS",
         "protocol": "Tcp",
@@ -883,7 +838,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_WinRM_PLON')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows WinRM",
         "protocol": "Tcp",
@@ -901,7 +855,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_RDP_PLON5')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows RDP",
         "protocol": "*",
@@ -919,7 +872,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_SSH_PLON5')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows SSH",
         "protocol": "Tcp",
@@ -937,7 +889,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_HTTPS_PLON5')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows HTTPS",
         "protocol": "Tcp",
@@ -955,7 +906,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_WinRM_PLON5')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows WinRM",
         "protocol": "Tcp",
@@ -973,7 +923,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_RDP_PSYD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows RDP",
         "protocol": "*",
@@ -991,7 +940,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_SSH_PSYD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows SSH",
         "protocol": "Tcp",
@@ -1009,7 +957,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_HTTPS_PSYD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows HTTPS",
         "protocol": "Tcp",
@@ -1027,7 +974,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RAX_WinRM_PSYD')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows WinRM",
         "protocol": "Tcp",

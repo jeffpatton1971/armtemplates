@@ -29,7 +29,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows RDP inbound from local RBAST subnet",
         "protocol": "Tcp",
@@ -47,7 +46,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows SSH inbound from local RBAST subnet",
         "protocol": "Tcp",
@@ -65,7 +63,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows WinRM inbound from local RACK_BASTION subnet",
         "protocol": "Tcp",
@@ -83,7 +80,6 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
         "protocol": "Tcp",
