@@ -24,17 +24,15 @@
       "name": "[concat(parameters('Name'),'/Allow_TCP_UDP_53')]",
       "location": "[resourceGroup().location]",
       "properties": {
-        "properties": {
-          "description": "Allow UDP 53",
-          "protocol": "*",
-          "sourcePortRange": "*",
-          "destinationPortRange": "53",
-          "sourceAddressPrefix": "VirtualNetwork",
-          "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
-          "access": "Allow",
-          "priority": 131,
-          "direction": "Inbound"
-        }
+        "description": "Allow UDP 53",
+        "protocol": "*",
+        "sourcePortRange": "*",
+        "destinationPortRange": "53",
+        "sourceAddressPrefix": "VirtualNetwork",
+        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "access": "Allow",
+        "priority": 131,
+        "direction": "Inbound"
       }
     },
     {
