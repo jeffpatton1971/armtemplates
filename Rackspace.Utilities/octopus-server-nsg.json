@@ -37,11 +37,20 @@
   },
   "resources": [
     {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('Name')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+      }
+    },
+    {
       "condition": "[equals(parameters('Mode'),'Listening')]",
       "apiVersion": "2016-03-30",
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_Agent_Listening_INBOUND')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows inbound connections from agent subnet",
         "protocol": "Tcp",
@@ -60,6 +69,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_Agent_Polling_INBOUND_443')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows inbound connections from agent subnet",
         "protocol": "Tcp",
@@ -78,6 +88,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_Agent_Polling_INBOUND_10943')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows inbound connections from agent subnet",
         "protocol": "Tcp",

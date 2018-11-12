@@ -20,9 +20,18 @@
   "resources": [
     {
       "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('Name')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+      }
+    },
+    {
+      "apiVersion": "2016-03-30",
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_Internet_Inbound_HTTP')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows inbound http to the Application Gateway subnet",
         "protocol": "Tcp",
@@ -40,6 +49,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_Internet_Inbound_HTTPS')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows inbound https to the Application Gateway subnet",
         "protocol": "Tcp",

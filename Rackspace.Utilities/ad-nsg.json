@@ -20,9 +20,18 @@
   "resources": [
     {
       "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('Name')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+      }
+    },
+    {
+      "apiVersion": "2016-03-30",
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_TCP_UDP_53')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow UDP 53",
         "protocol": "*",
@@ -40,6 +49,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_TCP_UDP_88')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow TCP and UDP 88",
         "protocol": "*",
@@ -57,6 +67,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_UDP_123')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow UDP 123",
         "protocol": "Udp",
@@ -74,6 +85,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_TCP_135')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow TCP 135",
         "protocol": "Tcp",
@@ -91,6 +103,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_TCP_UDP_137')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow TCP and UDP 137",
         "protocol": "*",
@@ -108,6 +121,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_UDP_138')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow UDP 138",
         "protocol": "Udp",
@@ -125,6 +139,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_TCP_139')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow TCP 139",
         "protocol": "Tcp",
@@ -142,6 +157,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_TCP_UDP_389')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow TCP and UDP 389",
         "protocol": "*",
@@ -159,6 +175,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_TCP_UDP_445')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow TCP and UDP 445",
         "protocol": "*",
@@ -176,6 +193,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_TCP_UDP_464')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow TCP and UDP 464",
         "protocol": "*",
@@ -193,6 +211,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_TCP_636')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow TCP 636",
         "protocol": "Tcp",
@@ -210,6 +229,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_TCP_3268')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow TCP 3268",
         "protocol": "Tcp",
@@ -227,6 +247,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_TCP_3269')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow TCP 3269",
         "protocol": "Tcp",
@@ -244,6 +265,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_TCP_5722')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow TCP 5722",
         "protocol": "Tcp",
@@ -261,6 +283,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_TCP_UDP_49152_65535')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow TCP and UDP 49152_65535",
         "protocol": "*",
@@ -278,6 +301,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_TCP_9389')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow TCP 9389",
         "protocol": "Tcp",
@@ -295,6 +319,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_WinRM_5985')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow WinRM 5985",
         "protocol": "Tcp",

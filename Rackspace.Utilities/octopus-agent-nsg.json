@@ -36,11 +36,20 @@
   },
   "resources": [
     {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('Name')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+      }
+    },
+    {
       "condition": "[equals(parameters('Mode'),'Listening')]",
       "apiVersion": "2016-03-30",
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_Octopus_Listening_INBOUND')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows inbound connections from Octopus subnet",
         "protocol": "Tcp",
@@ -59,6 +68,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_Octopus_Polling_OUTBOUND_10943')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows inbound connections to Octopus subnet",
         "protocol": "Tcp",
@@ -77,6 +87,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_Octopus_Polling_OUTBOUND_443')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allows inbound connections to Octopus subnet",
         "protocol": "Tcp",

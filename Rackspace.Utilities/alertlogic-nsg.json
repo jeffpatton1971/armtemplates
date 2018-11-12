@@ -23,9 +23,18 @@
   "resources": [
     {
       "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('Name')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+      }
+    },
+    {
+      "apiVersion": "2016-03-30",
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_VNET_TO_ALT_7777_INBOUND')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow_VNET_TO_ALT_7777_INBOUND",
         "protocol": "Tcp",
@@ -43,6 +52,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_VNET_TO_ALT_443_INBOUND')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow_VNET_TO_ALT_443_INBOUND",
         "protocol": "Tcp",
@@ -60,6 +70,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/ssh-rule-1')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow SSH",
         "protocol": "Tcp",
@@ -77,6 +88,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/ssh-rule-2')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow SSH",
         "protocol": "Tcp",
@@ -94,6 +106,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/ssh-rule-3')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow SSH",
         "protocol": "Tcp",
@@ -111,6 +124,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/pwaf-rule-1')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow WSM UI",
         "protocol": "Tcp",
@@ -128,6 +142,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/pwaf-rule-2')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow WSM UI",
         "protocol": "Tcp",
@@ -145,6 +160,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/pwaf-rule-3')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[parameters('Name')]" ],
       "properties": {
         "description": "Allow WSM UI",
         "protocol": "Tcp",
