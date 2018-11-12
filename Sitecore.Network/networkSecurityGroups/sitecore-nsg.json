@@ -35,7 +35,7 @@
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('CMS').SubnetPrefix]",
           "access": "Allow",
-          "priority": 200,
+          "priority": 206,
           "direction": "Inbound"
         }
       },
@@ -52,7 +52,7 @@
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('CMS').SubnetPrefix]",
           "access": "Allow",
-          "priority": 201,
+          "priority": 207,
           "direction": "Inbound"
         }
       }
@@ -71,7 +71,7 @@
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('SOLR').SubnetPrefix]",
           "access": "Allow",
-          "priority": 200,
+          "priority": 206,
           "direction": "Inbound"
         }
       },
@@ -88,7 +88,7 @@
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('SOLR').SubnetPrefix]",
           "access": "Allow",
-          "priority": 201,
+          "priority": 207,
           "direction": "Inbound"
         }
       },
@@ -105,7 +105,7 @@
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('SOLR').SubnetPrefix]",
           "access": "Allow",
-          "priority": 203,
+          "priority": 208,
           "direction": "Inbound"
         }
       }
@@ -124,7 +124,7 @@
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('XDB').SubnetPrefix]",
           "access": "Allow",
-          "priority": 200,
+          "priority": 206,
           "direction": "Inbound"
         }
       },
@@ -141,7 +141,7 @@
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('XDB').SubnetPrefix]",
           "access": "Allow",
-          "priority": 201,
+          "priority": 207,
           "direction": "Inbound"
         }
       }
