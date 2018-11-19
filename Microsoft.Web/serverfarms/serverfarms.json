@@ -108,7 +108,7 @@
     }
   },
   "variables": {
-    "hostingEnvironmentId": "[if(not(empty(parameters('AppServiceEnvironment'))),resourceId(parameters('AppServiceEnvironment').ResourceGroupName,'Microsoft.Web/hostingEnvironments',parameters('AppServiceEnvironment').Name),'')]",
+    "hostingEnvironmentId": "[if(not(empty(parameters('AppServiceEnvironment'))),resourceId(parameters('AppServiceEnvironment').ResourceGroupName,'Microsoft.Web/hostingEnvironments',parameters('AppServiceEnvironment').name),'')]",
     "location": "[if(empty(variables('hostingEnvironmentId')),resourceGroup().location,parameters('AppServiceEnvironment').Location)]",
     "F1": {
       "workerSize": 0,

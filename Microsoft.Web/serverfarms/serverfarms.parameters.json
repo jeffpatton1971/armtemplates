@@ -15,7 +15,11 @@
       "value": ""
     },
     "AppServiceEnvironment": {
-      "value": {}
+      "value": {
+        "name": "",
+        "ResourceGroupName": "",
+        "Location": ""
+      }
     },
     "environment": {
       "value": "Development"
