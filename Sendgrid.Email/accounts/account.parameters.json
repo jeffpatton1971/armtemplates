@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "2018.12.01.0",
+  "parameters": {
+    "name": {
+      "value": ""
+    },
+    "plan_name": {
+      "value": "free"
+    },
+    "plan_promotion_code": {
+      "value": ""
+    },
+    "password": {
+      "value": null
+    },
+    "email": {
+      "value": ""
+    },
+    "firstName": {
+      "value": ""
+    },
+    "lastName": {
+      "value": ""
+    },
+    "company": {
+      "value": ""
+    },
+    "website": {
+      "value": ""
+    },
+    "acceptMarketingEmails": {
+      "value": "0"
+    },
+    "environment": {
+      "value": "Development"
+    },
+    "buildDate": {
+      "value": "12/01/2018"
+    },
+    "buildBy": {
+      "value": "jeffrey.patton2@rackspace.com"
+    },
+    "RaxAutomationExclude": {
+      "value": "None"
+    }
+  }
+}
