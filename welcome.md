@@ -10,6 +10,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need updated traffic manager template to accomodate endpoints and more properties
 
 # Change Log
+- 11/19 : Added HA example for loadbalancer template
 - 11/19 : Updated SqlDatabase template, removed name array, and unused size param.
 - 11/19 : Updated automationaccount template with list of regions, and added undocumented eastus
 - 11/19 : Updated current list of regions for Workspace (removed West Central US), added RaxAutomationExclude tag
