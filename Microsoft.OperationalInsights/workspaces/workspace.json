@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2018.12.01.0",
   "parameters": {
     "Name": {
       "type": "string",
@@ -23,15 +23,14 @@
     "Location": {
       "type": "string",
       "allowedValues": [
-        "East US",
-        "West Europe",
-        "Southeast Asia",
         "Australia Southeast",
-        "West Central US",
-        "Japan East",
-        "UK South",
+        "Canada Central",
         "Central India",
-        "Canada Central"
+        "East US",
+        "Japan East",
+        "Southeast Asia",
+        "UK South",
+        "West Europe"
       ]
     },
     "environment": {
@@ -62,11 +61,34 @@
         "description": "The name of the engineer who build this environment"
       },
       "defaultValue": "First Last"
+    },
+    "RaxAutomationExclude": {
+      "type": "string",
+      "allowedValues": [
+        "None",
+        "Monitoring",
+        "Passport",
+        "Antimalware"
+      ],
+      "metadata": {
+        "description": "Select the automation type you will like to exclude for this VM",
+        "group": "Tags",
+        "order": 4,
+        "label": "Automation Exluce",
+        "question": "Choose the type of automation you will like to exclude this from"
+      },
+      "defaultValue": "None"
     }
   },
   "variables": {
     "WorkspaceapiVersion": "2017-03-15-preview",
     "OMSapiVersion": "2015-11-01-preview",
+    "tags": {
+      "Environment": "[parameters('environment')]",
+      "BuildDate": "[parameters('buildDate')]",
+      "BuildBy": "[parameters('buildBy')]",
+      "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
+    },
     "batch1": {
       "solutions": [
         {
@@ -118,13 +140,7 @@
       "type": "Microsoft.OperationalInsights/workspaces",
       "name": "[parameters('Name')]",
       "location": "[parameters('Location')]",
-      "tags": {
-        "Group": "Rackspace",
-        "displayName": "OMS Workspace",
-        "Environment": "[parameters('environment')]",
-        "BuildDate": "[parameters('buildDate')]",
-        "BuildBy": "[parameters('buildBy')]"
-      },
+      "tags": "[variables('tags')]",
       "properties": {
         "sku": {
           "Name": "[parameters('Tier')]"
