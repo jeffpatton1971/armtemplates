@@ -10,6 +10,9 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need updated traffic manager template to accomodate endpoints and more properties
 
 # Change Log
+- 11/19 : Renamed the protecteditem json and parameter files
+- 11/19 : Updated MqSQL template and removed the firewal rules
+- 11/19 : Updated casing for 'name' and adjusted contentVersion and dates for December release
 - 11/19 : Adding SendGrid template
 - 11/19 : Adding PublicIP template
 - 11/19 : Added HA example for loadbalancer template
