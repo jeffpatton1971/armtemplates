@@ -12,6 +12,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 
 
 # TODO
+- 11/19 : Add DisasterRecovery to all templates for environment
+- 11/19 : Change Q/A to QA for all templates
 - 11/12 : ~~Adjust casing of Name across all templates~~
 - 11/10 : ~~Add EastUS to automationAccount~~
 - 11/08 : ~~Add SendGrid template~~
