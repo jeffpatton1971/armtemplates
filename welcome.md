@@ -1,13 +1,24 @@
 # Rackspace Build Wiki
 Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that are used, and processes that are followed to deploy a customer environment into Azure.
 
+# New Additions
+- Application Service Environments template has been added
+- MySql PaaS template had been added
+- SendGrid template has been added
+- PublicIp template has been added
+
+# Breaking Changes
+- SqlDatabase template was an array of db names, it now only deploys a single db
+
+
 # TODO
-- Need to update the build environments to accomodate new template locations and udpates
-- Need Domain Setup DSC/Script with ordering for bringing up 2 DC's in sequence
-- Need to update Schema to add DB Tier and Sizing options
-- Need script to change Temp Drive
-- Need Script/DSC to make local admin/admingroup sql sysad's
-- Need updated traffic manager template to accomodate endpoints and more properties
+- 11/12 : ~~Adjust casing of Name across all templates~~
+- 11/10 : ~~Add EastUS to automationAccount~~
+- 11/08 : ~~Add SendGrid template~~
+- 11/08 : ~~Need PIP template~~
+- 11/08 : ~~Remove SQL DB Names~~
+- 11/07 : ~~Basic NSG Template~~
+- 11/07 : ~~Update OMS regions~~
 
 # Change Log
 - 11/19 : Added working hostingEnviroment template and parameter file
