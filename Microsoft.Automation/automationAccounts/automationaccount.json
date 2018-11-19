@@ -15,18 +15,21 @@
     "location": {
       "type": "string",
       "allowedValues": [
-        "japaneast",
-        "eastus2",
-        "westeurope",
-        "southeastasia",
-        "southcentralus",
+        "australiasoutheast",
         "brazilsouth",
+        "canadacentral",
+        "centralindia",
+        "eastus",
+        "eastus2",
+        "japaneast",
+        "koreacentral",
+        "northeurope",
+        "southcentralus",
+        "southeastasia",
         "uksouth",
         "westcentralus",
-        "northeurope",
-        "canadacentral",
-        "australiasoutheast",
-        "centralindia"
+        "westeurope",
+        "westus2"
       ],
       "defaultValue": "eastus2"
     },
