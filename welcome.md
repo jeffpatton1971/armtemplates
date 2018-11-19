@@ -10,6 +10,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - Need updated traffic manager template to accomodate endpoints and more properties
 
 # Change Log
+- 11/19 : Corrected deployment issues with new NSG template, as well as some resource issues
 - 11/12 : Checking in New networkSecurityGroup template, borrowed some code from the AlertLogic template, as well as the VirtualMachine template. This will deploy an NSG based on a DeploymentType (ApplicationGateway, Basion, DomainController, VirtualMachine)
 - 11/12 : Missed the sitecore specific rules
 - 11/12 : Renumbered all priorities across all NSG templates
