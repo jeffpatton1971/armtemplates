@@ -39,12 +39,17 @@
         "Production",
         "Staging",
         "Test",
+        "UAT",
         "Development",
-        "Q/A",
+        "QA",
+        "DisasterRecovery",
         "Other"
       ],
       "metadata": {
-        "description": "The Environment type we are building"
+        "description": "The Environment type we are building",
+        "group": "Tags",
+        "order": 1,
+        "question": "Please enter environment type : "
       },
       "defaultValue": "Production"
     },

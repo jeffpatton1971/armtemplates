@@ -37,8 +37,8 @@
         "Test",
         "UAT",
         "Development",
-        "Disaster Recovery",
-        "Q/A",
+        "QA",
+        "DisasterRecovery",
         "Other"
       ],
       "metadata": {
