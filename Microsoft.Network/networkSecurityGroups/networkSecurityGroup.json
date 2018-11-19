@@ -2,14 +2,8 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "2018.12.01.0",
   "parameters": {
-    "VirtualNetworkResourceGroupName": {
-      "type": "string"
-    },
-    "VirtualNetworkName": {
-      "type": "string"
-    },
-    "SubnetName": {
-      "type": "string"
+    "Network": {
+      "type": "object"
     },
     "SubnetPrefix": {
       "type": "string"
@@ -100,7 +94,7 @@
     "rackspacepBastionLON": "134.213.183.100/32",
     "rackspacepBastionLON5": "134.213.182.100/32",
     "rackspacepBastionSYD": "119.9.163.100/32",
-    "name": "[concat(parameters('SubnetName'),'-nsg')]",
+    "name": "[concat(parameters('Network').SubnetName,'-nsg')]",
     "tags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
@@ -112,7 +106,7 @@
     {
       "apiVersion": "2018-04-01",
       "type": "Microsoft.Network/virtualNetworks/subnets",
-      "name": "[concat(parameters('VirtualNetworkName'),'/',parameters('SubnetName'))]",
+      "name": "[concat(parameters('Network').VirtualNetworkName,'/',parameters('Network').SubnetName)]",
       "location": "[resourceGroup().location]",
       "dependsOn": [],
       "properties": {
@@ -134,7 +128,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
-      "resourceGroup": "[parameters('VirtualNetworkResourceGroupName')]",
+      "resourceGroup": "[parameters('Network').VirtualNetworkResourceGroupName]",
       "name": "VirtualMachine-SecurityRules",
       "condition": "[equals(parameters('DeploymentType'),'VirtualMachine')]",
       "dependsOn": [],
@@ -290,7 +284,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
-      "resourceGroup": "[parameters('VirtualNetworkResourceGroupName')]",
+      "resourceGroup": "[parameters('Network').VirtualNetworkResourceGroupName]",
       "name": "DomainController-SecurityRules",
       "condition": "[equals(parameters('DeploymentType'),'DomainController')]",
       "dependsOn": [],
@@ -736,7 +730,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
-      "resourceGroup": "[parameters('VirtualNetworkResourceGroupName')]",
+      "resourceGroup": "[parameters('Network').VirtualNetworkResourceGroupName]",
       "name": "Bastion-SecurityRules",
       "condition": "[equals(parameters('DeploymentType'),'Bastion')]",
       "dependsOn": [],
@@ -1846,7 +1840,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
-      "resourceGroup": "[parameters('VirtualNetworkResourceGroupName')]",
+      "resourceGroup": "[parameters('Network').VirtualNetworkResourceGroupName]",
       "name": "ApplicationGateway-SecurityRules",
       "condition": "[equals(parameters('DeploymentType'),'ApplicationGateway')]",
       "dependsOn": [],

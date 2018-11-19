@@ -12,6 +12,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 
 
 # TODO
+- 11/19 : ~~Change nsg template to match schema~~
 - 11/19 : Add DisasterRecovery to all templates for environment
 - 11/19 : Change Q/A to QA for all templates
 - 11/12 : ~~Adjust casing of Name across all templates~~
@@ -23,6 +24,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 11/19 : Updated NSG template with network object like loadbalancers
 - 11/19 : Added working hostingEnviroment template and parameter file
 - 11/19 : Renamed the protecteditem json and parameter files
 - 11/19 : Updated MqSQL template and removed the firewal rules
