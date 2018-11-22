@@ -984,7 +984,6 @@
                   "storageProfile": {
                     "imageReference": "[variables('imageReference')]",
                     "osDisk": {
-                      "name": "[variables('OsDiskName')]",
                       "caching": "ReadOnly",
                       "createOption": "FromImage"
                     },
