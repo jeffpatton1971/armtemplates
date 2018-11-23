@@ -2,83 +2,59 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "2018.12.01.0",
   "parameters": {
+    "name": {
+      "value": ""
+    },
     "Network": {
-      "value": {
-        "name": "vm01-avset-nic",
-        "VirtualNetworkResourceGroupName": "rg-vnet-ERPServicesWest",
-        "VirtualNetworkName": "vnet-ERPServicesWest",
-        "SubnetName": "sb-atlassian"
-      }
+      "value": {}
     },
     "DataDisks": {
-      "value": [
-        {
-          "name": "Logs",
-          "caching": "ReadWrite",
-          "lun": 0,
-          "size": "p30"
-        },
-        {
-          "name": "Temp",
-          "caching": "ReadOnly",
-          "lun": 1,
-          "size": "p10"
-        }
-      ]
+      "value": []
     },
     "UpgradePolicy": {
-      "value": {
-        "mode": "Manual",
-        "rollingUpgradePolicy": {
-          "maxBatchInstancePercent": 20,
-          "maxUnhealthyInstancePercent": 20,
-          "maxUnhealthyUpgradedInstancePercent": 20,
-          "pauseTimeBetweenBatches": "PT0S"
-        },
-        "automaticOSUpgrade": false,
-        "autoOSUpgradePolicy": {
-          "disableAutoRollback": false
-        }
-      }
-    },
-    "name": {
-      "value": "vm01"
+      "value": {}
     },
     "LicenseType": {
-      "value": "None"
+      "value": ""
     },
     "Size": {
-      "value": "DS1_v2"
-    },
-    "GalleryImage": {
-      "value": {}
+      "value": ""
     },
     "ImageReferenceId": {
       "value": ""
     },
+    "GalleryImage": {
+      "value": {}
+    },
     "OperatingSystem": {
-      "value": "Windows Server 2016 DataCenter"
+      "value": ""
     },
     "AdminUserName": {
-      "value": "azureuser"
+      "value": ""
     },
     "AdminPassword": {
-      "value": "P@ssword12345"
+      "value": ""
+    },
+    "TimeZone": {
+      "value": ""
+    },
+    "Location": {
+      "value": ""
     },
     "Count": {
-      "value": 1
+      "value": ""
     },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "12/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }

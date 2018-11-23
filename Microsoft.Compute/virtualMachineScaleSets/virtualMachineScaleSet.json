@@ -285,6 +285,10 @@
       "type": "string",
       "defaultValue": ""
     },
+    "Location": {
+      "type": "string",
+      "defaultValue": ""
+    },
     "Count": {
       "type": "int",
       "minValue": 1,
@@ -845,6 +849,7 @@
         "timezone": "Pacific Standard Time"
       }
     },
+    "location": "[if(empty(parameters('Location')),resourceGroup().location,parameters('Location'))]",
     "timeZone": "[if(empty(parameters('TimeZone')),variables('regions')[resourceGroup().location].timezone,parameters('Timezone'))]",
     "tags": {
       "Environment": "[parameters('environment')]",
@@ -916,7 +921,7 @@
               "type": "Microsoft.Compute/disks",
               "apiVersion": "2017-03-30",
               "name": "[parameters('DataDisks')[copyIndex()].name]",
-              "location": "[resourceGroup().location]",
+              "location": "[variables('location')]",
               "dependsOn": [],
               "tags": "[variables('tags')]",
               "properties": {
@@ -951,7 +956,7 @@
               "apiVersion": "2017-12-01",
               "type": "Microsoft.Compute/virtualMachineScaleSets",
               "name": "[parameters('name')]",
-              "location": "[resourceGroup().location]",
+              "location": "[variables('location')]",
               "dependsOn": [],
               "sku": {
                 "capacity": "[parameters('Count')]",
@@ -1036,7 +1041,7 @@
               "apiVersion": "2017-12-01",
               "type": "Microsoft.Compute/virtualMachineScaleSets",
               "name": "[parameters('name')]",
-              "location": "[resourceGroup().location]",
+              "location": "[variables('location')]",
               "dependsOn": [],
               "sku": {
                 "capacity": "[parameters('Count')]",
