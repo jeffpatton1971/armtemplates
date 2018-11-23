@@ -6,10 +6,10 @@
       "value": ""
     },
     "sku": {
-      "value": "Standard_LRS"
+      "value": ""
     },
     "kind": {
-      "value": "Storage"
+      "value": ""
     },
     "Location": {
       "value": ""
@@ -18,16 +18,16 @@
       "value": false
     },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "12/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }
