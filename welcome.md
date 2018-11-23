@@ -27,6 +27,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 11/23 : Corrected networking issues, copied nic properties to networkinterfaceconfigurtaions, and removed nic resource
 - 11/23 : Several significant changes around VMSS
 - 11/23 : Removing managedDisk ID
 - 11/23 : Removing the name from dataDisk

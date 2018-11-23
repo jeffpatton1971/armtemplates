@@ -890,30 +890,6 @@
   },
   "resources": [
     {
-      "apiVersion": "2017-10-01",
-      "type": "Microsoft.Network/networkInterfaces",
-      "name": "[variables('NetworkInterfaceName')]",
-      "location": "[resourceGroup().location]",
-      "dependsOn": [],
-      "properties": {
-        "dnsSettings": {},
-        "enableAcceleratedNetworking": false,
-        "ipConfigurations": [
-          {
-            "name": "[variables('NetworkInterfaceIpConfigurationName')]",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "privateIPAddressVersion": "IPv4",
-              "subnet": {
-                "id": "[variables('SubnetId')]"
-              }
-            }
-          }
-        ]
-      },
-      "tags": "[variables('tags')]"
-    },
-    {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
       "name": "[concat(variables('DataDiskName'),padleft(add(copyIndex(),1),2,'0'))]",
@@ -1011,8 +987,24 @@
                   "networkProfile": {
                     "networkInterfaceConfigurations": [
                       {
+                        "name": "[variables('NetworkInterfaceName')]",
                         "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces/',variables('NetworkInterfaceName'))]",
-                        "primary": true
+                        "properties": {
+                          "dnsSettings": {},
+                          "enableAcceleratedNetworking": false,
+                          "ipConfigurations": [
+                            {
+                              "name": "[variables('NetworkInterfaceIpConfigurationName')]",
+                              "properties": {
+                                "privateIPAllocationMethod": "Dynamic",
+                                "privateIPAddressVersion": "IPv4",
+                                "subnet": {
+                                  "id": "[variables('SubnetId')]"
+                                }
+                              }
+                            }
+                          ]
+                        }
                       }
                     ]
                   },
@@ -1067,8 +1059,24 @@
                   "networkProfile": {
                     "networkInterfaceConfigurations": [
                       {
+                        "name": "[variables('NetworkInterfaceName')]",
                         "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces/',variables('NetworkInterfaceName'))]",
-                        "primary": true
+                        "properties": {
+                          "dnsSettings": {},
+                          "enableAcceleratedNetworking": false,
+                          "ipConfigurations": [
+                            {
+                              "name": "[variables('NetworkInterfaceIpConfigurationName')]",
+                              "properties": {
+                                "privateIPAllocationMethod": "Dynamic",
+                                "privateIPAddressVersion": "IPv4",
+                                "subnet": {
+                                  "id": "[variables('SubnetId')]"
+                                }
+                              }
+                            }
+                          ]
+                        }
                       }
                     ]
                   },
