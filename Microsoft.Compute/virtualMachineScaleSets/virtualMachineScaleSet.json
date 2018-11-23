@@ -980,10 +980,15 @@
                 "name": "[variables('vmSize')]"
               },
               "properties": {
+                "upgradePolicy": {
+                  "mode": "Manual"
+                },
                 "virtualMachineProfile": {
+                  "osProfile": "[variables('osProfile')]",
                   "storageProfile": {
                     "imageReference": "[variables('imageReference')]",
                     "osDisk": {
+                      "name": "[variables('OsDiskName')]",
                       "caching": "ReadOnly",
                       "createOption": "FromImage"
                     },
@@ -995,15 +1000,16 @@
                           "diskSizeGB": "[variables('Disk')[variables('Disks')[copyIndex('dataDisks')].size].size]",
                           "caching": "[variables('Disks')[copyIndex('dataDisks')].caching]",
                           "lun": "[variables('Disks')[copyIndex('dataDisks')].lun]",
-                          "managedDisk": null,
+                          "managedDisk": {
+                            "storageAccountType": "[variables('Disks')[copyIndex('dataDisks')].sku]"
+                          },
                           "createOption": "Attach"
                         }
                       }
                     ]
                   },
-                  "osProfile": "[variables('osProfile')]",
                   "networkProfile": {
-                    "networkInterfaces": [
+                    "networkInterfaceConfigurations": [
                       {
                         "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces/',variables('NetworkInterfaceName'))]",
                         "primary": true
@@ -1011,9 +1017,6 @@
                     ]
                   },
                   "diagnosticsProfile": {}
-                },
-                "upgradePolicy": {
-                  "mode": "Manual"
                 }
               },
               "tags": "[variables('tags')]"
@@ -1048,7 +1051,11 @@
                 "name": "[variables('vmSize')]"
               },
               "properties": {
+                "upgradePolicy": {
+                  "mode": "Manual"
+                },
                 "virtualMachineProfile": {
+                  "osProfile": "[variables('osProfile')]",
                   "storageProfile": {
                     "imageReference": "[variables('imageReference')]",
                     "osDisk": {
@@ -1057,9 +1064,8 @@
                       "createOption": "FromImage"
                     }
                   },
-                  "osProfile": "[variables('osProfile')]",
                   "networkProfile": {
-                    "networkInterfaces": [
+                    "networkInterfaceConfigurations": [
                       {
                         "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces/',variables('NetworkInterfaceName'))]",
                         "primary": true
@@ -1067,9 +1073,6 @@
                     ]
                   },
                   "diagnosticsProfile": {}
-                },
-                "upgradePolicy": {
-                  "mode": "Manual"
                 }
               },
               "tags": "[variables('tags')]"
