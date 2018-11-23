@@ -26,6 +26,21 @@
         }
       ]
     },
+    "UpgradePolicy": {
+      "value": {
+        "mode": "Manual",
+        "rollingUpgradePolicy": {
+          "maxBatchInstancePercent": 20,
+          "maxUnhealthyInstancePercent": 20,
+          "maxUnhealthyUpgradedInstancePercent": 20,
+          "pauseTimeBetweenBatches": "PT0S"
+        },
+        "automaticOSUpgrade": false,
+        "autoOSUpgradePolicy": {
+          "disableAutoRollback": false
+        }
+      }
+    },
     "name": {
       "value": "vm01"
     },

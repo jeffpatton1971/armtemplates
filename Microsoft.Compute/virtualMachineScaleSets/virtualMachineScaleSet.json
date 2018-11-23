@@ -11,6 +11,9 @@
     "DataDisks": {
       "type": "array"
     },
+    "UpgradePolicy": {
+      "type": "object"
+    },
     "LicenseType": {
       "type": "string",
       "allowedValues": [
@@ -956,9 +959,7 @@
                 "name": "[variables('vmSize')]"
               },
               "properties": {
-                "upgradePolicy": {
-                  "mode": "Manual"
-                },
+                "upgradePolicy": "[parameters('UpgradePolicy')]",
                 "virtualMachineProfile": {
                   "osProfile": "[variables('osProfile')]",
                   "storageProfile": {
@@ -1043,9 +1044,7 @@
                 "name": "[variables('vmSize')]"
               },
               "properties": {
-                "upgradePolicy": {
-                  "mode": "Manual"
-                },
+                "upgradePolicy": "[parameters('UpgradePolicy')]",
                 "virtualMachineProfile": {
                   "osProfile": "[variables('osProfile')]",
                   "storageProfile": {
