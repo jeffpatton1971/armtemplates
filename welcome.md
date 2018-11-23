@@ -26,6 +26,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 11/23 : Removing managedDisk ID
 - 11/23 : Removing the name from dataDisk
 - 11/22 : Removing the name from osDisk
 - 11/19 : Updated all templates with new environments to match schema
