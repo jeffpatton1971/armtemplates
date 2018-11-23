@@ -9,13 +9,13 @@
       "value": ""
     },
     "LicenseType": {
-      "value": "LicenseIncluded"
+      "value": ""
     },
     "Family": {
       "value": ""
     },
     "Tier": {
-      "value": "Basic"
+      "value": ""
     },
     "vCore": {
       "value": ""
@@ -27,28 +27,28 @@
       "value": ""
     },
     "eDTU": {
-      "value": "50"
+      "value": ""
     },
     "minDTU": {
       "value": "0"
     },
     "maxDTU": {
-      "value": "5"
+      "value": ""
     },
     "zoneRedundant": {
       "value": false
     },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "12/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }

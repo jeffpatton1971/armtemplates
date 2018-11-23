@@ -9,46 +9,46 @@
       "value": ""
     },
     "CatalogCollation": {
-      "value": "SQL_Latin1_General_CP1_CI_AS"
+      "value": ""
     },
     "Collation": {
-      "value": "SQL_Latin1_General_CP1_CI_AS"
+      "value": ""
     },
     "CreateMode": {
-      "value": "Default"
-    },
-    "ElasticPoolId": {
       "value": ""
     },
     "LicenseType": {
-      "value": "LicenseIncluded"
+      "value": ""
     },
     "Family": {
       "value": ""
     },
     "Tier": {
-      "value": "Basic"
+      "value": ""
     },
     "vCore": {
       "value": ""
     },
     "Capacity": {
-      "value": "Basic"
+      "value": ""
     },
     "zoneRedundant": {
       "value": false
     },
+    "ElasticPoolName": {
+      "value": ""
+    },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "12/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }

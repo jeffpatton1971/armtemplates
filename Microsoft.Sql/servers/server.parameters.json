@@ -6,25 +6,25 @@
       "value": ""
     },
     "administratorLogin": {
-      "value": "azureuser"
+      "value": ""
     },
     "administratorLoginPassword": {
-      "value": "P@ssword12345"
+      "value": ""
     },
     "version": {
-      "value": "12.0"
+      "value": ""
     },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "12/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }
