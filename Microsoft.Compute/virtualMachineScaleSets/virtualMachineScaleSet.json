@@ -992,7 +992,6 @@
                         "name": "dataDisks",
                         "count": "[variables('diskCount')]",
                         "input": {
-                          "name": "[variables('Disks')[copyIndex('dataDisks')].name]",
                           "diskSizeGB": "[variables('Disk')[variables('Disks')[copyIndex('dataDisks')].size].size]",
                           "caching": "[variables('Disks')[copyIndex('dataDisks')].caching]",
                           "lun": "[variables('Disks')[copyIndex('dataDisks')].lun]",
