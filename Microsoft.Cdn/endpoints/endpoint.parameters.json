@@ -3,40 +3,40 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "name": {
-      "value": ""
+      "value": null
     },
     "originHostHeader": {
-      "value": ""
+      "value": null
     },
     "isHttpAllowed": {
-      "value": true
+      "value": null
     },
     "isHttpsAllowed": {
-      "value": true
+      "value": null
     },
     "queryStringCachingBehavior": {
-      "value": ""
+      "value": null
     },
     "originPath": {
-      "value": ""
+      "value": null
     },
     "isCompressionEnabled": {
-      "value": false
+      "value": null
     },
     "optimizationType": {
-      "value": ""
+      "value": null
     },
     "environment": {
-      "value": ""
+      "value": null
     },
     "buildDate": {
-      "value": ""
+      "value": null
     },
     "buildBy": {
-      "value": ""
+      "value": null
     },
     "RaxAutomationExclude": {
-      "value": ""
+      "value": null
     }
   }
 }

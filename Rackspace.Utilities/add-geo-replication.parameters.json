@@ -8,25 +8,25 @@
       ]
     },
     "SourceSqlServer": {
-      "value": ""
+      "value": null
     },
     "SourceResourceGroup": {
-      "value": ""
+      "value": null
     },
     "location": {
-      "value": ""
+      "value": null
     },
     "serverName": {
-      "value": ""
+      "value": null
     },
     "createMode": {
       "value": "OnlineSecondary"
     },
     "zoneRedundant": {
-      "value": false
+      "value": null
     },
     "licenseType": {
-      "value": ""
+      "value": null
     }
   }
 }

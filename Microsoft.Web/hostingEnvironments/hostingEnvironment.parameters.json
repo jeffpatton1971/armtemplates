@@ -3,37 +3,37 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "name": {
-      "value": ""
+      "value": null
     },
     "Location": {
-      "value": ""
+      "value": null
     },
     "Network": {
-      "value": { }
+      "value": null
     },
     "internalLoadBalancingMode": {
-      "value": ""
+      "value": null
     },
     "multiSize": {
-      "value": ""
+      "value": null
     },
     "multiRoleCount": {
-      "value": ""
+      "value": null
     },
     "workerPools": {
-      "value": [ ]
+      "value": null
     },
     "environment": {
-      "value": ""
+      "value": null
     },
     "buildDate": {
-      "value": ""
+      "value": null
     },
     "buildBy": {
-      "value": ""
+      "value": null
     },
     "RaxAutomationExclude": {
-      "value": ""
+      "value": null
     }
   }
 }

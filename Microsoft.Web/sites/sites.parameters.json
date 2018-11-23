@@ -3,58 +3,58 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "name": {
-      "value": ""
+      "value": null
     },
     "AspName": {
-      "value": ""
+      "value": null
     },
     "AseName": {
-      "value": ""
+      "value": null
     },
     "netFrameworkVersion": {
-      "value": ""
+      "value": null
     },
     "phpVersion": {
-      "value": ""
+      "value": null
     },
     "pythonVersion": {
-      "value": ""
+      "value": null
     },
     "32Bit": {
-      "value": ""
+      "value": null
     },
     "webSockets": {
-      "value": ""
+      "value": null
     },
     "alwaysOn": {
-      "value": ""
+      "value": null
     },
     "webServerLogging": {
-      "value": ""
+      "value": null
     },
     "detailedErrors": {
-      "value": ""
+      "value": null
     },
     "failedRequestTrace": {
-      "value": ""
+      "value": null
     },
     "clientAffinityEnabled": {
-      "value": ""
+      "value": null
     },
     "logSize": {
-      "value": ""
+      "value": null
     },
     "environment": {
-      "value": ""
+      "value": null
     },
     "buildDate": {
-      "value": ""
+      "value": null
     },
     "buildBy": {
-      "value": ""
+      "value": null
     },
     "RaxAutomationExclude": {
-      "value": ""
+      "value": null
     }
   }
 }

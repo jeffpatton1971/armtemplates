@@ -8,13 +8,24 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - PublicIp template has been added
 
 # Breaking Changes
-- SqlDatabase template was an array of db names, it now only deploys a single db
+- All template parameter files will have blank values
+- SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 
 # TODO
+- 11/23 : Update serverFarms template from 2016-03-01 to 2018-02-01
+- 11/23 : Update VirtualNetworks template from 2017-09-01 to 2018-08-01
+- 11/23 : Update VirtualNetworkGateways template from 2017-09-01 to 2018-08-01
+- 11/23 : ~~Add custom option for NSG for custom rules~~
+- 11/23 : Update networkSecurityGroups from 2015-05-01-preview tp 2018-08-01
+- 11/23 : Update loadBalancers template from 2017-06-01 to 2018-08-01
+- 11/23 : Update ApplicationGateway template from 2017-06-01 to 2018-08-01
+- 11/23 : Update ScaleSets template from 2017-12-01 to 2018-10-01
+- 11/23 : Update compute template from 2017-03-30 to 2018-10-01
+- 11/23 : ~~Move samples into the readme's for the resources~~
 - 11/23 : Create a more fully formed VMSS template
-- 11/21 : Scrub templates of default values
-- 11/21 : All parameters should be present in parameter files
+- 11/21 : ~~Scrub templates of default values~~
+- 11/21 : ~~All parameters should be present in parameter files~~
 - 11/19 : ~~Change nsg template to match schema~~
 - 11/19 : ~~Add DisasterRecovery to all templates for environment~~
 - 11/19 : ~~Change Q/A to QA for all templates~~
@@ -27,8 +38,10 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 11/23 : Created/Updated documentation across all templates, removed parameter values and extra params from all template parameter files
+- 11/23 : Added custom rules to NSG template
 - 11/23 : Problem passing the wrong object to SKU
-- 11/23 : Created an updatePolicy object, see parameter file for example
+- 11/23 : Created an upgradePolicy object, see parameter file for example
 - 11/23 : Corrected networking issues, copied nic properties to networkinterfaceconfigurtaions, and removed nic resource
 - 11/23 : Several significant changes around VMSS
 - 11/23 : Removing managedDisk ID

@@ -3,37 +3,37 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "name": {
-      "value": ""
+      "value": null
     },
     "sku": {
-      "value": ""
+      "value": null
     },
     "Network": {
-      "value": {}
+      "value": null
     },
     "loadBalancingRules": {
-      "value": []
+      "value": null
     },
     "publicIPAllocationMethod": {
-      "value": ""
+      "value": null
     },
     "ExternalLoadBalancer": {
-      "value": ""
+      "value": null
     },
     "Location": {
-      "value": ""
+      "value": null
     },
     "environment": {
-      "value": "Development"
+      "value": null
     },
     "buildDate": {
-      "value": "12/01/2018"
+      "value": null
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": null
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": null
     }
   }
 }

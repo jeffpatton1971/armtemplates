@@ -3,13 +3,13 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "Namespace": {
-      "value": ""
+      "value": null
     },
     "RootManageSharedAccessKey": {
       "value": "RootManageSharedAccessKey"
     },
     "Manage": {
-      "value": true
+      "value": null
     },
     "environment": {
       "value": "Development"

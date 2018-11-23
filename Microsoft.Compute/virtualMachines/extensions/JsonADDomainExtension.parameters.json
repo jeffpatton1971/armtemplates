@@ -3,19 +3,19 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "name": {
-      "value": ""
+      "value": null
     },
     "domainName": {
-      "value": "P@ssword12345"
+      "value": null
     },
     "ouPath": {
-      "value": "OU=AZ,OU=DM,OU=Delegated,DC=na,DC=corp,DC=mckesson,DC=com"
+      "value": null
     },
     "userName": {
-      "value": ""
+      "value": null
     },
     "password": {
-      "value": ""
+      "value": null
     }
   }
 }

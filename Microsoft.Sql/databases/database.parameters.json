@@ -3,52 +3,52 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "Name": {
-      "value": ""
+      "value": null
     },
     "ServerName": {
-      "value": ""
+      "value": null
     },
     "CatalogCollation": {
-      "value": ""
+      "value": null
     },
     "Collation": {
-      "value": ""
+      "value": null
     },
     "CreateMode": {
-      "value": ""
+      "value": null
     },
     "LicenseType": {
-      "value": ""
+      "value": null
     },
     "Family": {
-      "value": ""
+      "value": null
     },
     "Tier": {
-      "value": ""
+      "value": null
     },
     "vCore": {
-      "value": ""
+      "value": null
     },
     "Capacity": {
-      "value": ""
+      "value": null
     },
     "zoneRedundant": {
-      "value": false
+      "value": null
     },
     "ElasticPoolName": {
-      "value": ""
+      "value": null
     },
     "environment": {
-      "value": ""
+      "value": null
     },
     "buildDate": {
-      "value": ""
+      "value": null
     },
     "buildBy": {
-      "value": ""
+      "value": null
     },
     "RaxAutomationExclude": {
-      "value": ""
+      "value": null
     }
   }
 }

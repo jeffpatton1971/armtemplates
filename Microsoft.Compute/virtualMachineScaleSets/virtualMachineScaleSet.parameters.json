@@ -3,58 +3,58 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "name": {
-      "value": ""
+      "value": null
     },
     "Network": {
-      "value": {}
+      "value": null
     },
     "DataDisks": {
-      "value": []
+      "value": null
     },
     "UpgradePolicy": {
-      "value": {}
+      "value": null
     },
     "LicenseType": {
-      "value": ""
+      "value": null
     },
     "Size": {
-      "value": ""
+      "value": null
     },
     "ImageReferenceId": {
-      "value": ""
+      "value": null
     },
     "GalleryImage": {
-      "value": {}
+      "value": null
     },
     "OperatingSystem": {
-      "value": ""
+      "value": null
     },
     "AdminUserName": {
-      "value": ""
+      "value": null
     },
     "AdminPassword": {
-      "value": ""
+      "value": null
     },
     "TimeZone": {
-      "value": ""
+      "value": null
     },
     "Location": {
-      "value": ""
+      "value": null
     },
     "Count": {
-      "value": ""
+      "value": null
     },
     "environment": {
-      "value": ""
+      "value": null
     },
     "buildDate": {
-      "value": ""
+      "value": null
     },
     "buildBy": {
-      "value": ""
+      "value": null
     },
     "RaxAutomationExclude": {
-      "value": ""
+      "value": null
     }
   }
 }

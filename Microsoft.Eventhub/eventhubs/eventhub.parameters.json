@@ -3,46 +3,46 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "Namespace": {
-      "value": ""
+      "value": null
     },
     "EventHub": {
-      "value": ""
+      "value": null
     },
     "Capture": {
-      "value": false
+      "value": null
     },
     "StorageAccountResourceGroupName": {
-      "value": ""
+      "value": null
     },
     "StorageAccountName": {
-      "value": ""
+      "value": null
     },
     "ContainerName": {
-      "value": ""
+      "value": null
     },
     "IntervalInSeconds": {
-      "value": ""
+      "value": null
     },
     "SizeLimit": {
-      "value": ""
+      "value": null
     },
     "MessageRetention": {
-      "value": ""
+      "value": null
     },
     "PartitionCount": {
-      "value": ""
+      "value": null
     },
     "environment": {
-      "value": ""
+      "value": null
     },
     "buildDate": {
-      "value": ""
+      "value": null
     },
     "buildBy": {
-      "value": ""
+      "value": null
     },
     "RaxAutomationExclude": {
-      "value": ""
+      "value": null
     }
   }
 }
