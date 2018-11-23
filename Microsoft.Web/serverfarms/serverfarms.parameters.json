@@ -6,7 +6,7 @@
       "value": ""
     },
     "kind": {
-      "value": "windows"
+      "value": ""
     },
     "sku": {
       "value": ""
@@ -15,23 +15,19 @@
       "value": ""
     },
     "AppServiceEnvironment": {
-      "value": {
-        "name": "",
-        "ResourceGroupName": "",
-        "Location": ""
-      }
+      "value": { }
     },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "12/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }

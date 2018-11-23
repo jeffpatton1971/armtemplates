@@ -12,49 +12,49 @@
       "value": ""
     },
     "netFrameworkVersion": {
-      "value": "v4.7"
+      "value": ""
     },
     "phpVersion": {
-      "value": "Off"
+      "value": ""
     },
     "pythonVersion": {
-      "value": "Off"
+      "value": ""
     },
     "32Bit": {
-      "value": "false"
+      "value": ""
     },
     "webSockets": {
-      "value": "false"
+      "value": ""
     },
     "alwaysOn": {
-      "value": "true"
+      "value": ""
     },
     "webServerLogging": {
-      "value": "true"
+      "value": ""
     },
     "detailedErrors": {
-      "value": "true"
+      "value": ""
     },
     "failedRequestTrace": {
-      "value": "true"
+      "value": ""
     },
     "clientAffinityEnabled": {
-      "value": "false"
+      "value": ""
     },
     "logSize": {
-      "value": 25
+      "value": ""
     },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "12/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }

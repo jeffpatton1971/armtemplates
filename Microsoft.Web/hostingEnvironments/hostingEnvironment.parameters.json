@@ -5,15 +5,11 @@
     "name": {
       "value": ""
     },
-    "Network": {
-      "value": {
-        "VirtualNetworkResourceGroupName": "",
-        "VirtualNetworkName": "",
-        "SubnetName": ""
-      }
-    },
     "Location": {
       "value": ""
+    },
+    "Network": {
+      "value": { }
     },
     "internalLoadBalancingMode": {
       "value": ""
@@ -25,30 +21,19 @@
       "value": ""
     },
     "workerPools": {
-      "value": [
-        {
-          "workerSizeId": 0,
-          "workerSize": "Small",
-          "workerCount": 2
-        },
-        {
-          "workerSizeId": 1,
-          "workerSize": "Small",
-          "workerCount": 0
-        }
-      ]
+      "value": [ ]
     },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "12/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }
