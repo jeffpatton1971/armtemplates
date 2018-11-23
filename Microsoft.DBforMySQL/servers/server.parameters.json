@@ -11,35 +11,38 @@
     "administratorLoginPassword": {
       "value": ""
     },
+    "Location": {
+      "value": ""
+    },
     "sku": {
       "value": ""
     },
     "size": {
-      "value": "5120"
+      "value": ""
     },
     "version": {
-      "value": "5.7"
+      "value": ""
     },
     "sslEnforcement": {
-      "value": "Disabled"
+      "value": ""
     },
     "backupRetentionDays": {
-      "value": 7
+      "value": ""
     },
     "geoRedundantBackup": {
-      "value": "Disabled"
+      "value": ""
     },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "12/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }
