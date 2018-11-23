@@ -6,28 +6,28 @@
       "value": ""
     },
     "Sku": {
-      "value": "free"
+      "value": ""
     },
     "HostingMode": {
-      "value": "default"
+      "value": ""
     },
     "ReplicaCount": {
-      "value": 1
+      "value": ""
     },
     "PartitionCount": {
-      "value": 1
+      "value": ""
     },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "12/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }
