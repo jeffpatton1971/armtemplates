@@ -9,13 +9,13 @@
       "value": ""
     },
     "MaxQueueSize": {
-      "value": 1024
+      "value": ""
     },
     "MessageTTL": {
-      "value": "P14D"
+      "value": ""
     },
     "LockDuration": {
-      "value": "PT30S"
+      "value": ""
     },
     "DuplicateDetection": {
       "value": false
@@ -30,16 +30,16 @@
       "value": true
     },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "12/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }
