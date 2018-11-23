@@ -5,6 +5,7 @@ Log Analytics plays a central role in Azure management by collecting telemetry a
 
 ## Links
 - API https://docs.microsoft.com/en-us/rest/api/loganalytics/
+- ARM https://docs.microsoft.com/en-us/azure/templates/microsoft.operationalinsights/2015-11-01-preview/workspaces
 - DOC https://docs.microsoft.com/en-us/azure/log-analytics/
 
 ## Sample Parameter File
