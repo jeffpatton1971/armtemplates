@@ -27,6 +27,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 11/23 : Problem passing the wrong object to SKU
 - 11/23 : Created an updatePolicy object, see parameter file for example
 - 11/23 : Corrected networking issues, copied nic properties to networkinterfaceconfigurtaions, and removed nic resource
 - 11/23 : Several significant changes around VMSS

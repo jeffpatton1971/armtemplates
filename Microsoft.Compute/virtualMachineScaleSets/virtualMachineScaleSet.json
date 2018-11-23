@@ -978,7 +978,7 @@
                           "caching": "[variables('Disks')[copyIndex('dataDisks')].caching]",
                           "lun": "[variables('Disks')[copyIndex('dataDisks')].lun]",
                           "managedDisk": {
-                            "storageAccountType": "[variables('Disks')[copyIndex('dataDisks')].sku]"
+                            "storageAccountType": "[variables('Disk')[parameters('DataDisks')[copyIndex()].size].sku]"
                           },
                           "createOption": "Attach"
                         }
