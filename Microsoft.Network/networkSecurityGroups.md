@@ -5,4 +5,75 @@ You can filter network traffic to and from Azure resources in an Azure virtual n
 
 ## Links
 - API https://docs.microsoft.com/en-us/rest/api/virtualnetwork/networksecuritygroups
+- ARM https://docs.microsoft.com/en-us/azure/templates/microsoft.network/2018-08-01/networksecuritygroups
 - DOC https://docs.microsoft.com/en-us/azure/virtual-network/security-overview
+
+## Sample Parameter File
+```
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "2018.12.01.0",
+  "parameters": {
+    "Network": {
+      "value": {
+        "VirtualNetworkResourceGroupName": "",
+        "VirtualNetworkName": "",
+        "SubnetName": ""
+      }
+    },
+    "SubnetPrefix": {
+      "value": ""
+    },
+    "BastionPrefix": {
+      "value": ""
+    },
+    "DeploymentType": {
+      "value": "VirtualMachine"
+    },
+    "SecurityRules": {
+      "value": [
+        {
+          "name": "remoteConnection",
+          "properties": {
+            "description": "Allow SSH traffic",
+            "protocol": "Tcp",
+            "sourcePortRange": "*",
+            "destinationPortRange": "22",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "access": "Allow",
+            "priority": 301,
+            "direction": "Inbound"
+          }
+        },
+        {
+          "name": "webTraffic",
+          "properties": {
+            "description": "Allow web traffic",
+            "protocol": "Tcp",
+            "sourcePortRange": "80",
+            "destinationPortRange": "80",
+            "sourceAddressPrefix": "*",
+            "destinationAddressPrefix": "*",
+            "access": "Allow",
+            "priority": 300,
+            "direction": "Inbound"
+          }
+        }
+      ]
+    },
+    "environment": {
+      "value": "Production"
+    },
+    "buildDate": {
+      "value": "12/01/2018"
+    },
+    "buildBy": {
+      "value": "jeffrey.patton2@rackspace.com"
+    },
+    "RaxAutomationExclude": {
+      "value": "None"
+    }
+  }
+}
+```

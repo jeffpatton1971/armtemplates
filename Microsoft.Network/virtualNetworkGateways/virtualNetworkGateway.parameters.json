@@ -6,44 +6,37 @@
       "value": ""
     },
     "Network": {
-      "value": {
-        "VirtualNetworkResourceGroupName": "testing-rg",
-        "VirtualNetworkName": "sample-vnet",
-        "SubnetName": "default"
-      }
+      "value": { }
     },
     "privateIPAllocationMethod": {
-      "value": "Dynamic"
+      "value": ""
     },
     "activeActive": {
       "value": false
     },
     "bgpSettings": {
-      "value": {}
+      "value": { }
     },
     "enableBgp": {
       "value": false
     },
     "gatewayType": {
-      "value": "Vpn"
+      "value": ""
     },
     "sku": {
-      "value": {
-        "name": "VpnGw1",
-        "tier": "VpnGw1"
-      }
+      "value": { }
     },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "12/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }

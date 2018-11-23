@@ -1,4 +1,16 @@
-﻿{
+# Microsoft Network Public IP Addresses
+
+## Overview
+A public IP address is a resource with its own configurable settings.
+
+## Links
+- API https://docs.microsoft.com/en-us/rest/api/virtualnetwork/publicipaddresses
+- ARM https://docs.microsoft.com/en-us/azure/templates/microsoft.network/2018-08-01/publicipaddresses
+- DOC https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address
+
+## Sample Parameter File
+```
+{
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "2018.12.01.0",
   "parameters": {
@@ -6,19 +18,13 @@
       "value": ""
     },
     "sku": {
-      "value": ""
-    },
-    "Network": {
-      "value": {}
-    },
-    "loadBalancingRules": {
-      "value": []
+      "value": "Basic"
     },
     "publicIPAllocationMethod": {
-      "value": ""
+      "value": "Dynamic"
     },
-    "ExternalLoadBalancer": {
-      "value": ""
+    "idleTimeoutInMinutes": {
+      "value": 4
     },
     "Location": {
       "value": ""
@@ -37,3 +43,4 @@
     }
   }
 }
+```

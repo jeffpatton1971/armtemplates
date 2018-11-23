@@ -17,9 +17,14 @@
         "ApplicationGateway",
         "Bastion",
         "DomainController",
-        "VirtualMachine"
+        "VirtualMachine",
+        "Custom"
       ],
       "defaultValue": "VirtualMachine"
+    },
+    "SecurityRules": {
+      "type": "array",
+      "defaultValue": []
     },
     "environment": {
       "type": "string",
@@ -125,6 +130,37 @@
       "location": "[resourceGroup().location]",
       "tags": "[variables('tags')]"
     },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "resourceGroup": "[parameters('Network').VirtualNetworkResourceGroupName]",
+      "name": "Custom-SecurityRules",
+      "condition": "[equals(parameters('DeploymentType'),'Custom')]",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "2018.11.01.0",
+          "parameters": {},
+          "variables": {},
+          "resources": [
+            {
+              "type": "Microsoft.Network/networkSecurityGroups",
+              "apiVersion": "2016-03-30",
+              "name": "[variables('name')]",
+              "location": "[resourceGroup().location]",
+              "tags": "[variables('tags')]",
+              "properties": {
+                "securityRules": "[parameters('SecurityRules')]"
+              }
+            }
+          ],
+          "outputs": {}
+        }
+      }
+    },
+
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
