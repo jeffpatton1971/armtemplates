@@ -2,6 +2,7 @@
 Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that are used, and processes that are followed to deploy a customer environment into Azure.
 
 # New Additions
+- NetworkInterface template has been added
 - Application Service Environments template has been added
 - MySql PaaS template had been added
 - SendGrid template has been added
@@ -38,6 +39,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 11/23 : Created NetworkInterface template
 - 11/23 : Created/Updated documentation across all templates, removed parameter values and extra params from all template parameter files
 - 11/23 : Added custom rules to NSG template
 - 11/23 : Problem passing the wrong object to SKU
