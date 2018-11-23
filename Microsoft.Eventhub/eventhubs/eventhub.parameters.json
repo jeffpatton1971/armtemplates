@@ -21,28 +21,28 @@
       "value": ""
     },
     "IntervalInSeconds": {
-      "value": 300
+      "value": ""
     },
     "SizeLimit": {
-      "value": 314572800
+      "value": ""
     },
     "MessageRetention": {
-      "value": 1
+      "value": ""
     },
     "PartitionCount": {
-      "value": 2
+      "value": ""
     },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "12/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }
