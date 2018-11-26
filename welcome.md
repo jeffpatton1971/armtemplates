@@ -39,6 +39,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 11/26 : Added sqlserver-nsg.json, to add sql rules to an existing subnet
+- 11/26 : Added SQLServer DeploymentType
 - 11/26 : Updated NSG template parameters from subnetPrefix > DestinationPrefix
 - 11/26 : Updated NSG template parameters from bastionPrefix > SourcePrefix
 - 11/26 : Updated NSG template with SitecoreCMS/SOLR

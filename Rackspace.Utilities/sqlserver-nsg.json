@@ -1,0 +1,47 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "2018.12.01.0",
+  "parameters": {
+    "Name": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the NSG to update"
+      }
+    },
+    "SourcePrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "The CIDR of the source subnet"
+      }
+    },
+    "DestinationPrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "The CIDR of the destination subnet this NSG is attached to"
+      }
+    }
+  },
+  "variables": {
+  },
+  "resources": [
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('Name'),'/Allow_',replace(replace(parameters('SourcePrefix'),'/','-'),'.','_'),'_TCP_1433_INBOUND')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "description": "Allows TCP 1433 Inbound",
+        "protocol": "Tcp",
+        "sourcePortRange": "*",
+        "destinationPortRange": "1433",
+        "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+        "access": "Allow",
+        "priority": 142,
+        "direction": "Inbound"
+      }
+    }
+  ],
+  "outputs": {
+  }
+}

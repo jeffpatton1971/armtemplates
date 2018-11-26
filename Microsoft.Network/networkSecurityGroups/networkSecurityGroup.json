@@ -19,6 +19,7 @@
         "DomainController",
         "SitecoreCMS",
         "SitecoreSOLR",
+        "SqlServer",
         "VirtualMachine",
         "Custom"
       ],
@@ -1429,6 +1430,179 @@
                 "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
                 "access": "Allow",
                 "priority": 140,
+                "direction": "Inbound"
+              }
+            },
+            {
+              "apiVersion": "2016-03-30",
+              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+              "name": "[concat(variables('name'),'/Deny_ALL_INBOUND_UDP')]",
+              "location": "[resourceGroup().location]",
+              "properties": {
+                "description": "Deny all inbound UDP",
+                "protocol": "Udp",
+                "sourcePortRange": "*",
+                "destinationPortRange": "*",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Deny",
+                "priority": 4000,
+                "direction": "Inbound"
+              }
+            },
+            {
+              "apiVersion": "2016-03-30",
+              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+              "name": "[concat(variables('name'),'/Deny_ALL_INBOUND_TCP')]",
+              "location": "[resourceGroup().location]",
+              "properties": {
+                "description": "Deny all inbound TCP",
+                "protocol": "Tcp",
+                "sourcePortRange": "*",
+                "destinationPortRange": "*",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Deny",
+                "priority": 4001,
+                "direction": "Inbound"
+              }
+            }
+          ],
+          "outputs": {}
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "resourceGroup": "[parameters('Network').VirtualNetworkResourceGroupName]",
+      "name": "SqlServer-SecurityRules",
+      "condition": "[equals(parameters('DeploymentType'),'SqlServer')]",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "2018.11.01.0",
+          "parameters": {},
+          "variables": {},
+          "resources": [
+            {
+              "apiVersion": "2016-03-30",
+              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+              "name": "[concat(variables('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
+              "location": "[resourceGroup().location]",
+              "properties": {
+                "description": "Allows intra-subnet communication",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "*",
+                "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
+                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+                "access": "Allow",
+                "priority": 110,
+                "direction": "Inbound"
+              }
+            },
+            {
+              "apiVersion": "2016-03-30",
+              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+              "name": "[concat(variables('name'),'/Allow_AZURE_LB_INBOUND')]",
+              "location": "[resourceGroup().location]",
+              "properties": {
+                "description": "Allows inbound traffic from Azure Load Balancer",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "*",
+                "sourceAddressPrefix": "AzureLoadBalancer",
+                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+                "access": "Allow",
+                "priority": 111,
+                "direction": "Inbound"
+              }
+            },
+            {
+              "apiVersion": "2016-03-30",
+              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
+              "location": "[resourceGroup().location]",
+              "properties": {
+                "description": "Allows RDP inbound from local RBAST subnet",
+                "protocol": "Tcp",
+                "sourcePortRange": "*",
+                "destinationPortRange": "3389",
+                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+                "access": "Allow",
+                "priority": 112,
+                "direction": "Inbound"
+              }
+            },
+            {
+              "apiVersion": "2016-03-30",
+              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
+              "location": "[resourceGroup().location]",
+              "properties": {
+                "description": "Allows SSH inbound from local RBAST subnet",
+                "protocol": "Tcp",
+                "sourcePortRange": "*",
+                "destinationPortRange": "22",
+                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+                "access": "Allow",
+                "priority": 113,
+                "direction": "Inbound"
+              }
+            },
+            {
+              "apiVersion": "2016-03-30",
+              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
+              "location": "[resourceGroup().location]",
+              "properties": {
+                "description": "Allows WinRM inbound from local RACK_BASTION subnet",
+                "protocol": "Tcp",
+                "sourcePortRange": "*",
+                "destinationPortRange": "5986",
+                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+                "access": "Allow",
+                "priority": 114,
+                "direction": "Inbound"
+              }
+            },
+            {
+              "apiVersion": "2016-03-30",
+              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+              "name": "[concat(variables('name'),'/Allow_',replace(replace(parameters('SourcePrefix'),'/','-'),'.','_'),'_TCP_1433_INBOUND')]",
+              "location": "[resourceGroup().location]",
+              "properties": {
+                "description": "Allows TCP 1433 Inbound",
+                "protocol": "Tcp",
+                "sourcePortRange": "*",
+                "destinationPortRange": "1433",
+                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+                "access": "Allow",
+                "priority": 141,
+                "direction": "Inbound"
+              }
+            },
+            {
+              "apiVersion": "2016-03-30",
+              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+              "location": "[resourceGroup().location]",
+              "properties": {
+                "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
+                "protocol": "Tcp",
+                "sourcePortRange": "*",
+                "destinationPortRange": "4421",
+                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+                "access": "Allow",
+                "priority": 115,
                 "direction": "Inbound"
               }
             },
