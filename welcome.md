@@ -39,6 +39,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 11/26 : Updated NSG template parameters from subnetPrefix > DestinationPrefix
+- 11/26 : Updated NSG template parameters from bastionPrefix > SourcePrefix
 - 11/26 : Updated NSG template with SitecoreCMS/SOLR
 - 11/23 : Created NetworkInterface template
 - 11/23 : Created/Updated documentation across all templates, removed parameter values and extra params from all template parameter files

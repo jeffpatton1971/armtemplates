@@ -21,10 +21,10 @@ You can filter network traffic to and from Azure resources in an Azure virtual n
         "SubnetName": ""
       }
     },
-    "SubnetPrefix": {
+    "SourcePrefix": {
       "value": ""
     },
-    "BastionPrefix": {
+    "DestinationPrefix": {
       "value": ""
     },
     "DeploymentType": {

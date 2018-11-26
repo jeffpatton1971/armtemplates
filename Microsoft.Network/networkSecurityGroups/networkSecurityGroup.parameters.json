@@ -5,10 +5,10 @@
     "Network": {
       "value": null
     },
-    "SubnetPrefix": {
+    "SourcePrefix": {
       "value": null
     },
-    "BastionPrefix": {
+    "DestinationPrefix": {
       "value": null
     },
     "DeploymentType": {
