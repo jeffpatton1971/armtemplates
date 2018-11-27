@@ -8,7 +8,7 @@
         "description": "The name of the NSG to update"
       }
     },
-    "SubnetPrefix": {
+    "DestinationPrefix": {
       "type": "string",
       "metadata": {
         "description": "The CIDR of the subnet this NSG is attached to"
@@ -43,7 +43,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "3389",
         "sourceAddressPrefix": "[variables('rackspaceBastionDFW')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 144,
         "direction": "Inbound"
@@ -60,7 +60,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "3389",
         "sourceAddressPrefix": "[variables('rackspaceBastionIAD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 145,
         "direction": "Inbound"
@@ -77,7 +77,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "3389",
         "sourceAddressPrefix": "[variables('rackspaceBastionORD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 146,
         "direction": "Inbound"
@@ -94,7 +94,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "3389",
         "sourceAddressPrefix": "[variables('rackspaceBastionHKG')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 147,
         "direction": "Inbound"
@@ -111,7 +111,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "3389",
         "sourceAddressPrefix": "[variables('rackspaceBastionLON')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 148,
         "direction": "Inbound"
@@ -128,7 +128,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "3389",
         "sourceAddressPrefix": "[variables('rackspaceBastionLON5')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 149,
         "direction": "Inbound"
@@ -145,7 +145,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "3389",
         "sourceAddressPrefix": "[variables('rackspaceBastionSYD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 150,
         "direction": "Inbound"
@@ -162,7 +162,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "22",
         "sourceAddressPrefix": "[variables('rackspaceBastionDFW')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 151,
         "direction": "Inbound"
@@ -179,7 +179,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "22",
         "sourceAddressPrefix": "[variables('rackspaceBastionIAD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 152,
         "direction": "Inbound"
@@ -196,7 +196,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "22",
         "sourceAddressPrefix": "[variables('rackspaceBastionORD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 153,
         "direction": "Inbound"
@@ -213,7 +213,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "22",
         "sourceAddressPrefix": "[variables('rackspaceBastionHKG')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 154,
         "direction": "Inbound"
@@ -230,7 +230,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "22",
         "sourceAddressPrefix": "[variables('rackspaceBastionLON')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 155,
         "direction": "Inbound"
@@ -248,7 +248,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "22",
         "sourceAddressPrefix": "[variables('rackspaceBastionLON5')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 156,
         "direction": "Inbound"
@@ -265,7 +265,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "22",
         "sourceAddressPrefix": "[variables('rackspaceBastionSYD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 157,
         "direction": "Inbound"
@@ -282,7 +282,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "443",
         "sourceAddressPrefix": "[variables('rackspaceBastionDFW')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 158,
         "direction": "Inbound"
@@ -299,7 +299,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "443",
         "sourceAddressPrefix": "[variables('rackspaceBastionIAD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 159,
         "direction": "Inbound"
@@ -316,7 +316,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "443",
         "sourceAddressPrefix": "[variables('rackspaceBastionORD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 160,
         "direction": "Inbound"
@@ -333,7 +333,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "443",
         "sourceAddressPrefix": "[variables('rackspaceBastionHKG')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 167,
         "direction": "Inbound"
@@ -350,7 +350,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "443",
         "sourceAddressPrefix": "[variables('rackspaceBastionLON')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 168,
         "direction": "Inbound"
@@ -367,7 +367,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "443",
         "sourceAddressPrefix": "[variables('rackspaceBastionLON5')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 169,
         "direction": "Inbound"
@@ -384,7 +384,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "443",
         "sourceAddressPrefix": "[variables('rackspaceBastionSYD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 170,
         "direction": "Inbound"
@@ -401,7 +401,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "5986",
         "sourceAddressPrefix": "[variables('rackspaceBastionLON')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 171,
         "direction": "Inbound"
@@ -418,7 +418,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "5986",
         "sourceAddressPrefix": "[variables('rackspaceBastionLON5')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 172,
         "direction": "Inbound"
@@ -435,7 +435,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "5986",
         "sourceAddressPrefix": "[variables('rackspaceBastionDFW')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 173,
         "direction": "Inbound"
@@ -452,7 +452,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "5986",
         "sourceAddressPrefix": "[variables('rackspaceBastionORD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 174,
         "direction": "Inbound"
@@ -469,7 +469,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "5986",
         "sourceAddressPrefix": "[variables('rackspaceBastionIAD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 175,
         "direction": "Inbound"
@@ -486,7 +486,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "5986",
         "sourceAddressPrefix": "[variables('rackspaceBastionHKG')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 176,
         "direction": "Inbound"
@@ -503,7 +503,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "5986",
         "sourceAddressPrefix": "[variables('rackspaceBastionSYD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 177,
         "direction": "Inbound"
@@ -521,7 +521,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "3389",
         "sourceAddressPrefix": "[variables('rackspacepBastionDFW')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 178,
         "direction": "Inbound"
@@ -538,7 +538,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "22",
         "sourceAddressPrefix": "[variables('rackspacepBastionDFW')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 179,
         "direction": "Inbound"
@@ -555,7 +555,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "443",
         "sourceAddressPrefix": "[variables('rackspacepBastionDFW')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 180,
         "direction": "Inbound"
@@ -572,7 +572,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "5986",
         "sourceAddressPrefix": "[variables('rackspacepBastionDFW')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 181,
         "direction": "Inbound"
@@ -589,7 +589,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "3389",
         "sourceAddressPrefix": "[variables('rackspacepBastionIAD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 182,
         "direction": "Inbound"
@@ -606,7 +606,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "22",
         "sourceAddressPrefix": "[variables('rackspacepBastionIAD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 183,
         "direction": "Inbound"
@@ -623,7 +623,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "443",
         "sourceAddressPrefix": "[variables('rackspacepBastionIAD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 184,
         "direction": "Inbound"
@@ -640,7 +640,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "5986",
         "sourceAddressPrefix": "[variables('rackspacepBastionIAD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 185,
         "direction": "Inbound"
@@ -657,7 +657,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "3389",
         "sourceAddressPrefix": "[variables('rackspacepBastionORD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 186,
         "direction": "Inbound"
@@ -674,7 +674,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "22",
         "sourceAddressPrefix": "[variables('rackspacepBastionORD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 187,
         "direction": "Inbound"
@@ -691,7 +691,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "443",
         "sourceAddressPrefix": "[variables('rackspacepBastionORD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 188,
         "direction": "Inbound"
@@ -708,7 +708,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "5986",
         "sourceAddressPrefix": "[variables('rackspacepBastionORD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 189,
         "direction": "Inbound"
@@ -725,7 +725,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "3389",
         "sourceAddressPrefix": "[variables('rackspacepBastionHKG')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 190,
         "direction": "Inbound"
@@ -742,7 +742,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "22",
         "sourceAddressPrefix": "[variables('rackspacepBastionHKG')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 191,
         "direction": "Inbound"
@@ -759,7 +759,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "443",
         "sourceAddressPrefix": "[variables('rackspacepBastionHKG')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 192,
         "direction": "Inbound"
@@ -776,7 +776,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "5986",
         "sourceAddressPrefix": "[variables('rackspacepBastionHKG')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 193,
         "direction": "Inbound"
@@ -793,7 +793,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "3389",
         "sourceAddressPrefix": "[variables('rackspacepBastionLON')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 194,
         "direction": "Inbound"
@@ -810,7 +810,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "22",
         "sourceAddressPrefix": "[variables('rackspacepBastionLON')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 195,
         "direction": "Inbound"
@@ -827,7 +827,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "443",
         "sourceAddressPrefix": "[variables('rackspacepBastionLON')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 196,
         "direction": "Inbound"
@@ -844,7 +844,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "5986",
         "sourceAddressPrefix": "[variables('rackspacepBastionLON')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 197,
         "direction": "Inbound"
@@ -861,7 +861,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "3389",
         "sourceAddressPrefix": "[variables('rackspacepBastionLON5')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 198,
         "direction": "Inbound"
@@ -878,7 +878,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "22",
         "sourceAddressPrefix": "[variables('rackspacepBastionLON5')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 199,
         "direction": "Inbound"
@@ -895,7 +895,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "443",
         "sourceAddressPrefix": "[variables('rackspacepBastionLON5')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 200,
         "direction": "Inbound"
@@ -912,7 +912,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "5986",
         "sourceAddressPrefix": "[variables('rackspacepBastionLON5')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 201,
         "direction": "Inbound"
@@ -929,7 +929,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "3389",
         "sourceAddressPrefix": "[variables('rackspacepBastionSYD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 202,
         "direction": "Inbound"
@@ -946,7 +946,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "22",
         "sourceAddressPrefix": "[variables('rackspacepBastionSYD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 203,
         "direction": "Inbound"
@@ -963,7 +963,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "443",
         "sourceAddressPrefix": "[variables('rackspacepBastionSYD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 204,
         "direction": "Inbound"
@@ -980,7 +980,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "5986",
         "sourceAddressPrefix": "[variables('rackspacepBastionSYD')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 205,
         "direction": "Inbound"
