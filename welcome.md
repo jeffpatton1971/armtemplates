@@ -40,6 +40,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 11/26 : Updated vmss template with missing index name
 - 11/26 : Updated scaleft nsg with new parameter names
 - 11/26 : Updated rackspace default nsg with new parameter names
 - 11/26 : Updated bastion nsg with new parameter names
