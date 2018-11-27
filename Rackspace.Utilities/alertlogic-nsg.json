@@ -8,7 +8,7 @@
         "description": "The name of the NSG to update"
       }
     },
-    "SubnetPrefix": {
+    "DestinationPrefix": {
       "type": "string",
       "metadata": {
         "description": "The CIDR of the subnet this NSG is attached to"
@@ -32,7 +32,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "7777",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 136,
         "direction": "Inbound"
@@ -49,7 +49,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "443",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 137,
         "direction": "Inbound"
