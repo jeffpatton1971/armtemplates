@@ -14,6 +14,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 
 
 # TODO
+- 11/26 : ~~Align NSG update templates with regular networkSecurityGroup template~~
 - 11/23 : Update serverFarms template from 2016-03-01 to 2018-02-01
 - 11/23 : Update VirtualNetworks template from 2017-09-01 to 2018-08-01
 - 11/23 : Update VirtualNetworkGateways template from 2017-09-01 to 2018-08-01
@@ -39,6 +40,13 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 11/26 : Updated scaleft nsg with new parameter names
+- 11/26 : Updated rackspace default nsg with new parameter names
+- 11/26 : Updated bastion nsg with new parameter names
+- 11/26 : Updated app gw nsg with new parameter names
+- 11/26 : Updated alert logic nsg with new parameter names
+- 11/26 : Updated ad nsg with new parameter names
+- 11/26 : Updated octopus nsg with new parameter names
 - 11/26 : Added sqlserver-nsg.json, to add sql rules to an existing subnet
 - 11/26 : Added SQLServer DeploymentType
 - 11/26 : Updated NSG template parameters from subnetPrefix > DestinationPrefix
