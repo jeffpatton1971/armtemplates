@@ -8,7 +8,7 @@
         "description": "The name of the NSG to update"
       }
     },
-    "SubnetPrefix": {
+    "DestinationPrefix": {
       "type": "string",
       "metadata": {
         "description": "The CIDR of the subnet this NSG is attached to"
@@ -29,7 +29,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "53",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 116,
         "direction": "Inbound"
@@ -46,7 +46,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "88",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 117,
         "direction": "Inbound"
@@ -63,7 +63,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "123",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 118,
         "direction": "Inbound"
@@ -80,7 +80,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "135",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 119,
         "direction": "Inbound"
@@ -97,7 +97,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "137",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 120,
         "direction": "Inbound"
@@ -114,7 +114,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "138",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 121,
         "direction": "Inbound"
@@ -131,7 +131,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "139",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 122,
         "direction": "Inbound"
@@ -148,7 +148,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "389",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 123,
         "direction": "Inbound"
@@ -165,7 +165,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "445",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 124,
         "direction": "Inbound"
@@ -182,7 +182,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "464",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 125,
         "direction": "Inbound"
@@ -199,7 +199,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "636",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 126,
         "direction": "Inbound"
@@ -216,7 +216,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "3268",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 127,
         "direction": "Inbound"
@@ -234,7 +234,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "3269",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 128,
         "direction": "Inbound"
@@ -251,7 +251,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "5722",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 129,
         "direction": "Inbound"
@@ -268,7 +268,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "49152-65535",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 130,
         "direction": "Inbound"
@@ -285,7 +285,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "9389",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 131,
         "direction": "Inbound"
@@ -302,7 +302,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "5985",
         "sourceAddressPrefix": "VirtualNetwork",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 132,
         "direction": "Inbound"
