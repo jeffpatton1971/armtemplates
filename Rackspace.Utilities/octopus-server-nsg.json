@@ -8,13 +8,13 @@
         "description": "The name of the NSG to update"
       }
     },
-    "AgentPrefix": {
+    "SourcePrefix": {
       "type": "string",
       "metadata": {
         "description": "The CIDR of the Octopus Agent subnet"
       }
     },
-    "SubnetPrefix": {
+    "DestinationPrefix": {
       "type": "string",
       "metadata": {
         "description": "The CIDR of the subnet this NSG is attached to"
@@ -47,8 +47,8 @@
         "protocol": "Tcp",
         "sourcePortRange": "*",
         "destinationPortRange": "443",
-        "sourceAddressPrefix": "[parameters('AgentPrefix')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 141,
         "direction": "Inbound"
@@ -65,8 +65,8 @@
         "protocol": "Tcp",
         "sourcePortRange": "*",
         "destinationPortRange": "443",
-        "sourceAddressPrefix": "[parameters('AgentPrefix')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 142,
         "direction": "Inbound"
@@ -83,8 +83,8 @@
         "protocol": "Tcp",
         "sourcePortRange": "*",
         "destinationPortRange": "10943",
-        "sourceAddressPrefix": "[parameters('AgentPrefix')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 143,
         "direction": "Inbound"
