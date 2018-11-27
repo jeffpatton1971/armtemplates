@@ -8,7 +8,7 @@
         "description": "The name of the NSG to update"
       }
     },
-    "SubnetPrefix": {
+    "DestinationPrefix": {
       "type": "string",
       "metadata": {
         "description": "The CIDR of the subnet this NSG is attached to"
@@ -29,8 +29,8 @@
         "protocol": "*",
         "sourcePortRange": "*",
         "destinationPortRange": "*",
-        "sourceAddressPrefix": "[parameters('SubnetPrefix')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 110,
         "direction": "Inbound"
@@ -48,7 +48,7 @@
         "sourcePortRange": "*",
         "destinationPortRange": "*",
         "sourceAddressPrefix": "AzureLoadBalancer",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 111,
         "direction": "Inbound"
