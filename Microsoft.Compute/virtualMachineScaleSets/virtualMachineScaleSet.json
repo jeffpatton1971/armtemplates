@@ -1019,13 +1019,13 @@
                         "name": "[variables('NetworkInterfaceName')]",
                         "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces/',variables('NetworkInterfaceName'))]",
                         "properties": {
+                          "primary": true,
                           "dnsSettings": {},
                           "enableAcceleratedNetworking": false,
                           "ipConfigurations": [
                             {
                               "name": "[variables('NetworkInterfaceIpConfigurationName')]",
                               "properties": {
-                                "privateIPAllocationMethod": "Dynamic",
                                 "privateIPAddressVersion": "IPv4",
                                 "subnet": {
                                   "id": "[variables('SubnetId')]"
@@ -1088,13 +1088,13 @@
                         "name": "[variables('NetworkInterfaceName')]",
                         "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces/',variables('NetworkInterfaceName'))]",
                         "properties": {
+                          "primary": true,
                           "dnsSettings": {},
                           "enableAcceleratedNetworking": false,
                           "ipConfigurations": [
                             {
                               "name": "[variables('NetworkInterfaceIpConfigurationName')]",
                               "properties": {
-                                "privateIPAllocationMethod": "Dynamic",
                                 "privateIPAddressVersion": "IPv4",
                                 "subnet": {
                                   "id": "[variables('SubnetId')]"
