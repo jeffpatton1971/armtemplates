@@ -871,7 +871,7 @@
     "imageReference": "[if(empty(parameters('imageReferenceId')),variables('imageReferenceArray')[0],variables('imageReferenceArray')[1])]",
     "osProfileArray": [
       {
-        "computerName": "[parameters('Name')]",
+        "computerNamePrefix": "[parameters('Name')]",
         "adminUsername": "[parameters('AdminUserName')]",
         "adminPassword": "[parameters('AdminPassword')]",
         "linuxConfiguration": {
@@ -882,7 +882,7 @@
         }
       },
       {
-        "computerName": "[parameters('Name')]",
+        "computerNamePrefix": "[parameters('Name')]",
         "adminUsername": "[parameters('AdminUsername')]",
         "adminPassword": "[parameters('AdminPassword')]",
         "windowsConfiguration": {
@@ -1008,7 +1008,7 @@
                           "managedDisk": {
                             "storageAccountType": "[variables('Disk')[parameters('DataDisks')[copyIndex('dataDisks')].size].sku]"
                           },
-                          "createOption": "Attach"
+                          "createOption": "Empty"
                         }
                       }
                     ]

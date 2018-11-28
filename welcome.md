@@ -25,7 +25,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/23 : Update ScaleSets template from 2017-12-01 to 2018-10-01
 - 11/23 : Update compute template from 2017-03-30 to 2018-10-01
 - 11/23 : ~~Move samples into the readme's for the resources~~
-- 11/23 : Create a more fully formed VMSS template
+- 11/23 : ~~Create a more fully formed VMSS template~~
 - 11/21 : ~~Scrub templates of default values~~
 - 11/21 : ~~All parameters should be present in parameter files~~
 - 11/19 : ~~Change nsg template to match schema~~
@@ -40,6 +40,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 11/28 : Multiple VMSS template updates, added nic resource, removed privateipallocationmethod, added primary, changed computerName to computerNamePrefix, flipped createOption from attach to empty
 - 11/26 : Updated vmss template with missing index name
 - 11/26 : Updated scaleft nsg with new parameter names
 - 11/26 : Updated rackspace default nsg with new parameter names
