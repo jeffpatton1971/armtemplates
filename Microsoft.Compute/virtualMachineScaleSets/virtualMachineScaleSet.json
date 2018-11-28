@@ -994,7 +994,7 @@
                   "storageProfile": {
                     "imageReference": "[variables('imageReference')]",
                     "osDisk": {
-                      "caching": "ReadOnly",
+                      "caching": "ReadWrite",
                       "createOption": "FromImage"
                     },
                     "copy": [
@@ -1078,7 +1078,7 @@
                   "storageProfile": {
                     "imageReference": "[variables('imageReference')]",
                     "osDisk": {
-                      "caching": "ReadOnly",
+                      "caching": "ReadWrite",
                       "createOption": "FromImage"
                     }
                   },

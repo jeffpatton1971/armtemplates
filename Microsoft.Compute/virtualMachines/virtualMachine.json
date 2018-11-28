@@ -1008,7 +1008,7 @@
                   "imageReference": "[variables('imageReference')]",
                   "osDisk": {
                     "name": "[variables('OsDiskName')]",
-                    "caching": "ReadOnly",
+                    "caching": "ReadWrite",
                     "createOption": "FromImage"
                   },
                   "copy": [
@@ -1077,7 +1077,7 @@
                   "imageReference": "[variables('imageReference')]",
                   "osDisk": {
                     "name": "[variables('OsDiskName')]",
-                    "caching": "ReadOnly",
+                    "caching": "ReadWrite",
                     "createOption": "FromImage"
                   }
                 },
