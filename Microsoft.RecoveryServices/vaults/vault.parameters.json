@@ -3,10 +3,10 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "Name": {
-      "value": null
+      "value": ""
     },
     "policyName": {
-      "value": null
+      "value": ""
     },
     "scheduleRunTimes": {
       "value": null
@@ -20,17 +20,20 @@
     "daysOfTheWeek": {
       "value": null
     },
+    "Timezone": {
+      "value": ""
+    },
     "environment": {
-      "value": null
+      "value": ""
     },
     "buildDate": {
-      "value": null
+      "value": ""
     },
     "buildBy": {
-      "value": null
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": null
+      "value": ""
     }
   }
 }

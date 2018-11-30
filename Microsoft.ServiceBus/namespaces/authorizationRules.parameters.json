@@ -3,25 +3,25 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "Namespace": {
-      "value": null
+      "value": ""
     },
     "RootManageSharedAccessKey": {
-      "value": "RootManageSharedAccessKey"
+      "value": ""
     },
     "Manage": {
-      "value": null
+      "value": true
     },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "12/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }

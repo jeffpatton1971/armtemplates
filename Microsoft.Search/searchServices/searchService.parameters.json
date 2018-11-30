@@ -3,13 +3,13 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "name": {
-      "value": null
+      "value": ""
     },
     "Sku": {
-      "value": null
+      "value": ""
     },
     "HostingMode": {
-      "value": null
+      "value": ""
     },
     "ReplicaCount": {
       "value": null
@@ -18,16 +18,16 @@
       "value": null
     },
     "environment": {
-      "value": null
+      "value": ""
     },
     "buildDate": {
-      "value": null
+      "value": ""
     },
     "buildBy": {
-      "value": null
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": null
+      "value": ""
     }
   }
 }

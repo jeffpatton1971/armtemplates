@@ -3,25 +3,25 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "name": {
-      "value": null
+      "value": ""
     },
     "administratorLogin": {
-      "value": null
+      "value": ""
     },
     "administratorLoginPassword": {
-      "value": null
+      "value": ""
     },
     "Location": {
-      "value": null
+      "value": ""
     },
     "sku": {
-      "value": null
+      "value": ""
     },
     "size": {
       "value": null
     },
     "version": {
-      "value": null
+      "value": ""
     },
     "sslEnforcement": {
       "value": null
@@ -33,16 +33,16 @@
       "value": null
     },
     "environment": {
-      "value": null
+      "value": ""
     },
     "buildDate": {
-      "value": null
+      "value": ""
     },
     "buildBy": {
-      "value": null
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": null
+      "value": ""
     }
   }
 }

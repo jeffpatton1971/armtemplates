@@ -3,22 +3,22 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "ProtectedItemResourceGroup": {
-      "value": null
+      "value": ""
     },
     "ProtectedItem": {
-      "value": null
+      "value": ""
     },
     "ItemType": {
-      "value": null
+      "value": ""
     },
     "RecoveryVault": {
-      "value": null
+      "value": ""
     },
     "RecoveryVaultResourceGroup": {
-      "value": null
+      "value": ""
     },
     "BackupPolicy": {
-      "value": null
+      "value": ""
     }
   }
 }

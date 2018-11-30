@@ -3,52 +3,52 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "name": {
-      "value": null
+      "value": ""
     },
     "ServerName": {
-      "value": null
+      "value": ""
     },
     "LicenseType": {
-      "value": null
+      "value": ""
     },
     "Family": {
-      "value": null
+      "value": ""
     },
     "Tier": {
-      "value": null
+      "value": ""
     },
     "vCore": {
-      "value": null
+      "value": ""
     },
     "minCore": {
-      "value": null
+      "value": ""
     },
     "maxCore": {
-      "value": null
+      "value": ""
     },
     "eDTU": {
-      "value": null
+      "value": ""
     },
     "minDTU": {
-      "value": null
+      "value": ""
     },
     "maxDTU": {
-      "value": null
+      "value": ""
     },
     "zoneRedundant": {
-      "value": null
+      "value": false
     },
     "environment": {
-      "value": null
+      "value": ""
     },
     "buildDate": {
-      "value": null
+      "value": ""
     },
     "buildBy": {
-      "value": null
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": null
+      "value": ""
     }
   }
 }

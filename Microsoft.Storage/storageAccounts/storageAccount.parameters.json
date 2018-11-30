@@ -3,31 +3,31 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "name": {
-      "value": null
+      "value": ""
     },
     "sku": {
-      "value": null
+      "value": ""
     },
     "kind": {
-      "value": null
+      "value": ""
     },
     "Location": {
-      "value": null
+      "value": ""
     },
     "encryption": {
-      "value": null
+      "value": false
     },
     "environment": {
-      "value": null
+      "value": ""
     },
     "buildDate": {
-      "value": null
+      "value": ""
     },
     "buildBy": {
-      "value": null
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": null
+      "value": ""
     }
   }
 }

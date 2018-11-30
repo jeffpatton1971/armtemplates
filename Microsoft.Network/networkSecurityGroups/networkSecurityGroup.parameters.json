@@ -6,28 +6,28 @@
       "value": null
     },
     "SourcePrefix": {
-      "value": null
+      "value": ""
     },
     "DestinationPrefix": {
-      "value": null
+      "value": ""
     },
     "DeploymentType": {
-      "value": null
+      "value": ""
     },
     "SecurityRules": {
       "value": null
     },
     "environment": {
-      "value": null
+      "value": ""
     },
     "buildDate": {
-      "value": null
+      "value": ""
     },
     "buildBy": {
-      "value": null
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": null
+      "value": ""
     }
   }
 }

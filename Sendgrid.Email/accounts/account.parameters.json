@@ -6,13 +6,13 @@
       "value": ""
     },
     "plan_name": {
-      "value": "free"
+      "value": ""
     },
     "plan_promotion_code": {
       "value": ""
     },
     "password": {
-      "value": null
+      "value": ""
     },
     "email": {
       "value": ""
@@ -30,19 +30,19 @@
       "value": ""
     },
     "acceptMarketingEmails": {
-      "value": "0"
+      "value": ""
     },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "12/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }
