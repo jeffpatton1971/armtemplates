@@ -12,28 +12,28 @@
       "value": ""
     },
     "sslEnforcement": {
-      "value": null
+      "value": "Enabled"
     },
     "version": {
-      "value": ""
+      "value": "9.5"
     },
     "backupRetentionDays": {
-      "value": null
+      "value": 7
     },
     "geoRedundantBackup": {
-      "value": null
+      "value": "Disabled"
     },
     "storageMB": {
-      "value": null
+      "value": 5
     },
     "capacity": {
-      "value": null
+      "value": 2
     },
     "family": {
-      "value": ""
+      "value": "Gen5"
     },
     "tier": {
-      "value": ""
+      "value": "GeneralPurpose"
     },
     "environment": {
       "value": ""

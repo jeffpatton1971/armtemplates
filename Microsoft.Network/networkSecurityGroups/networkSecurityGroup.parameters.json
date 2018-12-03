@@ -3,7 +3,7 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "Network": {
-      "value": null
+      "value": {}
     },
     "SourcePrefix": {
       "value": ""
@@ -12,10 +12,10 @@
       "value": ""
     },
     "DeploymentType": {
-      "value": ""
+      "value": "VirtualMachine"
     },
     "SecurityRules": {
-      "value": null
+      "value": []
     },
     "environment": {
       "value": ""

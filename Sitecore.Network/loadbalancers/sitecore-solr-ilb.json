@@ -4,7 +4,7 @@
   "parameters": {
     "name": {
       "type": "string",
-      "defaultValue": "g-win-solr"
+      "defaultValue": ""
     },
     "SitecoreVersion": {
       "type": "string",
@@ -16,15 +16,15 @@
     },
     "NetworkName": {
       "type": "string",
-      "defaultValue": "eus-vnet01"
+      "defaultValue": ""
     },
     "NetworkResourceGroupName": {
       "type": "string",
-      "defaultValue": "eus-vnet"
+      "defaultValue": ""
     },
     "SubnetName": {
       "type": "string",
-      "defaultValue": "eus-vnet01-g-solr"
+      "defaultValue": ""
     },
     "loadBalancingRules": {
       "type": "array",

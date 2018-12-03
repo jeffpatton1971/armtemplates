@@ -6,10 +6,10 @@
       "value": ""
     },
     "sku": {
-      "value": ""
+      "value": "Basic"
     },
     "publicIPAllocationMethod": {
-      "value": ""
+      "value": "Dynamic"
     },
     "idleTimeoutInMinutes": {
       "value": 4

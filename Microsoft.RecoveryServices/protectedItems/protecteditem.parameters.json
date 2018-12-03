@@ -9,7 +9,7 @@
       "value": ""
     },
     "ItemType": {
-      "value": ""
+      "value": "Microsoft.Compute/virtualMachines"
     },
     "RecoveryVault": {
       "value": ""

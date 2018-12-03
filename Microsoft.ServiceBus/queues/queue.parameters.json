@@ -9,13 +9,13 @@
       "value": ""
     },
     "MaxQueueSize": {
-      "value": null
+      "value": 1024
     },
     "MessageTTL": {
-      "value": ""
+      "value": "P14D"
     },
     "LockDuration": {
-      "value": ""
+      "value": "PT30S"
     },
     "DuplicateDetection": {
       "value": false
@@ -27,7 +27,7 @@
       "value": false
     },
     "Paritioning": {
-      "value": false
+      "value": true
     },
     "environment": {
       "value": ""

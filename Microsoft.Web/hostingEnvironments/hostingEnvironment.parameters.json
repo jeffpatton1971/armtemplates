@@ -9,19 +9,19 @@
       "value": ""
     },
     "Network": {
-      "value": null
+      "value": {}
     },
     "internalLoadBalancingMode": {
-      "value": ""
+      "value": "None"
     },
     "multiSize": {
       "value": ""
     },
     "multiRoleCount": {
-      "value": null
+      "value": 0
     },
     "workerPools": {
-      "value": null
+      "value": []
     },
     "environment": {
       "value": ""

@@ -6,10 +6,10 @@
       "value": ""
     },
     "IpConfiguration": {
-      "value": null
+      "value": []
     },
     "DnsServers": {
-      "value": null
+      "value": []
     },
     "primary": {
       "value": true

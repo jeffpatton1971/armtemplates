@@ -6,16 +6,16 @@
       "value": ""
     },
     "sku": {
-      "value": ""
+      "value": "Basic"
     },
     "Network": {
-      "value": null
+      "value": {}
     },
     "loadBalancingRules": {
-      "value": null
+      "value": []
     },
     "publicIPAllocationMethod": {
-      "value": ""
+      "value": "Dynamic"
     },
     "ExternalLoadBalancer": {
       "value": false

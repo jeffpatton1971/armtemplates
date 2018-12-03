@@ -15,7 +15,7 @@
       "value": true
     },
     "queryStringCachingBehavior": {
-      "value": ""
+      "value": "IgnoreQueryString"
     },
     "originPath": {
       "value": ""
@@ -24,7 +24,7 @@
       "value": false
     },
     "optimizationType": {
-      "value": ""
+      "value": "GeneralWebDelivery"
     },
     "environment": {
       "value": ""

@@ -6,7 +6,7 @@
       "value": ""
     },
     "Network": {
-      "value": null
+      "value": {}
     },
     "privateIPAllocationMethod": {
       "value": ""
@@ -27,7 +27,7 @@
       "value": ""
     },
     "sku": {
-      "value": ""
+      "value": {}
     },
     "environment": {
       "value": ""

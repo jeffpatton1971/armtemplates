@@ -6,16 +6,16 @@
       "value": ""
     },
     "Network": {
-      "value": null
+      "value": {}
     },
     "DataDisks": {
-      "value": null
+      "value": []
     },
     "UpgradePolicy": {
-      "value": null
+      "value": {}
     },
     "LicenseType": {
-      "value": ""
+      "value": "None"
     },
     "Size": {
       "value": ""
@@ -24,7 +24,7 @@
       "value": ""
     },
     "GalleryImage": {
-      "value": null
+      "value": {}
     },
     "OperatingSystem": {
       "value": ""
@@ -42,7 +42,7 @@
       "value": ""
     },
     "Count": {
-      "value": null
+      "value": 1
     },
     "environment": {
       "value": ""

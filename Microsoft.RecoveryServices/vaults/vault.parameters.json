@@ -9,16 +9,16 @@
       "value": ""
     },
     "scheduleRunTimes": {
-      "value": null
+      "value": []
     },
     "dailyRetentionDurationCount": {
-      "value": null
+      "value": 7
     },
     "weeklyRetentionDurationCount": {
-      "value": null
+      "value": 4
     },
     "daysOfTheWeek": {
-      "value": null
+      "value": []
     },
     "Timezone": {
       "value": ""

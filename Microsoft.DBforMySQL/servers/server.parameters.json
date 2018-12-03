@@ -18,19 +18,19 @@
       "value": ""
     },
     "size": {
-      "value": null
+      "value": 5120
     },
     "version": {
-      "value": ""
+      "value": "5.7"
     },
     "sslEnforcement": {
-      "value": null
+      "value": "Disabled"
     },
     "backupRetentionDays": {
-      "value": null
+      "value": 7
     },
     "geoRedundantBackup": {
-      "value": null
+      "value": "Disabled"
     },
     "environment": {
       "value": ""

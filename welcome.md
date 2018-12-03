@@ -40,6 +40,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 12/03 : Updated all parameter files with default values
 - 11/30 : Updated all null strings, and booleans
 - 11/28 : Flipped OSdisk to ReadWrite caching on VM/VMSS templates
 - 11/28 : Multiple VMSS template updates, added nic resource, removed privateipallocationmethod, added primary, changed computerName to computerNamePrefix, flipped createOption from attach to empty

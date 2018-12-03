@@ -21,16 +21,16 @@
       "value": ""
     },
     "IntervalInSeconds": {
-      "value": null
+      "value": 300
     },
     "SizeLimit": {
-      "value": null
+      "value": 314572800
     },
     "MessageRetention": {
-      "value": null
+      "value": 1
     },
     "PartitionCount": {
-      "value": null
+      "value": 2
     },
     "environment": {
       "value": ""

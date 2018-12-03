@@ -9,28 +9,28 @@
       "value": ""
     },
     "CatalogCollation": {
-      "value": ""
+      "value": "SQL_Latin1_General_CP1_CI_AS"
     },
     "Collation": {
-      "value": ""
+      "value": "SQL_Latin1_General_CP1_CI_AS"
     },
     "CreateMode": {
-      "value": ""
+      "value": "Default"
     },
     "LicenseType": {
-      "value": ""
+      "value": "LicenseIncluded"
     },
     "Family": {
       "value": ""
     },
     "Tier": {
-      "value": ""
+      "value": "Basic"
     },
     "vCore": {
       "value": ""
     },
     "Capacity": {
-      "value": ""
+      "value": "Basic"
     },
     "zoneRedundant": {
       "value": false

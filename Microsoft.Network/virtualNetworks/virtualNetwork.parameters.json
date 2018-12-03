@@ -6,10 +6,10 @@
       "value": ""
     },
     "addressSpace": {
-      "value": null
+      "value": []
     },
     "dhcpOptions": {
-      "value": null
+      "value": []
     },
     "enableDdosProtection": {
       "value": false
@@ -18,7 +18,7 @@
       "value": false
     },
     "subnets": {
-      "value": null
+      "value": []
     },
     "environment": {
       "value": ""

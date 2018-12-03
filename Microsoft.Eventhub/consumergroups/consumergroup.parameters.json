@@ -9,7 +9,7 @@
       "value": ""
     },
     "ConsumerGroup": {
-      "value": ""
+      "value": "$Default"
     },
     "environment": {
       "value": ""

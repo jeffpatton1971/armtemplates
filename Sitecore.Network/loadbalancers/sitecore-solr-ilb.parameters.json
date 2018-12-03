@@ -5,6 +5,9 @@
     "name": {
       "value": ""
     },
+    "SitecoreVersion": {
+      "value": "v9"
+    },
     "NetworkResourceGroupName": {
       "value": ""
     },
@@ -13,6 +16,9 @@
     },
     "SubnetName": {
       "value": ""
+    },
+    "loadBalancingRules": {
+      "value": []
     },
     "environment": {
       "value": ""

@@ -6,16 +6,16 @@
       "value": ""
     },
     "kind": {
-      "value": ""
+      "value": "windows"
     },
     "sku": {
-      "value": ""
+      "value": "Free"
     },
     "skucode": {
-      "value": ""
+      "value": "F1"
     },
     "AppServiceEnvironment": {
-      "value": null
+      "value": {}
     },
     "environment": {
       "value": ""

@@ -12,37 +12,37 @@
       "value": ""
     },
     "netFrameworkVersion": {
-      "value": ""
+      "value": "v4.6"
     },
     "phpVersion": {
-      "value": ""
+      "value": "Off"
     },
     "pythonVersion": {
-      "value": ""
+      "value": "Off"
     },
     "32Bit": {
-      "value": ""
+      "value": "false"
     },
     "webSockets": {
-      "value": ""
+      "value": "false"
     },
     "alwaysOn": {
-      "value": ""
+      "value": "true"
     },
     "webServerLogging": {
-      "value": ""
+      "value": "true"
     },
     "detailedErrors": {
-      "value": ""
+      "value": "true"
     },
     "failedRequestTrace": {
-      "value": ""
+      "value": "true"
     },
     "clientAffinityEnabled": {
-      "value": ""
+      "value": "false"
     },
     "logSize": {
-      "value": null
+      "value": 25
     },
     "environment": {
       "value": ""

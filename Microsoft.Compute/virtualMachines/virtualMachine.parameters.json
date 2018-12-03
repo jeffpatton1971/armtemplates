@@ -9,13 +9,13 @@
       "value": ""
     },
     "Network": {
-      "value": null
+      "value": {}
     },
     "DataDisks": {
-      "value": null
+      "value": []
     },
     "LicenseType": {
-      "value": ""
+      "value": "None"
     },
     "Size": {
       "value": ""
@@ -24,7 +24,7 @@
       "value": ""
     },
     "GalleryImage": {
-      "value": null
+      "value": {}
     },
     "OperatingSystem": {
       "value": ""
@@ -42,10 +42,10 @@
       "value": ""
     },
     "platformUpdateDomainCount": {
-      "value": null
+      "value": 5
     },
     "platformFaultDomainCount": {
-      "value": null
+      "value": 3
     },
     "environment": {
       "value": ""

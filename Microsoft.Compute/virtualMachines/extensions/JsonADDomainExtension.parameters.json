@@ -3,19 +3,19 @@
   "contentVersion": "2018.12.01.0",
   "parameters": {
     "name": {
-      "value": null
+      "value": ""
     },
     "domainName": {
-      "value": null
+      "value": ""
     },
     "ouPath": {
-      "value": null
+      "value": ""
     },
     "userName": {
-      "value": null
+      "value": ""
     },
     "password": {
-      "value": null
+      "value": ""
     }
   }
 }

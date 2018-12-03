@@ -6,16 +6,16 @@
       "value": ""
     },
     "Sku": {
-      "value": ""
+      "value": "free"
     },
     "HostingMode": {
-      "value": ""
+      "value": "default"
     },
     "ReplicaCount": {
-      "value": null
+      "value": 1
     },
     "PartitionCount": {
-      "value": null
+      "value": 1
     },
     "environment": {
       "value": ""

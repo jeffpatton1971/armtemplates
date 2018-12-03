@@ -6,10 +6,10 @@
       "value": ""
     },
     "sku": {
-      "value": ""
+      "value": "Standard_LRS"
     },
     "kind": {
-      "value": ""
+      "value": "Storage"
     },
     "Location": {
       "value": ""

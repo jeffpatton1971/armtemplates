@@ -9,31 +9,31 @@
       "value": ""
     },
     "LicenseType": {
-      "value": ""
+      "value": "LicenseIncluded"
     },
     "Family": {
       "value": ""
     },
     "Tier": {
-      "value": ""
+      "value": "Basic"
     },
     "vCore": {
       "value": ""
     },
     "minCore": {
-      "value": ""
+      "value": "0"
     },
     "maxCore": {
       "value": ""
     },
     "eDTU": {
-      "value": ""
+      "value": "50"
     },
     "minDTU": {
-      "value": ""
+      "value": "0"
     },
     "maxDTU": {
-      "value": ""
+      "value": "5"
     },
     "zoneRedundant": {
       "value": false
