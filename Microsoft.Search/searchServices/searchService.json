@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2018.12.01.0",
   "parameters": {
-    "Name": {
+    "name": {
       "type": "string"
     },
     "Sku": {
@@ -53,8 +53,8 @@
         "Test",
         "UAT",
         "Development",
-        "Disaster Recovery",
-        "Q/A",
+        "QA",
+        "DisasterRecovery",
         "Other"
       ],
       "metadata": {
@@ -112,7 +112,7 @@
     },
     "searchService": {
       "apiVersion": "2015-08-19",
-      "name": "[parameters('Name')]",
+      "name": "[parameters('name')]",
       "location": "[resourceGroup().location]",
       "sku": {
         "name": "[parameters('Sku')]"
@@ -129,7 +129,7 @@
   "resources": [
     {
       "apiVersion": "2015-08-19",
-      "name": "[parameters('Name')]",
+      "name": "[parameters('name')]",
       "location": "[resourceGroup().location]",
       "sku": {
         "name": "[parameters('Sku')]"

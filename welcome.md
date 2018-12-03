@@ -1,15 +1,95 @@
 # Rackspace Build Wiki
 Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that are used, and processes that are followed to deploy a customer environment into Azure.
 
+# New Additions
+- NetworkInterface template has been added
+- Application Service Environments template has been added
+- MySql PaaS template had been added
+- SendGrid template has been added
+- PublicIp template has been added
+
+# Breaking Changes
+- All template parameter files will have blank values
+- SqlDatabase template was an array of db names, it now only deploys a single dbs
+
+
 # TODO
-- Need to update the build environments to accomodate new template locations and udpates
-- Need Domain Setup DSC/Script with ordering for bringing up 2 DC's in sequence
-- Need to update Schema to add DB Tier and Sizing options
-- Need script to change Temp Drive
-- Need Script/DSC to make local admin/admingroup sql sysad's
-- Need updated traffic manager template to accomodate endpoints and more properties
+- 11/26 : ~~Align NSG update templates with regular networkSecurityGroup template~~
+- 11/23 : Update serverFarms template from 2016-03-01 to 2018-02-01
+- 11/23 : Update VirtualNetworks template from 2017-09-01 to 2018-08-01
+- 11/23 : Update VirtualNetworkGateways template from 2017-09-01 to 2018-08-01
+- 11/23 : ~~Add custom option for NSG for custom rules~~
+- 11/23 : Update networkSecurityGroups from 2015-05-01-preview tp 2018-08-01
+- 11/23 : Update loadBalancers template from 2017-06-01 to 2018-08-01
+- 11/23 : Update ApplicationGateway template from 2017-06-01 to 2018-08-01
+- 11/23 : Update ScaleSets template from 2017-12-01 to 2018-10-01
+- 11/23 : Update compute template from 2017-03-30 to 2018-10-01
+- 11/23 : ~~Move samples into the readme's for the resources~~
+- 11/23 : ~~Create a more fully formed VMSS template~~
+- 11/21 : ~~Scrub templates of default values~~
+- 11/21 : ~~All parameters should be present in parameter files~~
+- 11/19 : ~~Change nsg template to match schema~~
+- 11/19 : ~~Add DisasterRecovery to all templates for environment~~
+- 11/19 : ~~Change Q/A to QA for all templates~~
+- 11/12 : ~~Adjust casing of Name across all templates~~
+- 11/10 : ~~Add EastUS to automationAccount~~
+- 11/08 : ~~Add SendGrid template~~
+- 11/08 : ~~Need PIP template~~
+- 11/08 : ~~Remove SQL DB Names~~
+- 11/07 : ~~Basic NSG Template~~
+- 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 12/03 : Updated all parameter files with default values
+- 11/30 : Updated all null strings, and booleans
+- 11/28 : Flipped OSdisk to ReadWrite caching on VM/VMSS templates
+- 11/28 : Multiple VMSS template updates, added nic resource, removed privateipallocationmethod, added primary, changed computerName to computerNamePrefix, flipped createOption from attach to empty
+- 11/26 : Updated vmss template with missing index name
+- 11/26 : Updated scaleft nsg with new parameter names
+- 11/26 : Updated rackspace default nsg with new parameter names
+- 11/26 : Updated bastion nsg with new parameter names
+- 11/26 : Updated app gw nsg with new parameter names
+- 11/26 : Updated alert logic nsg with new parameter names
+- 11/26 : Updated ad nsg with new parameter names
+- 11/26 : Updated octopus nsg with new parameter names
+- 11/26 : Added sqlserver-nsg.json, to add sql rules to an existing subnet
+- 11/26 : Added SQLServer DeploymentType
+- 11/26 : Updated NSG template parameters from subnetPrefix > DestinationPrefix
+- 11/26 : Updated NSG template parameters from bastionPrefix > SourcePrefix
+- 11/26 : Updated NSG template with SitecoreCMS/SOLR
+- 11/23 : Created NetworkInterface template
+- 11/23 : Created/Updated documentation across all templates, removed parameter values and extra params from all template parameter files
+- 11/23 : Added custom rules to NSG template
+- 11/23 : Problem passing the wrong object to SKU
+- 11/23 : Created an upgradePolicy object, see parameter file for example
+- 11/23 : Corrected networking issues, copied nic properties to networkinterfaceconfigurtaions, and removed nic resource
+- 11/23 : Several significant changes around VMSS
+- 11/23 : Removing managedDisk ID
+- 11/23 : Removing the name from dataDisk
+- 11/22 : Removing the name from osDisk
+- 11/19 : Updated all templates with new environments to match schema
+- 11/19 : Updated serverFarms template with values for the object, and casing on name
+- 11/19 : Updated NSG template with network object like loadbalancers
+- 11/19 : Added working hostingEnviroment template and parameter file
+- 11/19 : Renamed the protecteditem json and parameter files
+- 11/19 : Updated MqSQL template and removed the firewal rules
+- 11/19 : Updated casing for 'name' and adjusted contentVersion and dates for December release
+- 11/19 : Adding SendGrid template
+- 11/19 : Adding PublicIP template
+- 11/19 : Added HA example for loadbalancer template
+- 11/19 : Updated SqlDatabase template, removed name array, and unused size param.
+- 11/19 : Updated automationaccount template with list of regions, and added undocumented eastus
+- 11/19 : Updated current list of regions for Workspace (removed West Central US), added RaxAutomationExclude tag
+- 11/19 : Corrected deployment issues with new NSG template, as well as some resource issues
+- 11/12 : Checking in New networkSecurityGroup template, borrowed some code from the AlertLogic template, as well as the VirtualMachine template. This will deploy an NSG based on a DeploymentType (ApplicationGateway, Basion, DomainController, VirtualMachine)
+- 11/12 : Missed the sitecore specific rules
+- 11/12 : Renumbered all priorities across all NSG templates
+- 11/12 : Corrected casing difference between template and parameters
+- 11/12 : Added parameter file for networkSecurityGroup.json
+- 11/12 : Removed dependancy on NSG in rules templates
+- 11/12 : Created a default NSG template, removed the NSG deployment from the rules, adjusted priority
+- 11/12 : Updated nsg templates to deploy an empty nsg
+- 11/12 : Corrected extra properties block in ad-nsg template
 - 11/01 : Updated Build and ContentVersion values to current build and date
 - 11/01 : Renamed virtualNetworks and virtualNetworks.parameters to virtualNetwork and virtualNetwork.parameters
 - 11/01 : Renamed virtualNetworkGateways and virtualNetworkGateways.parameters to virtualNetworkGateway and virtualNetworkGateway.parameters

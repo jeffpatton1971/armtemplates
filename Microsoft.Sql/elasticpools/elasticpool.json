@@ -1,8 +1,8 @@
 {
   "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2018.12.01.0",
   "parameters": {
-    "Name": {
+    "name": {
       "type": "string"
     },
     "ServerName": {
@@ -161,8 +161,8 @@
         "Test",
         "UAT",
         "Development",
-        "Disaster Recovery",
-        "Q/A",
+        "QA",
+        "DisasterRecovery",
         "Other"
       ],
       "metadata": {
@@ -247,7 +247,7 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "ep": {
-      "name": "[concat(parameters('serverName'), '/', parameters('Name'))]",
+      "name": "[concat(parameters('serverName'), '/', parameters('name'))]",
       "location": "[resourceGroup().location]",
       "type": "Microsoft.Sql/servers/elasticpools",
       "apiVersion": "2017-10-01-preview",
@@ -261,7 +261,7 @@
   },
   "resources": [
     {
-      "name": "[concat(parameters('serverName'), '/', parameters('Name'))]",
+      "name": "[concat(parameters('serverName'), '/', parameters('name'))]",
       "location": "[resourceGroup().location]",
       "type": "Microsoft.Sql/servers/elasticpools",
       "apiVersion": "2017-10-01-preview",

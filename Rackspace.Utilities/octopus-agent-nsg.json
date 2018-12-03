@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2018.12.01.0",
   "parameters": {
     "Name": {
       "type": "string",
@@ -8,13 +8,13 @@
         "description": "The name of the NSG to update"
       }
     },
-    "OctopusPrefix": {
+    "SourcePrefix": {
       "type": "string",
       "metadata": {
         "description": "The CIDR of the Octopus subnet"
       }
     },
-    "SubnetPrefix": {
+    "DestinationPrefix": {
       "type": "string",
       "metadata": {
         "description": "The CIDR of the subnet this NSG is attached to"
@@ -46,10 +46,10 @@
         "protocol": "Tcp",
         "sourcePortRange": "*",
         "destinationPortRange": "10933",
-        "sourceAddressPrefix": "[parameters('OctopusPrefix')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
-        "priority": 210,
+        "priority": 138,
         "direction": "Inbound"
       }
     },
@@ -64,10 +64,10 @@
         "protocol": "Tcp",
         "sourcePortRange": "*",
         "destinationPortRange": "10943",
-        "sourceAddressPrefix": "[parameters('SubnetPrefix')]",
-        "destinationAddressPrefix": "[parameters('OctopusPrefix')]",
+        "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
+        "destinationAddressPrefix": "[parameters('SourcePrefix')]",
         "access": "Allow",
-        "priority": 210,
+        "priority": 139,
         "direction": "Outbound"
       }
     },
@@ -82,10 +82,10 @@
         "protocol": "Tcp",
         "sourcePortRange": "*",
         "destinationPortRange": "443",
-        "sourceAddressPrefix": "[parameters('SubnetPrefix')]",
-        "destinationAddressPrefix": "[parameters('OctopusPrefix')]",
+        "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
+        "destinationAddressPrefix": "[parameters('SourcePrefix')]",
         "access": "Allow",
-        "priority": 211,
+        "priority": 140,
         "direction": "Outbound"
       }
     }

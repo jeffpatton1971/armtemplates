@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2018.12.01.0",
   "parameters": {
-    "Name": {
+    "name": {
       "type": "string"
     },
     "Network": {
@@ -10,6 +10,9 @@
     },
     "DataDisks": {
       "type": "array"
+    },
+    "UpgradePolicy": {
+      "type": "object"
     },
     "LicenseType": {
       "type": "string",
@@ -282,6 +285,10 @@
       "type": "string",
       "defaultValue": ""
     },
+    "Location": {
+      "type": "string",
+      "defaultValue": ""
+    },
     "Count": {
       "type": "int",
       "minValue": 1,
@@ -296,8 +303,8 @@
         "Test",
         "UAT",
         "Development",
-        "Disaster Recovery",
-        "Q/A",
+        "QA",
+        "DisasterRecovery",
         "Other"
       ],
       "metadata": {
@@ -842,6 +849,7 @@
         "timezone": "Pacific Standard Time"
       }
     },
+    "location": "[if(empty(parameters('Location')),resourceGroup().location,parameters('Location'))]",
     "timeZone": "[if(empty(parameters('TimeZone')),variables('regions')[resourceGroup().location].timezone,parameters('Timezone'))]",
     "tags": {
       "Environment": "[parameters('environment')]",
@@ -863,7 +871,7 @@
     "imageReference": "[if(empty(parameters('imageReferenceId')),variables('imageReferenceArray')[0],variables('imageReferenceArray')[1])]",
     "osProfileArray": [
       {
-        "computerName": "[parameters('Name')]",
+        "computerNamePrefix": "[parameters('Name')]",
         "adminUsername": "[parameters('AdminUserName')]",
         "adminPassword": "[parameters('AdminPassword')]",
         "linuxConfiguration": {
@@ -874,7 +882,7 @@
         }
       },
       {
-        "computerName": "[parameters('Name')]",
+        "computerNamePrefix": "[parameters('Name')]",
         "adminUsername": "[parameters('AdminUsername')]",
         "adminPassword": "[parameters('AdminPassword')]",
         "windowsConfiguration": {
@@ -893,7 +901,7 @@
       "apiVersion": "2017-10-01",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('NetworkInterfaceName')]",
-      "location": "[resourceGroup().location]",
+      "location": "[variables('location')]",
       "dependsOn": [],
       "properties": {
         "dnsSettings": {},
@@ -937,7 +945,7 @@
               "type": "Microsoft.Compute/disks",
               "apiVersion": "2017-03-30",
               "name": "[parameters('DataDisks')[copyIndex()].name]",
-              "location": "[resourceGroup().location]",
+              "location": "[variables('location')]",
               "dependsOn": [],
               "tags": "[variables('tags')]",
               "properties": {
@@ -959,7 +967,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
-      "name": "[concat(parameters('Name'),'_',variables('diskCount'),'_disks')]",
+      "name": "[concat(parameters('name'),'_',variables('diskCount'),'_disks')]",
       "condition": "[greaterOrEquals(variables('isPresent'),1)]",
       "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
       "properties": {
@@ -971,8 +979,8 @@
             {
               "apiVersion": "2017-12-01",
               "type": "Microsoft.Compute/virtualMachineScaleSets",
-              "name": "[parameters('Name')]",
-              "location": "[resourceGroup().location]",
+              "name": "[parameters('name')]",
+              "location": "[variables('location')]",
               "dependsOn": [],
               "sku": {
                 "capacity": "[parameters('Count')]",
@@ -980,12 +988,13 @@
                 "name": "[variables('vmSize')]"
               },
               "properties": {
+                "upgradePolicy": "[parameters('UpgradePolicy')]",
                 "virtualMachineProfile": {
+                  "osProfile": "[variables('osProfile')]",
                   "storageProfile": {
                     "imageReference": "[variables('imageReference')]",
                     "osDisk": {
-                      "name": "[variables('OsDiskName')]",
-                      "caching": "ReadOnly",
+                      "caching": "ReadWrite",
                       "createOption": "FromImage"
                     },
                     "copy": [
@@ -993,31 +1002,42 @@
                         "name": "dataDisks",
                         "count": "[variables('diskCount')]",
                         "input": {
-                          "name": "[variables('Disks')[copyIndex('dataDisks')].name]",
                           "diskSizeGB": "[variables('Disk')[variables('Disks')[copyIndex('dataDisks')].size].size]",
                           "caching": "[variables('Disks')[copyIndex('dataDisks')].caching]",
                           "lun": "[variables('Disks')[copyIndex('dataDisks')].lun]",
                           "managedDisk": {
-                            "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/disks/',concat(variables('DataDiskName'),padleft(add(copyIndex('dataDisks'),1),2,'0')))]"
+                            "storageAccountType": "[variables('Disk')[parameters('DataDisks')[copyIndex('dataDisks')].size].sku]"
                           },
-                          "createOption": "Attach"
+                          "createOption": "Empty"
                         }
                       }
                     ]
                   },
-                  "osProfile": "[variables('osProfile')]",
                   "networkProfile": {
-                    "networkInterfaces": [
+                    "networkInterfaceConfigurations": [
                       {
+                        "name": "[variables('NetworkInterfaceName')]",
                         "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces/',variables('NetworkInterfaceName'))]",
-                        "primary": true
+                        "properties": {
+                          "primary": true,
+                          "dnsSettings": {},
+                          "enableAcceleratedNetworking": false,
+                          "ipConfigurations": [
+                            {
+                              "name": "[variables('NetworkInterfaceIpConfigurationName')]",
+                              "properties": {
+                                "privateIPAddressVersion": "IPv4",
+                                "subnet": {
+                                  "id": "[variables('SubnetId')]"
+                                }
+                              }
+                            }
+                          ]
+                        }
                       }
                     ]
                   },
                   "diagnosticsProfile": {}
-                },
-                "upgradePolicy": {
-                  "mode": "Manual"
                 }
               },
               "tags": "[variables('tags')]"
@@ -1031,7 +1051,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
-      "name": "[concat(parameters('Name'),'_0_disks')]",
+      "name": "[concat(parameters('name'),'_0_disks')]",
       "condition": "[equals(variables('isPresent'),0)]",
       "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
       "properties": {
@@ -1043,8 +1063,8 @@
             {
               "apiVersion": "2017-12-01",
               "type": "Microsoft.Compute/virtualMachineScaleSets",
-              "name": "[parameters('Name')]",
-              "location": "[resourceGroup().location]",
+              "name": "[parameters('name')]",
+              "location": "[variables('location')]",
               "dependsOn": [],
               "sku": {
                 "capacity": "[parameters('Count')]",
@@ -1052,28 +1072,41 @@
                 "name": "[variables('vmSize')]"
               },
               "properties": {
+                "upgradePolicy": "[parameters('UpgradePolicy')]",
                 "virtualMachineProfile": {
+                  "osProfile": "[variables('osProfile')]",
                   "storageProfile": {
                     "imageReference": "[variables('imageReference')]",
                     "osDisk": {
-                      "name": "[variables('OsDiskName')]",
-                      "caching": "ReadOnly",
+                      "caching": "ReadWrite",
                       "createOption": "FromImage"
                     }
                   },
-                  "osProfile": "[variables('osProfile')]",
                   "networkProfile": {
-                    "networkInterfaces": [
+                    "networkInterfaceConfigurations": [
                       {
+                        "name": "[variables('NetworkInterfaceName')]",
                         "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces/',variables('NetworkInterfaceName'))]",
-                        "primary": true
+                        "properties": {
+                          "primary": true,
+                          "dnsSettings": {},
+                          "enableAcceleratedNetworking": false,
+                          "ipConfigurations": [
+                            {
+                              "name": "[variables('NetworkInterfaceIpConfigurationName')]",
+                              "properties": {
+                                "privateIPAddressVersion": "IPv4",
+                                "subnet": {
+                                  "id": "[variables('SubnetId')]"
+                                }
+                              }
+                            }
+                          ]
+                        }
                       }
                     ]
                   },
                   "diagnosticsProfile": {}
-                },
-                "upgradePolicy": {
-                  "mode": "Manual"
                 }
               },
               "tags": "[variables('tags')]"
