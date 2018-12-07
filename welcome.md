@@ -14,6 +14,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 
 
 # TODO
+- 12/07 : Rediscache template
 - 11/26 : ~~Align NSG update templates with regular networkSecurityGroup template~~
 - 11/23 : Update serverFarms template from 2016-03-01 to 2018-02-01
 - 11/23 : Update VirtualNetworks template from 2017-09-01 to 2018-08-01
@@ -40,6 +41,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 12/07 : Wrong filename for profiles readme
 - 12/03 : Updated all parameter files with default values
 - 11/30 : Updated all null strings, and booleans
 - 11/28 : Flipped OSdisk to ReadWrite caching on VM/VMSS templates
