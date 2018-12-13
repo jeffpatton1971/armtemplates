@@ -2,6 +2,7 @@
 Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that are used, and processes that are followed to deploy a customer environment into Azure.
 
 # New Additions
+- RedisCache template has been added
 - NetworkInterface template has been added
 - Application Service Environments template has been added
 - MySql PaaS template had been added
@@ -14,6 +15,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 
 
 # TODO
+- 12/12 : Update NSG template to be more customizable, choose deploymentType and define additional rules
+- 12/11 : Rework AppGw template to be less load balancer and more appgw
 - 12/07 : Add additional redis resource templates
 - 12/07 : ~~Rediscache template~~
 - 11/26 : ~~Align NSG update templates with regular networkSecurityGroup template~~
