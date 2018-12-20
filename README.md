@@ -15,6 +15,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 
 
 # TODO
+- 12/20 : VPN Gateway Template, if bgp false still get errors about bgpsettings being null
 - 12/13 : Clean up Bastion rules in nsg template
 - 12/12 : Update NSG template to be more customizable, choose deploymentType and define additional rules
 - 12/11 : ~~Rework AppGw template to be less load balancer and more appgw~~
