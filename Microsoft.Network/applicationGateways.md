@@ -27,34 +27,13 @@ Azure Application Gateway is a web traffic load balancer that enables you to man
     "applicationGatewayRules": {
       "value": [
         {
-          "frontendPort": 80,
+		  "hostname": "sslOffload",
+          "frontendPort": 443,
+		  "frontendProtocol": "Https",
           "backendPort": 80,
-          "protocol": "http",
-          "affinity": "Disabled",
-          "backendPool": [
-            {
-              "IpAddress": "1.2.3.4"
-            },
-            {
-              "IpAddress": "2.4.6.8"
-            }
-          ],
-          "sslCertificate": null
-        },
-        {
-          "frontendPort": 8080,
-          "backendPort": 8080,
-          "protocol": "http",
-          "affinity": "Enabled",
-          "backendPool": [
-            {
-              "IpAddress": "1.2.3.4"
-            },
-            {
-              "IpAddress": "2.4.6.8"
-            }
-          ],
-          "sslCertificate": null
+          "backendProtocol": "Http",
+          "sslCertificate": "base64 pfx",
+		  "sslPassword" : ""
         }
       ]
     },
@@ -70,6 +49,9 @@ Azure Application Gateway is a web traffic load balancer that enables you to man
     "RuleSet": {
       "value": "3.0"
     },
+	"Location":{
+		"value": ""
+	},
     "environment": {
       "value": "Development"
     },

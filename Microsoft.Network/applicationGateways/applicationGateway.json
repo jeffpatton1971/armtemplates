@@ -39,6 +39,10 @@
       ],
       "defaultValue": "3.0"
     },
+    "Location": {
+      "type": "string",
+      "defaultValue": ""
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -98,16 +102,7 @@
     }
   },
   "variables": {
-    "ApplicationGatewayName": "[parameters('name')]",
-    "GatewayIpConfigurationName": "[concat(parameters('name'),'-gip')]",
-    "FrontendIpConfigurationName": "[concat(parameters('name'),'-ipc')]",
-    "FrontEndPortName": "[concat(parameters('name'),'-fep')]",
-    "BackendSettingsName": "[concat(parameters('name'),'-set')]",
-    "BackendAddressPoolName": "[concat(parameters('name'),'-bep')]",
-    "HttpListenerName": "[concat(parameters('name'),'-lst')]",
-    "ApplicationGatewayRuleName": "[concat(parameters('name'),'-rul')]",
-    "LoadbalancingProbeName": "[concat(parameters('name'),'-prb')]",
-    "PublicIpAddressName": "[concat(parameters('name'),'-pip')]",
+    "location": "[if(empty(parameters('Location')),resourceGroup().location,parameters('Location'))]",
     "vnetId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName)]",
     "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('Network').SubnetName)]",
     "SkuNamePass1": "[concat(parameters('Tier'),'_',parameters('Size'))]",
@@ -118,7 +113,6 @@
       "capacity": "[parameters('Instances')]"
     },
     "tags": {
-      "displayName": "ApplicationGateway",
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
@@ -130,32 +124,30 @@
       "ruleSetType": "OWASP",
       "ruleSetVersion": "[parameters('RuleSet')]",
       "disabledRuleGroups": []
-    }
-  },
-  "resources": [
-    {
+    },
+    "publicIpAddress": {
       "apiVersion": "2017-03-01",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[variables('PublicIpAddressName')]",
-      "location": "[resourceGroup().location]",
+      "name": "[concat(parameters('name'),'-pip')]",
+      "location": "[variables('location')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic"
       }
     },
-    {
-      "apiVersion": "2017-06-01",
-      "name": "[variables('ApplicationGatewayName')]",
+    "applicationGateway": {
+      "apiVersion": "2018-08-01",
+      "name": "[parameters('name')]",
       "type": "Microsoft.Network/applicationGateways",
-      "location": "[resourceGroup().location]",
+      "location": "[variables('location')]",
       "tags": "[variables('tags')]",
       "dependsOn": [
-        "[variables('PublicIpAddressName')]"
+        "[concat(parameters('name'),'-pip')]"
       ],
       "properties": {
         "sku": "[variables('Sku')]",
         "gatewayIPConfigurations": [
           {
-            "name": "[variables('GatewayIpConfigurationName')]",
+            "name": "[concat(parameters('name'),'-gip')]",
             "properties": {
               "subnet": {
                 "id": "[variables('subnetId')]"
@@ -165,35 +157,24 @@
         ],
         "frontendIPConfigurations": [
           {
-            "name": "[concat(variables('FrontendIpConfigurationName'),'-int')]",
-            "properties": {
-              "subnet": {
-                "id": "[variables('subnetId')]"
-              },
-              "privateIPAddress": "",
-              "privateIPAllocationMethod": "Dynamic"
-            }
-          },
-          {
-            "name": "[concat(variables('FrontendIpConfigurationName'),'-ext')]",
+            "name": "[concat(parameters('name'),'-ipc')]",
             "properties": {
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('PublicIpAddressName'))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('name'),'-pip'))]"
               }
             }
           }
         ],
         "probes": [
           {
-            "name": "probe1",
+            "name": "http-probe",
             "properties": {
               "protocol": "Http",
-              "host": "1.2.3.4",
-              "path": "/root/ping.html",
+              "path": "/",
               "interval": 30,
               "timeout": 30,
               "unhealthyThreshold": 3,
-              "pickHostNameFromBackendHttpSettings": false,
+              "pickHostNameFromBackendHttpSettings": true,
               "minServers": 0,
               "match": {
                 "body": "",
@@ -209,7 +190,7 @@
             "name": "frontendPorts",
             "count": "[length(parameters('applicationGatewayRules'))]",
             "input": {
-              "name": "[concat(variables('FrontEndPortName'),'-',add(copyIndex('frontendPorts'),1))]",
+              "name": "[concat(parameters('name'),'-fep-',parameters('applicationGatewayRules')[copyIndex('frontendPorts')].frontendPort)]",
               "properties": {
                 "Port": "[parameters('applicationGatewayRules')[copyIndex('frontendPorts')].frontendPort]"
               }
@@ -219,11 +200,19 @@
             "name": "backendHttpSettingsCollection",
             "count": "[length(parameters('applicationGatewayRules'))]",
             "input": {
-              "name": "[concat(variables('BackendSettingsName'),'-',add(copyIndex('backendHttpSettingsCollection'),1))]",
+              "name": "[concat(parameters('applicationGatewayRules')[copyIndex('backendHttpSettingsCollection')].hostname,'-settings')]",
               "properties": {
-                "Port": "[parameters('applicationGatewayRules')[copyIndex('backendHttpSettingsCollection')].frontendPort]",
-                "Protocol": "[parameters('applicationGatewayRules')[copyIndex('backendHttpSettingsCollection')].protocol]",
-                "CookieBasedAffinity": "[parameters('applicationGatewayRules')[copyIndex('backendHttpSettingsCollection')].affinity]"
+                "Port": "[parameters('applicationGatewayRules')[copyIndex('backendHttpSettingsCollection')].backendPort]",
+                "Protocol": "[parameters('applicationGatewayRules')[copyIndex('backendHttpSettingsCollection')].backendProtocol]",
+                "hostname": "[parameters('applicationGatewayRules')[copyIndex('backendHttpSettingsCollection')].hostname]",
+                "cookieBasedAffinity": "Disabled",
+                "pickHostNameFromBackendAddress": false,
+                "affinityCookieName": "ApplicationGatewayAffinity",
+                "path": null,
+                "requestTimeout": 20,
+                "probe": {
+                  "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', parameters('name')) ,'/probes/http-probe')]"
+                }
               }
             }
           },
@@ -231,26 +220,36 @@
             "name": "backendAddressPools",
             "count": "[length(parameters('applicationGatewayRules'))]",
             "input": {
-              "name": "[concat(variables('BackendAddressPoolName'),'-',add(copyIndex('backendAddressPools'),1))]",
-              "properties": {
-                "BackendAddresses": "[parameters('applicationGatewayRules')[copyIndex('backendAddressPools')].backendPool]"
-              }
+              "name": "[concat(parameters('applicationGatewayRules')[copyIndex('backendAddressPools')].hostname,'-bep')]"
             }
           },
           {
             "name": "httpListeners",
             "count": "[length(parameters('applicationGatewayRules'))]",
             "input": {
-              "name": "[concat(variables('HttpListenerName'),'-',add(copyIndex('httpListeners'),1))]",
+              "name": "[parameters('applicationGatewayRules')[copyIndex('httpListeners')].hostname]",
               "properties": {
                 "FrontendIPConfiguration": {
-                  "Id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', variables('ApplicationGatewayName')) ,'/frontendIPConfigurations/',variables('FrontendIpConfigurationName'),'-int')]"
+                  "Id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', parameters('name')) ,'/frontendIPConfigurations/',parameters('name'),'-ipc')]"
                 },
                 "FrontendPort": {
-                  "Id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', variables('ApplicationGatewayName')) , '/frontendPorts/',variables('FrontEndPortName'),'-',add(copyIndex('httpListeners'),1))]"
+                  "Id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', parameters('name')) , '/frontendPorts/',parameters('name'),'-fep-',parameters('applicationGatewayRules')[copyIndex('httpListeners')].frontendPort)]"
                 },
-                "Protocol": "[parameters('applicationGatewayRules')[copyIndex('httpListeners')].protocol]",
-                "SslCertificate": "[parameters('applicationGatewayRules')[copyIndex('httpListeners')].sslCertificate]"
+                "Protocol": "[parameters('applicationGatewayRules')[copyIndex('httpListeners')].frontendProtocol]",
+                "sslCertificate": {
+                  "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', parameters('name')) , '/sslCertificates/',parameters('applicationGatewayRules')[copyIndex('httpListeners')].hostname,'-certificate')]"
+                }
+              }
+            }
+          },
+          {
+            "name": "sslCertificates",
+            "count": "[length(parameters('applicationGatewayRules'))]",
+            "input": {
+              "name": "[concat(parameters('applicationGatewayRules')[copyIndex('sslCertificates')].hostname,'-certificate')]",
+              "properties": {
+                "data": "[parameters('applicationGatewayRules')[copyIndex('sslCertificates')].sslCertificate]",
+                "password": "[parameters('applicationGatewayRules')[copyIndex('sslCertificates')].sslPassword]"
               }
             }
           },
@@ -258,17 +257,170 @@
             "name": "requestRoutingRules",
             "count": "[length(parameters('applicationGatewayRules'))]",
             "input": {
-              "Name": "[concat(variables('ApplicationGatewayRuleName'),'-',add(copyIndex('requestRoutingRules'),1))]",
+              "Name": "[parameters('applicationGatewayRules')[copyIndex('requestRoutingRules')].hostname]",
               "properties": {
                 "RuleType": "Basic",
                 "httpListener": {
-                  "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', variables('ApplicationGatewayName')) , '/httpListeners/',variables('HttpListenerName'),'-',add(copyIndex('requestRoutingRules'),1))]"
+                  "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', parameters('name')) , '/httpListeners/',parameters('applicationGatewayRules')[copyIndex('requestRoutingRules')].hostname)]"
                 },
                 "backendAddressPool": {
-                  "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', variables('ApplicationGatewayName')) , '/backendAddressPools/',variables('BackendAddressPoolName'),'-',add(copyIndex('requestRoutingRules'),1))]"
+                  "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', parameters('name')) , '/backendAddressPools/',parameters('applicationGatewayRules')[copyIndex('requestRoutingRules')].hostname,'-bep')]"
                 },
                 "backendHttpSettings": {
-                  "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', variables('ApplicationGatewayName')) , '/backendHttpSettingsCollection/',variables('BackendSettingsName'),'-',add(copyIndex('requestRoutingRules'),1))]"
+                  "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', parameters('name')) , '/backendHttpSettingsCollection/',parameters('applicationGatewayRules')[copyIndex('requestRoutingRules')].hostname,'-settings')]"
+                }
+              }
+            }
+          }
+        ],
+        "webApplicationFirewallConfiguration": "[if(equals(parameters('Tier'),'WAF'),variables('webApplicationFirewallConfiguration'),json('null'))]"
+      }
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2017-03-01",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[concat(parameters('name'),'-pip')]",
+      "location": "[variables('location')]",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic"
+      }
+    },
+    {
+      "apiVersion": "2018-08-01",
+      "name": "[parameters('name')]",
+      "type": "Microsoft.Network/applicationGateways",
+      "location": "[variables('location')]",
+      "tags": "[variables('tags')]",
+      "dependsOn": [
+        "[concat(parameters('name'),'-pip')]"
+      ],
+      "properties": {
+        "sku": "[variables('Sku')]",
+        "gatewayIPConfigurations": [
+          {
+            "name": "[concat(parameters('name'),'-gip')]",
+            "properties": {
+              "subnet": {
+                "id": "[variables('subnetId')]"
+              }
+            }
+          }
+        ],
+        "frontendIPConfigurations": [
+          {
+            "name": "[concat(parameters('name'),'-ipc')]",
+            "properties": {
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('name'),'-pip'))]"
+              }
+            }
+          }
+        ],
+        "probes": [
+          {
+            "name": "http-probe",
+            "properties": {
+              "protocol": "Http",
+              "path": "/",
+              "interval": 30,
+              "timeout": 30,
+              "unhealthyThreshold": 3,
+              "pickHostNameFromBackendHttpSettings": true,
+              "minServers": 0,
+              "match": {
+                "body": "",
+                "statusCodes": [
+                  "200-399"
+                ]
+              }
+            }
+          }
+        ],
+        "copy": [
+          {
+            "name": "frontendPorts",
+            "count": "[length(parameters('applicationGatewayRules'))]",
+            "input": {
+              "name": "[concat(parameters('name'),'-fep-',parameters('applicationGatewayRules')[copyIndex('frontendPorts')].frontendPort)]",
+              "properties": {
+                "Port": "[parameters('applicationGatewayRules')[copyIndex('frontendPorts')].frontendPort]"
+              }
+            }
+          },
+          {
+            "name": "backendHttpSettingsCollection",
+            "count": "[length(parameters('applicationGatewayRules'))]",
+            "input": {
+              "name": "[concat(parameters('applicationGatewayRules')[copyIndex('backendHttpSettingsCollection')].hostname,'-settings')]",
+              "properties": {
+                "Port": "[parameters('applicationGatewayRules')[copyIndex('backendHttpSettingsCollection')].backendPort]",
+                "Protocol": "[parameters('applicationGatewayRules')[copyIndex('backendHttpSettingsCollection')].backendProtocol]",
+                "hostname": "[parameters('applicationGatewayRules')[copyIndex('backendHttpSettingsCollection')].hostname]",
+                "cookieBasedAffinity": "Disabled",
+                "pickHostNameFromBackendAddress": false,
+                "affinityCookieName": "ApplicationGatewayAffinity",
+                "path": null,
+                "requestTimeout": 20,
+                "probe": {
+                  "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', parameters('name')) ,'/probes/http-probe')]"
+                }
+              }
+            }
+          },
+          {
+            "name": "backendAddressPools",
+            "count": "[length(parameters('applicationGatewayRules'))]",
+            "input": {
+              "name": "[concat(parameters('applicationGatewayRules')[copyIndex('backendAddressPools')].hostname,'-bep')]"
+            }
+          },
+          {
+            "name": "httpListeners",
+            "count": "[length(parameters('applicationGatewayRules'))]",
+            "input": {
+              "name": "[parameters('applicationGatewayRules')[copyIndex('httpListeners')].hostname]",
+              "properties": {
+                "FrontendIPConfiguration": {
+                  "Id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', parameters('name')) ,'/frontendIPConfigurations/',parameters('name'),'-ipc')]"
+                },
+                "FrontendPort": {
+                  "Id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', parameters('name')) , '/frontendPorts/',parameters('name'),'-fep-',parameters('applicationGatewayRules')[copyIndex('httpListeners')].frontendPort)]"
+                },
+                "Protocol": "[parameters('applicationGatewayRules')[copyIndex('httpListeners')].frontendProtocol]",
+                "sslCertificate": {
+                  "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', parameters('name')) , '/sslCertificates/',parameters('applicationGatewayRules')[copyIndex('httpListeners')].hostname,'-certificate')]"
+                }
+              }
+            }
+          },
+          {
+            "name": "sslCertificates",
+            "count": "[length(parameters('applicationGatewayRules'))]",
+            "input": {
+              "name": "[concat(parameters('applicationGatewayRules')[copyIndex('sslCertificates')].hostname,'-certificate')]",
+              "properties": {
+                "data": "[parameters('applicationGatewayRules')[copyIndex('sslCertificates')].sslCertificate]",
+                "password": "[parameters('applicationGatewayRules')[copyIndex('sslCertificates')].sslPassword]"
+              }
+            }
+          },
+          {
+            "name": "requestRoutingRules",
+            "count": "[length(parameters('applicationGatewayRules'))]",
+            "input": {
+              "Name": "[parameters('applicationGatewayRules')[copyIndex('requestRoutingRules')].hostname]",
+              "properties": {
+                "RuleType": "Basic",
+                "httpListener": {
+                  "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', parameters('name')) , '/httpListeners/',parameters('applicationGatewayRules')[copyIndex('requestRoutingRules')].hostname)]"
+                },
+                "backendAddressPool": {
+                  "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', parameters('name')) , '/backendAddressPools/',parameters('applicationGatewayRules')[copyIndex('requestRoutingRules')].hostname,'-bep')]"
+                },
+                "backendHttpSettings": {
+                  "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', parameters('name')) , '/backendHttpSettingsCollection/',parameters('applicationGatewayRules')[copyIndex('requestRoutingRules')].hostname,'-settings')]"
                 }
               }
             }
@@ -278,5 +430,17 @@
       }
     }
   ],
-  "outputs": {}
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2018.12.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('publicIpAddress'),variables('applicationGateway'))]",
+        "outputs": {}
+      }
+    }
+  }
 }

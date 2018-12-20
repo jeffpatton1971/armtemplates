@@ -1,4 +1,4 @@
-# Rackspace Build Wiki
+# BuildTemplates
 Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that are used, and processes that are followed to deploy a customer environment into Azure.
 
 # New Additions
@@ -17,7 +17,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 # TODO
 - 12/13 : Clean up Bastion rules in nsg template
 - 12/12 : Update NSG template to be more customizable, choose deploymentType and define additional rules
-- 12/11 : Rework AppGw template to be less load balancer and more appgw
+- 12/11 : ~~Rework AppGw template to be less load balancer and more appgw~~
 - 12/07 : Add additional redis resource templates
 - 12/07 : ~~Rediscache template~~
 - 11/26 : ~~Align NSG update templates with regular networkSecurityGroup template~~
@@ -27,7 +27,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/23 : ~~Add custom option for NSG for custom rules~~
 - 11/23 : Update networkSecurityGroups from 2015-05-01-preview tp 2018-08-01
 - 11/23 : Update loadBalancers template from 2017-06-01 to 2018-08-01
-- 11/23 : Update ApplicationGateway template from 2017-06-01 to 2018-08-01
+- 11/23 : ~~Update ApplicationGateway template from 2017-06-01 to 2018-08-01~~
 - 11/23 : Update ScaleSets template from 2017-12-01 to 2018-10-01
 - 11/23 : Update compute template from 2017-03-30 to 2018-10-01
 - 11/23 : ~~Move samples into the readme's for the resources~~
@@ -46,6 +46,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 12/20 : Signifcant changes to the ApplicationGateway template, designed for SSL Offload will need cert at deploy, cleaned up internal naming, created an output template, updated apiVersion
 - 12/07 : Checking in a redis cache template and parameter file
 - 12/07 : Wrong filename for profiles readme
 - 12/03 : Updated all parameter files with default values
