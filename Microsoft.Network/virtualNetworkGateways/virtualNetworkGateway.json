@@ -154,7 +154,7 @@
     },
     {
       "condition": "[equals(variables('vpnGwCondition'),1)]",
-      "name": "[parameters('Name')]",
+      "name": "[concat(parameters('Name'),'-nobgp')]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
       "dependsOn": [
@@ -174,18 +174,20 @@
               "dependsOn": [],
               "properties": {
                 "gatewayType": "[parameters('gatewayType')]",
-                "ipConfigurations": {
-                  "name": "[parameters('name')]",
-                  "properties": {
-                    "privateIPAllocationMethod": "[parameters('privateIPAllocationMethod')]",
-                    "subnet": {
-                      "id": "[variables('subnetId')]"
-                    },
-                    "publicIpAddress": {
-                      "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('PublicIpAddressName'))]"
+                "ipConfigurations": [
+                  {
+                    "name": "[parameters('name')]",
+                    "properties": {
+                      "privateIPAllocationMethod": "[parameters('privateIPAllocationMethod')]",
+                      "subnet": {
+                        "id": "[variables('subnetId')]"
+                      },
+                      "publicIpAddress": {
+                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('PublicIpAddressName'))]"
+                      }
                     }
                   }
-                },
+                ],
                 "vpnType": "[parameters('vpnType')]",
                 "sku": "[parameters('sku')]"
               },
@@ -197,7 +199,7 @@
     },
     {
       "condition": "[equals(variables('vpnGwCondition'),2)]",
-      "name": "[parameters('Name')]",
+      "name": "[concat(parameters('Name'),'-active')]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
       "dependsOn": [
@@ -218,18 +220,20 @@
               "properties": {
                 "activeActive": "[parameters('activeActive')]",
                 "gatewayType": "[parameters('gatewayType')]",
-                "ipConfigurations": {
-                  "name": "[parameters('name')]",
-                  "properties": {
-                    "privateIPAllocationMethod": "[parameters('privateIPAllocationMethod')]",
-                    "subnet": {
-                      "id": "[variables('subnetId')]"
-                    },
-                    "publicIpAddress": {
-                      "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('PublicIpAddressName'))]"
+                "ipConfigurations": [
+                  {
+                    "name": "[parameters('name')]",
+                    "properties": {
+                      "privateIPAllocationMethod": "[parameters('privateIPAllocationMethod')]",
+                      "subnet": {
+                        "id": "[variables('subnetId')]"
+                      },
+                      "publicIpAddress": {
+                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('PublicIpAddressName'))]"
+                      }
                     }
                   }
-                },
+                ],
                 "vpnType": "[parameters('vpnType')]",
                 "sku": "[parameters('sku')]"
               },
@@ -241,7 +245,7 @@
     },
     {
       "condition": "[equals(variables('vpnGwCondition'),3)]",
-      "name": "[parameters('Name')]",
+      "name": "[concat(parameters('Name'),'-bgp')]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
       "dependsOn": [
@@ -262,18 +266,20 @@
               "properties": {
                 "activeActive": "[parameters('activeActive')]",
                 "gatewayType": "[parameters('gatewayType')]",
-                "ipConfigurations": {
-                  "name": "[parameters('name')]",
-                  "properties": {
-                    "privateIPAllocationMethod": "[parameters('privateIPAllocationMethod')]",
-                    "subnet": {
-                      "id": "[variables('subnetId')]"
-                    },
-                    "publicIpAddress": {
-                      "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('PublicIpAddressName'))]"
+                "ipConfigurations": [
+                  {
+                    "name": "[parameters('name')]",
+                    "properties": {
+                      "privateIPAllocationMethod": "[parameters('privateIPAllocationMethod')]",
+                      "subnet": {
+                        "id": "[variables('subnetId')]"
+                      },
+                      "publicIpAddress": {
+                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('PublicIpAddressName'))]"
+                      }
                     }
                   }
-                },
+                ]s,
                 "enableBgp": "[parameters('enableBgp')]",
                 "bgpSettings": "[parameters('bgpSettings')]",
                 "vpnType": "[parameters('vpnType')]",

@@ -47,6 +47,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 12/21 : Corrected vpngw ipconfigurations was object, should be an array
+- 12/21 : Updated vpngw with unique deployment names
 - 12/21 : Corrected Appgw template, when passing in two sets of rules two identical ports were created which fails. Used copy() in the variables to create as many frontendports are required, then used union() in the resources and passed the copy variable in twice (union requires arg1,arg2...) this returns only unique frontendports
 - 12/20 : Signifcant changes to the ApplicationGateway template, designed for SSL Offload will need cert at deploy, cleaned up internal naming, created an output template, updated apiVersion
 - 12/07 : Checking in a redis cache template and parameter file
