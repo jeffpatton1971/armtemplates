@@ -125,6 +125,20 @@
       "ruleSetVersion": "[parameters('RuleSet')]",
       "disabledRuleGroups": []
     },
+    "frontendPorts": {
+      "copy": [
+        {
+          "name": "frontendPorts",
+          "count": "[length(parameters('applicationGatewayRules'))]",
+          "input": {
+            "name": "[concat(parameters('name'),'-fep-',parameters('applicationGatewayRules')[copyIndex('frontendPorts')].frontendPort)]",
+            "properties": {
+              "Port": "[parameters('applicationGatewayRules')[copyIndex('frontendPorts')].frontendPort]"
+            }
+          }
+        }
+      ]
+    },
     "publicIpAddress": {
       "apiVersion": "2017-03-01",
       "type": "Microsoft.Network/publicIPAddresses",
@@ -185,17 +199,8 @@
             }
           }
         ],
+        "frontendPorts": "[union(variables('frontendPorts').frontendPorts,variables('frontendPorts').frontendPorts)]",
         "copy": [
-          {
-            "name": "frontendPorts",
-            "count": "[length(parameters('applicationGatewayRules'))]",
-            "input": {
-              "name": "[concat(parameters('name'),'-fep-',parameters('applicationGatewayRules')[copyIndex('frontendPorts')].frontendPort)]",
-              "properties": {
-                "Port": "[parameters('applicationGatewayRules')[copyIndex('frontendPorts')].frontendPort]"
-              }
-            }
-          },
           {
             "name": "backendHttpSettingsCollection",
             "count": "[length(parameters('applicationGatewayRules'))]",
@@ -238,7 +243,9 @@
                 "Protocol": "[parameters('applicationGatewayRules')[copyIndex('httpListeners')].frontendProtocol]",
                 "sslCertificate": {
                   "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', parameters('name')) , '/sslCertificates/',parameters('applicationGatewayRules')[copyIndex('httpListeners')].hostname,'-certificate')]"
-                }
+                },
+                "hostName": "[parameters('applicationGatewayRules')[copyIndex('httpListeners')].hostname]",
+                "requireServerNameIndication": true
               }
             }
           },
@@ -338,17 +345,8 @@
             }
           }
         ],
+        "frontendPorts": "[union(variables('frontendPorts').frontendPorts,variables('frontendPorts').frontendPorts)]",
         "copy": [
-          {
-            "name": "frontendPorts",
-            "count": "[length(parameters('applicationGatewayRules'))]",
-            "input": {
-              "name": "[concat(parameters('name'),'-fep-',parameters('applicationGatewayRules')[copyIndex('frontendPorts')].frontendPort)]",
-              "properties": {
-                "Port": "[parameters('applicationGatewayRules')[copyIndex('frontendPorts')].frontendPort]"
-              }
-            }
-          },
           {
             "name": "backendHttpSettingsCollection",
             "count": "[length(parameters('applicationGatewayRules'))]",
@@ -391,7 +389,9 @@
                 "Protocol": "[parameters('applicationGatewayRules')[copyIndex('httpListeners')].frontendProtocol]",
                 "sslCertificate": {
                   "id": "[concat(resourceId(resourceGroup().name, 'Microsoft.Network/applicationGateways', parameters('name')) , '/sslCertificates/',parameters('applicationGatewayRules')[copyIndex('httpListeners')].hostname,'-certificate')]"
-                }
+                },
+                "hostName": "[parameters('applicationGatewayRules')[copyIndex('httpListeners')].hostname]",
+                "requireServerNameIndication": true
               }
             }
           },
