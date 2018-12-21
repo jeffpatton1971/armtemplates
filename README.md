@@ -2,6 +2,7 @@
 Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that are used, and processes that are followed to deploy a customer environment into Azure.
 
 # New Additions
+- LocalNetworkGateway template has been added
 - RedisCache template has been added
 - NetworkInterface template has been added
 - Application Service Environments template has been added
@@ -15,7 +16,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 
 
 # TODO
-- 12/20 : Add connections template for wiring up vpngw
+- 12/21 : Add connections template for wiring up vpngw
+- 12/21 : ~~Add localNetworkGateway template~~
 - 12/20 : ~~VPN Gateway Template, if bgp false still get errors about bgpsettings being null~~
 - 12/13 : Clean up Bastion rules in nsg template
 - 12/12 : Update NSG template to be more customizable, choose deploymentType and define additional rules
@@ -48,6 +50,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 12/21 : Added template and paramter file for LocalNetworkGateway template
 - 12/21 : Added dependency on the PIP
 - 12/21 : Removed the conditional deployments for vpngw template, consolidated to just the resource deployment
 - 12/21 : Corrected vpngw ipconfigurations was object, should be an array
