@@ -15,7 +15,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 
 
 # TODO
-- 12/20 : VPN Gateway Template, if bgp false still get errors about bgpsettings being null
+- 12/20 : Add connections template for wiring up vpngw
+- 12/20 : ~~VPN Gateway Template, if bgp false still get errors about bgpsettings being null~~
 - 12/13 : Clean up Bastion rules in nsg template
 - 12/12 : Update NSG template to be more customizable, choose deploymentType and define additional rules
 - 12/11 : ~~Rework AppGw template to be less load balancer and more appgw~~
@@ -47,6 +48,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 12/21 : Added dependency on the PIP
+- 12/21 : Removed the conditional deployments for vpngw template, consolidated to just the resource deployment
 - 12/21 : Corrected vpngw ipconfigurations was object, should be an array
 - 12/21 : Updated vpngw with unique deployment names
 - 12/21 : Corrected Appgw template, when passing in two sets of rules two identical ports were created which fails. Used copy() in the variables to create as many frontendports are required, then used union() in the resources and passed the copy variable in twice (union requires arg1,arg2...) this returns only unique frontendports
