@@ -16,7 +16,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 
 
 # TODO
-- 12/21 : Add connections template for wiring up vpngw
+- 12/21 : ~~Add connections template for wiring up vpngw~~
 - 12/21 : ~~Add localNetworkGateway template~~
 - 12/20 : ~~VPN Gateway Template, if bgp false still get errors about bgpsettings being null~~
 - 12/13 : Clean up Bastion rules in nsg template
@@ -50,6 +50,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 12/21 : Added connection template and parameter file
 - 12/21 : Added template and paramter file for LocalNetworkGateway template
 - 12/21 : Added dependency on the PIP
 - 12/21 : Removed the conditional deployments for vpngw template, consolidated to just the resource deployment
