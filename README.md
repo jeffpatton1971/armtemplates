@@ -52,6 +52,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/04 : Missed backendaddresspool in appgw variable for outputs
 - 01/04 : Updated ApplicationGateway template with backendaddresspool array
 - 01/04 : ContentVersion update before PR for January
 - 01/04 : Update localNetworkGateway template/documentation with missing gatewayIpAddress parameter
