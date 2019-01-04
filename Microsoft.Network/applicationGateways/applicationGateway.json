@@ -225,7 +225,10 @@
             "name": "backendAddressPools",
             "count": "[length(parameters('applicationGatewayRules'))]",
             "input": {
-              "name": "[concat(parameters('applicationGatewayRules')[copyIndex('backendAddressPools')].hostname,'-bep')]"
+              "name": "[concat(parameters('applicationGatewayRules')[copyIndex('backendAddressPools')].hostname,'-bep')]",
+              "properties": {
+                "BackendAddresses": "[parameters('applicationGatewayRules')[copyIndex('backendAddressPools')].backendAddressPool]"
+              }
             }
           },
           {
