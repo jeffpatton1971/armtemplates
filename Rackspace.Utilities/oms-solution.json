@@ -1,6 +1,6 @@
 {
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.12.01.0",
+  "contentVersion": "2019.01.01.0",
   "parameters": {
     "workspaceName": {
       "defaultValue": "",
