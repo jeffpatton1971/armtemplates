@@ -52,6 +52,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/04 : Update localNetworkGateway template/documentation with missing gatewayIpAddress parameter
 - 12/21 : Added connection template and parameter file
 - 12/21 : Added template and paramter file for LocalNetworkGateway template
 - 12/21 : Added dependency on the PIP

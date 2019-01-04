@@ -11,6 +11,9 @@
     "localNetworkAddressSpace": {
       "value": {}
     },
+    "gatewayIpAddress": {
+      "value": ""
+    },
     "bgpSettings": {
       "value": {}
     },

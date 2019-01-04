@@ -28,6 +28,9 @@ The local network gateway often represents your on-premises location.
       ]
 	  }
     },
+    "gatewayIpAddress": {
+      "value": ""
+    },
     "bgpSettings": {
       "value": {
 	   "asn": 65010
