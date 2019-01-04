@@ -1,7 +1,10 @@
-# Rackspace Build Wiki
+# BuildTemplates
 Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that are used, and processes that are followed to deploy a customer environment into Azure.
 
 # New Additions
+- Connection template has been added
+- LocalNetworkGateway template has been added
+- RedisCache template has been added
 - NetworkInterface template has been added
 - Application Service Environments template has been added
 - MySql PaaS template had been added
@@ -14,14 +17,23 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 
 
 # TODO
+- 12/21 : Add vnet peering templates
+- 12/21 : ~~Add connections template for wiring up vpngw~~
+- 12/21 : ~~Add localNetworkGateway template~~
+- 12/20 : ~~VPN Gateway Template, if bgp false still get errors about bgpsettings being null~~
+- 12/13 : Clean up Bastion rules in nsg template
+- 12/12 : Update NSG template to be more customizable, choose deploymentType and define additional rules
+- 12/11 : ~~Rework AppGw template to be less load balancer and more appgw~~
+- 12/07 : Add additional redis resource templates
+- 12/07 : ~~Rediscache template~~
 - 11/26 : ~~Align NSG update templates with regular networkSecurityGroup template~~
 - 11/23 : Update serverFarms template from 2016-03-01 to 2018-02-01
 - 11/23 : Update VirtualNetworks template from 2017-09-01 to 2018-08-01
-- 11/23 : Update VirtualNetworkGateways template from 2017-09-01 to 2018-08-01
+- 11/23 : ~~Update VirtualNetworkGateways template from 2017-09-01 to 2018-08-01~~
 - 11/23 : ~~Add custom option for NSG for custom rules~~
 - 11/23 : Update networkSecurityGroups from 2015-05-01-preview tp 2018-08-01
 - 11/23 : Update loadBalancers template from 2017-06-01 to 2018-08-01
-- 11/23 : Update ApplicationGateway template from 2017-06-01 to 2018-08-01
+- 11/23 : ~~Update ApplicationGateway template from 2017-06-01 to 2018-08-01~~
 - 11/23 : Update ScaleSets template from 2017-12-01 to 2018-10-01
 - 11/23 : Update compute template from 2017-03-30 to 2018-10-01
 - 11/23 : ~~Move samples into the readme's for the resources~~
@@ -40,6 +52,18 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/04 : ContentVersion update before PR for January
+- 01/04 : Update localNetworkGateway template/documentation with missing gatewayIpAddress parameter
+- 12/21 : Added connection template and parameter file
+- 12/21 : Added template and paramter file for LocalNetworkGateway template
+- 12/21 : Added dependency on the PIP
+- 12/21 : Removed the conditional deployments for vpngw template, consolidated to just the resource deployment
+- 12/21 : Corrected vpngw ipconfigurations was object, should be an array
+- 12/21 : Updated vpngw with unique deployment names
+- 12/21 : Corrected Appgw template, when passing in two sets of rules two identical ports were created which fails. Used copy() in the variables to create as many frontendports are required, then used union() in the resources and passed the copy variable in twice (union requires arg1,arg2...) this returns only unique frontendports
+- 12/20 : Signifcant changes to the ApplicationGateway template, designed for SSL Offload will need cert at deploy, cleaned up internal naming, created an output template, updated apiVersion
+- 12/07 : Checking in a redis cache template and parameter file
+- 12/07 : Wrong filename for profiles readme
 - 12/03 : Updated all parameter files with default values
 - 11/30 : Updated all null strings, and booleans
 - 11/28 : Flipped OSdisk to ReadWrite caching on VM/VMSS templates

@@ -1,0 +1,42 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "2019.01.01.0",
+  "parameters": {
+    "name": {
+      "value": ""
+    },
+    "Network": {
+      "value": {}
+    },
+    "Shards": {
+      "value": 1
+    },
+    "enableNonSslPort": {
+      "value": false
+    },
+    "minimumTlsVersion": {
+      "value": "1.0"
+    },
+    "Sku": {
+      "value": "Basic"
+    },
+    "Capacity": {
+      "value": 0
+    },
+    "location": {
+      "value": ""
+    },
+    "environment": {
+      "value": ""
+    },
+    "buildDate": {
+      "value": ""
+    },
+    "buildBy": {
+      "value": ""
+    },
+    "RaxAutomationExclude": {
+      "value": ""
+    }
+  }
+}

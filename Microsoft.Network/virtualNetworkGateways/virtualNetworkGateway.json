@@ -1,12 +1,16 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.12.01.0",
+  "contentVersion": "2019.01.01.0",
   "parameters": {
     "name": {
       "type": "string",
       "metadata": {
         "description": "Resource name."
       }
+    },
+    "Location": {
+      "type": "string",
+      "defaultValue": ""
     },
     "Network": {
       "type": "object"
@@ -30,7 +34,7 @@
     },
     "bgpSettings": {
       "type": "object",
-      "defaultValue": null,
+      "defaultValue": {},
       "metadata": {
         "description": "Virtual network gateway's BGP speaker settings."
       }
@@ -129,163 +133,109 @@
     }
   },
   "variables": {
-    "vpnGwCondition": "[if(parameters('enableBgp'),3,if(and(not(parameters('enableBgp')),parameters('activeActive')),2,1))]",
-    "FrontendIpConfigurationName": "[concat(parameters('name'),'-ipc')]",
-    "PublicIpAddressName": "[concat(parameters('name'),'-pip')]",
+    "location": "[if(empty(parameters('Location')),resourceGroup().location,parameters('Location'))]",
     "vnetId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName)]",
     "subnetId": "[concat(resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName),'/subnets/',parameters('Network').SubnetName)]",
     "tags": {
-      "displayName": "InternalLoadBalancer",
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
+    },
+    "publicIPAddress": {
+      "apiVersion": "2017-03-01",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[concat(parameters('name'),'-pip')]",
+      "location": "[variables('location')]",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic"
+      }
+    },
+    "virtualNetworkGateway": {
+      "apiVersion": "2018-08-01",
+      "name": "[parameters('name')]",
+      "type": "Microsoft.Network/virtualNetworkGateways",
+      "location": "[variables('location')]",
+      "dependsOn": [
+        "[concat(parameters('name'),'-pip')]"
+      ],
+      "properties": {
+        "gatewayType": "[parameters('gatewayType')]",
+        "ipConfigurations": [
+          {
+            "name": "[parameters('name')]",
+            "properties": {
+              "privateIPAllocationMethod": "[parameters('privateIPAllocationMethod')]",
+              "subnet": {
+                "id": "[variables('subnetId')]"
+              },
+              "publicIpAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('name'),'-pip'))]"
+              }
+            }
+          }
+        ],
+        "enableBgp": "[parameters('enableBgp')]",
+        "bgpSettings": "[parameters('bgpSettings')]",
+        "vpnType": "[parameters('vpnType')]",
+        "sku": "[parameters('sku')]"
+      },
+      "tags": "[variables('tags')]"
     }
   },
   "resources": [
     {
       "apiVersion": "2017-03-01",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[variables('PublicIpAddressName')]",
-      "location": "[resourceGroup().location]",
+      "name": "[concat(parameters('name'),'-pip')]",
+      "location": "[variables('location')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic"
       }
     },
     {
-      "condition": "[equals(variables('vpnGwCondition'),1)]",
-      "name": "[parameters('Name')]",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
+      "apiVersion": "2018-08-01",
+      "name": "[parameters('name')]",
+      "type": "Microsoft.Network/virtualNetworkGateways",
+      "location": "[variables('location')]",
       "dependsOn": [
         "[concat(parameters('name'),'-pip')]"
       ],
       "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.11.01.0",
-          "resources": [
-            {
-              "apiVersion": "2017-09-01",
-              "name": "[parameters('name')]",
-              "type": "Microsoft.Network/virtualNetworkGateways",
-              "location": "[resourceGroup().location]",
-              "dependsOn": [],
-              "properties": {
-                "gatewayType": "[parameters('gatewayType')]",
-                "ipConfigurations": {
-                  "name": "[parameters('name')]",
-                  "properties": {
-                    "privateIPAllocationMethod": "[parameters('privateIPAllocationMethod')]",
-                    "subnet": {
-                      "id": "[variables('subnetId')]"
-                    },
-                    "publicIpAddress": {
-                      "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('PublicIpAddressName'))]"
-                    }
-                  }
-                },
-                "vpnType": "[parameters('vpnType')]",
-                "sku": "[parameters('sku')]"
+        "gatewayType": "[parameters('gatewayType')]",
+        "ipConfigurations": [
+          {
+            "name": "[parameters('name')]",
+            "properties": {
+              "privateIPAllocationMethod": "[parameters('privateIPAllocationMethod')]",
+              "subnet": {
+                "id": "[variables('subnetId')]"
               },
-              "tags": "[variables('tags')]"
+              "publicIpAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('name'),'-pip'))]"
+              }
             }
-          ]
-        }
-      }
-    },
-    {
-      "condition": "[equals(variables('vpnGwCondition'),2)]",
-      "name": "[parameters('Name')]",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
-      "dependsOn": [
-        "[concat(parameters('name'),'-pip')]"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.11.01.0",
-          "resources": [
-            {
-              "apiVersion": "2017-09-01",
-              "name": "[parameters('name')]",
-              "type": "Microsoft.Network/virtualNetworkGateways",
-              "location": "[resourceGroup().location]",
-              "dependsOn": [],
-              "properties": {
-                "activeActive": "[parameters('activeActive')]",
-                "gatewayType": "[parameters('gatewayType')]",
-                "ipConfigurations": {
-                  "name": "[parameters('name')]",
-                  "properties": {
-                    "privateIPAllocationMethod": "[parameters('privateIPAllocationMethod')]",
-                    "subnet": {
-                      "id": "[variables('subnetId')]"
-                    },
-                    "publicIpAddress": {
-                      "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('PublicIpAddressName'))]"
-                    }
-                  }
-                },
-                "vpnType": "[parameters('vpnType')]",
-                "sku": "[parameters('sku')]"
-              },
-              "tags": "[variables('tags')]"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "condition": "[equals(variables('vpnGwCondition'),3)]",
-      "name": "[parameters('Name')]",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
-      "dependsOn": [
-        "[concat(parameters('name'),'-pip')]"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.11.01.0",
-          "resources": [
-            {
-              "apiVersion": "2017-09-01",
-              "name": "[parameters('name')]",
-              "type": "Microsoft.Network/virtualNetworkGateways",
-              "location": "[resourceGroup().location]",
-              "dependsOn": [],
-              "properties": {
-                "activeActive": "[parameters('activeActive')]",
-                "gatewayType": "[parameters('gatewayType')]",
-                "ipConfigurations": {
-                  "name": "[parameters('name')]",
-                  "properties": {
-                    "privateIPAllocationMethod": "[parameters('privateIPAllocationMethod')]",
-                    "subnet": {
-                      "id": "[variables('subnetId')]"
-                    },
-                    "publicIpAddress": {
-                      "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('PublicIpAddressName'))]"
-                    }
-                  }
-                },
-                "enableBgp": "[parameters('enableBgp')]",
-                "bgpSettings": "[parameters('bgpSettings')]",
-                "vpnType": "[parameters('vpnType')]",
-                "sku": "[parameters('sku')]"
-              },
-              "tags": "[variables('tags')]"
-            }
-          ]
-        }
-      }
+          }
+        ],
+        "enableBgp": "[parameters('enableBgp')]",
+        "bgpSettings": "[parameters('bgpSettings')]",
+        "vpnType": "[parameters('vpnType')]",
+        "sku": "[parameters('sku')]"
+      },
+      "tags": "[variables('tags')]"
     }
   ],
   "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('publicIpAddress'),variables('virtualNetworkGateway'))]",
+        "outputs": {}
+      }
+    }
   }
 }
