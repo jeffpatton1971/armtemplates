@@ -23,6 +23,9 @@
     "Timezone": {
       "value": ""
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

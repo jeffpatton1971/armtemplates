@@ -23,6 +23,9 @@
     "workerPools": {
       "value": []
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

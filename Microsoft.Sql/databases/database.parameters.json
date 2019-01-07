@@ -38,6 +38,9 @@
     "ElasticPoolName": {
       "value": ""
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

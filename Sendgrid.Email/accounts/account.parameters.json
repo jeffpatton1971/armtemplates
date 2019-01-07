@@ -32,6 +32,9 @@
     "acceptMarketingEmails": {
       "value": ""
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

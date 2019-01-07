@@ -69,6 +69,10 @@
       "type": "bool",
       "defaultValue": false
     },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -133,12 +137,13 @@
     "VirtualNetworkGateway2id": "[if(not(empty(parameters('VirtualNetworkGateway2'))),if(not(empty(parameters('VirtualNetworkGateway2').id)),concat('/subscriptions/',parameters('VirtualNetworkGateway2').id,'/resourceGroups/',parameters('VirtualNetworkGateway2').ResourceGroupName,'/providers/Microsoft.Network/virtualNetworkGateways/',parameters('VirtualNetworkGateway2').Name),resourceId(parameters('VirtualNetworkGateway2').ResourceGroupName,'Microsoft.Network/virtualNetworkGateways',parameters('VirtualNetworkGateway2').Name)),json('null'))]",
     "LocalNetworkGateway2id": "[if(not(empty(parameters('LocalNetworkGateway2'))),if(not(empty(parameters('LocalNetworkGateway2').id)),concat('/subscriptions/',parameters('LocalNetworkGateway2').id,'/resourceGroups/',parameters('LocalNetworkGateway2').ResourceGroupName,'/providers/Microsoft.Network/virtualNetworkGateways/',parameters('LocalNetworkGateway2').Name),resourceId(parameters('LocalNetworkGateway2').ResourceGroupName,'Microsoft.Network/localNetworkGateways',parameters('LocalNetworkGateway2').Name)),json('null'))]",
     "VirtualNetworkPeerid": "[if(not(empty(parameters('VirtualNetworkPeer'))),if(not(empty(parameters('VirtualNetworkPeer').id)),concat('/subscriptions/',parameters('VirtualNetworkPeer').id,'/resourceGroups/',parameters('VirtualNetworkPeer').ResourceGroupName,'/providers/Microsoft.Network/virtualNetworkGateways/',parameters('VirtualNetworkPeer').Name),resourceId(parameters('VirtualNetworkPeer').ResourceGroupName,'Microsoft.Network/localNetworkGateways',parameters('VirtualNetworkPeer').Name)),json('null'))]",
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
+    "tags": "[union(variables('RackspaceTags'), parameters('CustomObject').tags)]",
     "connection": {
       "name": "[parameters('name')]",
       "type": "Microsoft.Network/connections",

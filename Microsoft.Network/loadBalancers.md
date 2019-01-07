@@ -58,6 +58,14 @@ With Azure Load Balancer you can scale your applications and create high availab
         }
       ]
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

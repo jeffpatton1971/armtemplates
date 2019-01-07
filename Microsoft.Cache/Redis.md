@@ -42,6 +42,14 @@ Azure Cache for Redis is based on the popular open-source Azure Cache for Redis.
     "location": {
       "value": ""
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Production"
     },

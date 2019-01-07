@@ -47,6 +47,9 @@
     "platformFaultDomainCount": {
       "value": 3
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

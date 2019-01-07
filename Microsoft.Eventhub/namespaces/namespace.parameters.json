@@ -14,6 +14,9 @@
     "AutoInflateEnabled": {
       "value": false
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

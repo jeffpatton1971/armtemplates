@@ -60,6 +60,14 @@ A network interface enables an Azure Virtual Machine to communicate with interne
     "Location": {
       "value": ""
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

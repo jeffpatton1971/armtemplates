@@ -11,6 +11,9 @@
     "Manage": {
       "value": true
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

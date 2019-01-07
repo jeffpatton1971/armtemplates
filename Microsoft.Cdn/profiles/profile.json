@@ -15,6 +15,10 @@
         "Standard_Verizon"
       ]
     },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -74,12 +78,13 @@
     }
   },
   "variables": {
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
-    }
+    },
+    "tags": "[union(variables('RackspaceTags'), parameters('CustomObject').tags)]"
   },
   "resources": [
     {

@@ -38,6 +38,9 @@
     "zoneRedundant": {
       "value": false
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

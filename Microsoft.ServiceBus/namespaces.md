@@ -20,6 +20,14 @@ Azure Service Bus is a multi-tenant cloud messaging service you can use to send 
     "Sku": {
       "value": "Basic"
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

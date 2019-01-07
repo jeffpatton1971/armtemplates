@@ -29,6 +29,10 @@
       "type": "array",
       "defaultValue": []
     },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -103,12 +107,13 @@
     "rackspacepBastionLON5": "134.213.182.100/32",
     "rackspacepBastionSYD": "119.9.163.100/32",
     "name": "[concat(parameters('Network').SubnetName,'-nsg')]",
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
-    }
+    },
+    "tags": "[union(variables('RackspaceTags'), parameters('CustomObject').tags)]"
   },
   "resources": [
     {

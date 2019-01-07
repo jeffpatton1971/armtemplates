@@ -38,6 +38,14 @@ A content delivery network (CDN) is a distributed network of servers that can ef
     "optimizationType": {
       "value": "GeneralWebDelivery"
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

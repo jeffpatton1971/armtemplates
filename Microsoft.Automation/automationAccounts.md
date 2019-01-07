@@ -23,6 +23,14 @@ Azure Automation delivers a cloud-based automation and configuration service tha
     "location": {
       "value": ""
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

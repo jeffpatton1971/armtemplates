@@ -153,6 +153,10 @@
       "type": "bool",
       "defaultValue": false
     },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -240,12 +244,13 @@
       }
     },
     "perDatabaseSettings": "[if(empty(parameters('vCore')),variables('DatabaseSettings').eDTU,variables('DatabaseSettings').vCore)]",
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
+    "tags": "[union(variables('RackspaceTags'), parameters('CustomObject').tags)]",
     "ep": {
       "name": "[concat(parameters('serverName'), '/', parameters('name'))]",
       "location": "[resourceGroup().location]",

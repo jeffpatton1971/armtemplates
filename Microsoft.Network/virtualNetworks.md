@@ -41,6 +41,14 @@ Azure Virtual Network enables many types of Azure resources, such as Azure Virtu
         }
       ]
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

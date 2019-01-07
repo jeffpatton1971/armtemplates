@@ -50,6 +50,14 @@ SQL Database is a general-purpose relational database managed service in Microso
     "ElasticPoolName": {
       "value": ""
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

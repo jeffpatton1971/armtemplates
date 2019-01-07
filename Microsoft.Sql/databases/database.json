@@ -110,6 +110,10 @@
       "type": "string",
       "defaultValue": ""
     },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -189,12 +193,13 @@
     },
     "sku": "[if(equals(parameters('Tier'),'Basic'),variables('Skus').Basic,if(or(equals(parameters('Tier'),'Standard'),equals(parameters('Tier'),'Premium')),variables('Skus').StandardPremium,variables('Skus').vCore))]",
     "ElasticPoolId": "[if(not(empty(parameters('ElasticPoolName'))),resourceId('Microsoft.Sql/servers/elasticPools',parameters('ServerName'),parameters('ElasticPoolName')),json('null'))]",
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
-    }
+    },
+    "tags": "[union(variables('RackspaceTags'), parameters('CustomObject').tags)]"
   },
   "resources": [
     {

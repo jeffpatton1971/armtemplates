@@ -29,6 +29,14 @@ Azure Storage is a Microsoft-managed service providing cloud storage that is hig
     "encryption": {
       "value": false
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

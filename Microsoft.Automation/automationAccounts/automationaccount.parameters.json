@@ -11,6 +11,9 @@
     "location": {
       "value": ""
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

@@ -44,6 +44,9 @@
     "Count": {
       "value": 1
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

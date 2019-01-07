@@ -66,6 +66,14 @@ Defines the connection
     "expressRouteGatewayBypass": {
       "value": false
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },
@@ -137,6 +145,14 @@ Defines the connection
     },
     "expressRouteGatewayBypass": {
       "value": false
+    },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
     },
     "environment": {
       "value": "Development"

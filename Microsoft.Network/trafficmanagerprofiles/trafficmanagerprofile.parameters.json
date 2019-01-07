@@ -8,6 +8,9 @@
     "RoutingMethod": {
       "value": "Performance"
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

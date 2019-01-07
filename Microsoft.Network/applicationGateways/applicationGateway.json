@@ -43,6 +43,10 @@
       "type": "string",
       "defaultValue": ""
     },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -112,12 +116,13 @@
       "tier": "[parameters('Tier')]",
       "capacity": "[parameters('Instances')]"
     },
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
+    "tags": "[union(variables('RackspaceTags'), parameters('CustomObject').tags)]",
     "webApplicationFirewallConfiguration": {
       "enabled": "[if(equals(parameters('Tier'),'WAF'),'true','false')]",
       "firewallMode": "Detection",

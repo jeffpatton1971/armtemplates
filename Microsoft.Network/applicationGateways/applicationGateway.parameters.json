@@ -23,6 +23,9 @@
     "RuleSet": {
       "value": "3.0"
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

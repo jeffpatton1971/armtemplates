@@ -8,6 +8,9 @@
     "Sku": {
       "value": "Basic"
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

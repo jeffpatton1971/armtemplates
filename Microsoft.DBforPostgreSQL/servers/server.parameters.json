@@ -35,6 +35,9 @@
     "tier": {
       "value": "GeneralPurpose"
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

@@ -61,6 +61,10 @@
     "workerPools": {
       "type": "array"
     },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -121,12 +125,13 @@
   },
   "variables": {
     "VirtualNetworkId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName,'Microsoft.Network/virtualNetworks/',parameters('Network').VirtualNetworkName)]",
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
+    "tags": "[union(variables('RackspaceTags'), parameters('CustomObject').tags)]",
     "LoadBalanceMode": "[if(equals(parameters('internalLoadBalancingMode'),'Public'),0,if(equals(parameters('internalLoadBalancingMode'),'WebOnly'),1,if(equals(parameters('internalLoadBalancingMode'),'FtpOnly'),2,3)))]"
   },
   "resources": [

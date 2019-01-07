@@ -33,6 +33,10 @@
         "West Europe"
       ]
     },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -88,12 +92,13 @@
   "variables": {
     "WorkspaceapiVersion": "2017-03-15-preview",
     "OMSapiVersion": "2015-11-01-preview",
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
+    "tags": "[union(variables('RackspaceTags'), parameters('CustomObject').tags)]",
     "batch1": {
       "solutions": [
         {

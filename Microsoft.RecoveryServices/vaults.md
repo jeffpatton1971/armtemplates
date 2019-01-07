@@ -32,6 +32,14 @@ A Recovery Services vault is an online storage entity in Azure used to hold data
     "daysOfTheWeek": {
       "value": [ "" ]
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

@@ -32,6 +32,9 @@
     "PartitionCount": {
       "value": 2
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

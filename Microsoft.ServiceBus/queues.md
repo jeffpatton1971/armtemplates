@@ -41,6 +41,14 @@ Azure Service Bus is a multi-tenant cloud messaging service you can use to send 
     "Paritioning": {
       "value": true
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

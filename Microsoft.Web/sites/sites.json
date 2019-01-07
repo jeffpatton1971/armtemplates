@@ -107,6 +107,10 @@
       "minValue": 25,
       "maxValue": 100
     },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -167,12 +171,13 @@
   },
   "variables": {
     "hostingEnvironmentProfile": "[if(empty(parameters('AseName')),'',resourceId('Microsoft.Web/hostingEnvironments',parameters('AseName')))]",
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
-    }
+    },
+    "tags": "[union(variables('RackspaceTags'), parameters('CustomObject').tags)]"
   },
   "resources": [
     {

@@ -23,6 +23,14 @@ Log Analytics plays a central role in Azure management by collecting telemetry a
     "Location": {
       "value": "East US"
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

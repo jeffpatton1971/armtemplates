@@ -44,6 +44,9 @@
     "logSize": {
       "value": 25
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

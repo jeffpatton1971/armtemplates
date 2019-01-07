@@ -56,6 +56,14 @@ Azure App Service Web Apps (or just Web Apps) is a service for hosting web appli
     "logSize": {
       "value": 25
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

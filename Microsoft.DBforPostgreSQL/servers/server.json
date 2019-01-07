@@ -105,6 +105,10 @@
         "description": "The tier of the particular SKU, e.g. Basic."
       }
     },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -205,13 +209,14 @@
         "family": "[parameters('family')]"
       }
     },
-    "tags": {
+    "RackspaceTags": {
       "displayName": "PostgreSQL",
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
-    }
+    },
+    "tags": "[union(variables('RackspaceTags'), parameters('CustomObject').tags)]"
   },
   "resources": [
     {

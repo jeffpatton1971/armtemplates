@@ -41,6 +41,14 @@ Azure Database for MySQL is a relational database service in the Microsoft cloud
     "geoRedundantBackup": {
       "value": "Disabled"
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

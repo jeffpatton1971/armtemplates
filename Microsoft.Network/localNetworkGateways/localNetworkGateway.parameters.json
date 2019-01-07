@@ -17,6 +17,9 @@
     "bgpSettings": {
       "value": {}
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

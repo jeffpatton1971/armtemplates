@@ -44,6 +44,10 @@
       "type": "string",
       "defaultValue": ""
     },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -256,12 +260,13 @@
       }
     },
     "timeZone": "[if(empty(parameters('TimeZone')),variables('regions')[resourceGroup().location].timezone,parameters('Timezone'))]",
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
-    }
+    },
+    "tags": "[union(variables('RackspaceTags'), parameters('CustomObject').tags)]"
   },
   "resources": [
     {

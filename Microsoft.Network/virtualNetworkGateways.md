@@ -35,8 +35,8 @@ A VPN gateway is a specific type of virtual network gateway that is used to send
     },
     "bgpSettings": {
       "value": {
-	   "asn": 65010
-	  }
+       "asn": 65010
+      }
     },
     "enableBgp": {
       "value": false
@@ -49,6 +49,14 @@ A VPN gateway is a specific type of virtual network gateway that is used to send
         "name": "VpnGw1",
         "tier": "VpnGw1"
       }
+    },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
     },
     "environment": {
       "value": "Development"

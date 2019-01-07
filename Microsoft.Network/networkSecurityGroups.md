@@ -62,6 +62,14 @@ You can filter network traffic to and from Azure resources in an Azure virtual n
         }
       ]
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Production"
     },

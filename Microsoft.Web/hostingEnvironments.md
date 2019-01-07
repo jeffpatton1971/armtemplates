@@ -50,6 +50,14 @@ The Azure App Service Environment is an Azure App Service feature that provides 
         }
       ]
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

@@ -29,6 +29,14 @@ A public IP address is a resource with its own configurable settings.
     "Location": {
       "value": ""
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

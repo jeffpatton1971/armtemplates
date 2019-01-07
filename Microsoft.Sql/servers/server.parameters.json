@@ -14,6 +14,9 @@
     "version": {
       "value": "12.0"
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

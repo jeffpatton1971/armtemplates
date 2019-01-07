@@ -80,6 +80,14 @@ Azure virtual machine scale sets let you create and manage a group of identical,
     "Count": {
       "value": 1
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

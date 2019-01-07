@@ -17,7 +17,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 
 # TODO
 - 01/07 : Add Name parameter to NSg template
-- 01/07 : Add Customtags object for templates
+- 01/07 : ~~Add Customtags object for templates~~
 - 01/04 : Work on passing ipAddress to resources that can consume one
 - 12/21 : Add vnet peering templates
 - 12/21 : ~~Add connections template for wiring up vpngw~~
@@ -54,6 +54,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/07 : Updated all templates with new CustomObject parameter
 - 01/04 : Missed backendaddresspool in appgw variable for outputs
 - 01/04 : Updated ApplicationGateway template with backendaddresspool array
 - 01/04 : ContentVersion update before PR for January

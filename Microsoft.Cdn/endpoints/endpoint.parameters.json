@@ -26,6 +26,9 @@
     "optimizationType": {
       "value": "GeneralWebDelivery"
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

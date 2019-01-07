@@ -22,19 +22,27 @@ The local network gateway often represents your on-premises location.
     },
     "localNetworkAddressSpace": {
       "value": {
-	  "addressPrefixes": [
-        "10.10.10.0/24",
-		"10.10.11.0/24"
-      ]
-	  }
+       "addressPrefixes": [
+         "10.10.10.0/24",
+         "10.10.11.0/24"
+       ]
+      }
     },
     "gatewayIpAddress": {
       "value": ""
     },
     "bgpSettings": {
       "value": {
-	   "asn": 65010
-	  }
+       "asn": 65010
+      }
+    },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
     },
     "environment": {
       "value": "Development"

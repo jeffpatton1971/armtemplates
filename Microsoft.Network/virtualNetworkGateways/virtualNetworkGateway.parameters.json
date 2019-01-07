@@ -29,6 +29,9 @@
     "sku": {
       "value": {}
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

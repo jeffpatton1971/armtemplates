@@ -20,6 +20,14 @@ Azure Traffic Manager is a DNS-based traffic load balancer that enables you to d
     "RoutingMethod": {
       "value": "Performance"
     },
+    "CustomObject": {
+      "value": {
+        "tags" : {
+         "Tag1": "Value1",
+         "Tag2": "Value2",
+        }
+      },
+    },
     "environment": {
       "value": "Development"
     },

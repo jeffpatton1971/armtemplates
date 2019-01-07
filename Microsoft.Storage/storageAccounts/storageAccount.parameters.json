@@ -17,6 +17,9 @@
     "encryption": {
       "value": false
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
       "value": ""
     },

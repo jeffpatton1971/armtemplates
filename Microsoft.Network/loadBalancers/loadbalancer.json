@@ -35,6 +35,10 @@
       "type": "string",
       "defaultValue": ""
     },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -103,12 +107,13 @@
     "vnetId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName)]",
     "subnetId": "[concat(resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName),'/subnets/',parameters('Network').SubnetName)]",
     "isExternal": "[if(parameters('ExternalLoadBalancer'),0,1)]",
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
-    }
+    },
+    "tags": "[union(variables('RackspaceTags'), parameters('CustomObject').tags)]"
   },
   "resources": [
     {

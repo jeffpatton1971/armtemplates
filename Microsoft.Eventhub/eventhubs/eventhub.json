@@ -40,6 +40,10 @@
       "type": "int",
       "defaultValue": 2
     },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -99,7 +103,7 @@
     }
   },
   "variables": {
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
@@ -119,7 +123,8 @@
       },
       "intervalInSeconds": "[parameters('IntervalInSeconds')]",
       "sizeLimitInBytes": "[parameters('SizeLimit')]"
-    }
+    },
+    "tags": "[union(variables('RackspaceTags'), parameters('CustomObject').tags)]"
   },
   "resources": [
     {
