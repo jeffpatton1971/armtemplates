@@ -15,8 +15,10 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - All template parameter files will have blank values
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
-
 # TODO
+- 01/07 : Add Name parameter to NSg template
+- 01/07 : Add Customtags object for templates
+- 01/04 : Work on passing ipAddress to resources that can consume one
 - 12/21 : Add vnet peering templates
 - 12/21 : ~~Add connections template for wiring up vpngw~~
 - 12/21 : ~~Add localNetworkGateway template~~
