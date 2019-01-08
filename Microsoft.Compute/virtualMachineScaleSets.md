@@ -47,8 +47,8 @@ Azure virtual machine scale sets let you create and manage a group of identical,
           "maxUnhealthyUpgradedInstancePercent": 20,
           "pauseTimeBetweenBatches": "PT0S"
         },
-        "automaticOSUpgrade": false,
         "autoOSUpgradePolicy": {
+          "enableAutomaticOSUpgrade": false
           "disableAutoRollback": false
         }
       }
@@ -79,6 +79,12 @@ Azure virtual machine scale sets let you create and manage a group of identical,
     },
     "Count": {
       "value": 1
+    },
+    "writeAcceleratorEnabled": {
+      "value": false
+    },
+    "ultraSSDEnabled": {
+      "value": false
     },
     "CustomObject": {
       "value": {

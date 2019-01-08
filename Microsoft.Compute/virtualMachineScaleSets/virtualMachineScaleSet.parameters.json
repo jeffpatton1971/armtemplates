@@ -44,6 +44,12 @@
     "Count": {
       "value": 1
     },
+    "writeAcceleratorEnabled": {
+      "value": false
+    },
+    "ultraSSDEnabled": {
+      "value": false
+    },
     "CustomObject": {
       "value": {}
     },

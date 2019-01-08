@@ -14,6 +14,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - PublicIp template has been added
 
 # Breaking Changes
+- VMSS template has an updated upgradePolicy object, based on the new API, please check the documentation file for an example
 - All template parameter files will have blank values
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
@@ -38,7 +39,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/23 : Update networkSecurityGroups from 2015-05-01-preview tp 2018-08-01
 - 11/23 : Update loadBalancers template from 2017-06-01 to 2018-08-01
 - 11/23 : ~~Update ApplicationGateway template from 2017-06-01 to 2018-08-01~~
-- 11/23 : Update ScaleSets template from 2017-12-01 to 2018-10-01
+- 11/23 : ~~Update ScaleSets template from 2017-12-01 to 2018-10-01~~
 - 11/23 : ~~Update compute template from 2017-03-30 to 2018-10-01~~
 - 11/23 : ~~Move samples into the readme's for the resources~~
 - 11/23 : ~~Create a more fully formed VMSS template~~
@@ -56,6 +57,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/08 : Updated disk sizing for the new E series StandardSSD_LRS disks
+- 01/08 : Updated virtualmachinescalesets API to 2018-10-01, new parameters writeAcceleratorEnabled and ultraSSDEnabled, linuxConfiguration now supports provisionVMAgent = true
 - 01/08 : Updated disk sizing for the new E series StandardSSD_LRS disks
 - 01/08 : Updated Compute API to 2018-10-01, new parameters writeAcceleratorEnabled and ultraSSDEnabled, linuxConfiguration now supports provisionVMAgent = true
 - 01/07 : Updated all templates with new CustomObject parameter
