@@ -131,7 +131,7 @@
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
-    "tags": "[union(variables('RackspaceTags'), parameters('CustomObject').tags)]",
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",,
     "LoadBalanceMode": "[if(equals(parameters('internalLoadBalancingMode'),'Public'),0,if(equals(parameters('internalLoadBalancingMode'),'WebOnly'),1,if(equals(parameters('internalLoadBalancingMode'),'FtpOnly'),2,3)))]"
   },
   "resources": [

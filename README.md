@@ -19,6 +19,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
+- 01/08 : Fixed bug, when passing empty CustomObject parameter, the special tagging fails as .tags isn't a property of a null object
 - 01/07 : Add Name parameter to NSg template
 - 01/07 : ~~Add Customtags object for templates~~
 - 01/04 : Work on passing ipAddress to resources that can consume one

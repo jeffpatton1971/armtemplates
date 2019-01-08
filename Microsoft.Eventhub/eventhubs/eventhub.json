@@ -124,7 +124,7 @@
       "intervalInSeconds": "[parameters('IntervalInSeconds')]",
       "sizeLimitInBytes": "[parameters('SizeLimit')]"
     },
-    "tags": "[union(variables('RackspaceTags'), parameters('CustomObject').tags)]"
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
   },
   "resources": [
     {

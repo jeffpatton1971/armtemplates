@@ -114,7 +114,7 @@
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
-    "tags": "[union(variables('RackspaceTags'), parameters('CustomObject').tags)]",
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",,
     "family": "[if(equals(parameters('Sku'),'Premium'),'P','C')]",
     "capacity": "[if(and(greaterOrEquals(parameters('Capacity'),4),equals(variables('family'),'C')),4,parameters('Capacity'))]",
     "location": "[if(empty(parameters('Location')),resourceGroup().location,parameters('Location'))]",
