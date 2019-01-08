@@ -297,6 +297,14 @@
       "type": "int",
       "defaultValue": 3
     },
+    "writeAcceleratorEnabled": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "ultraSSDEnabled": {
+      "type": "bool",
+      "defaultValue": false
+    },
     "CustomObject": {
       "type": "object",
       "defaultValue": {}
@@ -366,6 +374,30 @@
     "NetworkInterfaceName": "[parameters('Network').name]",
     "NetworkInterfaceIpConfigurationName": "[concat(variables('NetworkInterfaceName'),'-ipc')]",
     "Disk": {
+      "e10": {
+        "size": 128,
+        "sku": "StandardSSD_LRS"
+      },
+      "e15": {
+        "size": 256,
+        "sku": "StandardSSD_LRS"
+      },
+      "e20": {
+        "size": 512,
+        "sku": "StandardSSD_LRS"
+      },
+      "e30": {
+        "size": 1023,
+        "sku": "StandardSSD_LRS"
+      },
+      "e40": {
+        "size": 2047,
+        "sku": "StandardSSD_LRS"
+      },
+      "e50": {
+        "size": 4095,
+        "sku": "StandardSSD_LRS"
+      },
       "p4": {
         "size": 32,
         "sku": "Premium_LRS"
@@ -883,6 +915,7 @@
         "adminPassword": "[parameters('AdminPassword')]",
         "linuxConfiguration": {
           "disablePasswordAuthentication": false,
+          "provisionVMAgent": true,
           "ssh": {
             "publicKeys": []
           }
@@ -996,7 +1029,7 @@
           "contentVersion": "2018.11.01.0",
           "resources": [
             {
-              "apiVersion": "2017-03-30",
+              "apiVersion": "2018-10-01",
               "type": "Microsoft.Compute/virtualMachines",
               "name": "[parameters('name')]",
               "location": "[variables('location')]",
@@ -1014,6 +1047,7 @@
                   "osDisk": {
                     "name": "[variables('OsDiskName')]",
                     "caching": "ReadWrite",
+                    "writeAcceleratorEnabled": "[parameters('writeAcceleratorEnabled')]",
                     "createOption": "FromImage"
                   },
                   "copy": [
@@ -1024,6 +1058,7 @@
                         "name": "[variables('Disks')[copyIndex('dataDisks')].name]",
                         "diskSizeGB": "[variables('Disk')[variables('Disks')[copyIndex('dataDisks')].size].size]",
                         "caching": "[variables('Disks')[copyIndex('dataDisks')].caching]",
+                        "writeAcceleratorEnabled": "[variables('Disks')[copyIndex('dataDisks')].writeAcceleratorEnabled]",
                         "lun": "[variables('Disks')[copyIndex('dataDisks')].lun]",
                         "managedDisk": {
                           "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/disks/',variables('Disks')[copyIndex('dataDisks')].name)]"
@@ -1032,6 +1067,9 @@
                       }
                     }
                   ]
+                },
+                "additionalCapabilities": {
+                  "ultraSSDEnabled": "[parameters('ultraSSDEnabled')]"
                 },
                 "osProfile": "[variables('osProfile')]",
                 "networkProfile": {
@@ -1065,7 +1103,7 @@
           "contentVersion": "2018.11.01.0",
           "resources": [
             {
-              "apiVersion": "2017-03-30",
+              "apiVersion": "2018-10-01",
               "type": "Microsoft.Compute/virtualMachines",
               "name": "[parameters('name')]",
               "location": "[variables('location')]",
@@ -1083,8 +1121,12 @@
                   "osDisk": {
                     "name": "[variables('OsDiskName')]",
                     "caching": "ReadWrite",
+                    "writeAcceleratorEnabled": "[parameters('writeAcceleratorEnabled')]",
                     "createOption": "FromImage"
                   }
+                },
+                "additionalCapabilities": {
+                  "ultraSSDEnabled": "[parameters('ultraSSDEnabled')]"
                 },
                 "osProfile": "[variables('osProfile')]",
                 "networkProfile": {

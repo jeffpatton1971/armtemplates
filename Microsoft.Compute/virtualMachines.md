@@ -5,7 +5,7 @@ Azure Virtual Machines (VM) is one of several types of on-demand, scalable compu
 
 ## Links
 - API https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines
-- ARM https://docs.microsoft.com/en-us/azure/templates/microsoft.compute/2017-03-30/virtualmachines
+- ARM https://docs.microsoft.com/en-us/azure/templates/microsoft.compute/2018-10-01/virtualmachines
 - DOC https://docs.microsoft.com/en-us/azure/virtual-machines/
 
 ## Sample Parameter File
@@ -32,12 +32,14 @@ Azure Virtual Machines (VM) is one of several types of on-demand, scalable compu
           "caching": "ReadWrite",
           "lun": 0,
           "size": "p30"
+          "writeAcceleratorEnabled": false
         },
         {
           "name": "disk2",
           "caching": "ReadOnly",
           "lun": 1,
           "size": "p10"
+          "writeAcceleratorEnabled": false
         }
       ]
     },
@@ -64,6 +66,12 @@ Azure Virtual Machines (VM) is one of several types of on-demand, scalable compu
     },
     "AdminPassword": {
       "value": "P@ssword12345"
+    },
+    "writeAcceleratorEnabled": {
+      "value": false
+    },
+    "ultraSSDEnabled": {
+      "value": false
     },
     "CustomObject": {
       "value": {
@@ -113,12 +121,14 @@ Azure Virtual Machines (VM) is one of several types of on-demand, scalable compu
           "caching": "ReadWrite",
           "lun": 0,
           "size": "p30"
+          "writeAcceleratorEnabled": false
         },
         {
           "name": "Logs01",
           "caching": "ReadOnly",
           "lun": 1,
           "size": "p10"
+          "writeAcceleratorEnabled": false
         }
       ]
     },
@@ -151,6 +161,12 @@ Azure Virtual Machines (VM) is one of several types of on-demand, scalable compu
     },
     "AdminPassword": {
       "value": "P@ssword12345"
+    },
+    "writeAcceleratorEnabled": {
+      "value": false
+    },
+    "ultraSSDEnabled": {
+      "value": false
     },
     "CustomObject": {
       "value": {
@@ -200,12 +216,14 @@ Azure Virtual Machines (VM) is one of several types of on-demand, scalable compu
           "caching": "ReadWrite",
           "lun": 0,
           "size": "p30"
+          "writeAcceleratorEnabled": false
         },
         {
           "name": "Backups",
           "caching": "ReadOnly",
           "lun": 1,
           "size": "p10"
+          "writeAcceleratorEnabled": false
         }
       ]
     },
@@ -232,6 +250,12 @@ Azure Virtual Machines (VM) is one of several types of on-demand, scalable compu
     },
     "AdminPassword": {
       "value": "P@ssword12345"
+    },
+    "writeAcceleratorEnabled": {
+      "value": false
+    },
+    "ultraSSDEnabled": {
+      "value": false
     },
     "CustomObject": {
       "value": {

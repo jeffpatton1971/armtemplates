@@ -47,6 +47,12 @@
     "platformFaultDomainCount": {
       "value": 3
     },
+    "writeAcceleratorEnabled": {
+      "value": false
+    },
+    "ultraSSDEnabled": {
+      "value": false
+    },
     "CustomObject": {
       "value": {}
     },

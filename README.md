@@ -2,6 +2,8 @@
 Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that are used, and processes that are followed to deploy a customer environment into Azure.
 
 # New Additions
+- Compute now supports E sizes for managed disk
+- Compute now supports writeAcceleratorEnabled and ultraSSDEnabled
 - Connection template has been added
 - LocalNetworkGateway template has been added
 - RedisCache template has been added
@@ -37,7 +39,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/23 : Update loadBalancers template from 2017-06-01 to 2018-08-01
 - 11/23 : ~~Update ApplicationGateway template from 2017-06-01 to 2018-08-01~~
 - 11/23 : Update ScaleSets template from 2017-12-01 to 2018-10-01
-- 11/23 : Update compute template from 2017-03-30 to 2018-10-01
+- 11/23 : ~~Update compute template from 2017-03-30 to 2018-10-01~~
 - 11/23 : ~~Move samples into the readme's for the resources~~
 - 11/23 : ~~Create a more fully formed VMSS template~~
 - 11/21 : ~~Scrub templates of default values~~
@@ -54,6 +56,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/08 : Updated disk sizing for the new E series StandardSSD_LRS disks
+- 01/08 : Updated Compute API to 2018-10-01, new parameters writeAcceleratorEnabled and ultraSSDEnabled, linuxConfiguration now supports provisionVMAgent = true
 - 01/07 : Updated all templates with new CustomObject parameter
 - 01/04 : Missed backendaddresspool in appgw variable for outputs
 - 01/04 : Updated ApplicationGateway template with backendaddresspool array
