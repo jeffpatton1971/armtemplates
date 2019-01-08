@@ -1043,6 +1043,7 @@
                         "input": {
                           "diskSizeGB": "[variables('Disk')[variables('Disks')[copyIndex('dataDisks')].size].size]",
                           "caching": "[variables('Disks')[copyIndex('dataDisks')].caching]",
+                          "writeAcceleratorEnabled": "[variables('Disks')[copyIndex('dataDisks')].writeAcceleratorEnabled]",
                           "lun": "[variables('Disks')[copyIndex('dataDisks')].lun]",
                           "managedDisk": {
                             "storageAccountType": "[variables('Disk')[parameters('DataDisks')[copyIndex('dataDisks')].size].sku]"

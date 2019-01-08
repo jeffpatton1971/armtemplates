@@ -57,6 +57,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/08 : Missed setting writeAcceleratorEnabled in datadisk
 - 01/08 : Updated disk sizing for the new E series StandardSSD_LRS disks
 - 01/08 : Updated virtualmachinescalesets API to 2018-10-01, new parameters writeAcceleratorEnabled and ultraSSDEnabled, linuxConfiguration now supports provisionVMAgent = true
 - 01/08 : Updated disk sizing for the new E series StandardSSD_LRS disks
