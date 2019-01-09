@@ -2,6 +2,9 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "2019.01.01.0",
   "parameters": {
+    "name": {
+      "type": "string"
+    },
     "Network": {
       "type": "object"
     },
@@ -106,7 +109,6 @@
     "rackspacepBastionLON": "134.213.183.100/32",
     "rackspacepBastionLON5": "134.213.182.100/32",
     "rackspacepBastionSYD": "119.9.163.100/32",
-    "name": "[concat(parameters('Network').SubnetName,'-nsg')]",
     "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
@@ -125,14 +127,14 @@
       "properties": {
         "addressPrefix": "[parameters('DestinationPrefix')]",
         "networkSecurityGroup": {
-          "id": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('name'))]"
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups',parameters('name'))]"
         }
       }
     },
     {
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Network/networkSecurityGroups",
-      "name": "[variables('name')]",
+      "name": "[parameters('name')]",
       "dependsOn": [
       ],
       "location": "[resourceGroup().location]",
@@ -156,7 +158,7 @@
             {
               "type": "Microsoft.Network/networkSecurityGroups",
               "apiVersion": "2016-03-30",
-              "name": "[variables('name')]",
+              "name": "[parameters('name')]",
               "location": "[resourceGroup().location]",
               "tags": "[variables('tags')]",
               "properties": {
@@ -187,7 +189,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows intra-subnet communication",
@@ -204,7 +206,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_AZURE_LB_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_AZURE_LB_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows inbound traffic from Azure Load Balancer",
@@ -221,7 +223,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP inbound from local RBAST subnet",
@@ -238,7 +240,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH inbound from local RBAST subnet",
@@ -255,7 +257,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM inbound from local RACK_BASTION subnet",
@@ -272,7 +274,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
@@ -289,7 +291,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Deny_ALL_INBOUND_UDP')]",
+              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_UDP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Deny all inbound UDP",
@@ -306,7 +308,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Deny_ALL_INBOUND_TCP')]",
+              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_TCP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Deny all inbound TCP",
@@ -343,7 +345,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows intra-subnet communication",
@@ -360,7 +362,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_AZURE_LB_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_AZURE_LB_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows inbound traffic from Azure Load Balancer",
@@ -377,7 +379,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP inbound from local RBAST subnet",
@@ -394,7 +396,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH inbound from local RBAST subnet",
@@ -411,7 +413,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM inbound from local RACK_BASTION subnet",
@@ -428,7 +430,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
@@ -445,7 +447,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_UDP_53')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_53')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow UDP 53",
@@ -462,7 +464,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_UDP_88')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_88')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow TCP and UDP 88",
@@ -479,7 +481,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_UDP_123')]",
+              "name": "[concat(parameters('name'),'/Allow_UDP_123')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow UDP 123",
@@ -496,7 +498,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_135')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_135')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow TCP 135",
@@ -513,7 +515,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_UDP_137')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_137')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow TCP and UDP 137",
@@ -530,7 +532,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_UDP_138')]",
+              "name": "[concat(parameters('name'),'/Allow_UDP_138')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow UDP 138",
@@ -547,7 +549,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_139')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_139')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow TCP 139",
@@ -564,7 +566,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_UDP_389')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_389')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow TCP and UDP 389",
@@ -581,7 +583,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_UDP_445')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_445')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow TCP and UDP 445",
@@ -598,7 +600,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_UDP_464')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_464')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow TCP and UDP 464",
@@ -615,7 +617,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_636')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_636')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow TCP 636",
@@ -632,7 +634,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_3268')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_3268')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow TCP 3268",
@@ -649,7 +651,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_3269')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_3269')]",
               "location": "[resourceGroup().location]",
 
               "properties": {
@@ -667,7 +669,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_5722')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_5722')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow TCP 5722",
@@ -684,7 +686,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_UDP_49152_65535')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_49152_65535')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow TCP and UDP 49152_65535",
@@ -701,7 +703,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_9389')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_9389')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow TCP 9389",
@@ -718,7 +720,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_WinRM_5985')]",
+              "name": "[concat(parameters('name'),'/Allow_WinRM_5985')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow WinRM 5985",
@@ -735,7 +737,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Deny_ALL_INBOUND_UDP')]",
+              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_UDP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Deny all inbound UDP",
@@ -752,7 +754,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Deny_ALL_INBOUND_TCP')]",
+              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_TCP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Deny all inbound TCP",
@@ -789,7 +791,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows intra-subnet communication",
@@ -806,7 +808,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_AZURE_LB_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_AZURE_LB_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows inbound traffic from Azure Load Balancer",
@@ -823,7 +825,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP inbound from local RBAST subnet",
@@ -840,7 +842,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH inbound from local RBAST subnet",
@@ -857,7 +859,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM inbound from local RACK_BASTION subnet",
@@ -874,7 +876,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
@@ -891,7 +893,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_Internet_Inbound_HTTP')]",
+              "name": "[concat(parameters('name'),'/Allow_Internet_Inbound_HTTP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows inbound http to the Application Gateway subnet",
@@ -908,7 +910,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_Internet_Inbound_HTTPS')]",
+              "name": "[concat(parameters('name'),'/Allow_Internet_Inbound_HTTPS')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows inbound https to the Application Gateway subnet",
@@ -925,7 +927,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_UDP_65200_65535')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_65200_65535')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow TCP and UDP 65200_65535",
@@ -942,7 +944,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Deny_ALL_INBOUND_UDP')]",
+              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_UDP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Deny all inbound UDP",
@@ -959,7 +961,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Deny_ALL_INBOUND_TCP')]",
+              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_TCP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Deny all inbound TCP",
@@ -996,7 +998,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows intra-subnet communication",
@@ -1013,7 +1015,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_AZURE_LB_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_AZURE_LB_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows inbound traffic from Azure Load Balancer",
@@ -1030,7 +1032,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP inbound from local RBAST subnet",
@@ -1047,7 +1049,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH inbound from local RBAST subnet",
@@ -1064,7 +1066,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM inbound from local RACK_BASTION subnet",
@@ -1081,7 +1083,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
@@ -1098,7 +1100,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_Internet_Inbound_HTTP')]",
+              "name": "[concat(parameters('name'),'/Allow_Internet_Inbound_HTTP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows inbound http to the Application Gateway subnet",
@@ -1115,7 +1117,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_Internet_Inbound_HTTPS')]",
+              "name": "[concat(parameters('name'),'/Allow_Internet_Inbound_HTTPS')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows inbound https to the Application Gateway subnet",
@@ -1132,7 +1134,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_UDP_65200_65535')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_65200_65535')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow TCP and UDP 65200_65535",
@@ -1149,7 +1151,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_SITECORE_80_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_SITECORE_80_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow inbound sitecore endpoint access",
@@ -1166,7 +1168,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_SITECORE_443_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_SITECORE_443_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow inbound sitecore endpoint access",
@@ -1183,7 +1185,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Deny_ALL_INBOUND_UDP')]",
+              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_UDP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Deny all inbound UDP",
@@ -1200,7 +1202,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Deny_ALL_INBOUND_TCP')]",
+              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_TCP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Deny all inbound TCP",
@@ -1237,7 +1239,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows intra-subnet communication",
@@ -1254,7 +1256,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_AZURE_LB_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_AZURE_LB_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows inbound traffic from Azure Load Balancer",
@@ -1271,7 +1273,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP inbound from local RBAST subnet",
@@ -1288,7 +1290,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH inbound from local RBAST subnet",
@@ -1305,7 +1307,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM inbound from local RACK_BASTION subnet",
@@ -1322,7 +1324,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
@@ -1339,7 +1341,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_Internet_Inbound_HTTP')]",
+              "name": "[concat(parameters('name'),'/Allow_Internet_Inbound_HTTP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows inbound http to the Application Gateway subnet",
@@ -1356,7 +1358,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_Internet_Inbound_HTTPS')]",
+              "name": "[concat(parameters('name'),'/Allow_Internet_Inbound_HTTPS')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows inbound https to the Application Gateway subnet",
@@ -1373,7 +1375,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_TCP_UDP_65200_65535')]",
+              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_65200_65535')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow TCP and UDP 65200_65535",
@@ -1390,7 +1392,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_SITECORE_80_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_SITECORE_80_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow inbound sitecore endpoint access",
@@ -1407,7 +1409,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_SITECORE_443_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_SITECORE_443_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow inbound sitecore endpoint access",
@@ -1424,7 +1426,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_SOLR_8983_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_SOLR_8983_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allow inbound solr endpoint access",
@@ -1441,7 +1443,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Deny_ALL_INBOUND_UDP')]",
+              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_UDP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Deny all inbound UDP",
@@ -1458,7 +1460,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Deny_ALL_INBOUND_TCP')]",
+              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_TCP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Deny all inbound TCP",
@@ -1495,7 +1497,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows intra-subnet communication",
@@ -1512,7 +1514,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_AZURE_LB_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_AZURE_LB_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows inbound traffic from Azure Load Balancer",
@@ -1529,7 +1531,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP inbound from local RBAST subnet",
@@ -1546,7 +1548,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH inbound from local RBAST subnet",
@@ -1563,7 +1565,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM inbound from local RACK_BASTION subnet",
@@ -1580,7 +1582,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_',replace(replace(parameters('SourcePrefix'),'/','-'),'.','_'),'_TCP_1433_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_',replace(replace(parameters('SourcePrefix'),'/','-'),'.','_'),'_TCP_1433_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows TCP 1433 Inbound",
@@ -1597,7 +1599,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
@@ -1614,7 +1616,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Deny_ALL_INBOUND_UDP')]",
+              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_UDP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Deny all inbound UDP",
@@ -1631,7 +1633,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Deny_ALL_INBOUND_TCP')]",
+              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_TCP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Deny all inbound TCP",
@@ -1668,7 +1670,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows intra-subnet communication",
@@ -1685,7 +1687,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_AZURE_LB_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_AZURE_LB_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows inbound traffic from Azure Load Balancer",
@@ -1702,7 +1704,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP inbound from local RBAST subnet",
@@ -1719,7 +1721,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH inbound from local RBAST subnet",
@@ -1736,7 +1738,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM inbound from local RACK_BASTION subnet",
@@ -1753,7 +1755,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
@@ -1770,7 +1772,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_RDP_DFW')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_DFW')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP",
@@ -1787,7 +1789,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_RDP_IAD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_IAD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP",
@@ -1804,7 +1806,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_RDP_ORD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_ORD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP",
@@ -1821,7 +1823,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_RDP_HKG')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_HKG')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP",
@@ -1838,7 +1840,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_RDP_LON')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_LON')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP",
@@ -1855,7 +1857,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_RDP_LON5')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_LON5')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP",
@@ -1872,7 +1874,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_RDP_SYD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_SYD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP",
@@ -1889,7 +1891,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_SSH_DFW')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_DFW')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH",
@@ -1906,7 +1908,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_SSH_IAD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_IAD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH",
@@ -1923,7 +1925,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_SSH_ORD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_ORD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH",
@@ -1940,7 +1942,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_SSH_HKG')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_HKG')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH",
@@ -1957,7 +1959,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_SSH_LON')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_LON')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH",
@@ -1974,7 +1976,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_SSH_LON5')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_LON5')]",
               "location": "[resourceGroup().location]",
 
               "properties": {
@@ -1992,7 +1994,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_SSH_SYD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_SYD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH",
@@ -2009,7 +2011,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_HTTPS_DFW')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_DFW')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows HTTPS",
@@ -2026,7 +2028,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_HTTPS_IAD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_IAD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows HTTPS",
@@ -2043,7 +2045,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_HTTPS_ORD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_ORD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows HTTPS",
@@ -2060,7 +2062,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_HTTPS_HKG')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_HKG')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows HTTPS",
@@ -2077,7 +2079,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_HTTPS_LON')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_LON')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows HTTPS",
@@ -2094,7 +2096,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_HTTPS_LON5')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_LON5')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows HTTPS",
@@ -2111,7 +2113,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_HTTPS_SYD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_SYD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows HTTPS",
@@ -2128,7 +2130,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_WinRM_LON')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_LON')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM",
@@ -2145,7 +2147,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_WinRM_LON5')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_LON5')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM",
@@ -2162,7 +2164,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_WinRM_DFW')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_DFW')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM",
@@ -2179,7 +2181,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_WinRM_ORD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_ORD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM",
@@ -2196,7 +2198,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_WinRM_IAD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_IAD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM",
@@ -2213,7 +2215,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_WinRM_HKG')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_HKG')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM",
@@ -2230,7 +2232,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_WinRM_SYD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_SYD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM",
@@ -2247,7 +2249,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_RDP_PDFW')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_PDFW')]",
               "location": "[resourceGroup().location]",
 
               "properties": {
@@ -2265,7 +2267,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_SSH_PDFW')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PDFW')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH",
@@ -2282,7 +2284,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_HTTPS_PDFW')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_PDFW')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows HTTPS",
@@ -2299,7 +2301,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_WinRM_PDFW')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_PDFW')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM",
@@ -2316,7 +2318,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_RDP_PIAD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_PIAD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP",
@@ -2333,7 +2335,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_SSH_PIAD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PIAD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH",
@@ -2350,7 +2352,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_HTTPS_PIAD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_PIAD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows HTTPS",
@@ -2367,7 +2369,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_WinRM_PIAD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_PIAD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM",
@@ -2384,7 +2386,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_RDP_PORD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_PORD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP",
@@ -2401,7 +2403,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_SSH_PORD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PORD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH",
@@ -2418,7 +2420,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_HTTPS_PORD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_PORD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows HTTPS",
@@ -2435,7 +2437,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_WinRM_PORD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_PORD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM",
@@ -2452,7 +2454,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_RDP_PHKG')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_PHKG')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP",
@@ -2469,7 +2471,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_SSH_PHKG')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PHKG')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH",
@@ -2486,7 +2488,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_HTTPS_PHKG')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_PHKG')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows HTTPS",
@@ -2503,7 +2505,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_WinRM_PHKG')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_PHKG')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM",
@@ -2520,7 +2522,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_RDP_PLON')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_PLON')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP",
@@ -2537,7 +2539,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_SSH_PLON')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PLON')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH",
@@ -2554,7 +2556,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_HTTPS_PLON')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_PLON')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows HTTPS",
@@ -2571,7 +2573,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_WinRM_PLON')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_PLON')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM",
@@ -2588,7 +2590,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_RDP_PLON5')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_PLON5')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP",
@@ -2605,7 +2607,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_SSH_PLON5')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PLON5')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH",
@@ -2622,7 +2624,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_HTTPS_PLON5')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_PLON5')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows HTTPS",
@@ -2639,7 +2641,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_WinRM_PLON5')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_PLON5')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM",
@@ -2656,7 +2658,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_RDP_PSYD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_PSYD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows RDP",
@@ -2673,7 +2675,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_SSH_PSYD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PSYD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows SSH",
@@ -2690,7 +2692,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_HTTPS_PSYD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_PSYD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows HTTPS",
@@ -2707,7 +2709,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Allow_RAX_WinRM_PSYD')]",
+              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_PSYD')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Allows WinRM",
@@ -2724,7 +2726,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Deny_ALL_INBOUND_UDP')]",
+              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_UDP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Deny all inbound UDP",
@@ -2741,7 +2743,7 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(variables('name'),'/Deny_ALL_INBOUND_TCP')]",
+              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_TCP')]",
               "location": "[resourceGroup().location]",
               "properties": {
                 "description": "Deny all inbound TCP",
