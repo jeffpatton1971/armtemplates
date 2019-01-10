@@ -934,22 +934,42 @@
     "osProfile": "[if(equals(variables('OS').type,'linux'),variables('osProfileArray')[0],variables('osProfileArray')[1])]",
     "Disks": "[if(empty(parameters('DataDisks')),createArray(json('{\"name\": \"notUsed\",\"caching\": \"ReadOnly\",\"lun\": \"1\",\"size\": \"p30\"}')),parameters('DataDisks'))]",
     "isPresent": "[if(empty(parameters('DataDisks')),0,1)]",
+    "avSet": "[if(not(empty(parameters('AvailabilitySetName'))),0,1)]",
     "diskCount": "[if(empty(parameters('DataDisks')),1,length(parameters('DataDisks')))]"
   },
   "resources": [
     {
-      "apiVersion": "2017-03-30",
-      "name": "[parameters('AvailabilitySetName')]",
-      "type": "Microsoft.Compute/availabilitySets",
-      "location": "[variables('location')]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "[concat('Deploy-',parameters('AvailabilitySetName'))]",
+      "condition": "[greaterOrEquals(variables('avSet'),1)]",
       "dependsOn": [],
-      "tags": "[variables('tags')]",
-      "sku": {
-        "name": "Aligned"
-      },
       "properties": {
-        "platformUpdateDomainCount": "[parameters('platformUpdateDomainCount')]",
-        "platformFaultDomainCount": "[parameters('platformFaultDomainCount')]"
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "2018.11.01.0",
+          "parameters": {},
+          "variables": {},
+          "resources": [
+            {
+              "apiVersion": "2017-03-30",
+              "name": "[parameters('AvailabilitySetName')]",
+              "type": "Microsoft.Compute/availabilitySets",
+              "location": "[variables('location')]",
+              "dependsOn": [],
+              "tags": "[variables('tags')]",
+              "sku": {
+                "name": "Aligned"
+              },
+              "properties": {
+                "platformUpdateDomainCount": "[parameters('platformUpdateDomainCount')]",
+                "platformFaultDomainCount": "[parameters('platformFaultDomainCount')]"
+              }
+            }
+          ],
+          "outputs": {}
+        }
       }
     },
     {

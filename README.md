@@ -57,6 +57,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/10 : Made availabilitySet optional, no name, no avset
 - 01/10 : removed extraneous comma
 - 01/09 : Added name parameter to NSG template
 - 01/08 : Fixed bug, when passing empty CustomObject parameter, the special tagging fails as .tags isn't a property of a null object
