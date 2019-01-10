@@ -6,7 +6,8 @@
       "type": "string"
     },
     "AvailabilitySetName": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": ""
     },
     "Network": {
       "type": "object"
