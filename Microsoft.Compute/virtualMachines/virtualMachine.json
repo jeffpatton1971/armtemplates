@@ -978,7 +978,7 @@
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('NetworkInterfaceName')]",
       "location": "[variables('location')]",
-      "dependsOn": [ "[parameters('AvailabilitySetName')]" ],
+      "dependsOn": [ "[concat('Deploy-',parameters('AvailabilitySetName'))]" ],
       "properties": {
         "dnsSettings": {},
         "enableAcceleratedNetworking": false,
