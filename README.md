@@ -57,6 +57,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/11 : Missed the avset name change for dependencies
 - 01/11 : Updated parameter file for NSG to include name parameter
 - 01/10 : Made availabilitySet optional, no name, no avset
 - 01/10 : removed extraneous comma

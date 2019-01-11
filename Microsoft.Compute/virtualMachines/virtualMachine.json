@@ -942,7 +942,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
-      "name": "[concat('Deploy-',parameters('AvailabilitySetName'))]",
+      "name": "[parameters('AvailabilitySetName')]",
       "condition": "[greaterOrEquals(variables('avSet'),1)]",
       "dependsOn": [],
       "properties": {
@@ -978,7 +978,7 @@
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('NetworkInterfaceName')]",
       "location": "[variables('location')]",
-      "dependsOn": [ "[concat('Deploy-',parameters('AvailabilitySetName'))]" ],
+      "dependsOn": [ "[parameters('AvailabilitySetName')]" ],
       "properties": {
         "dnsSettings": {},
         "enableAcceleratedNetworking": false,
