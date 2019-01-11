@@ -14,6 +14,9 @@ You can filter network traffic to and from Azure resources in an Azure virtual n
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "2018.12.01.0",
   "parameters": {
+    "name": {
+      "value": ""
+    },
     "Network": {
       "value": {
         "VirtualNetworkResourceGroupName": "",
