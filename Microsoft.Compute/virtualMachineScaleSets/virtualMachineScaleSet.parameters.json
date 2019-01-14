@@ -50,6 +50,9 @@
     "ultraSSDEnabled": {
       "value": false
     },
+    "Zones": {
+      "value": []
+    },
     "CustomObject": {
       "value": {}
     },
