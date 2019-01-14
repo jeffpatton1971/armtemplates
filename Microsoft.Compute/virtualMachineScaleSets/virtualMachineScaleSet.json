@@ -303,6 +303,10 @@
       "type": "bool",
       "defaultValue": false
     },
+    "Zones": {
+      "type": "array",
+      "defaultValue": []
+    },
     "CustomObject": {
       "type": "object",
       "defaultValue": {}
@@ -893,7 +897,7 @@
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
-    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",,
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
     "imageReferenceArray": [
       {
         "publisher": "[variables('OS').imagePublisher]",
@@ -932,7 +936,8 @@
     "osProfile": "[if(equals(variables('OS').type,'linux'),variables('osProfileArray')[0],variables('osProfileArray')[1])]",
     "Disks": "[if(empty(parameters('DataDisks')),createArray(json('{\"name\": \"notUsed\",\"caching\": \"ReadOnly\",\"lun\": \"1\",\"size\": \"p30\"}')),parameters('DataDisks'))]",
     "isPresent": "[if(empty(parameters('DataDisks')),0,1)]",
-    "diskCount": "[if(empty(parameters('DataDisks')),1,length(parameters('DataDisks')))]"
+    "diskCount": "[if(empty(parameters('DataDisks')),1,length(parameters('DataDisks')))]",
+    "zones": "[if(empty(parameters('Zones')),json('null'),parameters('Zones'))]"
   },
   "resources": [
     {
@@ -1083,7 +1088,8 @@
                   "diagnosticsProfile": {}
                 }
               },
-              "tags": "[variables('tags')]"
+              "tags": "[variables('tags')]",
+              "zones": "[variables('zones')]"
             }
           ],
           "outputs": {
@@ -1156,7 +1162,8 @@
                   "diagnosticsProfile": {}
                 }
               },
-              "tags": "[variables('tags')]"
+              "tags": "[variables('tags')]",
+              "zones": "[variables('zones')]"
             }
           ],
           "outputs": {

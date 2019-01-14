@@ -310,6 +310,10 @@
       "type": "object",
       "defaultValue": {}
     },
+    "Zones": {
+      "type": "array",
+      "defaultValue": []
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -936,7 +940,8 @@
     "Disks": "[if(empty(parameters('DataDisks')),createArray(json('{\"name\": \"notUsed\",\"caching\": \"ReadOnly\",\"lun\": \"1\",\"size\": \"p30\"}')),parameters('DataDisks'))]",
     "isPresent": "[if(empty(parameters('DataDisks')),0,1)]",
     "avSet": "[if(not(empty(parameters('AvailabilitySetName'))),0,1)]",
-    "diskCount": "[if(empty(parameters('DataDisks')),1,length(parameters('DataDisks')))]"
+    "diskCount": "[if(empty(parameters('DataDisks')),1,length(parameters('DataDisks')))]",
+    "zones": "[if(empty(parameters('Zones')),json('null'),parameters('Zones'))]"
   },
   "resources": [
     {
@@ -1104,7 +1109,8 @@
                 "diagnosticsProfile": {}
               },
               "resources": null,
-              "tags": "[variables('tags')]"
+              "tags": "[variables('tags')]",
+              "zones": "[variables('zones')]"
             }
           ],
           "outputs": {}
@@ -1161,7 +1167,8 @@
                 "diagnosticsProfile": {}
               },
               "resources": null,
-              "tags": "[variables('tags')]"
+              "tags": "[variables('tags')]",
+              "zones": "[variables('zones')]"
             }
           ],
           "outputs": {}

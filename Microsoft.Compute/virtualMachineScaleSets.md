@@ -86,6 +86,9 @@ Azure virtual machine scale sets let you create and manage a group of identical,
     "ultraSSDEnabled": {
       "value": false
     },
+    "Zones": {
+      "value": [ ]
+    },
     "CustomObject": {
       "value": {
         "tags" : {
