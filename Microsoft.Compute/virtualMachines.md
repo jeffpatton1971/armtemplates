@@ -77,9 +77,9 @@ Azure Virtual Machines (VM) is one of several types of on-demand, scalable compu
       "value": {
         "tags" : {
          "Tag1": "Value1",
-         "Tag2": "Value2",
+         "Tag2": "Value2"
         }
-      },
+      }
     },
     "Zones": {
       "value": [ ]
@@ -178,9 +178,9 @@ Azure Virtual Machines (VM) is one of several types of on-demand, scalable compu
       "value": {
         "tags" : {
          "Tag1": "Value1",
-         "Tag2": "Value2",
+         "Tag2": "Value2"
         }
-      },
+      }
     },
     "environment": {
       "value": "Development"
@@ -270,9 +270,9 @@ Azure Virtual Machines (VM) is one of several types of on-demand, scalable compu
       "value": {
         "tags" : {
          "Tag1": "Value1",
-         "Tag2": "Value2",
+         "Tag2": "Value2"
         }
-      },
+      }
     },
     "environment": {
       "value": "Development"

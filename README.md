@@ -19,6 +19,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
+- 01/15 : work out proper null array for empty zones
 - 01/14 : ~~Add zones support for VM/VMSS~~
 - 01/07 : ~~Add Name parameter to NSg template~~
 - 01/07 : ~~Add Customtags object for templates~~
@@ -58,6 +59,9 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/15 : Update Zone parameter in resource to null array until a proper solution is found
+- 01/15 : Updated availabilitySet ID, vm resources to use null or a variable object
+- 01/15 : Added Corey's update for avset deployment null name
 - 01/11 : Missed the avset name change for dependencies
 - 01/11 : Updated parameter file for NSG to include name parameter
 - 01/10 : Made availabilitySet optional, no name, no avset

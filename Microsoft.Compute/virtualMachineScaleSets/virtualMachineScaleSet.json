@@ -1089,7 +1089,7 @@
                 }
               },
               "tags": "[variables('tags')]",
-              "zones": "[variables('zones')]"
+              "zones": []
             }
           ],
           "outputs": {
@@ -1163,7 +1163,7 @@
                 }
               },
               "tags": "[variables('tags')]",
-              "zones": "[variables('zones')]"
+              "zones": []
             }
           ],
           "outputs": {
