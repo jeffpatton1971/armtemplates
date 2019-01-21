@@ -14,11 +14,15 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - PublicIp template has been added
 
 # Breaking Changes
+- Eventhub will have a storageAccount object
+- Network object across all templates will have updated property names
 - VMSS template has an updated upgradePolicy object, based on the new API, please check the documentation file for an example
 - All template parameter files will have blank values
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
+- 01/21 : Update eventhub to include storageAccount object
+- 01/21 : Update all Network object references to include updated property names
 - 01/15 : work out proper null array for empty zones
 - 01/14 : ~~Add zones support for VM/VMSS~~
 - 01/07 : ~~Add Name parameter to NSg template~~
@@ -59,6 +63,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/21 : Added output to AutomationAccount
 - 01/15 : Update Zone parameter in resource to null array until a proper solution is found
 - 01/15 : Updated availabilitySet ID, vm resources to use null or a variable object
 - 01/15 : Added Corey's update for avset deployment null name

@@ -104,6 +104,20 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "automationAccount": {
+      "name": "[parameters('name')]",
+      "type": "Microsoft.Automation/automationAccounts",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "sku": {
+          "name": "[parameters('Sku')]",
+          "family": null,
+          "capacity": null
+        }
+      },
+      "location": "[parameters('location')]",
+      "tags": "[variables('tags')]"
+    }
   },
   "resources": [
     {
@@ -122,5 +136,16 @@
     }
   ],
   "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('automationAccount'))]",
+        "outputs": {}
+      }
+    }
   }
 }
