@@ -114,11 +114,11 @@
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
-    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",,
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
     "family": "[if(equals(parameters('Sku'),'Premium'),'P','C')]",
     "capacity": "[if(and(greaterOrEquals(parameters('Capacity'),4),equals(variables('family'),'C')),4,parameters('Capacity'))]",
     "location": "[if(empty(parameters('Location')),resourceGroup().location,parameters('Location'))]",
-    "VirtualNetworkId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName,'Microsoft.Network/virtualNetworks/',parameters('Network').VirtualNetworkName)]",
+    "VirtualNetworkId": "[resourceId(parameters('Network').ResourceGroupName,'Microsoft.Network/virtualNetworks/',parameters('Network').VirtualNetworkName)]",
     "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('Network').SubnetName)]",
     "redis": {
       "name": "[parameters('name')]",
@@ -170,9 +170,16 @@
     }
   ],
   "outputs": {
-    "redis": {
+    "armTemplate": {
       "type": "object",
-      "value": "[variables('redis')]"
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('redis'))]",
+        "outputs": {}
+      }
     }
   }
 }
