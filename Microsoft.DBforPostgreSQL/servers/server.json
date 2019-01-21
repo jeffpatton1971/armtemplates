@@ -189,7 +189,7 @@
       "type": "Microsoft.DBforPostgreSQL/servers",
       "kind": "",
       "location": "[resourceGroup().location]",
-      "name": "[toLower(parameters('name'))]",
+      "name": "[parameters('name')]",
       "tags": "[variables('tags')]",
       "properties": {
         "version": "[parameters('version')]",
@@ -216,7 +216,7 @@
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
-    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]"
   },
   "resources": [
     {
@@ -246,9 +246,16 @@
     }
   ],
   "outputs": {
-    "PostgreSQL": {
+    "armTemplate": {
       "type": "object",
-      "value": "[variables('PostgreSQL')]"
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('automationAccount'))]",
+        "outputs": {}
+      }
     }
   }
 }
