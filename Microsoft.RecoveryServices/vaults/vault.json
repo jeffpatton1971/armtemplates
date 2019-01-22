@@ -267,6 +267,57 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "vault": {
+      "type": "Microsoft.RecoveryServices/vaults",
+      "apiVersion": "2015-11-10",
+      "name": "[parameters('Name')]",
+      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "RS0",
+        "tier": "Standard"
+      },
+      "properties": {}
+    },
+    "policy": {
+      "apiVersion": "2015-11-10",
+      "name": "[concat(parameters('name'), '/', parameters('policyName'))]",
+      "type": "Microsoft.RecoveryServices/vaults/backupPolicies",
+      "dependsOn": [
+        "[concat('Microsoft.RecoveryServices/vaults/', parameters('name'))]"
+      ],
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "backupManagementType": "AzureIaasVM",
+        "schedulePolicy": {
+          "schedulePolicyType": "SimpleSchedulePolicy",
+          "scheduleRunDays": [],
+          "scheduleRunFrequency": "Daily",
+          "scheduleRunTimes": "[parameters('scheduleRunTimes')]"
+        },
+        "retentionPolicy": {
+          "dailySchedule": {
+            "retentionTimes": "[parameters('scheduleRunTimes')]",
+            "retentionDuration": {
+              "count": "[parameters('dailyRetentionDurationCount')]",
+              "durationType": "Days"
+            }
+          },
+          "weeklySchedule": {
+            "daysOfTheWeek": "[parameters('daysOfTheWeek')]",
+            "retentionTimes": "[parameters('scheduleRunTimes')]",
+            "retentionDuration": {
+              "count": "[parameters('weeklyRetentionDurationCount')]",
+              "durationType": "Weeks"
+            }
+          },
+          "monthlySchedule": null,
+          "yearlySchedule": null,
+          "retentionPolicyType": "LongTermRetentionPolicy"
+        },
+        "tags": "[variables('tags')]",
+        "timeZone": "[variables('timeZone')]"
+      }
+    }
   },
   "resources": [
     {
@@ -321,5 +372,17 @@
       }
     }
   ],
-  "outputs": {}
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('vault'),variables('policy'))]",
+        "outputs": {}
+      }
+    }
+  }
 }
