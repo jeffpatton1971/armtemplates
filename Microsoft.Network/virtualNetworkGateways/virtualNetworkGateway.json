@@ -138,15 +138,15 @@
   },
   "variables": {
     "location": "[if(empty(parameters('Location')),resourceGroup().location,parameters('Location'))]",
-    "vnetId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName)]",
-    "subnetId": "[concat(resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName),'/subnets/',parameters('Network').SubnetName)]",
+    "vnetId": "[resourceId(parameters('Network').ResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName)]",
+    "subnetId": "[concat(resourceId(parameters('Network').ResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName),'/subnets/',parameters('Network').SubnetName)]",
     "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
-    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",,
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
     "publicIPAddress": {
       "apiVersion": "2017-03-01",
       "type": "Microsoft.Network/publicIPAddresses",
