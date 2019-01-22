@@ -106,6 +106,29 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "queue": {
+      "type": "Microsoft.ServiceBus/namespaces/queues",
+      "name": "[concat(parameters('Namespace'),'/',parameters('Queue'))]",
+      "apiVersion": "2017-04-01",
+      "location": "[resourceGroup().location]",
+      "scale": null,
+      "properties": {
+        "maxSizeInMegabytes": "[parameters('MaxQueueSize')]",
+        "defaultMessageTimeToLive": "[parameters('MessageTTL')]",
+        "lockDuration": "[parameters('LockDuration')]",
+        "requiresDuplicateDetection": "[parameters('DuplicateDetection')]",
+        "deadLetteringOnMessageExpiration": "[parameters('DeadLettering')]",
+        "requiresSession": "[parameters('Sessions')]",
+        "enablePartitioning": "[parameters('Paritioning')]",
+        "enableBatchedOperations": true,
+        "duplicateDetectionHistoryTimeWindow": "PT10M",
+        "maxDeliveryCount": 10,
+        "status": "Active",
+        "autoDeleteOnIdle": "P10675199DT2H48M5.4775807S",
+        "enableExpress": false
+      },
+      "tags": "[variables('tags')]"
+    }
   },
   "resources": [
     {
@@ -131,5 +154,18 @@
       },
       "tags": "[variables('tags')]"
     }
-  ]
+  ],
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('queue'))]",
+        "outputs": {}
+      }
+    }
+  }
 }

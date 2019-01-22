@@ -84,6 +84,19 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "namespace": {
+      "name": "[parameters('name')]",
+      "type": "Microsoft.ServiceBus/namespaces",
+      "apiVersion": "2017-04-01",
+      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "[parameters('Sku')]",
+        "tier": "[parameters('Sku')]"
+      },
+      "scale": null,
+      "properties": {},
+      "tags": "[variables('tags')]"
+    }
   },
   "resources": [
     {
@@ -99,5 +112,18 @@
       "properties": {},
       "tags": "[variables('tags')]"
     }
-  ]
+  ],
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('namespace'))]",
+        "outputs": {}
+      }
+    }
+  }
 }
