@@ -106,6 +106,27 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "storage": {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[parameters('name')]",
+      "apiVersion": "2018-07-01",
+      "location": "[variables('location')]",
+      "sku": {
+        "name": "[parameters('sku')]"
+      },
+      "kind": "[parameters('kind')]",
+      "properties": {
+        "encryption": {
+          "keySource": "Microsoft.Storage",
+          "services": {
+            "blob": {
+              "enabled": "[parameters('encryption')]"
+            }
+          }
+        }
+      },
+      "tags": "[variables('tags')]"
+    }
   },
   "resources": [
     {
@@ -131,5 +152,16 @@
     }
   ],
   "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('storage'))]",
+        "outputs": {}
+      }
+    }
   }
 }
