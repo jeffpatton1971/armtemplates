@@ -23,8 +23,12 @@ Azure Event Hubs is a Big Data streaming platform and event ingestion service, c
     "Capture": {
       "value": false
     },
-    "StorageAccountResourceGroupName": {
-      "value": ""
+    "StorageAccount": {
+      "value": {
+        "ResourceGroupName" : ""
+        "StorageAccountName": "",
+        "Container": ""
+      }
     },
     "StorageAccountName": {
       "value": ""

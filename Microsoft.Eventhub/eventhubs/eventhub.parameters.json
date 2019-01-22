@@ -11,14 +11,8 @@
     "Capture": {
       "value": false
     },
-    "StorageAccountResourceGroupName": {
-      "value": ""
-    },
-    "StorageAccountName": {
-      "value": ""
-    },
-    "ContainerName": {
-      "value": ""
+    "StorageAccount": {
+      "value": {}
     },
     "IntervalInSeconds": {
       "value": 300

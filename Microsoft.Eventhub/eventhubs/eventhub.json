@@ -12,17 +12,9 @@
       "type": "bool",
       "defaultValue": false
     },
-    "StorageAccountResourceGroupName": {
-      "type": "string",
-      "defaultValue": ""
-    },
-    "StorageAccountName": {
-      "type": "string",
-      "defaultValue": ""
-    },
-    "ContainerName": {
-      "type": "string",
-      "defaultValue": ""
+    "StorageAccount": {
+      "type": "object",
+      "default": {}
     },
     "IntervalInSeconds": {
       "type": "int",
@@ -109,7 +101,7 @@
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
-    "storageAccountResourceId": "[if(empty(parameters('StorageAccountName')),json('null'),resourceId(parameters('StorageAccountResourceGroupName'),'Microsoft.Storage/storageAccounts',parameters('StorageAccountName')))]",
+    "storageAccountResourceId": "[if(empty(parameters('StorageAccount')),json('null'),resourceId(parameters('StorageAccount').ResourceGroupName,'Microsoft.Storage/storageAccounts',parameters('StorageAccount').StorageAccountName))]",
     "captureDescription": {
       "enabled": true,
       "encoding": "Avro",
@@ -117,7 +109,7 @@
         "name": "EventHubArchive.AzureBlockBlob",
         "properties": {
           "storageAccountResourceId": "[variables('storageAccountResourceId')]",
-          "blobContainer": "[parameters('ContainerName')]",
+          "blobContainer": "[parameters('StorageAccount').Container]",
           "archiveNameFormat": "{Namespace}/{EventHub}/{PartitionId}/{Year}/{Month}/{Day}/{Hour}/{Minute}/{Second}"
         }
       },
