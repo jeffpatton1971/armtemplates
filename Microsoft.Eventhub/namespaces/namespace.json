@@ -93,6 +93,24 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "namespace": {
+      "name": "[parameters('name')]",
+      "type": "Microsoft.EventHub/namespaces",
+      "apiVersion": "2017-04-01",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [],
+      "sku": {
+        "name": "[parameters('Sku')]",
+        "tier": "[parameters('Sku')]",
+        "capacity": "[parameters('Capacity')]"
+      },
+      "scale": null,
+      "properties": {
+        "isAutoInflateEnabled": "[parameters('AutoInflateEnabled')]",
+        "maximumThroughputUnits": "[if(parameters('AutoInflateEnabled'),parameters('Capacity'),0)]"
+      },
+      "tags": "[variables('tags')]"
+    }
   },
   "resources": [
     {
@@ -113,5 +131,18 @@
       },
       "tags": "[variables('tags')]"
     }
-  ]
+  ],
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('namespace'))]",
+        "outputs": {}
+      }
+    }
+  }
 }

@@ -125,6 +125,20 @@
       "sizeLimitInBytes": "[parameters('SizeLimit')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "eventhub": {
+      "name": "[concat(parameters('Namespace'),'/',parameters('EventHub'))]",
+      "type": "Microsoft.EventHub/namespaces/eventhubs",
+      "apiVersion": "2017-04-01",
+      "location": "[resourceGroup().location]",
+      "scale": null,
+      "properties": {
+        "messageRetentionInDays": "[parameters('MessageRetention')]",
+        "partitionCount": "[parameters('PartitionCount')]",
+        "status": "Active",
+        "captureDescription": "[if(parameters('Capture'),variables('captureDescription'),json('null'))]"
+      },
+      "tags": "[variables('tags')]"
+    }
   },
   "resources": [
     {
@@ -141,5 +155,18 @@
       },
       "tags": "[variables('tags')]"
     }
-  ]
+  ],
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('eventhub'))]",
+        "outputs": {}
+      }
+    }
+  }
 }
