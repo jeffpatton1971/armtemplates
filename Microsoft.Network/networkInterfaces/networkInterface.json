@@ -99,6 +99,23 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "interface": {
+      "name": "[parameters('name')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2018-08-01",
+      "location": "[variables('location')]",
+      "tags": "[variables('tags')]",
+      "properties": {
+        "ipConfigurations": "[parameters('IpConfiguration')]",
+        "dnsSettings": {
+          "dnsServers": "[parameters('DnsServers')]"
+        },
+        "primary": "[parameters('primary')]",
+        "enableAcceleratedNetworking": "[parameters('enableAcceleratedNetworking')]",
+        "enableIPForwarding": "[parameters('enableIPForwarding')]"
+      },
+      "resources": []
+    }
   },
   "resources": [
     {
@@ -119,5 +136,17 @@
       "resources": []
     }
   ],
-  "outputs": {}
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('interface'))]",
+        "outputs": {}
+      }
+    }
+  }
 }
