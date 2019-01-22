@@ -102,6 +102,28 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "sendmail": {
+      "apiVersion": "2015-01-01",
+      "name": "[parameters('name')]",
+      "type": "Sendgrid.Email/accounts",
+      "location": "[resourceGroup().location]",
+      "tags": "[variables('tags')]",
+      "plan": {
+        "name": "[parameters('plan_name')]",
+        "publisher": "Sendgrid",
+        "product": "sendgrid_azure",
+        "promotionCode": "[parameters('plan_promotion_code')]"
+      },
+      "properties": {
+        "password": "[parameters('password')]",
+        "acceptMarketingEmails": "[parameters('acceptMarketingEmails')]",
+        "email": "[parameters('email')]",
+        "firstName": "[parameters('firstName')]",
+        "lastName": "[parameters('lastName')]",
+        "company": "[parameters('company')]",
+        "website": "[parameters('website')]"
+      }
+    }
   },
   "resources": [
     {
@@ -127,5 +149,17 @@
       }
     }
   ],
-  "outputs": {}
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('sendmail'))]",
+        "outputs": {}
+      }
+    }
+  }
 }
