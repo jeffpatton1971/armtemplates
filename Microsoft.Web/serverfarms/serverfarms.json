@@ -191,6 +191,29 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "serverFarm": {
+      "apiVersion": "2016-03-01",
+      "name": "[parameters('name')]",
+      "type": "Microsoft.Web/serverfarms",
+      "location": "[variables('location')]",
+      "kind": "[if(equals(parameters('kind'),'windows'),'',parameters('kind'))]",
+      "properties": {
+        "name": "[parameters('name')]",
+        "workerSize": "[variables(parameters('skuCode')).workerSize]",
+        "workerSizeId": "[variables(parameters('skuCode')).workerSizeId]",
+        "numberOfWorkers": "[variables(parameters('skuCode')).numberOfWorkers]",
+        "reserved": "[if(equals(parameters('kind'),'linux'),'true','false')]",
+        "hostingEnvironment": "[variables('hostingEnvironmentId')]"
+      },
+      "sku": {
+        "name": "[parameters('skuCode')]",
+        "tier": "[parameters('sku')]",
+        "size": "[parameters('skuCode')]",
+        "family": "[substring(parameters('skuCode'),0,1)]",
+        "capacity": "[substring(parameters('skuCode'),1,1)]"
+      },
+      "tags": "[variables('tags')]"
+    }
   },
   "resources": [
     {
@@ -216,5 +239,18 @@
       },
       "tags": "[variables('tags')]"
     }
-  ]
+  ],
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('serverFarm'))]",
+        "outputs": {}
+      }
+    }
+  }
 }

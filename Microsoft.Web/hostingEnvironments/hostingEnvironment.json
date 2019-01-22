@@ -131,8 +131,34 @@
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
-    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",,
-    "LoadBalanceMode": "[if(equals(parameters('internalLoadBalancingMode'),'Public'),0,if(equals(parameters('internalLoadBalancingMode'),'WebOnly'),1,if(equals(parameters('internalLoadBalancingMode'),'FtpOnly'),2,3)))]"
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "LoadBalanceMode": "[if(equals(parameters('internalLoadBalancingMode'),'Public'),0,if(equals(parameters('internalLoadBalancingMode'),'WebOnly'),1,if(equals(parameters('internalLoadBalancingMode'),'FtpOnly'),2,3)))]",
+    "hostingEnvironment": {
+      "name": "[parameters('name')]",
+      "type": "Microsoft.Web/hostingEnvironments",
+      "apiVersion": "2016-09-01",
+      "kind": "ASEV2",
+      "location": "[parameters('Location')]",
+      "tags": "[variables('tags')]",
+      "properties": {
+        "name": "[parameters('name')]",
+        "location": "[resourceGroup().location]",
+        "vnetName": "[parameters('Network').VirtualNetworkName]",
+        "vnetResourceGroupName": "[parameters('Network').VirtualNetworkResourceGroupName]",
+        "vnetSubnetName": "[parameters('Network').SubnetName]",
+        "virtualNetwork": {
+          "id": "[variables('VirtualNetworkId')]",
+          "subnet": "[parameters('Network').SubnetName]"
+        },
+        "internalLoadBalancingMode": "[variables('LoadBalanceMode')]",
+        "multiSize": "[parameters('multiSize')]",
+        "multiRoleCount": "[parameters('multiRoleCount')]",
+        "workerPools": "[parameters('workerPools')]",
+        "ipsslAddressCount": "integer",
+        "dnsSuffix": "string"
+      },
+      "resources": []
+    }
   },
   "resources": [
     {
@@ -161,5 +187,18 @@
       },
       "resources": []
     }
-  ]
+  ],
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('hostingEnvironment'))]",
+        "outputs": {}
+      }
+    }
+  }
 }

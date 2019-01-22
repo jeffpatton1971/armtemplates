@@ -178,6 +178,31 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "site": {
+      "apiVersion": "2016-08-01",
+      "type": "Microsoft.Web/sites",
+      "name": "[parameters('name')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [],
+      "properties": {
+        "serverFarmId": "[resourceId('Microsoft.Web/serverFarms',parameters('AspName'))]",
+        "siteConfig": {
+          "netFrameworkVersion": "[parameters('netFrameworkVersion')]",
+          "PhpVersion": "[parameters('phpVersion')]",
+          "pythonVersion": "[parameters('pythonVersion')]",
+          "use32BitWorkerProcess": "[parameters('32Bit')]",
+          "webSocketsEnabled": "[parameters('webSockets')]",
+          "alwaysOn": "[parameters('alwaysOn')]",
+          "requestTracingEnabled": "[parameters('failedRequestTrace')]",
+          "httpLoggingEnabled": "[parameters('webServerLogging')]",
+          "logsDirectorySizeLimit": "[parameters('logSize')]",
+          "detailedErrorLoggingEnabled": "[parameters('detailedErrors')]"
+        },
+        "clientAffinityEnabled": "[parameters('clientAffinityEnabled')]",
+        "hostingEnvironmentProfile": "[variables('hostingEnvironmentProfile')]"
+      },
+      "tags": "[variables('tags')]"
+    }
   },
   "resources": [
     {
@@ -207,5 +232,16 @@
     }
   ],
   "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('site'))]",
+        "outputs": {}
+      }
+    }
   }
 }
