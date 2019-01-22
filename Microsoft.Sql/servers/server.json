@@ -88,6 +88,19 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "server": {
+      "type": "Microsoft.Sql/servers",
+      "name": "[parameters('name')]",
+      "apiVersion": "2015-05-01-preview",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "administratorLogin": "[parameters('administratorLogin')]",
+        "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
+        "version": "[parameters('version')]"
+      },
+      "resources": [],
+      "tags": "[variables('tags')]"
+    }
   },
   "resources": [
     {
@@ -105,5 +118,16 @@
     }
   ],
   "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('server'))]",
+        "outputs": {}
+      }
+    }
   }
 }

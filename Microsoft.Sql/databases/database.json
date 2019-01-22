@@ -200,6 +200,24 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "database": {
+      "type": "Microsoft.Sql/servers/databases",
+      "apiVersion": "2017-10-01-preview",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [],
+      "name": "[parameters('name')]",
+      "properties": {
+        "elasticPoolId": "[if(not(empty(parameters('ElasticPoolName'))),resourceId('Microsoft.Sql/servers/elasticPools',parameters('ServerName'),parameters('ElasticPoolName')),json('null'))]",
+        "requestedServiceObjectiveName": "[if(not(empty(parameters('ElasticPoolName'))),'ElasticPool',json('null'))]",
+        "elasticPoolName": "[if(not(empty(parameters('ElasticPoolName'))),parameters('ElasticPoolName'),json('null'))]",
+        "catalogCollation": "[parameters('CatalogCollation')]",
+        "collation": "[parameters('Collation')]",
+        "createMode": "[parameters('createMode')]",
+        "zoneRedundant": "[parameters('zoneRedundant')]",
+        "licenseType": "[parameters('licenseType')]"
+      },
+      "tags": "[variables('tags')]"
+    }
   },
   "resources": [
     {
@@ -222,5 +240,16 @@
     }
   ],
   "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('database'))]",
+        "outputs": {}
+      }
+    }
   }
 }

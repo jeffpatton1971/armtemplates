@@ -261,7 +261,8 @@
         "zoneRedundant": "[parameters('zoneRedundant')]",
         "licenseType": "[parameters('licenseType')]"
       },
-      "tags": "[variables('tags')]"
+      "tags": "[variables('tags')]",
+      "sku": "[variables('sku')]"
     }
   },
   "resources": [
@@ -280,5 +281,16 @@
     }
   ],
   "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('ep'))]",
+        "outputs": {}
+      }
+    }
   }
 }
