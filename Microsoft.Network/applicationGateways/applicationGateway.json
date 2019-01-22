@@ -107,7 +107,7 @@
   },
   "variables": {
     "location": "[if(empty(parameters('Location')),resourceGroup().location,parameters('Location'))]",
-    "vnetId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName)]",
+    "vnetId": "[resourceId(parameters('Network').ResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName)]",
     "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('Network').SubnetName)]",
     "SkuNamePass1": "[concat(parameters('Tier'),'_',parameters('Size'))]",
     "SkuName": "[if(equals(variables('SkuNamePass1'),'WAF_Small'),'WAF_Medium',variables('SkuNamePass1'))]",
@@ -122,7 +122,7 @@
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
-    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",,
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
     "webApplicationFirewallConfiguration": {
       "enabled": "[if(equals(parameters('Tier'),'WAF'),'true','false')]",
       "firewallMode": "Detection",
