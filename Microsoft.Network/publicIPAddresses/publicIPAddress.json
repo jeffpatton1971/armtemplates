@@ -100,6 +100,21 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "publicIp": {
+      "apiVersion": "2017-09-01",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[parameters('name')]",
+      "location": "[variables('location')]",
+      "dependsOn": [],
+      "sku": {
+        "name": "[parameters('sku')]"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "[parameters('publicIPAllocationMethod')]",
+        "idleTimeoutInMinutes": "[parameters('idleTimeoutInMinutes')]",
+        "publicIpAddressVersion": "IPv4"
+      }
+    }
   },
   "resources": [
     {
@@ -118,5 +133,17 @@
       }
     }
   ],
-  "outputs": {}
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('publicIp'))]",
+        "outputs": {}
+      }
+    }
+  }
 }
