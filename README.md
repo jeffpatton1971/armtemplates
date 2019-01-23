@@ -32,7 +32,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 12/21 : ~~Add connections template for wiring up vpngw~~
 - 12/21 : ~~Add localNetworkGateway template~~
 - 12/20 : ~~VPN Gateway Template, if bgp false still get errors about bgpsettings being null~~
-- 12/13 : Clean up Bastion rules in nsg template
+- 12/13 : ~~Clean up Bastion rules in nsg template~~
 - 12/12 : Update NSG template to be more customizable, choose deploymentType and define additional rules
 - 12/11 : ~~Rework AppGw template to be less load balancer and more appgw~~
 - 12/07 : Add additional redis resource templates
@@ -63,6 +63,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/23 : Updated NSG template to add default rules to securityrules if provided
+- 01/23 : Updated NSG template bastion deployment to line up with Sergey's rulset
 - 01/22 : Multiple updates, armtemplate output, network properties, storageaccount obect
 - 01/21 : Added output to AutomationAccount
 - 01/15 : Update Zone parameter in resource to null array until a proper solution is found

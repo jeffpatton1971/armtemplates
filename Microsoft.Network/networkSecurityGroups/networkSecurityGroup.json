@@ -116,6 +116,145 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "defaultRules": [
+      {
+        "apiVersion": "2016-03-30",
+        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+        "name": "[concat(parameters('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows intra-subnet communication",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 110,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "apiVersion": "2016-03-30",
+        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+        "name": "[concat(parameters('name'),'/Allow_AZURE_LB_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows inbound traffic from Azure Load Balancer",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "AzureLoadBalancer",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 111,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "apiVersion": "2016-03-30",
+        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+        "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows RDP inbound from local RBAST subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "3389",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 112,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "apiVersion": "2016-03-30",
+        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+        "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH inbound from local RBAST subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 113,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "apiVersion": "2016-03-30",
+        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+        "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows WinRM inbound from local RACK_BASTION subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "5986",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 114,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "apiVersion": "2016-03-30",
+        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+        "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 115,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "apiVersion": "2016-03-30",
+        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+        "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_UDP')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Deny all inbound UDP",
+          "protocol": "Udp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "*",
+          "access": "Deny",
+          "priority": 4000,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "apiVersion": "2016-03-30",
+        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+        "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_TCP')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Deny all inbound TCP",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "*",
+          "access": "Deny",
+          "priority": 4001,
+          "direction": "Inbound"
+        }
+      }
+    ],
+    "CustomRules": "[if(not(empty(parameters('SecurityRules'))),concat(parameters('SecurityRules'),variables('defaultRules')),variables('defaultRules'))]"
   },
   "resources": [
     {
@@ -162,7 +301,7 @@
               "location": "[resourceGroup().location]",
               "tags": "[variables('tags')]",
               "properties": {
-                "securityRules": "[parameters('SecurityRules')]"
+                "securityRules": "[variables('CustomRules')]"
               }
             }
           ],
@@ -1704,23 +1843,6 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP inbound from local RBAST subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 112,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
               "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
@@ -1738,23 +1860,6 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM inbound from local RACK_BASTION subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 114,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
               "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
               "location": "[resourceGroup().location]",
               "properties": {
@@ -1766,125 +1871,6 @@
                 "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
                 "access": "Allow",
                 "priority": 115,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_DFW')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[variables('rackspaceBastionDFW')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 144,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_IAD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[variables('rackspaceBastionIAD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 145,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_ORD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[variables('rackspaceBastionORD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 146,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_HKG')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[variables('rackspaceBastionHKG')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 147,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_LON')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[variables('rackspaceBastionLON')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 148,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_LON5')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[variables('rackspaceBastionLON5')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 149,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_SYD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[variables('rackspaceBastionSYD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 150,
                 "direction": "Inbound"
               }
             },
@@ -2011,262 +1997,6 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_DFW')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows HTTPS",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "[variables('rackspaceBastionDFW')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 158,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_IAD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows HTTPS",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "[variables('rackspaceBastionIAD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 159,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_ORD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows HTTPS",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "[variables('rackspaceBastionORD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 160,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_HKG')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows HTTPS",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "[variables('rackspaceBastionHKG')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 167,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_LON')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows HTTPS",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "[variables('rackspaceBastionLON')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 168,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_LON5')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows HTTPS",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "[variables('rackspaceBastionLON5')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 169,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_SYD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows HTTPS",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "[variables('rackspaceBastionSYD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 170,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_LON')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[variables('rackspaceBastionLON')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 171,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_LON5')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[variables('rackspaceBastionLON5')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 172,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_DFW')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[variables('rackspaceBastionDFW')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 173,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_ORD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[variables('rackspaceBastionORD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 174,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_IAD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[variables('rackspaceBastionIAD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 175,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_HKG')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[variables('rackspaceBastionHKG')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 176,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_SYD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[variables('rackspaceBastionSYD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 177,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_PDFW')]",
-              "location": "[resourceGroup().location]",
-
-              "properties": {
-                "description": "Allows RDP",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[variables('rackspacepBastionDFW')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 178,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
               "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PDFW')]",
               "location": "[resourceGroup().location]",
               "properties": {
@@ -2278,57 +2008,6 @@
                 "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
                 "access": "Allow",
                 "priority": 179,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_PDFW')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows HTTPS",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "[variables('rackspacepBastionDFW')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 180,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_PDFW')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[variables('rackspacepBastionDFW')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 181,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_PIAD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[variables('rackspacepBastionIAD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 182,
                 "direction": "Inbound"
               }
             },
@@ -2352,57 +2031,6 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_PIAD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows HTTPS",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "[variables('rackspacepBastionIAD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 184,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_PIAD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[variables('rackspacepBastionIAD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 185,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_PORD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[variables('rackspacepBastionORD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 186,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
               "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PORD')]",
               "location": "[resourceGroup().location]",
               "properties": {
@@ -2414,57 +2042,6 @@
                 "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
                 "access": "Allow",
                 "priority": 187,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_PORD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows HTTPS",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "[variables('rackspacepBastionORD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 188,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_PORD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[variables('rackspacepBastionORD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 189,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_PHKG')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[variables('rackspacepBastionHKG')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 190,
                 "direction": "Inbound"
               }
             },
@@ -2488,57 +2065,6 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_PHKG')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows HTTPS",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "[variables('rackspacepBastionHKG')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 192,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_PHKG')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[variables('rackspacepBastionHKG')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 193,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_PLON')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[variables('rackspacepBastionLON')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 194,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
               "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PLON')]",
               "location": "[resourceGroup().location]",
               "properties": {
@@ -2550,57 +2076,6 @@
                 "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
                 "access": "Allow",
                 "priority": 195,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_PLON')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows HTTPS",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "[variables('rackspacepBastionLON')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 196,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_PLON')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[variables('rackspacepBastionLON')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 197,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_PLON5')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[variables('rackspacepBastionLON5')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 198,
                 "direction": "Inbound"
               }
             },
@@ -2624,57 +2099,6 @@
             {
               "apiVersion": "2016-03-30",
               "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_PLON5')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows HTTPS",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "[variables('rackspacepBastionLON5')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 200,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_PLON5')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[variables('rackspacepBastionLON5')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 201,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_RDP_PSYD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[variables('rackspacepBastionSYD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 202,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
               "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PSYD')]",
               "location": "[resourceGroup().location]",
               "properties": {
@@ -2686,40 +2110,6 @@
                 "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
                 "access": "Allow",
                 "priority": 203,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_HTTPS_PSYD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows HTTPS",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "[variables('rackspacepBastionSYD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 204,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_WinRM_PSYD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[variables('rackspacepBastionSYD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 205,
                 "direction": "Inbound"
               }
             },
