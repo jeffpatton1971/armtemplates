@@ -118,7 +118,6 @@
     "defaultRules": [
       {
         "name": "[concat('Allow_LOCAL_SUBNET_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows intra-subnet communication",
           "protocol": "*",
@@ -133,7 +132,6 @@
       },
       {
         "name": "[concat('Allow_AZURE_LB_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows inbound traffic from Azure Load Balancer",
           "protocol": "*",
@@ -148,7 +146,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_RDP_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows RDP inbound from local RBAST subnet",
           "protocol": "Tcp",
@@ -163,7 +160,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_SSH_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH inbound from local RBAST subnet",
           "protocol": "Tcp",
@@ -178,7 +174,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_WinRM_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows WinRM inbound from local RACK_BASTION subnet",
           "protocol": "Tcp",
@@ -193,7 +188,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
           "protocol": "Tcp",
@@ -208,7 +202,6 @@
       },
       {
         "name": "[concat('Deny_ALL_INBOUND_UDP')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Deny all inbound UDP",
           "protocol": "Udp",
@@ -223,7 +216,6 @@
       },
       {
         "name": "[concat('Deny_ALL_INBOUND_TCP')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Deny all inbound TCP",
           "protocol": "Tcp",
@@ -240,7 +232,6 @@
     "dcRules": [
       {
         "name": "[concat('Allow_LOCAL_SUBNET_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows intra-subnet communication",
           "protocol": "*",
@@ -255,7 +246,6 @@
       },
       {
         "name": "[concat('Allow_AZURE_LB_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows inbound traffic from Azure Load Balancer",
           "protocol": "*",
@@ -270,7 +260,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_RDP_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows RDP inbound from local RBAST subnet",
           "protocol": "Tcp",
@@ -285,7 +274,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_SSH_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH inbound from local RBAST subnet",
           "protocol": "Tcp",
@@ -300,7 +288,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_WinRM_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows WinRM inbound from local RACK_BASTION subnet",
           "protocol": "Tcp",
@@ -315,7 +302,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
           "protocol": "Tcp",
@@ -330,7 +316,6 @@
       },
       {
         "name": "[concat('Allow_TCP_UDP_53')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow UDP 53",
           "protocol": "*",
@@ -345,7 +330,6 @@
       },
       {
         "name": "[concat('Allow_TCP_UDP_88')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow TCP and UDP 88",
           "protocol": "*",
@@ -360,7 +344,6 @@
       },
       {
         "name": "[concat('Allow_UDP_123')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow UDP 123",
           "protocol": "Udp",
@@ -375,7 +358,6 @@
       },
       {
         "name": "[concat('Allow_TCP_135')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow TCP 135",
           "protocol": "Tcp",
@@ -390,7 +372,6 @@
       },
       {
         "name": "[concat('Allow_TCP_UDP_137')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow TCP and UDP 137",
           "protocol": "*",
@@ -405,7 +386,6 @@
       },
       {
         "name": "[concat('Allow_UDP_138')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow UDP 138",
           "protocol": "Udp",
@@ -420,7 +400,6 @@
       },
       {
         "name": "[concat('Allow_TCP_139')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow TCP 139",
           "protocol": "Tcp",
@@ -435,7 +414,6 @@
       },
       {
         "name": "[concat('Allow_TCP_UDP_389')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow TCP and UDP 389",
           "protocol": "*",
@@ -450,7 +428,6 @@
       },
       {
         "name": "[concat('Allow_TCP_UDP_445')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow TCP and UDP 445",
           "protocol": "*",
@@ -465,7 +442,6 @@
       },
       {
         "name": "[concat('Allow_TCP_UDP_464')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow TCP and UDP 464",
           "protocol": "*",
@@ -480,7 +456,6 @@
       },
       {
         "name": "[concat('Allow_TCP_636')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow TCP 636",
           "protocol": "Tcp",
@@ -495,7 +470,6 @@
       },
       {
         "name": "[concat('Allow_TCP_3268')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow TCP 3268",
           "protocol": "Tcp",
@@ -510,8 +484,6 @@
       },
       {
         "name": "[concat('Allow_TCP_3269')]",
-        "location": "[resourceGroup().location]",
-
         "properties": {
           "description": "Allow TCP 3269",
           "protocol": "Tcp",
@@ -526,7 +498,6 @@
       },
       {
         "name": "[concat('Allow_TCP_5722')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow TCP 5722",
           "protocol": "Tcp",
@@ -541,7 +512,6 @@
       },
       {
         "name": "[concat('Allow_TCP_UDP_49152_65535')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow TCP and UDP 49152_65535",
           "protocol": "*",
@@ -556,7 +526,6 @@
       },
       {
         "name": "[concat('Allow_TCP_9389')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow TCP 9389",
           "protocol": "Tcp",
@@ -571,7 +540,6 @@
       },
       {
         "name": "[concat('Allow_WinRM_5985')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow WinRM 5985",
           "protocol": "Tcp",
@@ -586,7 +554,6 @@
       },
       {
         "name": "[concat('Deny_ALL_INBOUND_UDP')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Deny all inbound UDP",
           "protocol": "Udp",
@@ -601,7 +568,6 @@
       },
       {
         "name": "[concat('Deny_ALL_INBOUND_TCP')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Deny all inbound TCP",
           "protocol": "Tcp",
@@ -618,7 +584,6 @@
     "agwRules": [
       {
         "name": "[concat('Allow_LOCAL_SUBNET_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows intra-subnet communication",
           "protocol": "*",
@@ -633,7 +598,6 @@
       },
       {
         "name": "[concat('Allow_AZURE_LB_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows inbound traffic from Azure Load Balancer",
           "protocol": "*",
@@ -648,7 +612,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_RDP_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows RDP inbound from local RBAST subnet",
           "protocol": "Tcp",
@@ -663,7 +626,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_SSH_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH inbound from local RBAST subnet",
           "protocol": "Tcp",
@@ -678,7 +640,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_WinRM_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows WinRM inbound from local RACK_BASTION subnet",
           "protocol": "Tcp",
@@ -693,7 +654,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
           "protocol": "Tcp",
@@ -708,7 +668,6 @@
       },
       {
         "name": "[concat('Allow_Internet_Inbound_HTTP')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows inbound http to the Application Gateway subnet",
           "protocol": "Tcp",
@@ -723,7 +682,6 @@
       },
       {
         "name": "[concat('Allow_Internet_Inbound_HTTPS')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows inbound https to the Application Gateway subnet",
           "protocol": "Tcp",
@@ -738,7 +696,6 @@
       },
       {
         "name": "[concat('Allow_TCP_UDP_65200_65535')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow TCP and UDP 65200_65535",
           "protocol": "*",
@@ -753,7 +710,6 @@
       },
       {
         "name": "[concat('Deny_ALL_INBOUND_UDP')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Deny all inbound UDP",
           "protocol": "Udp",
@@ -768,7 +724,6 @@
       },
       {
         "name": "[concat('Deny_ALL_INBOUND_TCP')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Deny all inbound TCP",
           "protocol": "Tcp",
@@ -785,7 +740,6 @@
     "cmsRules": [
       {
         "name": "[concat('Allow_LOCAL_SUBNET_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows intra-subnet communication",
           "protocol": "*",
@@ -800,7 +754,6 @@
       },
       {
         "name": "[concat('Allow_AZURE_LB_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows inbound traffic from Azure Load Balancer",
           "protocol": "*",
@@ -815,7 +768,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_RDP_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows RDP inbound from local RBAST subnet",
           "protocol": "Tcp",
@@ -830,7 +782,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_SSH_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH inbound from local RBAST subnet",
           "protocol": "Tcp",
@@ -845,7 +796,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_WinRM_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows WinRM inbound from local RACK_BASTION subnet",
           "protocol": "Tcp",
@@ -860,7 +810,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
           "protocol": "Tcp",
@@ -875,7 +824,6 @@
       },
       {
         "name": "[concat('Allow_Internet_Inbound_HTTP')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows inbound http to the Application Gateway subnet",
           "protocol": "Tcp",
@@ -890,7 +838,6 @@
       },
       {
         "name": "[concat('Allow_Internet_Inbound_HTTPS')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows inbound https to the Application Gateway subnet",
           "protocol": "Tcp",
@@ -905,7 +852,6 @@
       },
       {
         "name": "[concat('Allow_TCP_UDP_65200_65535')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow TCP and UDP 65200_65535",
           "protocol": "*",
@@ -920,7 +866,6 @@
       },
       {
         "name": "[concat('Allow_SITECORE_80_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow inbound sitecore endpoint access",
           "protocol": "Tcp",
@@ -935,7 +880,6 @@
       },
       {
         "name": "[concat('Allow_SITECORE_443_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow inbound sitecore endpoint access",
           "protocol": "Tcp",
@@ -950,7 +894,6 @@
       },
       {
         "name": "[concat('Deny_ALL_INBOUND_UDP')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Deny all inbound UDP",
           "protocol": "Udp",
@@ -965,7 +908,6 @@
       },
       {
         "name": "[concat('Deny_ALL_INBOUND_TCP')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Deny all inbound TCP",
           "protocol": "Tcp",
@@ -982,7 +924,6 @@
     "solrRules": [
       {
         "name": "[concat('Allow_LOCAL_SUBNET_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows intra-subnet communication",
           "protocol": "*",
@@ -997,7 +938,6 @@
       },
       {
         "name": "[concat('Allow_AZURE_LB_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows inbound traffic from Azure Load Balancer",
           "protocol": "*",
@@ -1012,7 +952,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_RDP_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows RDP inbound from local RBAST subnet",
           "protocol": "Tcp",
@@ -1027,7 +966,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_SSH_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH inbound from local RBAST subnet",
           "protocol": "Tcp",
@@ -1042,7 +980,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_WinRM_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows WinRM inbound from local RACK_BASTION subnet",
           "protocol": "Tcp",
@@ -1057,7 +994,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
           "protocol": "Tcp",
@@ -1072,7 +1008,6 @@
       },
       {
         "name": "[concat('Allow_Internet_Inbound_HTTP')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows inbound http to the Application Gateway subnet",
           "protocol": "Tcp",
@@ -1087,7 +1022,6 @@
       },
       {
         "name": "[concat('Allow_Internet_Inbound_HTTPS')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows inbound https to the Application Gateway subnet",
           "protocol": "Tcp",
@@ -1102,7 +1036,6 @@
       },
       {
         "name": "[concat('Allow_TCP_UDP_65200_65535')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow TCP and UDP 65200_65535",
           "protocol": "*",
@@ -1117,7 +1050,6 @@
       },
       {
         "name": "[concat('Allow_SITECORE_80_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow inbound sitecore endpoint access",
           "protocol": "Tcp",
@@ -1132,7 +1064,6 @@
       },
       {
         "name": "[concat('Allow_SITECORE_443_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow inbound sitecore endpoint access",
           "protocol": "Tcp",
@@ -1147,7 +1078,6 @@
       },
       {
         "name": "[concat('Allow_SOLR_8983_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allow inbound solr endpoint access",
           "protocol": "Tcp",
@@ -1162,7 +1092,6 @@
       },
       {
         "name": "[concat('Deny_ALL_INBOUND_UDP')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Deny all inbound UDP",
           "protocol": "Udp",
@@ -1177,7 +1106,6 @@
       },
       {
         "name": "[concat('Deny_ALL_INBOUND_TCP')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Deny all inbound TCP",
           "protocol": "Tcp",
@@ -1194,7 +1122,6 @@
     "sqlRules": [
       {
         "name": "[concat('Allow_LOCAL_SUBNET_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows intra-subnet communication",
           "protocol": "*",
@@ -1209,7 +1136,6 @@
       },
       {
         "name": "[concat('Allow_AZURE_LB_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows inbound traffic from Azure Load Balancer",
           "protocol": "*",
@@ -1224,7 +1150,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_RDP_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows RDP inbound from local RBAST subnet",
           "protocol": "Tcp",
@@ -1239,7 +1164,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_SSH_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH inbound from local RBAST subnet",
           "protocol": "Tcp",
@@ -1254,7 +1178,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_WinRM_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows WinRM inbound from local RACK_BASTION subnet",
           "protocol": "Tcp",
@@ -1269,7 +1192,6 @@
       },
       {
         "name": "[concat('Allow_',replace(replace(parameters('SourcePrefix'),'/','-'),'.','_'),'_TCP_1433_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows TCP 1433 Inbound",
           "protocol": "Tcp",
@@ -1284,7 +1206,6 @@
       },
       {
         "name": "[concat('Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
           "protocol": "Tcp",
@@ -1299,7 +1220,6 @@
       },
       {
         "name": "[concat('Deny_ALL_INBOUND_UDP')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Deny all inbound UDP",
           "protocol": "Udp",
@@ -1314,7 +1234,6 @@
       },
       {
         "name": "[concat('Deny_ALL_INBOUND_TCP')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Deny all inbound TCP",
           "protocol": "Tcp",
@@ -1331,7 +1250,6 @@
     "rbastRules": [
       {
         "name": "[concat('Allow_RAX_SSH_DFW')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH",
           "protocol": "Tcp",
@@ -1346,7 +1264,6 @@
       },
       {
         "name": "[concat('Allow_RAX_SSH_IAD')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH",
           "protocol": "Tcp",
@@ -1361,7 +1278,6 @@
       },
       {
         "name": "[concat('Allow_RAX_SSH_ORD')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH",
           "protocol": "Tcp",
@@ -1376,7 +1292,6 @@
       },
       {
         "name": "[concat('Allow_RAX_SSH_HKG')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH",
           "protocol": "Tcp",
@@ -1391,7 +1306,6 @@
       },
       {
         "name": "[concat('Allow_RAX_SSH_LON')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH",
           "protocol": "Tcp",
@@ -1406,7 +1320,6 @@
       },
       {
         "name": "[concat('Allow_RAX_SSH_LON5')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH",
           "protocol": "Tcp",
@@ -1421,7 +1334,6 @@
       },
       {
         "name": "[concat('Allow_RAX_SSH_SYD')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH",
           "protocol": "Tcp",
@@ -1436,7 +1348,6 @@
       },
       {
         "name": "[concat('Allow_RAX_SSH_PDFW')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH",
           "protocol": "Tcp",
@@ -1451,7 +1362,6 @@
       },
       {
         "name": "[concat('Allow_RAX_SSH_PIAD')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH",
           "protocol": "Tcp",
@@ -1466,7 +1376,6 @@
       },
       {
         "name": "[concat('Allow_RAX_SSH_PORD')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH",
           "protocol": "Tcp",
@@ -1481,7 +1390,6 @@
       },
       {
         "name": "[concat('Allow_RAX_SSH_PHKG')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH",
           "protocol": "Tcp",
@@ -1496,7 +1404,6 @@
       },
       {
         "name": "[concat('Allow_RAX_SSH_PLON')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH",
           "protocol": "Tcp",
@@ -1511,7 +1418,6 @@
       },
       {
         "name": "[concat('Allow_RAX_SSH_PLON5')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH",
           "protocol": "Tcp",
@@ -1526,7 +1432,6 @@
       },
       {
         "name": "[concat('Allow_RAX_SSH_PSYD')]",
-        "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH",
           "protocol": "Tcp",

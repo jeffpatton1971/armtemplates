@@ -65,6 +65,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/23 : Removed extra properties from NSG template
 - 01/23 : Updated NSG template, it's fully customizable. Pass in a deployment type for default rules for that deployment, then add additional SecurityRules in the parameters
 - 01/23 : Updated NSG template to add default rules to securityrules if provided
 - 01/23 : Updated NSG template bastion deployment to line up with Sergey's rulset
