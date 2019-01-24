@@ -14,6 +14,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - PublicIp template has been added
 
 # Breaking Changes
+- NetworkSecurityGroup template, now has a Default deploymentType where before it was VirtualMachine
 - Eventhub will have a storageAccount object
 - Network object across all templates will have updated property names
 - VMSS template has an updated upgradePolicy object, based on the new API, please check the documentation file for an example
@@ -21,6 +22,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
+- 01/24 : Add Location to all templates
 - 01/23 : Update documentation to reflect changes in network parameter
 - 01/23 : renumber NSG priorities
 - 01/21 : ~~Update eventhub to include storageAccount object~~
@@ -65,6 +67,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/24 : Updated loadbalancer template with new properties, see documentation
 - 01/24 : Updated loadbalancer template to provide the armtemplate output
 - 01/24 : Updated apiVersion to 2018-08-01 on loadbalancer template
 - 01/24 : Updated apiVersion to 2018-08-01 on virtualNetwork template

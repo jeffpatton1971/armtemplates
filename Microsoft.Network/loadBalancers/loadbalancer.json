@@ -183,6 +183,11 @@
               "protocol": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].protocol]",
               "frontendPort": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].frontendPort]",
               "backendPort": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].backendPort]",
+              "loadDistribution": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].loadDistribution]",
+              "idleTimeoutInMinutes": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].idleTimeoutInMinutes]",
+              "enableFloatingIP": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].enableFloatingIP]",
+              "enableTcpReset": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].enableTcpReset]",
+              "disableOutboundSnat": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].disableOutboundSnat]",
               "probe": {
                 "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/probes/',variables('LoadbalancingProbeName'),'-',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].backendPort)]"
               }
@@ -208,6 +213,11 @@
               "protocol": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].protocol]",
               "frontendPort": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].frontendPort]",
               "backendPort": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].backendPort]",
+              "loadDistribution": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].loadDistribution]",
+              "idleTimeoutInMinutes": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].idleTimeoutInMinutes]",
+              "enableFloatingIP": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].enableFloatingIP]",
+              "enableTcpReset": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].enableTcpReset]",
+              "disableOutboundSnat": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].disableOutboundSnat]",
               "probe": {
                 "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/probes/',variables('LoadbalancingProbeName'),'-',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].backendPort)]"
               }

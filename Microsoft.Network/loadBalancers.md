@@ -33,6 +33,11 @@ With Azure Load Balancer you can scale your applications and create high availab
           "protocol": "All",
           "frontendPort": 0,
           "backendPort": 0,
+          "loadDistribution": "Default",
+          "idleTimeoutInMinutes": 4,
+          "enableFloatingIP": false,
+          "enableTcpReset": false,
+          "disableOutboundSnat": false,
           "intervalInSeconds": 5,
           "numberOfProbes": 2
         },
@@ -43,6 +48,11 @@ With Azure Load Balancer you can scale your applications and create high availab
           "protocol": "Tcp",
           "frontendPort": 80,
           "backendPort": 80,
+          "loadDistribution": "Default",
+          "idleTimeoutInMinutes": 4,
+          "enableFloatingIP": true,
+          "enableTcpReset": false,
+          "disableOutboundSnat": false,
           "intervalInSeconds": 5,
           "numberOfProbes": 2
         },
@@ -53,6 +63,11 @@ With Azure Load Balancer you can scale your applications and create high availab
           "protocol": "Tcp",
           "frontendPort": 81,
           "backendPort": 81,
+          "loadDistribution": "Default",
+          "idleTimeoutInMinutes": 4,
+          "enableFloatingIP": false,
+          "enableTcpReset": false,
+          "disableOutboundSnat": false,
           "intervalInSeconds": 5,
           "numberOfProbes": 2
         }
