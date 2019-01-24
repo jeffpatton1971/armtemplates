@@ -21,6 +21,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
+- 01/23 : Update documentation to reflect changes in network parameter
 - 01/23 : renumber NSG priorities
 - 01/21 : ~~Update eventhub to include storageAccount object~~
 - 01/21 : ~~Update all Network object references to include updated property names~~
@@ -43,7 +44,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/23 : Update VirtualNetworks template from 2017-09-01 to 2018-08-01
 - 11/23 : ~~Update VirtualNetworkGateways template from 2017-09-01 to 2018-08-01~~
 - 11/23 : ~~Add custom option for NSG for custom rules~~
-- 11/23 : Update networkSecurityGroups from 2015-05-01-preview tp 2018-08-01
+- 11/23 : ~~Update networkSecurityGroups from 2015-05-01-preview tp 2018-08-01~~
 - 11/23 : Update loadBalancers template from 2017-06-01 to 2018-08-01
 - 11/23 : ~~Update ApplicationGateway template from 2017-06-01 to 2018-08-01~~
 - 11/23 : ~~Update ScaleSets template from 2017-12-01 to 2018-10-01~~
