@@ -67,6 +67,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/24 : Cleaned up the bastion-nsg.json utility template to remove all but SSH rules
+- 01/24 : Added update-nsg.json to Utilities, this allows you to pass in an array of securityRules to be *added* to an existing NSG
 - 01/24 : Updated loadbalancer template with new properties, see documentation
 - 01/24 : Updated loadbalancer template to provide the armtemplate output
 - 01/24 : Updated apiVersion to 2018-08-01 on loadbalancer template
