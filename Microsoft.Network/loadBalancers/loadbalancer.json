@@ -113,194 +113,201 @@
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
-    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]"
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "internetalFrontendIpConfiguration": {
+      "copy": [
+        {
+          "name": "frontendIPConfigurations",
+          "count": "[length(parameters('loadBalancingRules'))]",
+          "input": {
+            "name": "[parameters('loadBalancingRules')[copyIndex('frontendIPConfigurations')].FrontendIpConfigurationName]",
+            "properties": {
+              "subnet": {
+                "id": "[variables('subnetId')]"
+              },
+              "privateIPAddress": "[parameters('loadBalancingRules')[copyIndex('frontendIPConfigurations')].privateIPAddress]",
+              "privateIPAllocationMethod": "[parameters('loadBalancingRules')[copyIndex('frontendIPConfigurations')].privateIPAllocationMethod]"
+            }
+          }
+        }
+      ]
+    },
+    "externalFrontendIpConfiguration": {
+      "copy": [
+        {
+          "name": "frontendIPConfigurations",
+          "count": 1,
+          "input": {
+            "name": "[variables('FrontendIpConfigurationName')]",
+            "properties": {
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('name'),'-pip'))]"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "frontendIpConfiguration": "[if(equals(variables('isExternal'),1),variables('internetalFrontendIpConfiguration'),variables('externalFrontendIpConfiguration'))]",
+    "probes": {
+      "copy": [
+        {
+          "name": "probes",
+          "count": "[length(parameters('loadBalancingRules'))]",
+          "input": {
+            "name": "[concat(variables('LoadbalancingProbeName'),'-',parameters('loadBalancingRules')[copyIndex('probes')].backendPort)]",
+            "properties": {
+              "protocol": "[parameters('loadBalancingRules')[copyIndex('probes')].protocol]",
+              "port": "[parameters('loadBalancingRules')[copyIndex('probes')].backendPort]",
+              "intervalInSeconds": "[parameters('loadBalancingRules')[copyIndex('probes')].intervalInSeconds]",
+              "numberOfProbes": "[parameters('loadBalancingRules')[copyIndex('probes')].numberOfProbes]"
+            }
+          }
+        }
+      ]
+    },
+    "internalLoadBalancingRules": {
+      "copy": [
+        {
+          "name": "loadBalancingRules",
+          "count": "[length(parameters('loadBalancingRules'))]",
+          "input": {
+            "name": "[concat(variables('LoadBalancingRuleName'),'-',add(copyIndex('loadBalancingRules'),1))]",
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/frontendIPConfigurations/',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].FrontendIpConfigurationName)]"
+              },
+              "backendAddressPool": {
+                "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/backendAddressPools/',variables('BackendAddressPoolName'))]"
+              },
+              "protocol": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].protocol]",
+              "frontendPort": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].frontendPort]",
+              "backendPort": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].backendPort]",
+              "probe": {
+                "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/probes/',variables('LoadbalancingProbeName'),'-',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].backendPort)]"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "externalLoadBalancingRules": {
+      "copy": [
+        {
+          "name": "loadBalancingRules",
+          "count": "[length(parameters('loadBalancingRules'))]",
+          "input": {
+            "name": "[concat(variables('LoadBalancingRuleName'),'-',add(copyIndex('loadBalancingRules'),1))]",
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/frontendIPConfigurations/',variables('FrontendIpConfigurationName'))]"
+              },
+              "backendAddressPool": {
+                "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/backendAddressPools/',variables('BackendAddressPoolName'))]"
+              },
+              "protocol": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].protocol]",
+              "frontendPort": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].frontendPort]",
+              "backendPort": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].backendPort]",
+              "probe": {
+                "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/probes/',variables('LoadbalancingProbeName'),'-',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].backendPort)]"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "loadBalancingRules": "[if(equals(variables('isExternal'),1),variables('internalLoadBalancingRules'),variables('externalLoadBalancingRules'))]",
+    "publicIp": {
+      "apiVersion": "2017-09-01",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[concat(parameters('name'),'-pip')]",
+      "location": "[variables('location')]",
+      "tags": "[variables('tags')]",
+      "dependsOn": [],
+      "sku": {
+        "name": "Basic"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "[parameters('publicIPAllocationMethod')]",
+        "idleTimeoutInMinutes": 4,
+        "publicIpAddressVersion": "IPv4"
+      }
+    },
+    "ilb": {
+      "name": "[variables('LoadBalancerName')]",
+      "type": "Microsoft.Network/loadBalancers",
+      "apiVersion": "2018-08-01",
+      "location": "[variables('location')]",
+      "tags": "[variables('tags')]",
+      "sku": {
+        "name": "[parameters('sku')]"
+      },
+      "properties": {
+        "frontendIPConfigurations": "[variables('frontendIpConfiguration').frontendIPConfigurations]",
+        "backendAddressPools": [
+          {
+            "name": "[variables('BackendAddressPoolName')]"
+          }
+        ],
+        "loadBalancingRules": "[variables('loadBalancingRules').loadBalancingRules]",
+        "probes": "[variables('probes').probes]"
+      }
+    },
+    "elb": {
+      "name": "[variables('LoadBalancerName')]",
+      "type": "Microsoft.Network/loadBalancers",
+      "apiVersion": "2018-08-01",
+      "dependsOn": [
+        "[concat(parameters('name'),'-pip')]"
+      ],
+      "location": "[variables('location')]",
+      "tags": "[variables('tags')]",
+      "sku": {
+        "name": "[parameters('sku')]"
+      },
+      "properties": {
+        "frontendIPConfigurations": "[variables('frontendIpConfiguration').frontendIPConfigurations]",
+        "backendAddressPools": [
+          {
+            "name": "[variables('BackendAddressPoolName')]"
+          }
+        ],
+        "loadBalancingRules": "[variables('loadBalancingRules').loadBalancingRules]",
+        "probes": "[variables('probes').probes]"
+      }
+    },
+    "lb": "[if(equals(variables('isExternal'),1),variables('ilb'),variables('elb'))]",
+    "LoadBalancer": "[if(equals(variables('isExternal'),1),createArray(variables('lb')),createArray(variables('publicIp'),variables('lb')))]"
   },
   "resources": [
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
-      "name": "[concat(variables('LoadBalancerName'),'-external')]",
-      "condition": "[equals(variables('isExternal'),0)]",
+      "name": "[concat('Deploy-',variables('LoadBalancerName'))]",
       "dependsOn": [],
       "properties": {
         "mode": "Incremental",
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
           "contentVersion": "2018.11.01.0",
-          "resources": [
-            {
-              "apiVersion": "2017-09-01",
-              "type": "Microsoft.Network/publicIPAddresses",
-              "name": "[concat(parameters('name'),'-pip')]",
-              "location": "[variables('location')]",
-              "dependsOn": [],
-              "sku": {
-                "name": "Basic"
-              },
-              "properties": {
-                "publicIPAllocationMethod": "[parameters('publicIPAllocationMethod')]",
-                "idleTimeoutInMinutes": 4,
-                "publicIpAddressVersion": "IPv4"
-              }
-            },
-            {
-              "type": "Microsoft.Network/loadBalancers",
-              "name": "[variables('LoadBalancerName')]",
-              "apiVersion": "2017-09-01",
-              "dependsOn": [
-                "[concat(parameters('name'),'-pip')]"
-              ],
-              "location": "[resourceGroup().location]",
-              "sku": {
-                "name": "[parameters('sku')]"
-              },
-              "properties": {
-                "frontendIPConfigurations": [
-                  {
-                    "name": "[variables('FrontendIpConfigurationName')]",
-                    "properties": {
-                      "publicIPAddress": {
-                        "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('name'),'-pip'))]"
-                      }
-                    }
-                  }
-                ],
-                "backendAddressPools": [
-                  {
-                    "name": "[variables('BackendAddressPoolName')]"
-                  }
-                ],
-                "copy": [
-                  {
-                    "name": "loadBalancingRules",
-                    "count": "[length(parameters('loadBalancingRules'))]",
-                    "input": {
-                      "name": "[concat(variables('LoadBalancingRuleName'),'-',add(copyIndex('loadBalancingRules'),1))]",
-                      "properties": {
-                        "frontendIPConfiguration": {
-                          "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/frontendIPConfigurations/',variables('FrontendIpConfigurationName'))]"
-                        },
-                        "backendAddressPool": {
-                          "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/backendAddressPools/',variables('BackendAddressPoolName'))]"
-                        },
-                        "protocol": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].protocol]",
-                        "frontendPort": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].frontendPort]",
-                        "backendPort": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].backendPort]",
-                        "probe": {
-                          "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/probes/',variables('LoadbalancingProbeName'),'-',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].backendPort)]"
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "name": "probes",
-                    "count": "[length(parameters('loadBalancingRules'))]",
-                    "input": {
-                      "name": "[concat(variables('LoadbalancingProbeName'),'-',parameters('loadBalancingRules')[copyIndex('probes')].backendPort)]",
-                      "properties": {
-                        "protocol": "[parameters('loadBalancingRules')[copyIndex('probes')].protocol]",
-                        "port": "[parameters('loadBalancingRules')[copyIndex('probes')].backendPort]",
-                        "intervalInSeconds": "[parameters('loadBalancingRules')[copyIndex('probes')].intervalInSeconds]",
-                        "numberOfProbes": "[parameters('loadBalancingRules')[copyIndex('probes')].numberOfProbes]"
-                      }
-                    }
-                  }
-                ]
-              },
-              "tags": "[variables('tags')]"
-            }
-          ],
-          "outputs": {
-          }
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
-      "name": "[concat(variables('LoadBalancerName'),'-internal')]",
-      "condition": "[equals(variables('isExternal'),1)]",
-      "dependsOn": [],
-      "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.11.01.0",
-          "resources": [
-            {
-              "type": "Microsoft.Network/loadBalancers",
-              "name": "[variables('LoadBalancerName')]",
-              "apiVersion": "2017-09-01",
-              "dependsOn": [],
-              "location": "[variables('location')]",
-              "sku": {
-                "name": "[parameters('sku')]"
-              },
-              "properties": {
-                "backendAddressPools": [
-                  {
-                    "name": "[variables('BackendAddressPoolName')]"
-                  }
-                ],
-                "copy": [
-                  {
-                    "name": "loadBalancingRules",
-                    "count": "[length(parameters('loadBalancingRules'))]",
-                    "input": {
-                      "name": "[concat(variables('LoadBalancingRuleName'),'-',add(copyIndex('loadBalancingRules'),1))]",
-                      "properties": {
-                        "frontendIPConfiguration": {
-                          "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/frontendIPConfigurations/',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].FrontendIpConfigurationName)]"
-                        },
-                        "backendAddressPool": {
-                          "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/backendAddressPools/',variables('BackendAddressPoolName'))]"
-                        },
-                        "protocol": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].protocol]",
-                        "frontendPort": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].frontendPort]",
-                        "backendPort": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].backendPort]",
-                        "probe": {
-                          "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/probes/',variables('LoadbalancingProbeName'),'-',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].backendPort)]"
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "name": "probes",
-                    "count": "[length(parameters('loadBalancingRules'))]",
-                    "input": {
-                      "name": "[concat(variables('LoadbalancingProbeName'),'-',parameters('loadBalancingRules')[copyIndex('probes')].backendPort)]",
-                      "properties": {
-                        "protocol": "[parameters('loadBalancingRules')[copyIndex('probes')].protocol]",
-                        "port": "[parameters('loadBalancingRules')[copyIndex('probes')].backendPort]",
-                        "intervalInSeconds": "[parameters('loadBalancingRules')[copyIndex('probes')].intervalInSeconds]",
-                        "numberOfProbes": "[parameters('loadBalancingRules')[copyIndex('probes')].numberOfProbes]"
-                      }
-                    }
-                  },
-                  {
-                    "name": "frontendIPConfigurations",
-                    "count": "[length(parameters('loadBalancingRules'))]",
-                    "input": {
-                      "name": "[parameters('loadBalancingRules')[copyIndex('frontendIPConfigurations')].FrontendIpConfigurationName]",
-                      "properties": {
-                        "subnet": {
-                          "id": "[variables('subnetId')]"
-                        },
-                        "privateIPAddress": "[parameters('loadBalancingRules')[copyIndex('frontendIPConfigurations')].privateIPAddress]",
-                        "privateIPAllocationMethod": "[parameters('loadBalancingRules')[copyIndex('frontendIPConfigurations')].privateIPAllocationMethod]"
-                      }
-                    }
-                  }
-                ]
-              },
-              "tags": "[variables('tags')]"
-            }
-          ],
+          "resources": "[variables('LoadBalancer')]",
           "outputs": {
           }
         }
       }
     }
   ],
-  "outputs": {}
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[variables('LoadBalancer')]",
+        "outputs": {}
+      }
+    }
+  }
 }

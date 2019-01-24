@@ -1,42 +1,63 @@
 ﻿{
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-  "contentVersion": "2019.01.01.0",
+  "contentVersion": "2018.12.01.0",
   "parameters": {
     "name": {
-      "value": ""
-    },
-    "sku": {
-      "value": "Basic"
+      "value": "lb"
     },
     "Network": {
-      "value": {}
-    },
-    "loadBalancingRules": {
-      "value": []
-    },
-    "publicIPAllocationMethod": {
-      "value": "Dynamic"
+      "value": {
+        "ResourceGroupName": "testing-rg",
+        "VirtualNetworkName": "sample-vnet",
+        "SubnetName": "default"
+      }
     },
     "ExternalLoadBalancer": {
       "value": false
     },
-    "Location": {
-      "value": ""
+    "loadBalancingRules": {
+      "value": [
+        {
+          "FrontendIpConfigurationName": "fe-aoag",
+          "privateIPAddress": "",
+          "privateIPAllocationMethod": "Dynamic",
+          "protocol": "Tcp",
+          "frontendPort": 80,
+          "backendPort": 80,
+          "intervalInSeconds": 5,
+          "numberOfProbes": 2
+        },
+        {
+          "FrontendIpConfigurationName": "fe-ntclus",
+          "privateIPAddress": "",
+          "privateIPAllocationMethod": "Dynamic",
+          "protocol": "Tcp",
+          "frontendPort": 81,
+          "backendPort": 81,
+          "intervalInSeconds": 5,
+          "numberOfProbes": 2
+        }
+      ]
     },
     "CustomObject": {
-      "value": {}
+      "value": {
+        "tags": {
+          "Tag1": "Value1",
+          "Tag2": "Value2"
+        }
+      }
     },
     "environment": {
-      "value": ""
+      "value": "Development"
     },
     "buildDate": {
-      "value": ""
+      "value": "12/01/2018"
     },
     "buildBy": {
-      "value": ""
+      "value": "jeffrey.patton2@rackspace.com"
     },
     "RaxAutomationExclude": {
-      "value": ""
+      "value": "None"
     }
   }
 }

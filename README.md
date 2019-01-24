@@ -45,7 +45,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/23 : ~~Update VirtualNetworkGateways template from 2017-09-01 to 2018-08-01~~
 - 11/23 : ~~Add custom option for NSG for custom rules~~
 - 11/23 : ~~Update networkSecurityGroups from 2015-05-01-preview tp 2018-08-01~~
-- 11/23 : Update loadBalancers template from 2017-06-01 to 2018-08-01
+- 11/23 : ~~Update loadBalancers template from 2017-06-01 to 2018-08-01~~
 - 11/23 : ~~Update ApplicationGateway template from 2017-06-01 to 2018-08-01~~
 - 11/23 : ~~Update ScaleSets template from 2017-12-01 to 2018-10-01~~
 - 11/23 : ~~Update compute template from 2017-03-30 to 2018-10-01~~
@@ -65,6 +65,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/24 : Updated loadbalancer template to provide the armtemplate output
+- 01/24 : Updated apiVersion to 2018-08-01 on loadbalancer template
 - 01/24 : Updated apiVersion to 2018-08-01 on virtualNetwork template
 - 01/23 : Removed extra properties from NSG template
 - 01/23 : Updated NSG template, it's fully customizable. Pass in a deployment type for default rules for that deployment, then add additional SecurityRules in the parameters
