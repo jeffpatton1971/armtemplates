@@ -23,8 +23,7 @@
         "SitecoreCMS",
         "SitecoreSOLR",
         "SqlServer",
-        "VirtualMachine",
-        "Custom"
+        "Default"
       ],
       "defaultValue": "VirtualMachine"
     },
@@ -118,9 +117,7 @@
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
     "defaultRules": [
       {
-        "apiVersion": "2016-03-30",
-        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-        "name": "[concat(parameters('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
+        "name": "[concat('Allow_LOCAL_SUBNET_INBOUND')]",
         "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows intra-subnet communication",
@@ -135,9 +132,7 @@
         }
       },
       {
-        "apiVersion": "2016-03-30",
-        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-        "name": "[concat(parameters('name'),'/Allow_AZURE_LB_INBOUND')]",
+        "name": "[concat('Allow_AZURE_LB_INBOUND')]",
         "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows inbound traffic from Azure Load Balancer",
@@ -152,9 +147,7 @@
         }
       },
       {
-        "apiVersion": "2016-03-30",
-        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-        "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
+        "name": "[concat('Allow_RACK_BASTION_RDP_INBOUND')]",
         "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows RDP inbound from local RBAST subnet",
@@ -169,9 +162,7 @@
         }
       },
       {
-        "apiVersion": "2016-03-30",
-        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-        "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
+        "name": "[concat('Allow_RACK_BASTION_SSH_INBOUND')]",
         "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows SSH inbound from local RBAST subnet",
@@ -186,9 +177,7 @@
         }
       },
       {
-        "apiVersion": "2016-03-30",
-        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-        "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
+        "name": "[concat('Allow_RACK_BASTION_WinRM_INBOUND')]",
         "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows WinRM inbound from local RACK_BASTION subnet",
@@ -203,9 +192,7 @@
         }
       },
       {
-        "apiVersion": "2016-03-30",
-        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-        "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+        "name": "[concat('Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
         "location": "[resourceGroup().location]",
         "properties": {
           "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
@@ -220,9 +207,7 @@
         }
       },
       {
-        "apiVersion": "2016-03-30",
-        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-        "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_UDP')]",
+        "name": "[concat('Deny_ALL_INBOUND_UDP')]",
         "location": "[resourceGroup().location]",
         "properties": {
           "description": "Deny all inbound UDP",
@@ -237,9 +222,7 @@
         }
       },
       {
-        "apiVersion": "2016-03-30",
-        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-        "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_TCP')]",
+        "name": "[concat('Deny_ALL_INBOUND_TCP')]",
         "location": "[resourceGroup().location]",
         "properties": {
           "description": "Deny all inbound TCP",
@@ -254,10 +237,1319 @@
         }
       }
     ],
-    "CustomRules": "[if(not(empty(parameters('SecurityRules'))),concat(parameters('SecurityRules'),variables('defaultRules')),variables('defaultRules'))]"
-  },
-  "resources": [
-    {
+    "dcRules": [
+      {
+        "name": "[concat('Allow_LOCAL_SUBNET_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows intra-subnet communication",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 110,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_AZURE_LB_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows inbound traffic from Azure Load Balancer",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "AzureLoadBalancer",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 111,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_RDP_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows RDP inbound from local RBAST subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "3389",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 112,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_SSH_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH inbound from local RBAST subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 113,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_WinRM_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows WinRM inbound from local RACK_BASTION subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "5986",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 114,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 115,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_UDP_53')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow UDP 53",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "53",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 116,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_UDP_88')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow TCP and UDP 88",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "88",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 117,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_UDP_123')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow UDP 123",
+          "protocol": "Udp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "123",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 118,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_135')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow TCP 135",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "135",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 119,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_UDP_137')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow TCP and UDP 137",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "137",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 120,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_UDP_138')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow UDP 138",
+          "protocol": "Udp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "138",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 121,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_139')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow TCP 139",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "139",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 122,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_UDP_389')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow TCP and UDP 389",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "389",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 123,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_UDP_445')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow TCP and UDP 445",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "445",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 124,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_UDP_464')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow TCP and UDP 464",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "464",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 125,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_636')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow TCP 636",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "636",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 126,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_3268')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow TCP 3268",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "3268",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 127,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_3269')]",
+        "location": "[resourceGroup().location]",
+
+        "properties": {
+          "description": "Allow TCP 3269",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "3269",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 128,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_5722')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow TCP 5722",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "5722",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 129,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_UDP_49152_65535')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow TCP and UDP 49152_65535",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "49152-65535",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 130,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_9389')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow TCP 9389",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "9389",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 131,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_WinRM_5985')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow WinRM 5985",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "5985",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 132,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Deny_ALL_INBOUND_UDP')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Deny all inbound UDP",
+          "protocol": "Udp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "*",
+          "access": "Deny",
+          "priority": 4000,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Deny_ALL_INBOUND_TCP')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Deny all inbound TCP",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "*",
+          "access": "Deny",
+          "priority": 4001,
+          "direction": "Inbound"
+        }
+      }
+    ],
+    "agwRules": [
+      {
+        "name": "[concat('Allow_LOCAL_SUBNET_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows intra-subnet communication",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 110,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_AZURE_LB_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows inbound traffic from Azure Load Balancer",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "AzureLoadBalancer",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 111,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_RDP_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows RDP inbound from local RBAST subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "3389",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 112,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_SSH_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH inbound from local RBAST subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 113,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_WinRM_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows WinRM inbound from local RACK_BASTION subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "5986",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 114,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 115,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_Internet_Inbound_HTTP')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows inbound http to the Application Gateway subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "80",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 133,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_Internet_Inbound_HTTPS')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows inbound https to the Application Gateway subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "443",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 134,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_UDP_65200_65535')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow TCP and UDP 65200_65535",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "65200-65535",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 135,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Deny_ALL_INBOUND_UDP')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Deny all inbound UDP",
+          "protocol": "Udp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "*",
+          "access": "Deny",
+          "priority": 4000,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Deny_ALL_INBOUND_TCP')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Deny all inbound TCP",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "*",
+          "access": "Deny",
+          "priority": 4001,
+          "direction": "Inbound"
+        }
+      }
+    ],
+    "cmsRules": [
+      {
+        "name": "[concat('Allow_LOCAL_SUBNET_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows intra-subnet communication",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 110,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_AZURE_LB_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows inbound traffic from Azure Load Balancer",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "AzureLoadBalancer",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 111,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_RDP_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows RDP inbound from local RBAST subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "3389",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 112,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_SSH_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH inbound from local RBAST subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 113,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_WinRM_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows WinRM inbound from local RACK_BASTION subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "5986",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 114,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 115,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_Internet_Inbound_HTTP')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows inbound http to the Application Gateway subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "80",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 133,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_Internet_Inbound_HTTPS')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows inbound https to the Application Gateway subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "443",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 134,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_UDP_65200_65535')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow TCP and UDP 65200_65535",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "65200-65535",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 135,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_SITECORE_80_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow inbound sitecore endpoint access",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "80",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 136,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_SITECORE_443_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow inbound sitecore endpoint access",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "443",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 137,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Deny_ALL_INBOUND_UDP')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Deny all inbound UDP",
+          "protocol": "Udp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "*",
+          "access": "Deny",
+          "priority": 4000,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Deny_ALL_INBOUND_TCP')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Deny all inbound TCP",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "*",
+          "access": "Deny",
+          "priority": 4001,
+          "direction": "Inbound"
+        }
+      }
+    ],
+    "solrRules": [
+      {
+        "name": "[concat('Allow_LOCAL_SUBNET_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows intra-subnet communication",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 110,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_AZURE_LB_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows inbound traffic from Azure Load Balancer",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "AzureLoadBalancer",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 111,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_RDP_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows RDP inbound from local RBAST subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "3389",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 112,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_SSH_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH inbound from local RBAST subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 113,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_WinRM_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows WinRM inbound from local RACK_BASTION subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "5986",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 114,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 115,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_Internet_Inbound_HTTP')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows inbound http to the Application Gateway subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "80",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 133,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_Internet_Inbound_HTTPS')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows inbound https to the Application Gateway subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "443",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 134,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_UDP_65200_65535')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow TCP and UDP 65200_65535",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "65200-65535",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 135,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_SITECORE_80_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow inbound sitecore endpoint access",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "80",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 138,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_SITECORE_443_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow inbound sitecore endpoint access",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "443",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 139,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_SOLR_8983_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allow inbound solr endpoint access",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "8983",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 140,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Deny_ALL_INBOUND_UDP')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Deny all inbound UDP",
+          "protocol": "Udp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "*",
+          "access": "Deny",
+          "priority": 4000,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Deny_ALL_INBOUND_TCP')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Deny all inbound TCP",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "*",
+          "access": "Deny",
+          "priority": 4001,
+          "direction": "Inbound"
+        }
+      }
+    ],
+    "sqlRules": [
+      {
+        "name": "[concat('Allow_LOCAL_SUBNET_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows intra-subnet communication",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 110,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_AZURE_LB_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows inbound traffic from Azure Load Balancer",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "AzureLoadBalancer",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 111,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_RDP_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows RDP inbound from local RBAST subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "3389",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 112,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_SSH_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH inbound from local RBAST subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 113,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_WinRM_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows WinRM inbound from local RACK_BASTION subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "5986",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 114,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_',replace(replace(parameters('SourcePrefix'),'/','-'),'.','_'),'_TCP_1433_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows TCP 1433 Inbound",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "1433",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 141,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 115,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Deny_ALL_INBOUND_UDP')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Deny all inbound UDP",
+          "protocol": "Udp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "*",
+          "access": "Deny",
+          "priority": 4000,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Deny_ALL_INBOUND_TCP')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Deny all inbound TCP",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "*",
+          "access": "Deny",
+          "priority": 4001,
+          "direction": "Inbound"
+        }
+      }
+    ],
+    "rbastRules": [
+      {
+        "name": "[concat('Allow_RAX_SSH_DFW')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[variables('rackspaceBastionDFW')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 151,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SSH_IAD')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[variables('rackspaceBastionIAD')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 152,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SSH_ORD')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[variables('rackspaceBastionORD')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 153,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SSH_HKG')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[variables('rackspaceBastionHKG')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 154,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SSH_LON')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[variables('rackspaceBastionLON')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 155,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SSH_LON5')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[variables('rackspaceBastionLON5')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 156,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SSH_SYD')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[variables('rackspaceBastionSYD')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 157,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SSH_PDFW')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[variables('rackspacepBastionDFW')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 179,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SSH_PIAD')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[variables('rackspacepBastionIAD')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 183,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SSH_PORD')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[variables('rackspacepBastionORD')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 187,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SSH_PHKG')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[variables('rackspacepBastionHKG')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 191,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SSH_PLON')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[variables('rackspacepBastionLON')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 195,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SSH_PLON5')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[variables('rackspacepBastionLON5')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 199,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SSH_PSYD')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "description": "Allows SSH",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[variables('rackspacepBastionSYD')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 203,
+          "direction": "Inbound"
+        }
+      }
+    ],
+    "SecurityRules": {
+      "ApplicationGateway": "[if(not(empty(parameters('SecurityRules'))),concat(parameters('SecurityRules'),variables('agwRules')),variables('agwRules'))]",
+      "Bastion": "[if(not(empty(parameters('SecurityRules'))),concat(parameters('SecurityRules'),variables('rbastRules')),variables('rbastRules'))]",
+      "DomainController": "[if(not(empty(parameters('SecurityRules'))),concat(parameters('SecurityRules'),variables('dcRules')),variables('dcRules'))]",
+      "SitecoreCMS": "[if(not(empty(parameters('SecurityRules'))),concat(parameters('SecurityRules'),variables('cmsRules')),variables('cmsRules'))]",
+      "SitecoreSOLR": "[if(not(empty(parameters('SecurityRules'))),concat(parameters('SecurityRules'),variables('solrRules')),variables('solrRules'))]",
+      "SqlServer": "[if(not(empty(parameters('SecurityRules'))),concat(parameters('SecurityRules'),variables('sqlRules')),variables('sqlRules'))]",
+      "Default": "[if(not(empty(parameters('SecurityRules'))),concat(parameters('SecurityRules'),variables('defaultRules')),variables('defaultRules'))]"
+    },
+    "subnet": {
       "apiVersion": "2018-04-01",
       "type": "Microsoft.Network/virtualNetworks/subnets",
       "name": "[concat(parameters('Network').VirtualNetworkName,'/',parameters('Network').SubnetName)]",
@@ -270,1889 +1562,56 @@
         }
       }
     },
-    {
-      "apiVersion": "2015-05-01-preview",
+    "networkSecurityGroup": {
+      "apiVersion": "2018-08-01",
       "type": "Microsoft.Network/networkSecurityGroups",
       "name": "[parameters('name')]",
-      "dependsOn": [
-      ],
       "location": "[resourceGroup().location]",
+      "dependsOn": [ "[concat('Microsoft.Network/virtualNetworks/',parameters('Network').VirtualNetworkName,'/subnets/',parameters('Network').SubnetName)]" ],
+      "properties": {
+        "securityRules": "[variables('SecurityRules')[parameters('DeploymentType')]]"
+      },
       "tags": "[variables('tags')]"
     },
+    "resourceId": "[concat('/subscriptions/',subscription().id,'/','/resourceGroups/',resourceGroup().name,'/providers/Microsoft.Network/networkSecurityGroups/',parameters('name'))]"
+  },
+  "resources": [
     {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
-      "resourceGroup": "[parameters('Network').VirtualNetworkResourceGroupName]",
-      "name": "Custom-SecurityRules",
-      "condition": "[equals(parameters('DeploymentType'),'Custom')]",
-      "dependsOn": [],
+      "apiVersion": "2018-04-01",
+      "type": "Microsoft.Network/virtualNetworks/subnets",
+      "name": "[concat(parameters('Network').VirtualNetworkName,'/',parameters('Network').SubnetName)]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [ "[concat('Microsoft.Network/networkSecurityGroups/',parameters('name'))]" ],
       "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.11.01.0",
-          "parameters": {},
-          "variables": {},
-          "resources": [
-            {
-              "type": "Microsoft.Network/networkSecurityGroups",
-              "apiVersion": "2016-03-30",
-              "name": "[parameters('name')]",
-              "location": "[resourceGroup().location]",
-              "tags": "[variables('tags')]",
-              "properties": {
-                "securityRules": "[variables('CustomRules')]"
-              }
-            }
-          ],
-          "outputs": {}
-        }
-      }
-    },
-
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
-      "resourceGroup": "[parameters('Network').VirtualNetworkResourceGroupName]",
-      "name": "VirtualMachine-SecurityRules",
-      "condition": "[equals(parameters('DeploymentType'),'VirtualMachine')]",
-      "dependsOn": [],
-      "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.11.01.0",
-          "parameters": {},
-          "variables": {},
-          "resources": [
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows intra-subnet communication",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 110,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_AZURE_LB_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows inbound traffic from Azure Load Balancer",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "AzureLoadBalancer",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 111,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP inbound from local RBAST subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 112,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH inbound from local RBAST subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 113,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM inbound from local RACK_BASTION subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 114,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "4421",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 115,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_UDP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Deny all inbound UDP",
-                "protocol": "Udp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "*",
-                "access": "Deny",
-                "priority": 4000,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_TCP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Deny all inbound TCP",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "*",
-                "access": "Deny",
-                "priority": 4001,
-                "direction": "Inbound"
-              }
-            }
-          ],
-          "outputs": {}
+        "addressPrefix": "[parameters('DestinationPrefix')]",
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups',parameters('name'))]"
         }
       }
     },
     {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
-      "resourceGroup": "[parameters('Network').VirtualNetworkResourceGroupName]",
-      "name": "DomainController-SecurityRules",
-      "condition": "[equals(parameters('DeploymentType'),'DomainController')]",
-      "dependsOn": [],
+      "apiVersion": "2018-08-01",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('name')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [  ],
       "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.11.01.0",
-          "parameters": {},
-          "variables": {},
-          "resources": [
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows intra-subnet communication",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 110,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_AZURE_LB_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows inbound traffic from Azure Load Balancer",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "AzureLoadBalancer",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 111,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP inbound from local RBAST subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 112,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH inbound from local RBAST subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 113,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM inbound from local RACK_BASTION subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 114,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "4421",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 115,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_53')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow UDP 53",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "53",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 116,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_88')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow TCP and UDP 88",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "88",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 117,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_UDP_123')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow UDP 123",
-                "protocol": "Udp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "123",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 118,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_135')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow TCP 135",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "135",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 119,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_137')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow TCP and UDP 137",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "137",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 120,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_UDP_138')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow UDP 138",
-                "protocol": "Udp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "138",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 121,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_139')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow TCP 139",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "139",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 122,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_389')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow TCP and UDP 389",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "389",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 123,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_445')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow TCP and UDP 445",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "445",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 124,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_464')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow TCP and UDP 464",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "464",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 125,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_636')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow TCP 636",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "636",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 126,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_3268')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow TCP 3268",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3268",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 127,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_3269')]",
-              "location": "[resourceGroup().location]",
-
-              "properties": {
-                "description": "Allow TCP 3269",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3269",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 128,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_5722')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow TCP 5722",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5722",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 129,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_49152_65535')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow TCP and UDP 49152_65535",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "49152-65535",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 130,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_9389')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow TCP 9389",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "9389",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 131,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_WinRM_5985')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow WinRM 5985",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5985",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 132,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_UDP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Deny all inbound UDP",
-                "protocol": "Udp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "*",
-                "access": "Deny",
-                "priority": 4000,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_TCP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Deny all inbound TCP",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "*",
-                "access": "Deny",
-                "priority": 4001,
-                "direction": "Inbound"
-              }
-            }
-          ],
-          "outputs": {}
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
-      "resourceGroup": "[parameters('Network').VirtualNetworkResourceGroupName]",
-      "name": "ApplicationGateway-SecurityRules",
-      "condition": "[equals(parameters('DeploymentType'),'ApplicationGateway')]",
-      "dependsOn": [],
-      "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.11.01.0",
-          "parameters": {},
-          "variables": {},
-          "resources": [
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows intra-subnet communication",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 110,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_AZURE_LB_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows inbound traffic from Azure Load Balancer",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "AzureLoadBalancer",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 111,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP inbound from local RBAST subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 112,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH inbound from local RBAST subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 113,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM inbound from local RACK_BASTION subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 114,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "4421",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 115,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_Internet_Inbound_HTTP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows inbound http to the Application Gateway subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "80",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 133,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_Internet_Inbound_HTTPS')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows inbound https to the Application Gateway subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 134,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_65200_65535')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow TCP and UDP 65200_65535",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "65200-65535",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 135,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_UDP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Deny all inbound UDP",
-                "protocol": "Udp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "*",
-                "access": "Deny",
-                "priority": 4000,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_TCP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Deny all inbound TCP",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "*",
-                "access": "Deny",
-                "priority": 4001,
-                "direction": "Inbound"
-              }
-            }
-          ],
-          "outputs": {}
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
-      "resourceGroup": "[parameters('Network').VirtualNetworkResourceGroupName]",
-      "name": "SitecoreCMS-SecurityRules",
-      "condition": "[equals(parameters('DeploymentType'),'SitecoreCMS')]",
-      "dependsOn": [],
-      "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.11.01.0",
-          "parameters": {},
-          "variables": {},
-          "resources": [
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows intra-subnet communication",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 110,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_AZURE_LB_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows inbound traffic from Azure Load Balancer",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "AzureLoadBalancer",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 111,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP inbound from local RBAST subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 112,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH inbound from local RBAST subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 113,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM inbound from local RACK_BASTION subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 114,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "4421",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 115,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_Internet_Inbound_HTTP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows inbound http to the Application Gateway subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "80",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 133,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_Internet_Inbound_HTTPS')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows inbound https to the Application Gateway subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 134,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_65200_65535')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow TCP and UDP 65200_65535",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "65200-65535",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 135,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_SITECORE_80_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow inbound sitecore endpoint access",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "80",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 136,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_SITECORE_443_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow inbound sitecore endpoint access",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 137,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_UDP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Deny all inbound UDP",
-                "protocol": "Udp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "*",
-                "access": "Deny",
-                "priority": 4000,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_TCP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Deny all inbound TCP",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "*",
-                "access": "Deny",
-                "priority": 4001,
-                "direction": "Inbound"
-              }
-            }
-          ],
-          "outputs": {}
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
-      "resourceGroup": "[parameters('Network').VirtualNetworkResourceGroupName]",
-      "name": "SitecoreSOLR-SecurityRules",
-      "condition": "[equals(parameters('DeploymentType'),'SitecoreSOLR')]",
-      "dependsOn": [],
-      "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.11.01.0",
-          "parameters": {},
-          "variables": {},
-          "resources": [
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows intra-subnet communication",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 110,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_AZURE_LB_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows inbound traffic from Azure Load Balancer",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "AzureLoadBalancer",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 111,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP inbound from local RBAST subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 112,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH inbound from local RBAST subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 113,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM inbound from local RACK_BASTION subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 114,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "4421",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 115,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_Internet_Inbound_HTTP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows inbound http to the Application Gateway subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "80",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 133,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_Internet_Inbound_HTTPS')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows inbound https to the Application Gateway subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 134,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_TCP_UDP_65200_65535')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow TCP and UDP 65200_65535",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "65200-65535",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 135,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_SITECORE_80_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow inbound sitecore endpoint access",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "80",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 138,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_SITECORE_443_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow inbound sitecore endpoint access",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 139,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_SOLR_8983_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allow inbound solr endpoint access",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "8983",
-                "sourceAddressPrefix": "VirtualNetwork",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 140,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_UDP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Deny all inbound UDP",
-                "protocol": "Udp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "*",
-                "access": "Deny",
-                "priority": 4000,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_TCP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Deny all inbound TCP",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "*",
-                "access": "Deny",
-                "priority": 4001,
-                "direction": "Inbound"
-              }
-            }
-          ],
-          "outputs": {}
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
-      "resourceGroup": "[parameters('Network').VirtualNetworkResourceGroupName]",
-      "name": "SqlServer-SecurityRules",
-      "condition": "[equals(parameters('DeploymentType'),'SqlServer')]",
-      "dependsOn": [],
-      "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.11.01.0",
-          "parameters": {},
-          "variables": {},
-          "resources": [
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows intra-subnet communication",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 110,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_AZURE_LB_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows inbound traffic from Azure Load Balancer",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "AzureLoadBalancer",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 111,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_RDP_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows RDP inbound from local RBAST subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "3389",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 112,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH inbound from local RBAST subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 113,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_WinRM_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows WinRM inbound from local RACK_BASTION subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "5986",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 114,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_',replace(replace(parameters('SourcePrefix'),'/','-'),'.','_'),'_TCP_1433_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows TCP 1433 Inbound",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "1433",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 141,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "4421",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 115,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_UDP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Deny all inbound UDP",
-                "protocol": "Udp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "*",
-                "access": "Deny",
-                "priority": 4000,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_TCP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Deny all inbound TCP",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "*",
-                "access": "Deny",
-                "priority": 4001,
-                "direction": "Inbound"
-              }
-            }
-          ],
-          "outputs": {}
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
-      "resourceGroup": "[parameters('Network').VirtualNetworkResourceGroupName]",
-      "name": "Bastion-SecurityRules",
-      "condition": "[equals(parameters('DeploymentType'),'Bastion')]",
-      "dependsOn": [],
-      "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "2018.11.01.0",
-          "parameters": {},
-          "variables": {},
-          "resources": [
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows intra-subnet communication",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 110,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_AZURE_LB_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows inbound traffic from Azure Load Balancer",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "AzureLoadBalancer",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 111,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SSH_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH inbound from local RBAST subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 113,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "4421",
-                "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 115,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_DFW')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[variables('rackspaceBastionDFW')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 151,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_IAD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[variables('rackspaceBastionIAD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 152,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_ORD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[variables('rackspaceBastionORD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 153,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_HKG')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[variables('rackspaceBastionHKG')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 154,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_LON')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[variables('rackspaceBastionLON')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 155,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_LON5')]",
-              "location": "[resourceGroup().location]",
-
-              "properties": {
-                "description": "Allows SSH",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[variables('rackspaceBastionLON5')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 156,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_SYD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[variables('rackspaceBastionSYD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 157,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PDFW')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[variables('rackspacepBastionDFW')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 179,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PIAD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[variables('rackspacepBastionIAD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 183,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PORD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[variables('rackspacepBastionORD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 187,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PHKG')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[variables('rackspacepBastionHKG')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 191,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PLON')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[variables('rackspacepBastionLON')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 195,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PLON5')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[variables('rackspacepBastionLON5')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 199,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Allow_RAX_SSH_PSYD')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Allows SSH",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "[variables('rackspacepBastionSYD')]",
-                "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-                "access": "Allow",
-                "priority": 203,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_UDP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Deny all inbound UDP",
-                "protocol": "Udp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "*",
-                "access": "Deny",
-                "priority": 4000,
-                "direction": "Inbound"
-              }
-            },
-            {
-              "apiVersion": "2016-03-30",
-              "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-              "name": "[concat(parameters('name'),'/Deny_ALL_INBOUND_TCP')]",
-              "location": "[resourceGroup().location]",
-              "properties": {
-                "description": "Deny all inbound TCP",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "*",
-                "access": "Deny",
-                "priority": 4001,
-                "direction": "Inbound"
-              }
-            }
-          ],
-          "outputs": {}
-        }
-      }
+        "securityRules": "[variables('SecurityRules')[parameters('DeploymentType')]]"
+      },
+      "tags": "[variables('tags')]"
     }
   ],
   "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.01.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('subnet'),variables('networkSecurityGroup'))]",
+        "outputs": {}
+      }
+    }
   }
 }
