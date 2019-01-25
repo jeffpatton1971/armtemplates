@@ -2,6 +2,7 @@
 Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that are used, and processes that are followed to deploy a customer environment into Azure.
 
 # New Additions
+- LoadBalancer now supports properties for AOAG
 - Compute now supports E sizes for managed disk
 - Compute now supports writeAcceleratorEnabled and ultraSSDEnabled
 - Connection template has been added
