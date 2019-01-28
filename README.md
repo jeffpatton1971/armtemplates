@@ -68,6 +68,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/28 : Renamed sites template and parameter to site
+- 01/28 : Renamed serverfarms template and parameter to serverfarm
 - 01/24 : Cleaned up the bastion-nsg.json utility template to remove all but SSH rules
 - 01/24 : Added update-nsg.json to Utilities, this allows you to pass in an array of securityRules to be *added* to an existing NSG
 - 01/24 : Updated loadbalancer template with new properties, see documentation
