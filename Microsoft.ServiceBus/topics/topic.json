@@ -2,10 +2,10 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "2019.01.01.0",
   "parameters": {
-    "Namespace": {
+    "name": {
       "type": "string"
     },
-    "Topic": {
+    "Namespace": {
       "type": "string"
     },
     "CustomObject": {
@@ -80,7 +80,7 @@
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
     "queue": {
       "type": "Microsoft.ServiceBus/namespaces/topics",
-      "name": "[concat(parameters('Namespace'),'/',parameters('Topic'))]",
+      "name": "[concat(parameters('Namespace'),'/',parameters('name'))]",
       "apiVersion": "2017-04-01",
       "location": "[resourceGroup().location]",
       "scale": null,
@@ -91,7 +91,7 @@
   "resources": [
     {
       "type": "Microsoft.ServiceBus/namespaces/topics",
-      "name": "[concat(parameters('Namespace'),'/',parameters('Topic'))]",
+      "name": "[concat(parameters('Namespace'),'/',parameters('name'))]",
       "apiVersion": "2017-04-01",
       "location": "[resourceGroup().location]",
       "scale": null,
