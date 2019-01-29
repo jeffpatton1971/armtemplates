@@ -14,14 +14,14 @@ Azure Event Hubs is a Big Data streaming platform and event ingestion service, c
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "2018.12.01.0",
   "parameters": {
+    "name": {
+      "value": "$Default"
+    },
     "Namespace": {
       "value": ""
     },
     "Eventhub": {
       "value": ""
-    },
-    "ConsumerGroup": {
-      "value": "$Default"
     },
     "CustomObject": {
       "value": {

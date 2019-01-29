@@ -2,14 +2,14 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "2019.01.01.0",
   "parameters": {
+    "name": {
+      "defaultValue": "$Default",
+      "type": "string"
+    },
     "Namespace": {
       "type": "string"
     },
     "Eventhub": {
-      "type": "string"
-    },
-    "ConsumerGroup": {
-      "defaultValue": "$Default",
       "type": "string"
     },
     "CustomObject": {
@@ -83,7 +83,7 @@
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
     "consumergroup": {
-      "name": "[concat(parameters('Namespace'), '/', parameters('Eventhub'), '/', parameters('ConsumerGroup'))]",
+      "name": "[concat(parameters('Namespace'), '/', parameters('Eventhub'), '/', parameters('name'))]",
       "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
       "apiVersion": "2017-04-01",
       "location": "[resourceGroup().location]",
@@ -94,7 +94,7 @@
   },
   "resources": [
     {
-      "name": "[concat(parameters('Namespace'), '/', parameters('Eventhub'), '/', parameters('ConsumerGroup'))]",
+      "name": "[concat(parameters('Namespace'), '/', parameters('Eventhub'), '/', parameters('name'))]",
       "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
       "apiVersion": "2017-04-01",
       "location": "[resourceGroup().location]",
