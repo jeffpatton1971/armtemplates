@@ -23,6 +23,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
+- 01/29 : Correct eventhub and servicebus templates to use name paramter
 - 01/24 : Add Location to all templates
 - 01/23 : Update documentation to reflect changes in network parameter
 - 01/23 : renumber NSG priorities
