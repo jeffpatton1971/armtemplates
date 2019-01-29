@@ -14,10 +14,10 @@ Azure Service Bus is a multi-tenant cloud messaging service you can use to send 
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "2018.12.01.0",
   "parameters": {
-    "Namespace": {
+    "name": {
       "value": ""
     },
-    "Queue": {
+    "Namespace": {
       "value": ""
     },
     "MaxQueueSize": {
