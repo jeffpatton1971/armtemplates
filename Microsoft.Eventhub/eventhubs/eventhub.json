@@ -2,10 +2,10 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "2019.01.01.0",
   "parameters": {
-    "Namespace": {
+    "name": {
       "type": "string"
     },
-    "EventHub": {
+    "Namespace": {
       "type": "string"
     },
     "Capture": {
@@ -118,7 +118,7 @@
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
     "eventhub": {
-      "name": "[concat(parameters('Namespace'),'/',parameters('EventHub'))]",
+      "name": "[concat(parameters('Namespace'),'/',parameters('name'))]",
       "type": "Microsoft.EventHub/namespaces/eventhubs",
       "apiVersion": "2017-04-01",
       "location": "[resourceGroup().location]",
@@ -134,7 +134,7 @@
   },
   "resources": [
     {
-      "name": "[concat(parameters('Namespace'),'/',parameters('EventHub'))]",
+      "name": "[concat(parameters('Namespace'),'/',parameters('name'))]",
       "type": "Microsoft.EventHub/namespaces/eventhubs",
       "apiVersion": "2017-04-01",
       "location": "[resourceGroup().location]",
