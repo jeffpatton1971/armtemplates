@@ -23,7 +23,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
-- 01/29 : Correct eventhub and servicebus templates to use name paramter
+- 01/29 : ~~Correct eventhub and servicebus templates to use name paramter~~
 - 01/24 : Add Location to all templates
 - 01/23 : Update documentation to reflect changes in network parameter
 - 01/23 : renumber NSG priorities
@@ -69,6 +69,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 01/29 : Updated EventHub and ServiceBus to use name parameter for all resources
 - 01/28 : Renamed sites template and parameter to site
 - 01/28 : Renamed serverfarms template and parameter to serverfarm
 - 01/24 : Cleaned up the bastion-nsg.json utility template to remove all but SSH rules
