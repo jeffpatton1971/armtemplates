@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2019.02.01.0",
   "parameters": {
-    "Name": {
+    "name": {
       "type": "string"
     },
     "Sku": {
@@ -23,6 +23,10 @@
       "type": "bool",
       "defaultValue": false
     },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -31,8 +35,8 @@
         "Test",
         "UAT",
         "Development",
-        "Disaster Recovery",
-        "Q/A",
+        "QA",
+        "DisasterRecovery",
         "Other"
       ],
       "metadata": {
@@ -82,16 +86,15 @@
     }
   },
   "variables": {
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
-    }
-  },
-  "resources": [
-    {
-      "name": "[parameters('Name')]",
+    },
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "namespace": {
+      "name": "[parameters('name')]",
       "type": "Microsoft.EventHub/namespaces",
       "apiVersion": "2017-04-01",
       "location": "[resourceGroup().location]",
@@ -108,5 +111,38 @@
       },
       "tags": "[variables('tags')]"
     }
-  ]
+  },
+  "resources": [
+    {
+      "name": "[parameters('name')]",
+      "type": "Microsoft.EventHub/namespaces",
+      "apiVersion": "2017-04-01",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [],
+      "sku": {
+        "name": "[parameters('Sku')]",
+        "tier": "[parameters('Sku')]",
+        "capacity": "[parameters('Capacity')]"
+      },
+      "scale": null,
+      "properties": {
+        "isAutoInflateEnabled": "[parameters('AutoInflateEnabled')]",
+        "maximumThroughputUnits": "[if(parameters('AutoInflateEnabled'),parameters('Capacity'),0)]"
+      },
+      "tags": "[variables('tags')]"
+    }
+  ],
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.02.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('namespace'))]",
+        "outputs": {}
+      }
+    }
+  }
 }

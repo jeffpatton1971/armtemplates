@@ -1,8 +1,8 @@
 {
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2019.02.01.0",
   "parameters": {
-    "Name": {
+    "name": {
       "value": ""
     },
     "Sku": {
@@ -14,17 +14,20 @@
     "AutoInflateEnabled": {
       "value": false
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "11/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }

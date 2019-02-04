@@ -1,56 +1,21 @@
 ﻿{
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2019.02.01.0",
   "parameters": {
     "name": {
-      "value": "appgw"
+      "value": ""
     },
     "Network": {
-      "value": {
-        "VirtualNetworkResourceGroupName": "",
-        "VirtualNetworkName": "",
-        "SubnetName": ""
-      }
+      "value": {}
     },
     "applicationGatewayRules": {
-      "value": [
-        {
-          "frontendPort": 80,
-          "backendPort": 80,
-          "protocol": "http",
-          "affinity": "Disabled",
-          "backendPool": [
-            {
-              "IpAddress": "1.2.3.4"
-            },
-            {
-              "IpAddress": "2.4.6.8"
-            }
-          ],
-          "sslCertificate": null
-        },
-        {
-          "frontendPort": 8080,
-          "backendPort": 8080,
-          "protocol": "http",
-          "affinity": "Enabled",
-          "backendPool": [
-            {
-              "IpAddress": "1.2.3.4"
-            },
-            {
-              "IpAddress": "2.4.6.8"
-            }
-          ],
-          "sslCertificate": null
-        }
-      ]
+      "value": []
     },
     "Size": {
-      "value": "Small"
+      "value": ""
     },
     "Tier": {
-      "value": "Standard"
+      "value": ""
     },
     "Instances": {
       "value": 1
@@ -58,17 +23,20 @@
     "RuleSet": {
       "value": "3.0"
     },
+    "CustomObject": {
+      "value": {}
+    },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "11/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }

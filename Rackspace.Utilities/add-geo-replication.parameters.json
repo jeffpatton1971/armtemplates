@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2019.02.01.0",
   "parameters": {
     "SourceDatabaseName": {
       "value": [
@@ -8,25 +8,25 @@
       ]
     },
     "SourceSqlServer": {
-      "value": ""
+      "value": null
     },
     "SourceResourceGroup": {
-      "value": ""
+      "value": null
     },
     "location": {
-      "value": ""
+      "value": null
     },
     "serverName": {
-      "value": ""
+      "value": null
     },
     "createMode": {
       "value": "OnlineSecondary"
     },
     "zoneRedundant": {
-      "value": false
+      "value": null
     },
     "licenseType": {
-      "value": ""
+      "value": null
     }
   }
 }

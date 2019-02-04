@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2019.02.01.0",
   "parameters": {
-    "Name": {
+    "name": {
       "type": "string",
       "metadata": {
         "description": "Convention: [Core Device Number]-OMS, e.g. 867530-OMS"
@@ -23,16 +23,19 @@
     "Location": {
       "type": "string",
       "allowedValues": [
-        "East US",
-        "West Europe",
-        "Southeast Asia",
         "Australia Southeast",
-        "West Central US",
-        "Japan East",
-        "UK South",
+        "Canada Central",
         "Central India",
-        "Canada Central"
+        "East US",
+        "Japan East",
+        "Southeast Asia",
+        "UK South",
+        "West Europe"
       ]
+    },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
     },
     "environment": {
       "type": "string",
@@ -40,12 +43,17 @@
         "Production",
         "Staging",
         "Test",
+        "UAT",
         "Development",
-        "Q/A",
+        "QA",
+        "DisasterRecovery",
         "Other"
       ],
       "metadata": {
-        "description": "The Environment type we are building"
+        "description": "The Environment type we are building",
+        "group": "Tags",
+        "order": 1,
+        "question": "Please enter environment type : "
       },
       "defaultValue": "Production"
     },
@@ -62,69 +70,85 @@
         "description": "The name of the engineer who build this environment"
       },
       "defaultValue": "First Last"
+    },
+    "RaxAutomationExclude": {
+      "type": "string",
+      "allowedValues": [
+        "None",
+        "Monitoring",
+        "Passport",
+        "Antimalware"
+      ],
+      "metadata": {
+        "description": "Select the automation type you will like to exclude for this VM",
+        "group": "Tags",
+        "order": 4,
+        "label": "Automation Exluce",
+        "question": "Choose the type of automation you will like to exclude this from"
+      },
+      "defaultValue": "None"
     }
   },
   "variables": {
     "WorkspaceapiVersion": "2017-03-15-preview",
     "OMSapiVersion": "2015-11-01-preview",
+    "RackspaceTags": {
+      "Environment": "[parameters('environment')]",
+      "BuildDate": "[parameters('buildDate')]",
+      "BuildBy": "[parameters('buildBy')]",
+      "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
+    },
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
     "batch1": {
       "solutions": [
         {
-          "name": "[concat('Security', '(', parameters('Name'), ')')]",
+          "name": "[concat('Security', '(', parameters('name'), ')')]",
           "marketplaceName": "Security"
         },
         {
-          "name": "[concat('AgentHealthAssessment', '(', parameters('Name'), ')')]",
+          "name": "[concat('AgentHealthAssessment', '(', parameters('name'), ')')]",
           "marketplaceName": "AgentHealthAssessment"
         },
         {
-          "name": "[concat('ChangeTracking', '(', parameters('Name'), ')')]",
+          "name": "[concat('ChangeTracking', '(', parameters('name'), ')')]",
           "marketplaceName": "ChangeTracking"
         },
         {
-          "name": "[concat('Updates', '(', parameters('Name'), ')')]",
+          "name": "[concat('Updates', '(', parameters('name'), ')')]",
           "marketplaceName": "Updates"
         },
         {
-          "name": "[concat('AzureActivity', '(', parameters('Name'), ')')]",
+          "name": "[concat('AzureActivity', '(', parameters('name'), ')')]",
           "marketplaceName": "AzureActivity"
         },
         {
-          "name": "[concat('AzureAutomation', '(', parameters('Name'), ')')]",
+          "name": "[concat('AzureAutomation', '(', parameters('name'), ')')]",
           "marketplaceName": "AzureAutomation"
         },
         {
-          "name": "[concat('ADAssessment', '(', parameters('Name'), ')')]",
+          "name": "[concat('ADAssessment', '(', parameters('name'), ')')]",
           "marketplaceName": "ADAssessment"
         },
         {
-          "name": "[concat('SQLAssessment', '(', parameters('Name'), ')')]",
+          "name": "[concat('SQLAssessment', '(', parameters('name'), ')')]",
           "marketplaceName": "SQLAssessment"
         },
         {
-          "name": "[concat('AlertManagement', '(', parameters('Name'), ')')]",
+          "name": "[concat('AlertManagement', '(', parameters('name'), ')')]",
           "marketplaceName": "AlertManagement"
         },
         {
-          "name": "[concat('AntiMalware', '(', parameters('Name'), ')')]",
+          "name": "[concat('AntiMalware', '(', parameters('name'), ')')]",
           "marketplaceName": "AntiMalware"
         }
       ]
-    }
-  },
-  "resources": [
-    {
+    },
+    "workspace": {
       "apiVersion": "[variables('WorkspaceapiVersion')]",
       "type": "Microsoft.OperationalInsights/workspaces",
-      "name": "[parameters('Name')]",
+      "name": "[parameters('name')]",
       "location": "[parameters('Location')]",
-      "tags": {
-        "Group": "Rackspace",
-        "displayName": "OMS Workspace",
-        "Environment": "[parameters('environment')]",
-        "BuildDate": "[parameters('buildDate')]",
-        "BuildBy": "[parameters('buildBy')]"
-      },
+      "tags": "[variables('tags')]",
       "properties": {
         "sku": {
           "Name": "[parameters('Tier')]"
@@ -140,7 +164,7 @@
           "type": "datasources",
           "name": "winapplog",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsEvent",
           "properties": {
@@ -160,7 +184,7 @@
           "type": "datasources",
           "apiVersion": "[variables('OMSapiVersion')]",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "AzureActivityLog",
           "properties": {
@@ -172,7 +196,7 @@
           "type": "datasources",
           "name": "winSystemlog",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsEvent",
           "properties": {
@@ -192,7 +216,7 @@
           "type": "datasources",
           "name": "winCloudBackup",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsEvent",
           "properties": {
@@ -212,7 +236,7 @@
           "type": "datasources",
           "name": "winDFSreplication",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsEvent",
           "properties": {
@@ -232,7 +256,7 @@
           "type": "datasources",
           "name": "winDirectoryService",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsEvent",
           "properties": {
@@ -252,7 +276,7 @@
           "type": "datasources",
           "name": "winDNSserver",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsEvent",
           "properties": {
@@ -272,7 +296,7 @@
           "type": "datasources",
           "name": "winbackup",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsEvent",
           "properties": {
@@ -292,7 +316,7 @@
           "type": "datasources",
           "name": "WinPerfMemoryAvail",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsPerformanceCounter",
           "properties": {
@@ -307,7 +331,7 @@
           "type": "datasources",
           "name": "WinPerfMemoryCommitBytes",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsPerformanceCounter",
           "properties": {
@@ -322,7 +346,7 @@
           "type": "datasources",
           "name": "WinPerfDiskFree",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsPerformanceCounter",
           "properties": {
@@ -337,7 +361,7 @@
           "type": "datasources",
           "name": "WinPerfDiskSecRead",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsPerformanceCounter",
           "properties": {
@@ -352,7 +376,7 @@
           "type": "datasources",
           "name": "WinPerfDiskSecWrite",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsPerformanceCounter",
           "properties": {
@@ -367,7 +391,7 @@
           "type": "datasources",
           "name": "WinPerfDiskQueue",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsPerformanceCounter",
           "properties": {
@@ -382,7 +406,7 @@
           "type": "datasources",
           "name": "WinPerfDiskReadsSec",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsPerformanceCounter",
           "properties": {
@@ -397,7 +421,7 @@
           "type": "datasources",
           "name": "WinPerfDiskWritesSec",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsPerformanceCounter",
           "properties": {
@@ -412,7 +436,7 @@
           "type": "datasources",
           "name": "WinPerfDiskFreeMB",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsPerformanceCounter",
           "properties": {
@@ -427,7 +451,7 @@
           "type": "datasources",
           "name": "WinPerfNetworkBytesRec",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsPerformanceCounter",
           "properties": {
@@ -442,7 +466,7 @@
           "type": "datasources",
           "name": "WinPerfNetworkBytesSent",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsPerformanceCounter",
           "properties": {
@@ -457,7 +481,7 @@
           "type": "datasources",
           "name": "WinPerfNetworkBytesTotal",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsPerformanceCounter",
           "properties": {
@@ -472,7 +496,7 @@
           "type": "datasources",
           "name": "WinPerfProcessorTime",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsPerformanceCounter",
           "properties": {
@@ -487,7 +511,7 @@
           "type": "datasources",
           "name": "WinPerfSystemProcQueue",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "WindowsPerformanceCounter",
           "properties": {
@@ -502,7 +526,7 @@
           "type": "datasources",
           "name": "LinuxSyslogKern",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "LinuxSyslog",
           "properties": {
@@ -531,7 +555,7 @@
           "type": "datasources",
           "name": "LinuxSyslogAuth",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "LinuxSyslog",
           "properties": {
@@ -560,7 +584,7 @@
           "type": "datasources",
           "name": "LinuxSyslogAuthCollection",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "LinuxSyslogCollection",
           "properties": {
@@ -572,7 +596,7 @@
           "type": "datasources",
           "name": "LinuxPerfDisk",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "LinuxPerformanceObject",
           "properties": {
@@ -606,7 +630,7 @@
           "type": "datasources",
           "name": "LinuxPerfMemory",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "LinuxPerformanceObject",
           "properties": {
@@ -631,7 +655,7 @@
           "type": "datasources",
           "name": "LinuxPerfProcessor",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]",
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]",
             "LinuxPerfProcessorCollection"
           ],
           "kind": "LinuxPerformanceObject",
@@ -654,7 +678,7 @@
           "type": "datasources",
           "name": "LinuxPerfProcessorCollection",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "LinuxPerformanceCollection",
           "properties": {
@@ -666,7 +690,7 @@
           "type": "datasources",
           "name": "Linuxvarlogs",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "CustomLog",
           "properties": {
@@ -710,7 +734,609 @@
           "type": "datasources",
           "name": "LinuxVarLogsCollection",
           "dependsOn": [
-            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "CustomLogCollection",
+          "properties": {
+            "state": "LinuxLogsEnabled"
+          }
+        }
+      ]
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "[variables('WorkspaceapiVersion')]",
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "name": "[parameters('name')]",
+      "location": "[parameters('Location')]",
+      "tags": "[variables('tags')]",
+      "properties": {
+        "sku": {
+          "Name": "[parameters('Tier')]"
+        },
+        "features": {
+          "legacy": 0,
+          "searchVersion": 1
+        }
+      },
+      "resources": [
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "winapplog",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsEvent",
+          "properties": {
+            "eventLogName": "Application",
+            "eventTypes": [
+              {
+                "eventType": "Error"
+              },
+              {
+                "eventType": "Warning"
+              }
+            ]
+          }
+        },
+        {
+          "name": "AzureActivityLog",
+          "type": "datasources",
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "AzureActivityLog",
+          "properties": {
+            "linkedResourceId": "[concat(subscription().id, '/providers/Microsoft.Insights/eventTypes/management')]"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "winSystemlog",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsEvent",
+          "properties": {
+            "eventLogName": "System",
+            "eventTypes": [
+              {
+                "eventType": "Error"
+              },
+              {
+                "eventType": "Warning"
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "winCloudBackup",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsEvent",
+          "properties": {
+            "eventLogName": "CloudBackup",
+            "eventTypes": [
+              {
+                "eventType": "Error"
+              },
+              {
+                "eventType": "Warning"
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "winDFSreplication",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsEvent",
+          "properties": {
+            "eventLogName": "DFS Replication",
+            "eventTypes": [
+              {
+                "eventType": "Error"
+              },
+              {
+                "eventType": "Warning"
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "winDirectoryService",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsEvent",
+          "properties": {
+            "eventLogName": "Directory Service",
+            "eventTypes": [
+              {
+                "eventType": "Error"
+              },
+              {
+                "eventType": "Warning"
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "winDNSserver",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsEvent",
+          "properties": {
+            "eventLogName": "DNS Server",
+            "eventTypes": [
+              {
+                "eventType": "Error"
+              },
+              {
+                "eventType": "Warning"
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "winbackup",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsEvent",
+          "properties": {
+            "eventLogName": "Microsoft-Windows-Backup",
+            "eventTypes": [
+              {
+                "eventType": "Error"
+              },
+              {
+                "eventType": "Warning"
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "WinPerfMemoryAvail",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "Memory",
+            "instanceName": "*",
+            "intervalSeconds": 10,
+            "counterName": "Available MBytes"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "WinPerfMemoryCommitBytes",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "Memory",
+            "instanceName": "*",
+            "intervalSeconds": 10,
+            "counterName": "% Committed Bytes In Use"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "WinPerfDiskFree",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "LogicalDisk",
+            "instanceName": "*",
+            "intervalSeconds": 10,
+            "counterName": "% Free Space"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "WinPerfDiskSecRead",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "LogicalDisk",
+            "instanceName": "*",
+            "intervalSeconds": 10,
+            "counterName": "Avg. Disk sec/Read"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "WinPerfDiskSecWrite",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "LogicalDisk",
+            "instanceName": "*",
+            "intervalSeconds": 10,
+            "counterName": "Avg. Disk sec/Write"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "WinPerfDiskQueue",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "LogicalDisk",
+            "instanceName": "*",
+            "intervalSeconds": 10,
+            "counterName": "Current Disk Queue Length"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "WinPerfDiskReadsSec",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "LogicalDisk",
+            "instanceName": "*",
+            "intervalSeconds": 10,
+            "counterName": "Disk Reads/sec"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "WinPerfDiskWritesSec",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "LogicalDisk",
+            "instanceName": "*",
+            "intervalSeconds": 10,
+            "counterName": "Disk Writes/sec"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "WinPerfDiskFreeMB",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "LogicalDisk",
+            "instanceName": "*",
+            "intervalSeconds": 10,
+            "counterName": "Free Megabytes"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "WinPerfNetworkBytesRec",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "Network Adapter",
+            "instanceName": "*",
+            "intervalSeconds": 10,
+            "counterName": "Bytes Received/sec"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "WinPerfNetworkBytesSent",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "Network Adapter",
+            "instanceName": "*",
+            "intervalSeconds": 10,
+            "counterName": "Bytes Sent/sec"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "WinPerfNetworkBytesTotal",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "Network Adapter",
+            "instanceName": "*",
+            "intervalSeconds": 10,
+            "counterName": "Bytes Total/sec"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "WinPerfProcessorTime",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "Processor",
+            "instanceName": "_Total",
+            "intervalSeconds": 10,
+            "counterName": "% Processor Time"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "WinPerfSystemProcQueue",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "System",
+            "instanceName": "*",
+            "intervalSeconds": 10,
+            "counterName": "Processor Queue Length"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "LinuxSyslogKern",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "LinuxSyslog",
+          "properties": {
+            "syslogName": "kern",
+            "syslogSeverities": [
+              {
+                "severity": "emerg"
+              },
+              {
+                "severity": "alert"
+              },
+              {
+                "severity": "crit"
+              },
+              {
+                "severity": "err"
+              },
+              {
+                "severity": "warning"
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "LinuxSyslogAuth",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "LinuxSyslog",
+          "properties": {
+            "syslogName": "auth",
+            "syslogSeverities": [
+              {
+                "severity": "emerg"
+              },
+              {
+                "severity": "alert"
+              },
+              {
+                "severity": "crit"
+              },
+              {
+                "severity": "err"
+              },
+              {
+                "severity": "warning"
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "LinuxSyslogAuthCollection",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "LinuxSyslogCollection",
+          "properties": {
+            "state": "Enabled"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "LinuxPerfDisk",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "LinuxPerformanceObject",
+          "properties": {
+            "performanceCounters": [
+              {
+                "counterName": "% Used Inodes"
+              },
+              {
+                "counterName": "Free Megabytes"
+              },
+              {
+                "counterName": "% Used Space"
+              },
+              {
+                "counterName": "Disk Transfers/sec"
+              },
+              {
+                "counterName": "Disk Reads/sec"
+              },
+              {
+                "counterName": "Disk Writes/sec"
+              }
+            ],
+            "objectName": "Logical Disk",
+            "instanceName": "*",
+            "intervalSeconds": 10
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "LinuxPerfMemory",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "LinuxPerformanceObject",
+          "properties": {
+            "performanceCounters": [
+              {
+                "counterName": "Available MBytes Memory"
+              },
+              {
+                "counterName": "% Used Memory"
+              },
+              {
+                "counterName": "% Used Swap Space"
+              }
+            ],
+            "objectName": "Memory",
+            "instanceName": "*",
+            "intervalSeconds": 10
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "LinuxPerfProcessor",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]",
+            "LinuxPerfProcessorCollection"
+          ],
+          "kind": "LinuxPerformanceObject",
+          "properties": {
+            "performanceCounters": [
+              {
+                "counterName": "% Processor Time"
+              },
+              {
+                "counterName": "% Privileged Time"
+              }
+            ],
+            "objectName": "Processor",
+            "instanceName": "*",
+            "intervalSeconds": 10
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "LinuxPerfProcessorCollection",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "LinuxPerformanceCollection",
+          "properties": {
+            "state": "Enabled"
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "Linuxvarlogs",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
+          ],
+          "kind": "CustomLog",
+          "properties": {
+            "customLogName": "sampleCustomLog1",
+            "description": "test customg log datasources",
+            "inputs": [
+              {
+                "location": {
+                  "fileSystemLocations": {
+                    "linuxFileTypeLogPaths": [
+                      "/var/logs"
+                    ]
+                  }
+                },
+                "recordDelimiter": {
+                  "regexDelimiter": {
+                    "pattern": "\\n",
+                    "matchIndex": 0,
+                    "matchIndexSpecified": true,
+                    "numberedGroup": null
+                  }
+                }
+              }
+            ],
+            "extractions": [
+              {
+                "extractionName": "TimeGenerated",
+                "extractionType": "DateTime",
+                "extractionProperties": {
+                  "dateTimeExtraction": {
+                    "regex": null,
+                    "joinStringRegex": null
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "[variables('OMSapiVersion')]",
+          "type": "datasources",
+          "name": "LinuxVarLogsCollection",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
           ],
           "kind": "CustomLogCollection",
           "properties": {
@@ -725,14 +1351,14 @@
       "name": "[concat(variables('batch1').solutions[copyIndex()].Name)]",
       "location": "[parameters('Location')]",
       "dependsOn": [
-        "[concat('Microsoft.OperationalInsights/workspaces/', parameters('Name'))]"
+        "[concat('Microsoft.OperationalInsights/workspaces/', parameters('name'))]"
       ],
       "copy": {
         "name": "solutionCopy",
         "count": "[length(variables('batch1').solutions)]"
       },
       "properties": {
-        "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('Name'))]"
+        "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('name'))]"
       },
       "plan": {
         "name": "[variables('batch1').solutions[copyIndex()].name]",
@@ -742,5 +1368,17 @@
       }
     }
   ],
-  "outputs": {}
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.02.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('workspace'))]",
+        "outputs": {}
+      }
+    }
+  }
 }

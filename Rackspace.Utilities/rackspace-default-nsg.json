@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2019.02.01.0",
   "parameters": {
     "Name": {
       "type": "string",
@@ -8,7 +8,7 @@
         "description": "The name of the NSG to update"
       }
     },
-    "SubnetPrefix": {
+    "DestinationPrefix": {
       "type": "string",
       "metadata": {
         "description": "The CIDR of the subnet this NSG is attached to"
@@ -23,13 +23,14 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_LOCAL_SUBNET_INBOUND')]",
       "location": "[resourceGroup().location]",
+
       "properties": {
         "description": "Allows intra-subnet communication",
         "protocol": "*",
         "sourcePortRange": "*",
         "destinationPortRange": "*",
-        "sourceAddressPrefix": "[parameters('SubnetPrefix')]",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 110,
         "direction": "Inbound"
@@ -40,13 +41,14 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Allow_AZURE_LB_INBOUND')]",
       "location": "[resourceGroup().location]",
+
       "properties": {
         "description": "Allows inbound traffic from Azure Load Balancer",
         "protocol": "*",
         "sourcePortRange": "*",
         "destinationPortRange": "*",
         "sourceAddressPrefix": "AzureLoadBalancer",
-        "destinationAddressPrefix": "[parameters('SubnetPrefix')]",
+        "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
         "access": "Allow",
         "priority": 111,
         "direction": "Inbound"
@@ -57,6 +59,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Deny_ALL_INBOUND_UDP')]",
       "location": "[resourceGroup().location]",
+
       "properties": {
         "description": "Deny all inbound UDP",
         "protocol": "Udp",
@@ -74,6 +77,7 @@
       "type": "Microsoft.Network/networkSecurityGroups/securityRules",
       "name": "[concat(parameters('Name'),'/Deny_ALL_INBOUND_TCP')]",
       "location": "[resourceGroup().location]",
+
       "properties": {
         "description": "Deny all inbound TCP",
         "protocol": "Tcp",

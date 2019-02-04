@@ -5,4 +5,33 @@ A Recovery Services vault is a storage entity in Azure that houses data. The dat
 
 ## Links
 - API https://docs.microsoft.com/en-us/rest/api/backup/protecteditems
+- ARM https://docs.microsoft.com/en-us/azure/templates/microsoft.recoveryservices/2016-06-01/vaults/backupfabrics/protectioncontainers/protecteditems
 - DOC https://docs.microsoft.com/en-us/azure/backup/backup-azure-recovery-services-vault-overview
+
+## Sample Parameter File
+```
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "2018.12.01.0",
+  "parameters": {
+    "ProtectedItemResourceGroup": {
+      "value": ""
+    },
+    "ProtectedItem": {
+      "value": ""
+    },
+    "ItemType": {
+      "value": "Microsoft.Compute/virtualMachines"
+    },
+    "RecoveryVault": {
+      "value": ""
+    },
+    "RecoveryVaultResourceGroup": {
+      "value": ""
+    },
+    "BackupPolicy": {
+      "value": ""
+    }
+  }
+}
+```

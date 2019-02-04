@@ -1,0 +1,42 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "2019.02.01.0",
+  "parameters": {
+    "name": {
+      "value": ""
+    },
+    "IpConfiguration": {
+      "value": []
+    },
+    "DnsServers": {
+      "value": []
+    },
+    "primary": {
+      "value": true
+    },
+    "enableAcceleratedNetworking": {
+      "value": true
+    },
+    "enableIPForwarding": {
+      "value": false
+    },
+    "Location": {
+      "value": ""
+    },
+    "CustomObject": {
+      "value": {}
+    },
+    "environment": {
+      "value": ""
+    },
+    "buildDate": {
+      "value": ""
+    },
+    "buildBy": {
+      "value": ""
+    },
+    "RaxAutomationExclude": {
+      "value": ""
+    }
+  }
+}

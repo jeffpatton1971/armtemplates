@@ -1,10 +1,10 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2019.02.01.0",
   "parameters": {
     "name": {
       "type": "string",
-      "defaultValue": "g-win-solr"
+      "defaultValue": ""
     },
     "SitecoreVersion": {
       "type": "string",
@@ -16,15 +16,15 @@
     },
     "NetworkName": {
       "type": "string",
-      "defaultValue": "eus-vnet01"
+      "defaultValue": ""
     },
     "NetworkResourceGroupName": {
       "type": "string",
-      "defaultValue": "eus-vnet"
+      "defaultValue": ""
     },
     "SubnetName": {
       "type": "string",
-      "defaultValue": "eus-vnet01-g-solr"
+      "defaultValue": ""
     },
     "loadBalancingRules": {
       "type": "array",
@@ -38,8 +38,8 @@
         "Test",
         "UAT",
         "Development",
-        "Disaster Recovery",
-        "Q/A",
+        "QA",
+        "DisasterRecovery",
         "Other"
       ],
       "metadata": {

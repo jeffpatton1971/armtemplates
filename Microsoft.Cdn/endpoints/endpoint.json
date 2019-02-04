@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2019.02.01.0",
   "parameters": {
     "name": {
       "type": "string"
@@ -45,6 +45,10 @@
       ],
       "defaultValue": "GeneralWebDelivery"
     },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -53,8 +57,8 @@
         "Test",
         "UAT",
         "Development",
-        "Disaster Recovery",
-        "Q/A",
+        "QA",
+        "DisasterRecovery",
         "Other"
       ],
       "metadata": {
@@ -104,11 +108,50 @@
     }
   },
   "variables": {
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
+    },
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "endpoint": {
+      "name": "[parameters('name')]",
+      "apiVersion": "2017-10-12",
+      "type": "Microsoft.Cdn/profiles/endpoints",
+      "tags": "[variables('tags')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "originHostHeader": "[parameters('originHostHeader')]",
+        "isHttpAllowed": "[parameters('isHttpAllowed')]",
+        "isHttpsAllowed": "[parameters('isHttpsAllowed')]",
+        "queryStringCachingBehavior": "[parameters('queryStringCachingBehavior')]",
+        "originPath": "[parameters('originPath')]",
+        "origins": [
+          {
+            "name": "[replace(parameters('originHostHeader'),'.','-')]",
+            "properties": {
+              "hostName": "[parameters('originHostHeader')]",
+              "httpPort": null,
+              "httpsPort": null
+            }
+          }
+        ],
+        "customDomains": [],
+        "contentTypesToCompress": [
+          "text/plain",
+          "text/html",
+          "text/css",
+          "text/javascript",
+          "application/x-javascript",
+          "application/javascript",
+          "application/json",
+          "application/xml"
+        ],
+        "isCompressionEnabled": "[parameters('isCompressionEnabled')]",
+        "optimizationType": "[parameters('optimizationType')]",
+        "geoFilters": []
+      }
     }
   },
   "resources": [
@@ -152,5 +195,16 @@
     }
   ],
   "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.02.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('endpoint'))]",
+        "outputs": {}
+      }
+    }
   }
 }

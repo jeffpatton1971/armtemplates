@@ -1,19 +1,15 @@
 ﻿{
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2019.02.01.0",
   "parameters": {
     "name": {
       "value": ""
     },
     "Network": {
-      "value": {
-        "VirtualNetworkResourceGroupName": "testing-rg",
-        "VirtualNetworkName": "sample-vnet",
-        "SubnetName": "default"
-      }
+      "value": {}
     },
     "privateIPAllocationMethod": {
-      "value": "Dynamic"
+      "value": ""
     },
     "activeActive": {
       "value": false
@@ -25,25 +21,28 @@
       "value": false
     },
     "gatewayType": {
-      "value": "Vpn"
+      "value": ""
+    },
+    "vpnType": {
+      "value": ""
     },
     "sku": {
-      "value": {
-        "name": "VpnGw1",
-        "tier": "VpnGw1"
-      }
+      "value": {}
+    },
+    "CustomObject": {
+      "value": {}
     },
     "environment": {
-      "value": "Development"
+      "value": ""
     },
     "buildDate": {
-      "value": "11/01/2018"
+      "value": ""
     },
     "buildBy": {
-      "value": "jeffrey.patton2@rackspace.com"
+      "value": ""
     },
     "RaxAutomationExclude": {
-      "value": "None"
+      "value": ""
     }
   }
 }

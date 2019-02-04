@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2019.02.01.0",
   "parameters": {
     "CMS": {
       "type": "object"
@@ -35,7 +35,7 @@
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('CMS').SubnetPrefix]",
           "access": "Allow",
-          "priority": 200,
+          "priority": 206,
           "direction": "Inbound"
         }
       },
@@ -52,7 +52,7 @@
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('CMS').SubnetPrefix]",
           "access": "Allow",
-          "priority": 201,
+          "priority": 207,
           "direction": "Inbound"
         }
       }
@@ -71,7 +71,7 @@
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('SOLR').SubnetPrefix]",
           "access": "Allow",
-          "priority": 200,
+          "priority": 206,
           "direction": "Inbound"
         }
       },
@@ -88,7 +88,7 @@
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('SOLR').SubnetPrefix]",
           "access": "Allow",
-          "priority": 201,
+          "priority": 207,
           "direction": "Inbound"
         }
       },
@@ -105,7 +105,7 @@
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('SOLR').SubnetPrefix]",
           "access": "Allow",
-          "priority": 203,
+          "priority": 208,
           "direction": "Inbound"
         }
       }
@@ -124,7 +124,7 @@
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('XDB').SubnetPrefix]",
           "access": "Allow",
-          "priority": 200,
+          "priority": 206,
           "direction": "Inbound"
         }
       },
@@ -141,7 +141,7 @@
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('XDB').SubnetPrefix]",
           "access": "Allow",
-          "priority": 201,
+          "priority": 207,
           "direction": "Inbound"
         }
       }

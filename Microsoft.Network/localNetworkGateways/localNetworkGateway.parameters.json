@@ -1,0 +1,36 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "2019.02.01.0",
+  "parameters": {
+    "name": {
+      "value": ""
+    },
+    "Location": {
+      "value": ""
+    },
+    "localNetworkAddressSpace": {
+      "value": {}
+    },
+    "gatewayIpAddress": {
+      "value": ""
+    },
+    "bgpSettings": {
+      "value": {}
+    },
+    "CustomObject": {
+      "value": {}
+    },
+    "environment": {
+      "value": ""
+    },
+    "buildDate": {
+      "value": ""
+    },
+    "buildBy": {
+      "value": ""
+    },
+    "RaxAutomationExclude": {
+      "value": ""
+    }
+  }
+}

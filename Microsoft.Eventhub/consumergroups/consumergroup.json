@@ -1,16 +1,20 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2019.02.01.0",
   "parameters": {
+    "name": {
+      "defaultValue": "$Default",
+      "type": "string"
+    },
     "Namespace": {
       "type": "string"
     },
     "Eventhub": {
       "type": "string"
     },
-    "ConsumerGroup": {
-      "defaultValue": "$Default",
-      "type": "string"
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
     },
     "environment": {
       "type": "string",
@@ -20,8 +24,8 @@
         "Test",
         "UAT",
         "Development",
-        "Disaster Recovery",
-        "Q/A",
+        "QA",
+        "DisasterRecovery",
         "Other"
       ],
       "metadata": {
@@ -71,16 +75,15 @@
     }
   },
   "variables": {
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
-    }
-  },
-  "resources": [
-    {
-      "name": "[concat(parameters('Namespace'), '/', parameters('Eventhub'), '/', parameters('ConsumerGroup'))]",
+    },
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "consumergroup": {
+      "name": "[concat(parameters('Namespace'), '/', parameters('Eventhub'), '/', parameters('name'))]",
       "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
       "apiVersion": "2017-04-01",
       "location": "[resourceGroup().location]",
@@ -88,5 +91,29 @@
       "properties": {},
       "tags": "[variables('tags')]"
     }
-  ]
+  },
+  "resources": [
+    {
+      "name": "[concat(parameters('Namespace'), '/', parameters('Eventhub'), '/', parameters('name'))]",
+      "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
+      "apiVersion": "2017-04-01",
+      "location": "[resourceGroup().location]",
+      "scale": null,
+      "properties": {},
+      "tags": "[variables('tags')]"
+    }
+  ],
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.02.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('consumergroup'))]",
+        "outputs": {}
+      }
+    }
+  }
 }

@@ -1,12 +1,13 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2019.02.01.0",
   "parameters": {
-    "Name": {
+    "name": {
       "type": "string"
     },
     "AvailabilitySetName": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": ""
     },
     "Network": {
       "type": "object"
@@ -297,6 +298,22 @@
       "type": "int",
       "defaultValue": 3
     },
+    "writeAcceleratorEnabled": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "ultraSSDEnabled": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
+    "Zones": {
+      "type": "array",
+      "defaultValue": []
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -305,8 +322,8 @@
         "Test",
         "UAT",
         "Development",
-        "Disaster Recovery",
-        "Q/A",
+        "QA",
+        "DisasterRecovery",
         "Other"
       ],
       "metadata": {
@@ -357,11 +374,35 @@
   },
   "variables": {
     "NamePrefix": "[toLower(parameters('Name'))]",
-    "VirtualNetworkId": "[resourceId(parameters('Network').VirtualNetworkResourceGroupName,'Microsoft.Network/virtualNetworks/',parameters('Network').VirtualNetworkName)]",
+    "VirtualNetworkId": "[resourceId(parameters('Network').ResourceGroupName,'Microsoft.Network/virtualNetworks/',parameters('Network').VirtualNetworkName)]",
     "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('Network').SubnetName)]",
-    "NetworkInterfaceName": "[parameters('Network').name]",
+    "NetworkInterfaceName": "[parameters('Network').Name]",
     "NetworkInterfaceIpConfigurationName": "[concat(variables('NetworkInterfaceName'),'-ipc')]",
     "Disk": {
+      "e10": {
+        "size": 128,
+        "sku": "StandardSSD_LRS"
+      },
+      "e15": {
+        "size": 256,
+        "sku": "StandardSSD_LRS"
+      },
+      "e20": {
+        "size": 512,
+        "sku": "StandardSSD_LRS"
+      },
+      "e30": {
+        "size": 1023,
+        "sku": "StandardSSD_LRS"
+      },
+      "e40": {
+        "size": 2047,
+        "sku": "StandardSSD_LRS"
+      },
+      "e50": {
+        "size": 4095,
+        "sku": "StandardSSD_LRS"
+      },
       "p4": {
         "size": 32,
         "sku": "Premium_LRS"
@@ -853,12 +894,13 @@
     },
     "location": "[if(empty(parameters('Location')),resourceGroup().location,parameters('Location'))]",
     "timeZone": "[if(empty(parameters('TimeZone')),variables('regions')[variables('location')].timezone,parameters('Timezone'))]",
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
     "imageReferenceArray": [
       {
         "publisher": "[variables('OS').imagePublisher]",
@@ -878,6 +920,7 @@
         "adminPassword": "[parameters('AdminPassword')]",
         "linuxConfiguration": {
           "disablePasswordAuthentication": false,
+          "provisionVMAgent": true,
           "ssh": {
             "publicKeys": []
           }
@@ -894,24 +937,48 @@
       }
     ],
     "osProfile": "[if(equals(variables('OS').type,'linux'),variables('osProfileArray')[0],variables('osProfileArray')[1])]",
-    "Disks": "[if(empty(parameters('DataDisks')),createArray(json('{\"name\": \"notUsed\",\"caching\": \"ReadOnly\",\"lun\": \"1\",\"size\": \"p30\"}')),parameters('DataDisks'))]",
+    "Disks": "[if(empty(parameters('DataDisks')),createArray(json('{\"name\": \"notUsed\",\"caching\": \"ReadOnly\",\"lun\": \"1\",\"size\": \"p30\",\"writeAcceleratorEnabled\": \"false\"}')),parameters('DataDisks'))]",
     "isPresent": "[if(empty(parameters('DataDisks')),0,1)]",
-    "diskCount": "[if(empty(parameters('DataDisks')),1,length(parameters('DataDisks')))]"
+    "avSet": "[if(empty(parameters('AvailabilitySetName')),0,1)]",
+    "availabilitySet": {
+      "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/availabilitySets/',parameters('AvailabilitySetName'))]"
+    },
+    "diskCount": "[if(empty(parameters('DataDisks')),1,length(parameters('DataDisks')))]",
+    "zones": "[if(empty(parameters('Zones')),createArray(''),parameters('Zones'))]"
   },
   "resources": [
     {
-      "apiVersion": "2017-03-30",
-      "name": "[parameters('AvailabilitySetName')]",
-      "type": "Microsoft.Compute/availabilitySets",
-      "location": "[variables('location')]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "[if(equals(variables('avset'),0),'NoAVSet',parameters('AvailabilitySetName'))]",
+      "condition": "[greaterOrEquals(variables('avSet'),1)]",
       "dependsOn": [],
-      "tags": "[variables('tags')]",
-      "sku": {
-        "name": "Aligned"
-      },
       "properties": {
-        "platformUpdateDomainCount": "[parameters('platformUpdateDomainCount')]",
-        "platformFaultDomainCount": "[parameters('platformFaultDomainCount')]"
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "2018.11.01.0",
+          "parameters": {},
+          "variables": {},
+          "resources": [
+            {
+              "apiVersion": "2017-03-30",
+              "name": "[parameters('AvailabilitySetName')]",
+              "type": "Microsoft.Compute/availabilitySets",
+              "location": "[variables('location')]",
+              "dependsOn": [],
+              "tags": "[variables('tags')]",
+              "sku": {
+                "name": "Aligned"
+              },
+              "properties": {
+                "platformUpdateDomainCount": "[parameters('platformUpdateDomainCount')]",
+                "platformFaultDomainCount": "[parameters('platformFaultDomainCount')]"
+              }
+            }
+          ],
+          "outputs": {}
+        }
       }
     },
     {
@@ -919,7 +986,7 @@
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('NetworkInterfaceName')]",
       "location": "[variables('location')]",
-      "dependsOn": [ "[parameters('AvailabilitySetName')]" ],
+      "dependsOn": [ "[if(equals(variables('avset'),0),'NoAVSet',parameters('AvailabilitySetName'))]" ],
       "properties": {
         "dnsSettings": {},
         "enableAcceleratedNetworking": false,
@@ -981,7 +1048,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
-      "name": "[concat(parameters('Name'),'_',variables('diskCount'),'_disks')]",
+      "name": "[concat(parameters('name'),'_',variables('diskCount'),'_disks')]",
       "condition": "[greaterOrEquals(variables('isPresent'),1)]",
       "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
       "properties": {
@@ -991,16 +1058,14 @@
           "contentVersion": "2018.11.01.0",
           "resources": [
             {
-              "apiVersion": "2017-03-30",
+              "apiVersion": "2018-10-01",
               "type": "Microsoft.Compute/virtualMachines",
-              "name": "[parameters('Name')]",
+              "name": "[parameters('name')]",
               "location": "[variables('location')]",
               "dependsOn": [],
               "properties": {
                 "licenseType": "[if(equals(parameters('LicenseType'),'None'),json('null'),parameters('LicenseType'))]",
-                "availabilitySet": {
-                  "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/availabilitySets/',parameters('AvailabilitySetName'))]"
-                },
+                "availabilitySet": "[if(equals(variables('avset'),0),json('null'),variables('availabilitySet'))]",
                 "hardwareProfile": {
                   "vmSize": "[variables('vmSize')]"
                 },
@@ -1008,7 +1073,8 @@
                   "imageReference": "[variables('imageReference')]",
                   "osDisk": {
                     "name": "[variables('OsDiskName')]",
-                    "caching": "ReadOnly",
+                    "caching": "ReadWrite",
+                    "writeAcceleratorEnabled": "[parameters('writeAcceleratorEnabled')]",
                     "createOption": "FromImage"
                   },
                   "copy": [
@@ -1019,6 +1085,7 @@
                         "name": "[variables('Disks')[copyIndex('dataDisks')].name]",
                         "diskSizeGB": "[variables('Disk')[variables('Disks')[copyIndex('dataDisks')].size].size]",
                         "caching": "[variables('Disks')[copyIndex('dataDisks')].caching]",
+                        "writeAcceleratorEnabled": "[variables('Disks')[copyIndex('dataDisks')].writeAcceleratorEnabled]",
                         "lun": "[variables('Disks')[copyIndex('dataDisks')].lun]",
                         "managedDisk": {
                           "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/disks/',variables('Disks')[copyIndex('dataDisks')].name)]"
@@ -1028,6 +1095,9 @@
                     }
                   ]
                 },
+                "additionalCapabilities": {
+                  "ultraSSDEnabled": "[parameters('ultraSSDEnabled')]"
+                },
                 "osProfile": "[variables('osProfile')]",
                 "networkProfile": {
                   "networkInterfaces": [
@@ -1040,7 +1110,8 @@
                 "diagnosticsProfile": {}
               },
               "resources": null,
-              "tags": "[variables('tags')]"
+              "tags": "[variables('tags')]",
+              "zones": []
             }
           ],
           "outputs": {}
@@ -1050,7 +1121,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
-      "name": "[concat(parameters('Name'),'_0_disks')]",
+      "name": "[concat(parameters('name'),'_0_disks')]",
       "condition": "[equals(variables('isPresent'),0)]",
       "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
       "properties": {
@@ -1060,16 +1131,14 @@
           "contentVersion": "2018.11.01.0",
           "resources": [
             {
-              "apiVersion": "2017-03-30",
+              "apiVersion": "2018-10-01",
               "type": "Microsoft.Compute/virtualMachines",
-              "name": "[parameters('Name')]",
+              "name": "[parameters('name')]",
               "location": "[variables('location')]",
               "dependsOn": [],
               "properties": {
                 "licenseType": "[if(equals(parameters('LicenseType'),'None'),json('null'),parameters('LicenseType'))]",
-                "availabilitySet": {
-                  "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/availabilitySets/',parameters('AvailabilitySetName'))]"
-                },
+                "availabilitySet": "[if(equals(variables('avset'),0),json('null'),variables('availabilitySet'))]",
                 "hardwareProfile": {
                   "vmSize": "[variables('vmSize')]"
                 },
@@ -1077,9 +1146,13 @@
                   "imageReference": "[variables('imageReference')]",
                   "osDisk": {
                     "name": "[variables('OsDiskName')]",
-                    "caching": "ReadOnly",
+                    "caching": "ReadWrite",
+                    "writeAcceleratorEnabled": "[parameters('writeAcceleratorEnabled')]",
                     "createOption": "FromImage"
                   }
+                },
+                "additionalCapabilities": {
+                  "ultraSSDEnabled": "[parameters('ultraSSDEnabled')]"
                 },
                 "osProfile": "[variables('osProfile')]",
                 "networkProfile": {
@@ -1093,7 +1166,8 @@
                 "diagnosticsProfile": {}
               },
               "resources": null,
-              "tags": "[variables('tags')]"
+              "tags": "[variables('tags')]",
+              "zones": []
             }
           ],
           "outputs": {}

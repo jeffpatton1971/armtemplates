@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "2019.02.01.0",
+  "parameters": {
+    "name": {
+      "value": ""
+    },
+    "plan_name": {
+      "value": ""
+    },
+    "plan_promotion_code": {
+      "value": ""
+    },
+    "password": {
+      "value": ""
+    },
+    "email": {
+      "value": ""
+    },
+    "firstName": {
+      "value": ""
+    },
+    "lastName": {
+      "value": ""
+    },
+    "company": {
+      "value": ""
+    },
+    "website": {
+      "value": ""
+    },
+    "acceptMarketingEmails": {
+      "value": ""
+    },
+    "CustomObject": {
+      "value": {}
+    },
+    "environment": {
+      "value": ""
+    },
+    "buildDate": {
+      "value": ""
+    },
+    "buildBy": {
+      "value": ""
+    },
+    "RaxAutomationExclude": {
+      "value": ""
+    }
+  }
+}

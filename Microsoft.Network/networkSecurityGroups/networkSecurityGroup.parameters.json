@@ -1,0 +1,39 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "2019.02.01.0",
+  "parameters": {
+    "name": {
+      "value": ""
+    },
+    "Network": {
+      "value": {}
+    },
+    "SourcePrefix": {
+      "value": ""
+    },
+    "DestinationPrefix": {
+      "value": ""
+    },
+    "DeploymentType": {
+      "value": "Default"
+    },
+    "SecurityRules": {
+      "value": []
+    },
+    "CustomObject": {
+      "value": {}
+    },
+    "environment": {
+      "value": ""
+    },
+    "buildDate": {
+      "value": ""
+    },
+    "buildBy": {
+      "value": ""
+    },
+    "RaxAutomationExclude": {
+      "value": ""
+    }
+  }
+}

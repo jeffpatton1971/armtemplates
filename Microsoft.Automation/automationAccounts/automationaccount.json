@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2019.02.01.0",
   "parameters": {
-    "Name": {
+    "name": {
       "type": "string"
     },
     "Sku": {
@@ -15,20 +15,27 @@
     "location": {
       "type": "string",
       "allowedValues": [
-        "japaneast",
-        "eastus2",
-        "westeurope",
-        "southeastasia",
-        "southcentralus",
+        "australiasoutheast",
         "brazilsouth",
+        "canadacentral",
+        "centralindia",
+        "eastus",
+        "eastus2",
+        "japaneast",
+        "koreacentral",
+        "northeurope",
+        "southcentralus",
+        "southeastasia",
         "uksouth",
         "westcentralus",
-        "northeurope",
-        "canadacentral",
-        "australiasoutheast",
-        "centralindia"
+        "westeurope",
+        "westus2"
       ],
       "defaultValue": "eastus2"
+    },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
     },
     "environment": {
       "type": "string",
@@ -38,8 +45,8 @@
         "Test",
         "UAT",
         "Development",
-        "Disaster Recovery",
-        "Q/A",
+        "QA",
+        "DisasterRecovery",
         "Other"
       ],
       "metadata": {
@@ -89,17 +96,32 @@
     }
   },
   "variables": {
-    "tags": {
+    "RackspaceTags": {
       "displayName": "ApplicationGateway",
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
+    },
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "automationAccount": {
+      "name": "[parameters('name')]",
+      "type": "Microsoft.Automation/automationAccounts",
+      "apiVersion": "2015-10-31",
+      "properties": {
+        "sku": {
+          "name": "[parameters('Sku')]",
+          "family": null,
+          "capacity": null
+        }
+      },
+      "location": "[parameters('location')]",
+      "tags": "[variables('tags')]"
     }
   },
   "resources": [
     {
-      "name": "[parameters('Name')]",
+      "name": "[parameters('name')]",
       "type": "Microsoft.Automation/automationAccounts",
       "apiVersion": "2015-10-31",
       "properties": {
@@ -114,5 +136,16 @@
     }
   ],
   "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.02.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('automationAccount'))]",
+        "outputs": {}
+      }
+    }
   }
 }

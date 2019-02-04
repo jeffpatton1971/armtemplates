@@ -1,28 +1,20 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2018.11.01.0",
+  "contentVersion": "2019.02.01.0",
   "parameters": {
-    "Namespace": {
+    "name": {
       "type": "string"
     },
-    "EventHub": {
+    "Namespace": {
       "type": "string"
     },
     "Capture": {
       "type": "bool",
       "defaultValue": false
     },
-    "StorageAccountResourceGroupName": {
-      "type": "string",
-      "defaultValue": ""
-    },
-    "StorageAccountName": {
-      "type": "string",
-      "defaultValue": ""
-    },
-    "ContainerName": {
-      "type": "string",
-      "defaultValue": ""
+    "StorageAccount": {
+      "type": "object",
+      "default": {}
     },
     "IntervalInSeconds": {
       "type": "int",
@@ -40,6 +32,10 @@
       "type": "int",
       "defaultValue": 2
     },
+    "CustomObject": {
+      "type": "object",
+      "defaultValue": {}
+    },
     "environment": {
       "type": "string",
       "allowedValues": [
@@ -48,8 +44,8 @@
         "Test",
         "UAT",
         "Development",
-        "Disaster Recovery",
-        "Q/A",
+        "QA",
+        "DisasterRecovery",
         "Other"
       ],
       "metadata": {
@@ -99,13 +95,13 @@
     }
   },
   "variables": {
-    "tags": {
+    "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
-    "storageAccountResourceId": "[if(empty(parameters('StorageAccountName')),json('null'),resourceId(parameters('StorageAccountResourceGroupName'),'Microsoft.Storage/storageAccounts',parameters('StorageAccountName')))]",
+    "storageAccountResourceId": "[if(empty(parameters('StorageAccount')),json('null'),resourceId(parameters('StorageAccount').ResourceGroupName,'Microsoft.Storage/storageAccounts',parameters('StorageAccount').StorageAccountName))]",
     "captureDescription": {
       "enabled": true,
       "encoding": "Avro",
@@ -113,17 +109,16 @@
         "name": "EventHubArchive.AzureBlockBlob",
         "properties": {
           "storageAccountResourceId": "[variables('storageAccountResourceId')]",
-          "blobContainer": "[parameters('ContainerName')]",
+          "blobContainer": "[parameters('StorageAccount').Container]",
           "archiveNameFormat": "{Namespace}/{EventHub}/{PartitionId}/{Year}/{Month}/{Day}/{Hour}/{Minute}/{Second}"
         }
       },
       "intervalInSeconds": "[parameters('IntervalInSeconds')]",
       "sizeLimitInBytes": "[parameters('SizeLimit')]"
-    }
-  },
-  "resources": [
-    {
-      "name": "[concat(parameters('Namespace'),'/',parameters('EventHub'))]",
+    },
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "eventhub": {
+      "name": "[concat(parameters('Namespace'),'/',parameters('name'))]",
       "type": "Microsoft.EventHub/namespaces/eventhubs",
       "apiVersion": "2017-04-01",
       "location": "[resourceGroup().location]",
@@ -136,5 +131,34 @@
       },
       "tags": "[variables('tags')]"
     }
-  ]
+  },
+  "resources": [
+    {
+      "name": "[concat(parameters('Namespace'),'/',parameters('name'))]",
+      "type": "Microsoft.EventHub/namespaces/eventhubs",
+      "apiVersion": "2017-04-01",
+      "location": "[resourceGroup().location]",
+      "scale": null,
+      "properties": {
+        "messageRetentionInDays": "[parameters('MessageRetention')]",
+        "partitionCount": "[parameters('PartitionCount')]",
+        "status": "Active",
+        "captureDescription": "[if(parameters('Capture'),variables('captureDescription'),json('null'))]"
+      },
+      "tags": "[variables('tags')]"
+    }
+  ],
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.02.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[createArray(variables('eventhub'))]",
+        "outputs": {}
+      }
+    }
+  }
 }
