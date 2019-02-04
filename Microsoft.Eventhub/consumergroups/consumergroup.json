@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2019.01.01.0",
+  "contentVersion": "2019.02.01.0",
   "parameters": {
     "name": {
       "defaultValue": "$Default",
@@ -108,7 +108,7 @@
       "type": "object",
       "value": {
         "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-        "contentVersion": "2019.01.01.0",
+        "contentVersion": "2019.02.01.0",
         "parameters": {},
         "variables": {},
         "resources": "[createArray(variables('consumergroup'))]",

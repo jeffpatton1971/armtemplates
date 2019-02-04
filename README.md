@@ -69,6 +69,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 02/04 : February Update
 - 01/30 : Removed extra comma in elastipool template
 - 01/29 : Removed DisplayName tag from Redis template
 - 01/29 : Updated EventHub and ServiceBus to use name parameter for all resources
