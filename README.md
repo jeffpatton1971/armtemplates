@@ -23,7 +23,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
-- 01/29 : ~~Correct eventhub and servicebus templates to use name paramter~~
+- 01/29 : ~~Correct eventhub and servicebus templates to use name parameter~~
 - 01/24 : Add Location to all templates
 - 01/23 : Update documentation to reflect changes in network parameter
 - 01/23 : renumber NSG priorities
@@ -69,6 +69,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 02/06 : Updated loadBalancer template to have defaults for rules
 - 02/04 : February Update
 - 01/30 : Removed extra comma in elastipool template
 - 01/29 : Removed DisplayName tag from Redis template
