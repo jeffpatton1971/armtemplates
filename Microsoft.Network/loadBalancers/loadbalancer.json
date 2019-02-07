@@ -183,11 +183,11 @@
               "protocol": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].protocol]",
               "frontendPort": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].frontendPort]",
               "backendPort": "[parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].backendPort]",
-              "loadDistribution": "[if(empty(parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].loadDistribution),'Default',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].loadDistribution)]",
-              "idleTimeoutInMinutes": "[if(empty(parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].idleTimeoutInMinutes),4,parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].idleTimeoutInMinutes)]",
-              "enableFloatingIP": "[if(empty(parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].enableFloatingIP),'false',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].enableFloatingIP)]",
-              "enableTcpReset": "[if(empty(parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].enableTcpReset),'false',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].enableTcpReset)]",
-              "disableOutboundSnat": "[if(empty(parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].disableOutboundSnat),'false',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].disableOutboundSnat)]",
+              "loadDistribution": "[if(not(empty(parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].loadDistribution)),'Default',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].loadDistribution)]",
+              "idleTimeoutInMinutes": "[if(not(empty(parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].idleTimeoutInMinutes)),4,parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].idleTimeoutInMinutes)]",
+              "enableFloatingIP": "[if(not(empty(parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].enableFloatingIP)),'false',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].enableFloatingIP)]",
+              "enableTcpReset": "[if(not(empty(parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].enableTcpReset)),'false',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].enableTcpReset)]",
+              "disableOutboundSnat": "[if(not(empty(parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].disableOutboundSnat)),'false',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].disableOutboundSnat)]",
               "probe": {
                 "id": "[concat(resourceId(resourceGroup().name,'Microsoft.Network/loadBalancers',variables('LoadBalancerName')),'/probes/',variables('LoadbalancingProbeName'),'-',parameters('loadBalancingRules')[copyIndex('loadBalancingRules')].backendPort)]"
               }
