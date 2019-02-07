@@ -153,15 +153,16 @@
         "publicIPAllocationMethod": "Dynamic"
       }
     },
+    "pool": "[parameters('applicationGatewayRules').backendAddressPool]",
     "backendAddressPool": {
       "copy": [
         {
           "name": "BackendAddresses",
-          "count": "[length(parameters('applicationGatewayRules').backendAddressPool)]",
+          "count": "[length(variables('pool'))]",
           "input": {
-            "name": "[concat(parameters('applicationGatewayRules')[copyIndex('BackendAddresses')].hostname,'-bep')]",
+            "name": "[concat(variables('pool')[copyIndex('BackendAddresses')].nic,'-bep')]",
             "properties": {
-              "IpAddress": "[reference(parameters('applicationGatewayRules').backendAddressPool[copyIndex('BackendAddresses')].nic).ipConfigurations[0].properties.privateIPAddress]"
+              "IpAddress": "[reference(variables('pool')[copyIndex('BackendAddresses')].nic).ipConfigurations[0].properties.privateIPAddress]"
             }
           }
         }
