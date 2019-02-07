@@ -153,7 +153,6 @@
         "publicIPAllocationMethod": "Dynamic"
       }
     },
-    "pool": "[parameters('applicationGatewayRules')[0].backendAddressPool]",
     "applicationGateway": {
       "apiVersion": "2018-08-01",
       "name": "[parameters('name')]",
@@ -443,10 +442,6 @@
     }
   ],
   "outputs": {
-    "BackendAddressObject": {
-      "type": "object",
-      "value": "[variables('pool')]"
-    },
     "armTemplate": {
       "type": "object",
       "value": {
