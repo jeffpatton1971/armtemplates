@@ -93,6 +93,7 @@
     "WorkspaceapiVersion": "2017-03-15-preview",
     "OMSapiVersion": "2015-11-01-preview",
     "RackspaceTags": {
+      "Group": "Rackspace",
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
