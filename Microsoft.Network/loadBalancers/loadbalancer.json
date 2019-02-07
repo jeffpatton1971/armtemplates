@@ -114,7 +114,7 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
-    "internetalFrontendIpConfiguration": {
+    "internalFrontendIpConfiguration": {
       "copy": [
         {
           "name": "frontendIPConfigurations",
@@ -148,7 +148,7 @@
         }
       ]
     },
-    "frontendIpConfiguration": "[if(equals(variables('isExternal'),1),variables('internetalFrontendIpConfiguration'),variables('externalFrontendIpConfiguration'))]",
+    "frontendIpConfiguration": "[if(equals(variables('isExternal'),1),variables('internalFrontendIpConfiguration'),variables('externalFrontendIpConfiguration'))]",
     "probes": {
       "copy": [
         {
