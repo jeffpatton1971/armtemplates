@@ -154,20 +154,6 @@
       }
     },
     "pool": "[parameters('applicationGatewayRules').backendAddressPool]",
-    "backendAddressPool": {
-      "copy": [
-        {
-          "name": "BackendAddresses",
-          "count": "[length(variables('pool'))]",
-          "input": {
-            "name": "[concat(variables('pool')[copyIndex('BackendAddresses')].nic,'-bep')]",
-            "properties": {
-              "IpAddress": "[reference(variables('pool')[copyIndex('BackendAddresses')].nic).ipConfigurations[0].properties.privateIPAddress]"
-            }
-          }
-        }
-      ]
-    },
     "applicationGateway": {
       "apiVersion": "2018-08-01",
       "name": "[parameters('name')]",
@@ -459,7 +445,7 @@
   "outputs": {
     "BackendAddressObject": {
       "type": "object",
-      "value": "[variables('backendAddressPool')]"
+      "value": "[variables('pool')]"
     },
     "armTemplate": {
       "type": "object",
