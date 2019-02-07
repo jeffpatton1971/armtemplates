@@ -153,6 +153,17 @@
         "publicIPAllocationMethod": "Dynamic"
       }
     },
+    "backendAddressPool": {
+      "copy": [
+        {
+          "name": "BackendAddresses",
+          "count": "[length(parameters('applicationGatewayRules').backendAddressPool)]",
+          "input": {
+            "IpAddress": "[reference([parameters('applicationGatewayRules').backendAddressPool][copyIndex('BackendAddresses')].IpAddress).ipConfigurations[0].properties.privateIPAddress]"
+          }
+        }
+      ]
+    },
     "applicationGateway": {
       "apiVersion": "2018-08-01",
       "name": "[parameters('name')]",
@@ -442,6 +453,10 @@
     }
   ],
   "outputs": {
+    "BackendAddressObject": {
+      "type": "object",
+      "value": "[variables('backendAddressPool')]"
+    },
     "armTemplate": {
       "type": "object",
       "value": {
