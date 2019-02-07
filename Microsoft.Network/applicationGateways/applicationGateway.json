@@ -159,7 +159,10 @@
           "name": "BackendAddresses",
           "count": "[length(parameters('applicationGatewayRules').backendAddressPool)]",
           "input": {
-            "IpAddress": "[reference([parameters('applicationGatewayRules').backendAddressPool][copyIndex('BackendAddresses')].IpAddress).ipConfigurations[0].properties.privateIPAddress]"
+            "name": "[concat(parameters('applicationGatewayRules')[copyIndex('BackendAddresses')].hostname,'-bep')]",
+            "properties": {
+              "IpAddress": "[reference([parameters('applicationGatewayRules').backendAddressPool][copyIndex('BackendAddresses')].IpAddress).ipConfigurations[0].properties.privateIPAddress]"
+            }
           }
         }
       ]
