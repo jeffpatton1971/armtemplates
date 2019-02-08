@@ -37,6 +37,9 @@ This allows you to provide a collection of additional rules to apply to the NSG,
         "SubnetName": ""
       }
     },
+    "BastionPrefix": {
+      "value": ""
+    },
     "SourcePrefix": {
       "value": ""
     },

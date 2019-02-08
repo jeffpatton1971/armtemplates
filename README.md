@@ -70,6 +70,9 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 02/08 : Added inbound 4421 for bastion rules
+- 02/08 : Cleaned up priority numbers
+- 02/08 : Added BastionPrefix to template to make configuration less confusing
 - 02/06 : Updated NSG template documentation to explain some more confusing aspects
 - 02/06 : Updated loadBalancer template to have defaults for rules
 - 02/04 : February Update
