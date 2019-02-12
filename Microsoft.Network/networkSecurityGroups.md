@@ -15,7 +15,7 @@ There are several deployment types for NSG's currently available. These refer to
 - DomainController : A large number of AD rules
 - SitecoreCMS : Basic rules for Sitecore CMS 80/443 from VirtualNetwork
 - SitecoreSOLR : Basic rules for Sitecore SOLR 8983 from VirtualNetwork
-- SqlServer : Allows 1433
+- SqlServer : Allows 1433 (You will need to provide a sourcePrefix)
 - Default : Allows basic bastion access, and local subnet access, as well as the ping hack (these are included in all above types)
 
 ## SecurityRules
