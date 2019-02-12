@@ -23,6 +23,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
+- 02/11 : Pass in an array for sourcePrefix
 - 02/11 : Check CDN profile/endpoint template for naming
 - 02/07 : Update appgw to accept a nicname or nicname/resourcegroup to get a privateip for the pool
 - 01/29 : ~~Correct eventhub and servicebus templates to use name parameter~~
