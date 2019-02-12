@@ -15,7 +15,8 @@
       "type": "string"
     },
     "SourcePrefix": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": ""
     },
     "DeploymentType": {
       "type": "string",
