@@ -153,8 +153,6 @@
         "publicIPAllocationMethod": "Dynamic"
       }
     },
-    "pools": [ "cd-01-nic" ],
-    "pool": "[reference(concat('Microsoft.Network/networkInterfaces','cd-01-nic')).ipConfigurations[0].properties.privateIPAddress]",
     "applicationGateway": {
       "apiVersion": "2018-08-01",
       "name": "[parameters('name')]",
@@ -444,10 +442,6 @@
     }
   ],
   "outputs": {
-    "ip": {
-      "type": "string",
-      "value": "[variables('pool')]"
-    },
     "armTemplate": {
       "type": "object",
       "value": {
