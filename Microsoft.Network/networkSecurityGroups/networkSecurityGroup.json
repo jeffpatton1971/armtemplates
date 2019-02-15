@@ -8,11 +8,15 @@
     "Network": {
       "type": "object"
     },
+    "BastionPrefix": {
+      "type": "string"
+    },
     "DestinationPrefix": {
       "type": "string"
     },
     "SourcePrefix": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": ""
     },
     "DeploymentType": {
       "type": "string",
@@ -151,7 +155,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "3389",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 112,
@@ -165,7 +169,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "22",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 113,
@@ -179,7 +183,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "5986",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 114,
@@ -193,7 +197,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "4421",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 115,
@@ -265,7 +269,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "3389",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 112,
@@ -279,7 +283,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "22",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 113,
@@ -293,7 +297,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "5986",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 114,
@@ -307,7 +311,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "4421",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 115,
@@ -617,7 +621,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "3389",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 112,
@@ -631,7 +635,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "22",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 113,
@@ -645,7 +649,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "5986",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 114,
@@ -659,7 +663,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "4421",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 115,
@@ -773,7 +777,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "3389",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 112,
@@ -787,7 +791,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "22",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 113,
@@ -801,7 +805,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "5986",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 114,
@@ -815,52 +819,10 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "4421",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 115,
-          "direction": "Inbound"
-        }
-      },
-      {
-        "name": "[concat('Allow_Internet_Inbound_HTTP')]",
-        "properties": {
-          "description": "Allows inbound http to the Application Gateway subnet",
-          "protocol": "Tcp",
-          "sourcePortRange": "*",
-          "destinationPortRange": "80",
-          "sourceAddressPrefix": "*",
-          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-          "access": "Allow",
-          "priority": 133,
-          "direction": "Inbound"
-        }
-      },
-      {
-        "name": "[concat('Allow_Internet_Inbound_HTTPS')]",
-        "properties": {
-          "description": "Allows inbound https to the Application Gateway subnet",
-          "protocol": "Tcp",
-          "sourcePortRange": "*",
-          "destinationPortRange": "443",
-          "sourceAddressPrefix": "*",
-          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-          "access": "Allow",
-          "priority": 134,
-          "direction": "Inbound"
-        }
-      },
-      {
-        "name": "[concat('Allow_TCP_UDP_65200_65535')]",
-        "properties": {
-          "description": "Allow TCP and UDP 65200_65535",
-          "protocol": "*",
-          "sourcePortRange": "*",
-          "destinationPortRange": "65200-65535",
-          "sourceAddressPrefix": "VirtualNetwork",
-          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-          "access": "Allow",
-          "priority": 135,
           "direction": "Inbound"
         }
       },
@@ -957,7 +919,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "3389",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 112,
@@ -971,7 +933,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "22",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 113,
@@ -985,7 +947,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "5986",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 114,
@@ -999,55 +961,13 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "4421",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 115,
           "direction": "Inbound"
         }
-      },
-      {
-        "name": "[concat('Allow_Internet_Inbound_HTTP')]",
-        "properties": {
-          "description": "Allows inbound http to the Application Gateway subnet",
-          "protocol": "Tcp",
-          "sourcePortRange": "*",
-          "destinationPortRange": "80",
-          "sourceAddressPrefix": "*",
-          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-          "access": "Allow",
-          "priority": 133,
-          "direction": "Inbound"
-        }
-      },
-      {
-        "name": "[concat('Allow_Internet_Inbound_HTTPS')]",
-        "properties": {
-          "description": "Allows inbound https to the Application Gateway subnet",
-          "protocol": "Tcp",
-          "sourcePortRange": "*",
-          "destinationPortRange": "443",
-          "sourceAddressPrefix": "*",
-          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-          "access": "Allow",
-          "priority": 134,
-          "direction": "Inbound"
-        }
-      },
-      {
-        "name": "[concat('Allow_TCP_UDP_65200_65535')]",
-        "properties": {
-          "description": "Allow TCP and UDP 65200_65535",
-          "protocol": "*",
-          "sourcePortRange": "*",
-          "destinationPortRange": "65200-65535",
-          "sourceAddressPrefix": "VirtualNetwork",
-          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-          "access": "Allow",
-          "priority": 135,
-          "direction": "Inbound"
-        }
-      },
+      },     
       {
         "name": "[concat('Allow_SITECORE_80_INBOUND')]",
         "properties": {
@@ -1155,7 +1075,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "3389",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 112,
@@ -1169,7 +1089,7 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "22",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 113,
@@ -1183,10 +1103,24 @@
           "protocol": "Tcp",
           "sourcePortRange": "*",
           "destinationPortRange": "5986",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
           "priority": 114,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+        "properties": {
+          "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 115,
           "direction": "Inbound"
         }
       },
@@ -1203,22 +1137,7 @@
           "priority": 141,
           "direction": "Inbound"
         }
-      },
-      {
-        "name": "[concat('Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
-        "properties": {
-          "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
-          "protocol": "Tcp",
-          "sourcePortRange": "*",
-          "destinationPortRange": "4421",
-          "sourceAddressPrefix": "[parameters('SourcePrefix')]",
-          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
-          "access": "Allow",
-          "priority": 115,
-          "direction": "Inbound"
-        }
-      },
-      {
+      },      {
         "name": "[concat('Deny_ALL_INBOUND_UDP')]",
         "properties": {
           "description": "Deny all inbound UDP",
@@ -1258,7 +1177,7 @@
           "sourceAddressPrefix": "[variables('rackspaceBastionDFW')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
-          "priority": 151,
+          "priority": 142,
           "direction": "Inbound"
         }
       },
@@ -1272,7 +1191,7 @@
           "sourceAddressPrefix": "[variables('rackspaceBastionIAD')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
-          "priority": 152,
+          "priority": 143,
           "direction": "Inbound"
         }
       },
@@ -1286,7 +1205,7 @@
           "sourceAddressPrefix": "[variables('rackspaceBastionORD')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
-          "priority": 153,
+          "priority": 144,
           "direction": "Inbound"
         }
       },
@@ -1300,7 +1219,7 @@
           "sourceAddressPrefix": "[variables('rackspaceBastionHKG')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
-          "priority": 154,
+          "priority": 145,
           "direction": "Inbound"
         }
       },
@@ -1314,7 +1233,7 @@
           "sourceAddressPrefix": "[variables('rackspaceBastionLON')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
-          "priority": 155,
+          "priority": 146,
           "direction": "Inbound"
         }
       },
@@ -1328,7 +1247,7 @@
           "sourceAddressPrefix": "[variables('rackspaceBastionLON5')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
-          "priority": 156,
+          "priority": 147,
           "direction": "Inbound"
         }
       },
@@ -1342,7 +1261,7 @@
           "sourceAddressPrefix": "[variables('rackspaceBastionSYD')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
-          "priority": 157,
+          "priority": 148,
           "direction": "Inbound"
         }
       },
@@ -1356,7 +1275,7 @@
           "sourceAddressPrefix": "[variables('rackspacepBastionDFW')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
-          "priority": 179,
+          "priority": 149,
           "direction": "Inbound"
         }
       },
@@ -1370,7 +1289,7 @@
           "sourceAddressPrefix": "[variables('rackspacepBastionIAD')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
-          "priority": 183,
+          "priority": 150,
           "direction": "Inbound"
         }
       },
@@ -1384,7 +1303,7 @@
           "sourceAddressPrefix": "[variables('rackspacepBastionORD')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
-          "priority": 187,
+          "priority": 151,
           "direction": "Inbound"
         }
       },
@@ -1398,7 +1317,7 @@
           "sourceAddressPrefix": "[variables('rackspacepBastionHKG')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
-          "priority": 191,
+          "priority": 152,
           "direction": "Inbound"
         }
       },
@@ -1412,7 +1331,7 @@
           "sourceAddressPrefix": "[variables('rackspacepBastionLON')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
-          "priority": 195,
+          "priority": 153,
           "direction": "Inbound"
         }
       },
@@ -1426,7 +1345,7 @@
           "sourceAddressPrefix": "[variables('rackspacepBastionLON5')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
-          "priority": 199,
+          "priority": 154,
           "direction": "Inbound"
         }
       },
@@ -1440,7 +1359,203 @@
           "sourceAddressPrefix": "[variables('rackspacepBastionSYD')]",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
-          "priority": 203,
+          "priority": 155,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SFT_DFW')]",
+        "properties": {
+          "description": "Allows SFT",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[variables('rackspaceBastionDFW')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 156,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SFT_IAD')]",
+        "properties": {
+          "description": "Allows SFT",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[variables('rackspaceBastionIAD')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 157,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SFT_ORD')]",
+        "properties": {
+          "description": "Allows SFT",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[variables('rackspaceBastionORD')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 158,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SFT_HKG')]",
+        "properties": {
+          "description": "Allows SFT",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[variables('rackspaceBastionHKG')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 159,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SFT_LON')]",
+        "properties": {
+          "description": "Allows SFT",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[variables('rackspaceBastionLON')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 160,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SFT_LON5')]",
+        "properties": {
+          "description": "Allows SFT",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[variables('rackspaceBastionLON5')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 161,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SFT_SYD')]",
+        "properties": {
+          "description": "Allows SFT",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[variables('rackspaceBastionSYD')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 162,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SFT_PDFW')]",
+        "properties": {
+          "description": "Allows SFT",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[variables('rackspacepBastionDFW')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 163,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SFT_PIAD')]",
+        "properties": {
+          "description": "Allows SFT",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[variables('rackspacepBastionIAD')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 164,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SFT_PORD')]",
+        "properties": {
+          "description": "Allows SFT",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[variables('rackspacepBastionORD')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 165,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SFT_PHKG')]",
+        "properties": {
+          "description": "Allows SFT",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[variables('rackspacepBastionHKG')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 166,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SFT_PLON')]",
+        "properties": {
+          "description": "Allows SFT",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[variables('rackspacepBastionLON')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 167,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SFT_PLON5')]",
+        "properties": {
+          "description": "Allows SFT",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[variables('rackspacepBastionLON5')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 168,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RAX_SFT_PSYD')]",
+        "properties": {
+          "description": "Allows SFT",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[variables('rackspacepBastionSYD')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 169,
           "direction": "Inbound"
         }
       }

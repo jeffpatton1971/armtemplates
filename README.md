@@ -23,7 +23,10 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
-- 01/29 : ~~Correct eventhub and servicebus templates to use name paramter~~
+- 02/11 : Pass in an array for sourcePrefix
+- 02/11 : Check CDN profile/endpoint template for naming
+- 02/07 : Update appgw to accept a nicname or nicname/resourcegroup to get a privateip for the pool
+- 01/29 : ~~Correct eventhub and servicebus templates to use name parameter~~
 - 01/24 : Add Location to all templates
 - 01/23 : Update documentation to reflect changes in network parameter
 - 01/23 : renumber NSG priorities
@@ -69,6 +72,16 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 02/15 : Merge for Marks UK training
+- 02/11 : Updated VM documentation
+- 02/11 : Updated nsg documentation
+- 02/11 : Make sourcePrefix optional
+- 02/11 : Removed trailing comma from connection template
+- 02/08 : Added inbound 4421 for bastion rules
+- 02/08 : Cleaned up priority numbers
+- 02/08 : Added BastionPrefix to template to make configuration less confusing
+- 02/06 : Updated NSG template documentation to explain some more confusing aspects
+- 02/06 : Updated loadBalancer template to have defaults for rules
 - 02/04 : February Update
 - 01/30 : Removed extra comma in elastipool template
 - 01/29 : Removed DisplayName tag from Redis template

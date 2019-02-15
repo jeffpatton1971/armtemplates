@@ -8,6 +8,9 @@ Azure Virtual Machines (VM) is one of several types of on-demand, scalable compu
 - ARM https://docs.microsoft.com/en-us/azure/templates/microsoft.compute/2018-10-01/virtualmachines
 - DOC https://docs.microsoft.com/en-us/azure/virtual-machines/
 
+## Notes
+GalleryImage and ImageReferenceId are mutually exclusive, you will need to pick one or the other. When using those, you should set the OperatingSystem parameter to either Custom Linux or Custom Windows
+
 ## Sample Parameter File
 ```
 {

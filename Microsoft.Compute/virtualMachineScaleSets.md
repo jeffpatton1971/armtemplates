@@ -8,6 +8,9 @@ Azure virtual machine scale sets let you create and manage a group of identical,
 - ARM https://docs.microsoft.com/en-us/azure/templates/microsoft.compute/2017-12-01/virtualmachinescalesets
 - DOC https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/
 
+## Notes
+GalleryImage and ImageReferenceId are mutually exclusive, you will need to pick one or the other. When using those, you should set the OperatingSystem parameter to either Custom Linux or Custom Windows
+
 ## Sample Parameter File
 ```
 {
