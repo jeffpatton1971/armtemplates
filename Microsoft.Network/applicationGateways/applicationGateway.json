@@ -154,20 +154,6 @@
       }
     },
     "pools": [ "cd-01-nic" ],
-    "backendpoolstest": {
-      "copy": [
-        {
-          "name": "backendAddressPool",
-          "count": "[length(variables('pools'))]",
-          "input": {
-            "name": "[variables('pools')[copyIndex('backendAddressPool')]]",
-            "properties": {
-              "IpAddress": "[reference(concat('Microsoft.Network/networkInterfaces','cd-01-nic')).ipConfigurations[0].properties.privateIPAddress]"
-            }
-          }
-        }
-      ]
-    },
     "pool": "[reference(concat('Microsoft.Network/networkInterfaces','cd-01-nic')).ipConfigurations[0].properties.privateIPAddress]",
     "applicationGateway": {
       "apiVersion": "2018-08-01",
@@ -461,10 +447,6 @@
     "ip": {
       "type": "string",
       "value": "[variables('pool')]"
-    },
-    "backendobject": {
-      "type": "object",
-      "value":"[variables('backendpoolstest')]"
     },
     "armTemplate": {
       "type": "object",
