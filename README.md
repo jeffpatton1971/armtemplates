@@ -72,6 +72,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 02/15 : Rolling back changes to appgw
 - 02/15 : Merge for Marks UK training
 - 02/11 : Updated VM documentation
 - 02/11 : Updated nsg documentation
