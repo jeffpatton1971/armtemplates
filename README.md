@@ -74,6 +74,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 03/01 : Moved the extension into the resource section of the VM and extensionProfile section of the VMSS
 - 02/28 : Added support for VM Diagnostics to VM and VMSS
 - 02/15 : Rolling back changes to appgw
 - 02/15 : Merge for Marks UK training
