@@ -25,6 +25,12 @@ GalleryImage and ImageReferenceId are mutually exclusive, you will need to pick 
         "SubnetName": "sb-atlassian"
       }
     },
+    "Diagnostics": {
+      "value": {
+        "StorageAccountName": "acctnumdiags001",
+        "ResourceGroupName": "rsg-diags",
+        "BootDiagnostics": true
+      }
     "DataDisks": {
       "value": [
         {

@@ -11,6 +11,9 @@
     "Network": {
       "value": {}
     },
+    "Diagnostics": {
+      "value": {}
+    },
     "DataDisks": {
       "value": []
     },
