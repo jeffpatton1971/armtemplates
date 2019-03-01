@@ -74,6 +74,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 03/01 : Updated NSG rule 140 for Solr should be 8984
 - 03/01 : Corrected, resources should be an array
 - 03/01 : Moved the extension into the resource section of the VM and extensionProfile section of the VMSS
 - 02/28 : Added support for VM Diagnostics to VM and VMSS

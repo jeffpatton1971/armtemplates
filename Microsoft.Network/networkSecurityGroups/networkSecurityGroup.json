@@ -997,12 +997,12 @@
         }
       },
       {
-        "name": "[concat('Allow_SOLR_8983_INBOUND')]",
+        "name": "[concat('Allow_SOLR_8984_INBOUND')]",
         "properties": {
           "description": "Allow inbound solr endpoint access",
           "protocol": "Tcp",
           "sourcePortRange": "*",
-          "destinationPortRange": "8983",
+          "destinationPortRange": "8984",
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
