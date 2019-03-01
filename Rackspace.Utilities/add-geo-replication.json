@@ -17,6 +17,9 @@
     "serverName": {
       "type": "string"
     },
+    "elasticPoolName": {
+      "type": "string"
+    },
     "createMode": {
       "type": "string"
     },
@@ -30,7 +33,8 @@
     }
   },
   "variables": {
-    "sqlResourceId": "[resourceId(parameters('SourceResourceGroup'),'Microsoft.Sql/servers',parameters('SourceSqlServer'))]"
+    "sqlResourceId": "[resourceId(parameters('SourceResourceGroup'),'Microsoft.Sql/servers',parameters('SourceSqlServer'))]",
+    "elasticPoolId": "[concat(variables('sqlResourceId'),'/elasticPools/',parameters('elasticPoolName'))]"
   },
   "resources": [
     {
@@ -47,7 +51,8 @@
         "createMode": "[parameters('createMode')]",
         "sourceDatabaseId": "[concat(variables('sqlResourceId'),'/databases/',parameters('SourceDatabaseName')[copyIndex()])]",
         "zoneRedundant": "[parameters('zoneRedundant')]",
-        "licenseType": "[parameters('licenseType')]"
+        "licenseType": "[parameters('licenseType')]",
+        "elasticPoolId": "[variables('elasticPoolId')]"
       }
     }
   ],

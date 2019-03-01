@@ -3,30 +3,31 @@
   "contentVersion": "2019.02.01.0",
   "parameters": {
     "SourceDatabaseName": {
-      "value": [
-        ""
-      ]
+      "value": [ ]
     },
     "SourceSqlServer": {
-      "value": null
+      "value": ""
     },
     "SourceResourceGroup": {
-      "value": null
+      "value": ""
     },
     "location": {
-      "value": null
+      "value": ""
     },
     "serverName": {
-      "value": null
+      "value": ""
+    },
+    "elasticPoolName": {
+      "value": ""
     },
     "createMode": {
       "value": "OnlineSecondary"
     },
     "zoneRedundant": {
-      "value": null
+      "value": false
     },
     "licenseType": {
-      "value": null
+      "value": ""
     }
   }
 }
