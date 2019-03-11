@@ -24,6 +24,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
+- 03/10 : Fix diagnostic support
 - 02/28 : ~~Add support for VM Diagnostics~~
 - 02/11 : Pass in an array for sourcePrefix
 - 02/11 : Check CDN profile/endpoint template for naming
@@ -74,6 +75,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 03/10 : Checking in new param and variables for diagnostics
 - 03/01 : Updated geo replication template to use elasticpools
 - 03/01 : Updated NSG rule 140 for Solr should be 8984
 - 03/01 : Corrected, resources should be an array
