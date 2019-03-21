@@ -24,7 +24,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
-- 03/10 : Fix diagnostic support
+- 03/10 : ~~Fix diagnostic support~~
 - 02/28 : ~~Add support for VM Diagnostics~~
 - 02/11 : Pass in an array for sourcePrefix
 - 02/11 : Check CDN profile/endpoint template for naming
@@ -75,6 +75,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 03/21 : Updated the IaasDiagnostics template (windows)
 - 03/21 : Removed existing diagnostics from templates in favor of using extension templates
 - 03/21 : Adding extension template for diagnostics
 - 03/10 : Checking in new param and variables for diagnostics
