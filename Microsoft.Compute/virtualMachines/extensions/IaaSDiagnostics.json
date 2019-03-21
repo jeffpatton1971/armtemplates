@@ -17,7 +17,7 @@
     }
   },
   "variables": {
-    "accountid": "[resourceId(parameters('StorageAccountResourceGroupName'), 'Microsoft.Storage/storageAccounts/', parameters('StorageAccountName'))]",
+    "accountid": "[resourceId(parameters('StorageAccountResourceGroupName'), 'Microsoft.Storage/storageAccounts/', parameters('StorageAccountName'))]"
   },
   "resources": [
     {
