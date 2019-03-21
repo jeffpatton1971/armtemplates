@@ -75,6 +75,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 03/21 : Adding extension template for diagnostics
 - 03/10 : Checking in new param and variables for diagnostics
 - 03/01 : Updated geo replication template to use elasticpools
 - 03/01 : Updated NSG rule 140 for Solr should be 8984
