@@ -13,7 +13,7 @@
       "type": "string"
     },
     "StorageAccountToken": {
-      "type": "securestring"
+      "type": "string"
     }
   },
   "variables": {},
