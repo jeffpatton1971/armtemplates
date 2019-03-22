@@ -947,7 +947,7 @@
       "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/availabilitySets/',parameters('AvailabilitySetName'))]"
     },
     "diskCount": "[if(empty(parameters('DataDisks')),1,length(parameters('DataDisks')))]",
-    "zones": "[if(empty(parameters('Zones')),createArray(''),parameters('Zones'))]",
+    "zones": "[if(empty(parameters('Zones')),createArray(''),parameters('Zones'))]"
   },
   "resources": [
     {
