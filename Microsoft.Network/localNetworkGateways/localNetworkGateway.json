@@ -124,14 +124,6 @@
     }
   },
   "resources": [
-    {
-      "name": "[parameters('name')]",
-      "type": "Microsoft.Network/localNetworkGateways",
-      "apiVersion": "2018-08-01",
-      "location": "[variables('location')]",
-      "tags": "[variables('tags')]",
-      "properties": "[variables('properties')]"
-    }
   ],
   "outputs": {
     "armTemplate": {
