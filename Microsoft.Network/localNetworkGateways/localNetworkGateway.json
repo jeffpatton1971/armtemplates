@@ -113,7 +113,7 @@
         "gatewayIpAddress": "[parameters('gatewayIpAddress')]"
       }
     ],
-    "properties": "[if(empty(parameters('bgpSettings')),variables('bgpArray')[0],variables('bgpArray')[0])]",
+    "properties": "[if(empty(parameters('bgpSettings')),variables('bgpArray')[1],variables('bgpArray')[0])]",
     "localNetworkGateway": {
       "name": "[parameters('name')]",
       "type": "Microsoft.Network/localNetworkGateways",
