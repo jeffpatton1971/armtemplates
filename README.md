@@ -24,6 +24,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
+- 04/11 : Update plan in VM/VMSS to work, per Corey email
 - 04/11 : Remove resourceGroup from vm diagnostics
 - 04/04 : Add BuildTicket Tag
 - 03/10 : ~~Fix diagnostic support~~
