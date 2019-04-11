@@ -26,7 +26,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 # TODO
 - 04/11 : Update plan in VM/VMSS to work, per Corey email
 - 04/11 : Remove resourceGroup from vm diagnostics
-- 04/04 : Add BuildTicket Tag
+- 04/04 : ~~Add BuildTicket Tag~~
 - 03/10 : ~~Fix diagnostic support~~
 - 02/28 : ~~Add support for VM Diagnostics~~
 - 02/11 : Pass in an array for sourcePrefix
