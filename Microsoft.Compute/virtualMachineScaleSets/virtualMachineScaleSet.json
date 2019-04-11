@@ -382,6 +382,7 @@
     "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('Network').SubnetName)]",
     "NetworkInterfaceName": "[parameters('Network').Name]",
     "NetworkInterfaceIpConfigurationName": "[concat(variables('NetworkInterfaceName'),'-ipc')]",
+    "Plan": "[if(empty(parameters('GalleryImage')),json('null'),json(concat('{\"name\": \"', parameters('GalleryImage').imageSKU, '\",', '\"publisher\": \"', parameters('GalleryImage').imagePublisher, '\",', '\"product\": \"', parameters('GalleryImage').imageOffer, '\"}')))]",
     "Disk": {
       "e10": {
         "size": 128,
@@ -945,7 +946,7 @@
     "Disks": "[if(empty(parameters('DataDisks')),createArray(json('{\"name\": \"notUsed\",\"caching\": \"ReadOnly\",\"lun\": \"1\",\"size\": \"p30\"}')),parameters('DataDisks'))]",
     "isPresent": "[if(empty(parameters('DataDisks')),0,1)]",
     "diskCount": "[if(empty(parameters('DataDisks')),1,length(parameters('DataDisks')))]",
-    "zones": "[if(empty(parameters('Zones')),json('null'),parameters('Zones'))]",
+    "zones": "[if(empty(parameters('Zones')),json('null'),parameters('Zones'))]"
   },
   "resources": [
     {
@@ -1038,6 +1039,7 @@
                 "tier": "Standard",
                 "name": "[variables('vmSize')]"
               },
+              "plan": "[variables('Plan')]",
               "properties": {
                 "upgradePolicy": "[parameters('UpgradePolicy')]",
                 "virtualMachineProfile": {
@@ -1094,7 +1096,7 @@
                     ]
                   },
                   "extensionProfile": {
-                    "extensions": [ ]
+                    "extensions": []
                   },
                   "diagnosticsProfile": {
                     "bootDiagnostics": {
@@ -1136,6 +1138,7 @@
                 "tier": "Standard",
                 "name": "[variables('vmSize')]"
               },
+              "plan": "[variables('Plan')]",
               "properties": {
                 "upgradePolicy": "[parameters('UpgradePolicy')]",
                 "virtualMachineProfile": {
@@ -1176,7 +1179,7 @@
                     ]
                   },
                   "extensionProfile": {
-                    "extensions": [ ]
+                    "extensions": []
                   },
                   "diagnosticsProfile": {
                     "bootDiagnostics": {

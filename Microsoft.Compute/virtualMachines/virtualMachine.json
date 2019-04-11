@@ -385,6 +385,7 @@
     "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('Network').SubnetName)]",
     "NetworkInterfaceName": "[parameters('Network').Name]",
     "NetworkInterfaceIpConfigurationName": "[concat(variables('NetworkInterfaceName'),'-ipc')]",
+    "Plan": "[if(empty(parameters('GalleryImage')),json('null'),json(concat('{\"name\": \"', parameters('GalleryImage').imageSKU, '\",', '\"publisher\": \"', parameters('GalleryImage').imagePublisher, '\",', '\"product\": \"', parameters('GalleryImage').imageOffer, '\"}')))]",
     "Disk": {
       "e10": {
         "size": 128,
@@ -1071,6 +1072,7 @@
               "name": "[parameters('name')]",
               "location": "[variables('location')]",
               "dependsOn": [],
+              "plan": "[variables('Plan')]",
               "properties": {
                 "licenseType": "[if(equals(parameters('LicenseType'),'None'),json('null'),parameters('LicenseType'))]",
                 "availabilitySet": "[if(equals(variables('avset'),0),json('null'),variables('availabilitySet'))]",
@@ -1122,7 +1124,7 @@
                   }
                 }
               },
-              "resources": [ ],
+              "resources": [],
               "tags": "[variables('tags')]",
               "zones": []
             }
@@ -1149,6 +1151,7 @@
               "name": "[parameters('name')]",
               "location": "[variables('location')]",
               "dependsOn": [],
+              "plan": "[variables('Plan')]",
               "properties": {
                 "licenseType": "[if(equals(parameters('LicenseType'),'None'),json('null'),parameters('LicenseType'))]",
                 "availabilitySet": "[if(equals(variables('avset'),0),json('null'),variables('availabilitySet'))]",
@@ -1183,7 +1186,7 @@
                   }
                 }
               },
-              "resources": [ ],
+              "resources": [],
               "tags": "[variables('tags')]",
               "zones": []
             }
