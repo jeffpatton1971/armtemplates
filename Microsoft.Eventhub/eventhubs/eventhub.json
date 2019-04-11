@@ -76,6 +76,10 @@
       },
       "defaultValue": "First Last"
     },
+    "buildTicket": {
+      "type": "string",
+      "defaultValue": "######-#####"
+    },
     "RaxAutomationExclude": {
       "type": "string",
       "allowedValues": [
@@ -99,6 +103,7 @@
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
+      "BuildTicket": "[parameters('buildTicket')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "storageAccountResourceId": "[if(empty(parameters('StorageAccount')),json('null'),resourceId(parameters('StorageAccount').ResourceGroupName,'Microsoft.Storage/storageAccounts',parameters('StorageAccount').StorageAccountName))]",
