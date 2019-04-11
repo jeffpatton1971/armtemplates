@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2019.02.01.0",
+  "contentVersion": "2019.04.01.0",
   "parameters": {
     "name": {
       "type": "string"
@@ -14,6 +14,9 @@
     },
     "DataDisks": {
       "type": "array"
+    },
+    "Diagnostics": {
+      "type": "object"
     },
     "LicenseType": {
       "type": "string",
@@ -1107,9 +1110,14 @@
                     }
                   ]
                 },
-                "diagnosticsProfile": {}
+                "diagnosticsProfile": {
+                  "bootDiagnostics": {
+                    "enabled": "[parameters('Diagnostics').BootDiagnostics]",
+                    "storageUri": "[concat('http://', parameters('Diagnostics').StorageAccountName, '.blob.core.windows.net')]"
+                  }
+                }
               },
-              "resources": null,
+              "resources": [ ],
               "tags": "[variables('tags')]",
               "zones": []
             }
@@ -1163,9 +1171,14 @@
                     }
                   ]
                 },
-                "diagnosticsProfile": {}
+                "diagnosticsProfile": {
+                  "bootDiagnostics": {
+                    "enabled": "[parameters('Diagnostics').BootDiagnostics]",
+                    "storageUri": "[concat('http://', parameters('Diagnostics').StorageAccountName, '.blob.core.windows.net')]"
+                  }
+                }
               },
-              "resources": null,
+              "resources": [ ],
               "tags": "[variables('tags')]",
               "zones": []
             }

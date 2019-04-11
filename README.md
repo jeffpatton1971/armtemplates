@@ -2,6 +2,7 @@
 Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that are used, and processes that are followed to deploy a customer environment into Azure.
 
 # New Additions
+- Diagnostics
 - LoadBalancer now supports properties for AOAG
 - Compute now supports E sizes for managed disk
 - Compute now supports writeAcceleratorEnabled and ultraSSDEnabled
@@ -23,6 +24,9 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
+- 04/04 : Add BuildTicket Tag
+- 03/10 : ~~Fix diagnostic support~~
+- 02/28 : ~~Add support for VM Diagnostics~~
 - 02/11 : Pass in an array for sourcePrefix
 - 02/11 : Check CDN profile/endpoint template for naming
 - 02/07 : Update appgw to accept a nicname or nicname/resourcegroup to get a privateip for the pool
@@ -72,6 +76,16 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 04/11 : Pushing April updates
+- 03/21 : Updated the IaasDiagnostics template (windows)
+- 03/21 : Removed existing diagnostics from templates in favor of using extension templates
+- 03/21 : Adding extension template for diagnostics
+- 03/10 : Checking in new param and variables for diagnostics
+- 03/01 : Updated geo replication template to use elasticpools
+- 03/01 : Updated NSG rule 140 for Solr should be 8984
+- 03/01 : Corrected, resources should be an array
+- 03/01 : Moved the extension into the resource section of the VM and extensionProfile section of the VMSS
+- 02/28 : Added support for VM Diagnostics to VM and VMSS
 - 02/15 : Rolling back changes to appgw
 - 02/15 : Merge for Marks UK training
 - 02/11 : Updated VM documentation

@@ -1,11 +1,14 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2019.02.01.0",
+  "contentVersion": "2019.04.01.0",
   "parameters": {
     "name": {
       "type": "string"
     },
     "Network": {
+      "type": "object"
+    },
+    "Diagnostics": {
       "type": "object"
     },
     "DataDisks": {
@@ -937,7 +940,7 @@
     "Disks": "[if(empty(parameters('DataDisks')),createArray(json('{\"name\": \"notUsed\",\"caching\": \"ReadOnly\",\"lun\": \"1\",\"size\": \"p30\"}')),parameters('DataDisks'))]",
     "isPresent": "[if(empty(parameters('DataDisks')),0,1)]",
     "diskCount": "[if(empty(parameters('DataDisks')),1,length(parameters('DataDisks')))]",
-    "zones": "[if(empty(parameters('Zones')),json('null'),parameters('Zones'))]"
+    "zones": "[if(empty(parameters('Zones')),json('null'),parameters('Zones'))]",
   },
   "resources": [
     {
@@ -1085,7 +1088,15 @@
                       }
                     ]
                   },
-                  "diagnosticsProfile": {}
+                  "extensionProfile": {
+                    "extensions": [ ]
+                  },
+                  "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                      "enabled": "[parameters('Diagnostics').BootDiagnostics]",
+                      "storageUri": "[concat('http://', parameters('Diagnostics').StorageAccountName, '.blob.core.windows.net')]"
+                    }
+                  }
                 }
               },
               "tags": "[variables('tags')]",
@@ -1159,7 +1170,15 @@
                       }
                     ]
                   },
-                  "diagnosticsProfile": {}
+                  "extensionProfile": {
+                    "extensions": [ ]
+                  },
+                  "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                      "enabled": "[parameters('Diagnostics').BootDiagnostics]",
+                      "storageUri": "[concat('http://', parameters('Diagnostics').StorageAccountName, '.blob.core.windows.net')]"
+                    }
+                  }
                 }
               },
               "tags": "[variables('tags')]",

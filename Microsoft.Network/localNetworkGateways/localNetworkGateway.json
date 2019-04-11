@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2019.02.01.0",
+  "contentVersion": "2019.04.01.0",
   "parameters": {
     "name": {
       "type": "string",
@@ -101,18 +101,26 @@
       "BuildBy": "[parameters('buildBy')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
-    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",,
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "bgpArray": [
+      {
+        "localNetworkAddressSpace": "[parameters('localNetworkAddressSpace')]",
+        "gatewayIpAddress": "[parameters('gatewayIpAddress')]",
+        "bgpSettings": "[parameters('bgpSettings')]"
+      },
+      {
+        "localNetworkAddressSpace": "[parameters('localNetworkAddressSpace')]",
+        "gatewayIpAddress": "[parameters('gatewayIpAddress')]"
+      }
+    ],
+    "properties": "[if(empty(parameters('bgpSettings')),variables('bgpArray')[1],variables('bgpArray')[0])]",
     "localNetworkGateway": {
       "name": "[parameters('name')]",
       "type": "Microsoft.Network/localNetworkGateways",
       "apiVersion": "2018-08-01",
       "location": "[variables('location')]",
       "tags": "[variables('tags')]",
-      "properties": {
-        "localNetworkAddressSpace": "[parameters('localNetworkAddressSpace')]",
-        "gatewayIpAddress": "[parameters('gatewayIpAddress')]",
-        "bgpSettings": "[parameters('bgpSettings')]"
-      }
+      "properties": "[variables('properties')]"
     }
   },
   "resources": [
@@ -122,11 +130,7 @@
       "apiVersion": "2018-08-01",
       "location": "[variables('location')]",
       "tags": "[variables('tags')]",
-      "properties": {
-        "localNetworkAddressSpace": "[parameters('localNetworkAddressSpace')]",
-        "gatewayIpAddress": "[parameters('gatewayIpAddress')]",
-        "bgpSettings": "[parameters('bgpSettings')]"
-      }
+      "properties": "[variables('properties')]"
     }
   ],
   "outputs": {
@@ -134,7 +138,7 @@
       "type": "object",
       "value": {
         "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-        "contentVersion": "2019.02.01.0",
+        "contentVersion": "2019.04.01.0",
         "parameters": {},
         "variables": {},
         "resources": "[createArray(variables('localNetworkGateway'))]",
