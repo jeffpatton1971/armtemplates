@@ -93,6 +93,10 @@
       },
       "defaultValue": "First Last"
     },
+    "buildTicket": {
+      "type": "string",
+      "defaultValue": "######-#####"
+    },
     "RaxAutomationExclude": {
       "type": "string",
       "allowedValues": [
@@ -188,6 +192,7 @@
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
+      "BuildTicket": "[parameters('buildTicket')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
