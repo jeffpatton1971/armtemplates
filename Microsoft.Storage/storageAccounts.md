@@ -46,6 +46,9 @@ Azure Storage is a Microsoft-managed service providing cloud storage that is hig
     "buildBy": {
       "value": "jeffrey.patton2@rackspace.com"
     },
+    "buildTicket": {
+      "value": "123456-78901"
+    },
     "RaxAutomationExclude": {
       "value": "None"
     }
