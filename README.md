@@ -78,7 +78,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
-- 04/11 : c
+- 04/11 : Added plan object
 - 04/11 : Adding buildTicket tags
 - 04/11 : Pushing April updates
 - 03/21 : Updated the IaasDiagnostics template (windows)
