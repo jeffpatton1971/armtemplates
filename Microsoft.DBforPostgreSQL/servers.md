@@ -64,6 +64,9 @@ Azure Database for PostgreSQL is a relational database service based on the open
     "buildBy": {
       "value": "jeffrey.patton2@rackspace.com"
     },
+    "buildTicket": {
+      "value": "123456-78901"
+    },
     "RaxAutomationExclude": {
       "value": "None"
     }
