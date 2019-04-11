@@ -71,6 +71,9 @@
     "buildBy": {
       "value": ""
     },
+    "buildTicket": {
+      "value": ""
+    },
     "RaxAutomationExclude": {
       "value": ""
     }
