@@ -101,7 +101,6 @@
   },
   "variables": {
     "RackspaceTags": {
-      "displayName": "ApplicationGateway",
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
