@@ -58,6 +58,9 @@ Azure Database for MySQL is a relational database service in the Microsoft cloud
     "buildBy": {
       "value": "jeffrey.patton2@rackspace.com"
     },
+    "buildTicket": {
+      "value": "123456-78901"
+    },
     "RaxAutomationExclude": {
       "value": "None"
     }
