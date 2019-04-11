@@ -76,6 +76,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 04/11 : Pushing April updates
 - 03/21 : Updated the IaasDiagnostics template (windows)
 - 03/21 : Removed existing diagnostics from templates in favor of using extension templates
 - 03/21 : Adding extension template for diagnostics
