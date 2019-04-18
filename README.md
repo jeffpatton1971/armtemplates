@@ -2,6 +2,7 @@
 Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that are used, and processes that are followed to deploy a customer environment into Azure.
 
 # New Additions
+- AKS (managedClusters)
 - Diagnostics
 - LoadBalancer now supports properties for AOAG
 - Compute now supports E sizes for managed disk
@@ -80,6 +81,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 04/18 : Stubbed in a basic AKS template, supporting existing tags
 - 04/11 : Added plan object
 - 04/11 : Adding buildTicket tags
 - 04/11 : Pushing April updates
