@@ -14,9 +14,6 @@
     "agentPoolProfiles": {
       "value": []
     },
-    "linuxProfile": {
-      "value": {}
-    },
     "servicePrincipalProfile": {
       "value": {}
     },
@@ -26,17 +23,8 @@
     "enableRBAC": {
       "value": false
     },
-    "enablePodSecurityPolicy": {
-      "value": false
-    },
     "networkProfile": {
       "value": {}
-    },
-    "aadProfile": {
-      "value": {}
-    },
-    "apiServerAuthorizedIPRanges": {
-      "value": []
     },
     "Location": {
       "value": ""

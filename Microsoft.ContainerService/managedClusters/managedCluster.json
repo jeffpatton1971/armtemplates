@@ -16,10 +16,6 @@
     "agentPoolProfiles": {
       "type": "array"
     },
-    "linuxProfile": {
-      "type": "object",
-      "defaultValue": {}
-    },
     "servicePrincipalProfile": {
       "type": "object"
     },
@@ -30,20 +26,8 @@
       "type": "bool",
       "defaultValue": false
     },
-    "enablePodSecurityPolicy": {
-      "type": "bool",
-      "defaultValue": false
-    },
     "networkProfile": {
       "type": "object"
-    },
-    "aadProfile": {
-      "type": "object",
-      "defaultValue": {}
-    },
-    "apiServerAuthorizedIPRanges": {
-      "type": "array",
-      "defaultValue": []
     },
     "Location": {
       "type": "string",
@@ -139,29 +123,18 @@
           "dnsPrefix": "[parameters('dnsPrefix')]",
           "agentPoolProfiles": [
             {
+              "name": "[parameters('agentPoolProfiles').name]",
               "count": "[parameters('agentPoolProfiles').count]",
               "vmSize": "[parameters('agentPoolProfiles').vmSize]",
-              "osDiskSizeGB": "[parameters('agentPoolProfiles').osDiskSizeGB]",
-              "vnetSubnetID": "[variables('SubnetId')]",
-              "maxPods": "[parameters('agentPoolProfiles').maxPods]",
               "osType": "[parameters('agentPoolProfiles').osType]",
-              "maxCount": "[parameters('agentPoolProfiles').maxCount]",
-              "minCount": "[parameters('agentPoolProfiles').minCount]",
-              "enableAutoScaling": "[parameters('agentPoolProfiles').enableAutoScaling]",
-              "type": "[parameters('agentPoolProfiles').type]",
-              "orchestratorVersion": "[parameters('agentPoolProfiles').orchestratorVersion]",
-              "availabilityZones": "[parameters('agentPoolProfiles').availabilityZones]",
-              "name": "[parameters('agentPoolProfiles').name]"
+              "osDiskSizeGB": "[parameters('agentPoolProfiles').osDiskSizeGB]",
+              "vnetSubnetID": "[variables('SubnetId')]"
             }
           ],
-          "linuxProfile": "[parameters('linuxProfile')]",
           "servicePrincipalProfile": "[parameters('servicePrincipalProfile')]",
           "addonProfiles": "[parameters('addonProfiles')]",
           "enableRBAC": "[parameters('enableRBAC')]",
-          "enablePodSecurityPolicy": "[parameters('enablePodSecurityPolicy')]",
-          "networkProfile": "[parameters('networkProfile')]",
-          "aadProfile": "[parameters('aadProfile')]",
-          "apiServerAuthorizedIPRanges": "[parameters('apiServerAuthorizedIPRanges')]"
+          "networkProfile": "[parameters('networkProfile')]"
         }
       }
     ]
