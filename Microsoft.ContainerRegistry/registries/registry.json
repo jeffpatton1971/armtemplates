@@ -109,13 +109,27 @@
           "name": "[parameters('sku')]"
         },
         "properties": {
-          "adminUserEnabled": "[parameters('sku')]"
+          "adminUserEnabled": "[parameters('adminUserEnabled')]"
         },
         "resources": []
       }
     ]
   },
   "resources": [
+    {
+      "name": "[parameters('name')]",
+      "type": "Microsoft.ContainerRegistry/registries",
+      "apiVersion": "2017-10-01",
+      "location": "[variables('location')]",
+      "tags": "[variables('tags')]",
+      "sku": {
+        "name": "[parameters('sku')]"
+      },
+      "properties": {
+        "adminUserEnabled": "[parameters('adminUserEnabled')]"
+      },
+      "resources": []
+    }
   ],
   "outputs": {
     "armTemplate": {

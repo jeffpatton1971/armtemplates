@@ -81,6 +81,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 04/19 : Testing deployment
 - 04/19 : Stubbed in basic registry template
 - 04/19 : Testing deployment
 - 04/19 : Updated template to accomodate the schema work
