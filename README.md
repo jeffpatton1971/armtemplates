@@ -81,6 +81,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 04/19 : Updated template to accomodate the schema work
 - 04/19 : Aligned template with MS Default and existing tf default
 - 04/19 : Fleshed out the rest of the managedCluster template, removed resource section to begin testing
 - 04/18 : Stubbed in a basic AKS template, supporting existing tags

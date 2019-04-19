@@ -7,11 +7,20 @@
     },
     "kubernetesVersion": {
       "type": "string",
-      "defaultValue": ""
+      "allowedValues": [
+        "1.12.7",
+        "1.12.6",
+        "1.11.9",
+        "1.11.8",
+        "1.10.3",
+        "1.10.12",
+        "1.9.11",
+        "1.9.10"
+      ],
+      "defaultValue": "1.11.9"
     },
     "dnsPrefix": {
-      "type": "string",
-      "defaultValue": ""
+      "type": "string"
     },
     "agentPoolProfiles": {
       "type": "array"
@@ -100,8 +109,6 @@
     }
   },
   "variables": {
-    "VirtualNetworkId": "[resourceId(parameters('networkProfile').ResourceGroupName,'Microsoft.Network/virtualNetworks/',parameters('networkProfile').VirtualNetworkName)]",
-    "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('networkProfile').SubnetName)]",
     "location": "[if(empty(parameters('Location')),resourceGroup().location,parameters('Location'))]",
     "RackspaceTags": {
       "Environment": "[parameters('environment')]",
@@ -121,16 +128,7 @@
         "properties": {
           "kubernetesVersion": "[parameters('kubernetesVersion')]",
           "dnsPrefix": "[parameters('dnsPrefix')]",
-          "agentPoolProfiles": [
-            {
-              "name": "[parameters('agentPoolProfiles').name]",
-              "count": "[parameters('agentPoolProfiles').count]",
-              "vmSize": "[parameters('agentPoolProfiles').vmSize]",
-              "osType": "[parameters('agentPoolProfiles').osType]",
-              "osDiskSizeGB": "[parameters('agentPoolProfiles').osDiskSizeGB]",
-              "vnetSubnetID": "[variables('SubnetId')]"
-            }
-          ],
+          "agentPoolProfiles": "[parameters('agentPoolProfiles')]",
           "servicePrincipalProfile": "[parameters('servicePrincipalProfile')]",
           "addonProfiles": "[parameters('addonProfiles')]",
           "enableRBAC": "[parameters('enableRBAC')]",
