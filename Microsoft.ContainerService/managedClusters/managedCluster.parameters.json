@@ -6,7 +6,7 @@
       "value": ""
     },
     "kubernetesVersion": {
-      "value": ""
+      "value": "1.11.9"
     },
     "dnsPrefix": {
       "value": "None"
