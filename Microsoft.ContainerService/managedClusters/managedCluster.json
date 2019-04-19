@@ -138,6 +138,22 @@
     ]
   },
   "resources": [
+    {
+      "name": "[parameters('name')]",
+      "type": "Microsoft.ContainerService/managedClusters",
+      "apiVersion": "2019-02-01",
+      "location": "[variables('location')]",
+      "tags": "[variables('tags')]",
+      "properties": {
+        "kubernetesVersion": "[parameters('kubernetesVersion')]",
+        "dnsPrefix": "[parameters('dnsPrefix')]",
+        "agentPoolProfiles": "[parameters('agentPoolProfiles')]",
+        "servicePrincipalProfile": "[parameters('servicePrincipalProfile')]",
+        "addonProfiles": "[parameters('addonProfiles')]",
+        "enableRBAC": "[parameters('enableRBAC')]",
+        "networkProfile": "[parameters('networkProfile')]"
+      }
+    }
   ],
   "outputs": {
     "armTemplate": {
