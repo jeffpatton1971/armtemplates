@@ -109,7 +109,7 @@
           "name": "[parameters('sku')]"
         },
         "properties": {
-          "adminUserEnabled": "[parameters('sku')]",
+          "adminUserEnabled": "[parameters('sku')]"
         },
         "resources": []
       }
