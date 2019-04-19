@@ -116,9 +116,8 @@
     }
   },
   "variables": {
-    "VirtualNetworkId": "[resourceId(parameters('Network').ResourceGroupName,'Microsoft.Network/virtualNetworks/',parameters('Network').VirtualNetworkName)]",
-    "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('Network').SubnetName)]",
-    "vmSize": "[concat('Standard_',parameters('Size'))]",
+    "VirtualNetworkId": "[resourceId(parameters('networkProfile').ResourceGroupName,'Microsoft.Network/virtualNetworks/',parameters('networkProfile').VirtualNetworkName)]",
+    "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('networkProfile').SubnetName)]",
     "location": "[if(empty(parameters('Location')),resourceGroup().location,parameters('Location'))]",
     "RackspaceTags": {
       "Environment": "[parameters('environment')]",
@@ -128,34 +127,58 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "managedCluster": [
+      {
+        "name": "[parameters('name')]",
+        "type": "Microsoft.ContainerService/managedClusters",
+        "apiVersion": "2019-02-01",
+        "location": "[variables('location')]",
+        "tags": "[variables('tags')]",
+        "properties": {
+          "kubernetesVersion": "[parameters('kubernetesVersion')]",
+          "dnsPrefix": "[parameters('dnsPrefix')]",
+          "agentPoolProfiles": [
+            {
+              "count": "[parameters('agentPoolProfiles').count]",
+              "vmSize": "[parameters('agentPoolProfiles').vmSize]",
+              "osDiskSizeGB": "[parameters('agentPoolProfiles').osDiskSizeGB]",
+              "vnetSubnetID": "[variables('SubnetId')]",
+              "maxPods": "[parameters('agentPoolProfiles').maxPods]",
+              "osType": "[parameters('agentPoolProfiles').osType]",
+              "maxCount": "[parameters('agentPoolProfiles').maxCount]",
+              "minCount": "[parameters('agentPoolProfiles').minCount]",
+              "enableAutoScaling": "[parameters('agentPoolProfiles').enableAutoScaling]",
+              "type": "[parameters('agentPoolProfiles').type]",
+              "orchestratorVersion": "[parameters('agentPoolProfiles').orchestratorVersion]",
+              "availabilityZones": "[parameters('agentPoolProfiles').availabilityZones]",
+              "name": "[parameters('agentPoolProfiles').name]"
+            }
+          ],
+          "linuxProfile": "[parameters('linuxProfile')]",
+          "servicePrincipalProfile": "[parameters('servicePrincipalProfile')]",
+          "addonProfiles": "[parameters('addonProfiles')]",
+          "enableRBAC": "[parameters('enableRBAC')]",
+          "enablePodSecurityPolicy": "[parameters('enablePodSecurityPolicy')]",
+          "networkProfile": "[parameters('networkProfile')]",
+          "aadProfile": "[parameters('aadProfile')]",
+          "apiServerAuthorizedIPRanges": "[parameters('apiServerAuthorizedIPRanges')]"
+        }
+      }
+    ]
   },
   "resources": [
-    {
-      "type": "Microsoft.ContainerService/managedClusters",
-      "apiVersion": "2019-02-01",
-      "name": "[parameters('name')]",
-      "location": "[variables('location')]",
-      "tags": "[variables('tags')]",
-      "properties": {
-        "dnsPrefix": "[parameters('dnsPrefix')]",
-        "enableRBAC": "[parameters('enableRBAC')]",
-        "linuxProfile": {
-          "adminUsername": "azureuser",
-          "ssh": {
-            "publicKeys": [
-              {
-                "keyData": "keydata"
-              }
-            ]
-          }
-        },
-        "kubernetesVersion": "[parameters('kubernetesVersion')]",
-        "agentPoolProfiles": "[parameters('agentPoolProfiles')]",
-        "servicePrincipalProfile": "[parameters('servicePrincipalProfile')]",
-        "enablePodSecurityPolicy": "[parameters('enablePodSecurityPolicy')]",
-        "addonProfiles": "[parameters('addonProfiles')]"
+  ],
+  "outputs": {
+    "armTemplate": {
+      "type": "object",
+      "value": {
+        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "2019.04.01.0",
+        "parameters": {},
+        "variables": {},
+        "resources": "[variables('managedCluster')]",
+        "outputs": {}
       }
     }
-  ],
-  "outputs": {}
+  }
 }
