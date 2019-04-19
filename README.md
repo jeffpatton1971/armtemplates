@@ -26,7 +26,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 
 # TODO
 - 04/18 : Add containerRegistry templates
-- 04/18 : Add AKS Templates
+- 04/18 : ~~Add AKS Templates~~
 - 04/11 : ~~Update plan in VM/VMSS to work, per Corey email~~
 - 04/11 : ~~Remove resourceGroup from vm diagnostics~~
 - 04/04 : ~~Add BuildTicket Tag~~
