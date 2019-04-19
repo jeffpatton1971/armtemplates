@@ -2,6 +2,7 @@
 Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that are used, and processes that are followed to deploy a customer environment into Azure.
 
 # New Additions
+- Container Registry
 - AKS (managedClusters)
 - Diagnostics
 - LoadBalancer now supports properties for AOAG
@@ -25,7 +26,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
-- 04/18 : Add containerRegistry templates
+- 04/18 : ~~Add containerRegistry templates~~
 - 04/18 : ~~Add AKS Templates~~
 - 04/11 : ~~Update plan in VM/VMSS to work, per Corey email~~
 - 04/11 : ~~Remove resourceGroup from vm diagnostics~~
