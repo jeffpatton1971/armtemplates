@@ -82,6 +82,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 04/26 : Plan property can't be null (The template variable 'Plan' is not found)
 - 04/19 : Testing deployment
 - 04/19 : Stubbed in basic registry template
 - 04/19 : Testing deployment

@@ -1072,7 +1072,6 @@
               "name": "[parameters('name')]",
               "location": "[variables('location')]",
               "dependsOn": [],
-              "plan": "[variables('Plan')]",
               "properties": {
                 "licenseType": "[if(equals(parameters('LicenseType'),'None'),json('null'),parameters('LicenseType'))]",
                 "availabilitySet": "[if(equals(variables('avset'),0),json('null'),variables('availabilitySet'))]",
@@ -1151,7 +1150,6 @@
               "name": "[parameters('name')]",
               "location": "[variables('location')]",
               "dependsOn": [],
-              "plan": "[variables('Plan')]",
               "properties": {
                 "licenseType": "[if(equals(parameters('LicenseType'),'None'),json('null'),parameters('LicenseType'))]",
                 "availabilitySet": "[if(equals(variables('avset'),0),json('null'),variables('availabilitySet'))]",
