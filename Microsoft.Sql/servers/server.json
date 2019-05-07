@@ -95,7 +95,7 @@
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
     "server": {
       "type": "Microsoft.Sql/servers",
-      "name": "[parameters('name')]",
+      "name": "[tolower(parameters('name'))]",
       "apiVersion": "2015-05-01-preview",
       "location": "[resourceGroup().location]",
       "properties": {
@@ -110,7 +110,7 @@
   "resources": [
     {
       "type": "Microsoft.Sql/servers",
-      "name": "[parameters('name')]",
+      "name": "[tolower(parameters('name'))]",
       "apiVersion": "2015-05-01-preview",
       "location": "[resourceGroup().location]",
       "properties": {

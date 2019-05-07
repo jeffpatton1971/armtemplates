@@ -165,7 +165,7 @@
         "size": "[parameters('size')]"
       },
       "kind": "",
-      "name": "[parameters('name')]",
+      "name": "[tolower(parameters('name'))]",
       "apiVersion": "2017-12-01",
       "location": "[variables('location')]",
       "tags": "[variables('tags')]",
@@ -190,7 +190,7 @@
         "size": "[parameters('size')]"
       },
       "kind": "",
-      "name": "[parameters('name')]",
+      "name": "[tolower(parameters('name'))]",
       "apiVersion": "2017-12-01",
       "location": "[variables('location')]",
       "tags": "[variables('tags')]",
