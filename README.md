@@ -82,6 +82,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 05/09 : May Update
 - 05/07 : force name to be lowercase for sql server resource
 - 04/26 : Plan property can't be null (The template variable 'Plan' is not found)
 - 04/19 : Testing deployment
