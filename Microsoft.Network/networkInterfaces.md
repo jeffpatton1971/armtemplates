@@ -77,6 +77,9 @@ A network interface enables an Azure Virtual Machine to communicate with interne
     "buildBy": {
       "value": "jeffrey.patton2@rackspace.com"
     },
+    "buildTicket": {
+      "value": "123456-78901"
+    },
     "RaxAutomationExclude": {
       "value": "None"
     }

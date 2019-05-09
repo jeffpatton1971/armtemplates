@@ -58,6 +58,9 @@ Azure Service Bus is a multi-tenant cloud messaging service you can use to send 
     "buildBy": {
       "value": "jeffrey.patton2@rackspace.com"
     },
+    "buildTicket": {
+      "value": "123456-78901"
+    },
     "RaxAutomationExclude": {
       "value": "None"
     }

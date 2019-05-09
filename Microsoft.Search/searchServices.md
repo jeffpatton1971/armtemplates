@@ -46,6 +46,9 @@ Azure Search is a search-as-a-service cloud solution that gives developers APIs 
     "buildBy": {
       "value": "jeffrey.patton2@rackspace.com"
     },
+    "buildTicket": {
+      "value": "123456-78901"
+    },
     "RaxAutomationExclude": {
       "value": "None"
     }

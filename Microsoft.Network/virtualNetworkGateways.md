@@ -67,6 +67,9 @@ A VPN gateway is a specific type of virtual network gateway that is used to send
     "buildBy": {
       "value": "jeffrey.patton2@rackspace.com"
     },
+    "buildTicket": {
+      "value": "123456-78901"
+    },
     "RaxAutomationExclude": {
       "value": "None"
     }

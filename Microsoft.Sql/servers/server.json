@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2019.04.01.0",
+  "contentVersion": "2019.05.01.0",
   "parameters": {
     "name": {
       "type": "string"
@@ -62,6 +62,10 @@
       },
       "defaultValue": "First Last"
     },
+    "buildTicket": {
+      "type": "string",
+      "defaultValue": "######-#####"
+    },
     "RaxAutomationExclude": {
       "type": "string",
       "allowedValues": [
@@ -85,12 +89,13 @@
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
+      "BuildTicket": "[parameters('buildTicket')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
     "server": {
       "type": "Microsoft.Sql/servers",
-      "name": "[parameters('name')]",
+      "name": "[tolower(parameters('name'))]",
       "apiVersion": "2015-05-01-preview",
       "location": "[resourceGroup().location]",
       "properties": {
@@ -105,7 +110,7 @@
   "resources": [
     {
       "type": "Microsoft.Sql/servers",
-      "name": "[parameters('name')]",
+      "name": "[tolower(parameters('name'))]",
       "apiVersion": "2015-05-01-preview",
       "location": "[resourceGroup().location]",
       "properties": {
@@ -122,7 +127,7 @@
       "type": "object",
       "value": {
         "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-        "contentVersion": "2019.04.01.0",
+        "contentVersion": "2019.05.01.0",
         "parameters": {},
         "variables": {},
         "resources": "[createArray(variables('server'))]",

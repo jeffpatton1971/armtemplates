@@ -1,6 +1,6 @@
 ﻿{
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-  "contentVersion": "2019.04.01.0",
+  "contentVersion": "2019.05.01.0",
   "parameters": {
     "name": {
       "value": "lb"
@@ -55,6 +55,9 @@
     },
     "buildBy": {
       "value": "jeffrey.patton2@rackspace.com"
+    },
+    "buildTicket": {
+      "value": ""
     },
     "RaxAutomationExclude": {
       "value": "None"

@@ -40,6 +40,9 @@ Log Analytics plays a central role in Azure management by collecting telemetry a
     "buildBy": {
       "value": "jeffrey.patton2@rackspace.com"
     },
+    "buildTicket": {
+      "value": "123456-78901"
+    },
     "RaxAutomationExclude": {
       "value": "None"
     }

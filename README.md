@@ -2,6 +2,8 @@
 Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that are used, and processes that are followed to deploy a customer environment into Azure.
 
 # New Additions
+- Container Registry
+- AKS (managedClusters)
 - Diagnostics
 - LoadBalancer now supports properties for AOAG
 - Compute now supports E sizes for managed disk
@@ -24,7 +26,11 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
-- 04/04 : Add BuildTicket Tag
+- 04/18 : ~~Add containerRegistry templates~~
+- 04/18 : ~~Add AKS Templates~~
+- 04/11 : ~~Update plan in VM/VMSS to work, per Corey email~~
+- 04/11 : ~~Remove resourceGroup from vm diagnostics~~
+- 04/04 : ~~Add BuildTicket Tag~~
 - 03/10 : ~~Fix diagnostic support~~
 - 02/28 : ~~Add support for VM Diagnostics~~
 - 02/11 : Pass in an array for sourcePrefix
@@ -76,6 +82,18 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 05/09 : May Update
+- 05/07 : force name to be lowercase for sql server resource
+- 04/26 : Plan property can't be null (The template variable 'Plan' is not found)
+- 04/19 : Testing deployment
+- 04/19 : Stubbed in basic registry template
+- 04/19 : Testing deployment
+- 04/19 : Updated template to accomodate the schema work
+- 04/19 : Aligned template with MS Default and existing tf default
+- 04/19 : Fleshed out the rest of the managedCluster template, removed resource section to begin testing
+- 04/18 : Stubbed in a basic AKS template, supporting existing tags
+- 04/11 : Added plan object
+- 04/11 : Adding buildTicket tags
 - 04/11 : Pushing April updates
 - 03/21 : Updated the IaasDiagnostics template (windows)
 - 03/21 : Removed existing diagnostics from templates in favor of using extension templates

@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2019.04.01.0",
+  "contentVersion": "2019.05.01.0",
   "parameters": {
     "name": {
       "type": "string"
@@ -357,6 +357,10 @@
       },
       "defaultValue": "First Last"
     },
+    "buildTicket": {
+      "type": "string",
+      "defaultValue": "######-#####"
+    },
     "RaxAutomationExclude": {
       "type": "string",
       "allowedValues": [
@@ -381,6 +385,7 @@
     "SubnetId": "[concat(variables('VirtualNetworkId'),'/subnets/',parameters('Network').SubnetName)]",
     "NetworkInterfaceName": "[parameters('Network').Name]",
     "NetworkInterfaceIpConfigurationName": "[concat(variables('NetworkInterfaceName'),'-ipc')]",
+    "Plan": "[if(empty(parameters('GalleryImage')),json('null'),json(concat('{\"name\": \"', parameters('GalleryImage').imageSKU, '\",', '\"publisher\": \"', parameters('GalleryImage').imagePublisher, '\",', '\"product\": \"', parameters('GalleryImage').imageOffer, '\"}')))]",
     "Disk": {
       "e10": {
         "size": 128,
@@ -901,6 +906,7 @@
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
       "BuildBy": "[parameters('buildBy')]",
+      "BuildTicket": "[parameters('buildTicket')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
@@ -1117,7 +1123,7 @@
                   }
                 }
               },
-              "resources": [ ],
+              "resources": [],
               "tags": "[variables('tags')]",
               "zones": []
             }
@@ -1178,7 +1184,7 @@
                   }
                 }
               },
-              "resources": [ ],
+              "resources": [],
               "tags": "[variables('tags')]",
               "zones": []
             }
