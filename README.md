@@ -82,6 +82,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 05/28 : SQL SP2 just released 
 - 05/22 : Updated regions per https://azure.microsoft.com/en-us/global-infrastructure/services/?products=monitor
 - 05/09 : May Update
 - 05/07 : force name to be lowercase for sql server resource

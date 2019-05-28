@@ -271,6 +271,12 @@
         "Windows 2016 SQL Server 2016 SP1 Standard - BYOL",
         "Windows 2016 SQL Server 2016 SP1 Enterprise",
         "Windows 2016 SQL Server 2016 SP1 Enterprise - BYOL",
+        "Windows 2016 SQL Server 2016 SP2 Express",
+        "Windows 2016 SQL Server 2016 SP2 Web",
+        "Windows 2016 SQL Server 2016 SP2 Standard",
+        "Windows 2016 SQL Server 2016 SP2 Standard - BYOL",
+        "Windows 2016 SQL Server 2016 SP2 Enterprise",
+        "Windows 2016 SQL Server 2016 SP2 Enterprise - BYOL",
         "Windows 2016 SQL Server 2017 Express",
         "Windows 2016 SQL Server 2017 Web",
         "Windows 2016 SQL Server 2017 Standard",
@@ -700,6 +706,48 @@
       "Windows 2016 SQL Server 2016 SP1 Enterprise - BYOL": {
         "imagePublisher": "MicrosoftSQLServer",
         "imageOffer": "SQL2016SP1-WS2016-BYOL",
+        "imageSKU": "Enterprise",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2016 SP2 Express": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016SP2-WS2016",
+        "imageSKU": "Express",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2016 SP2 Web": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016SP2-WS2016",
+        "imageSKU": "Web",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2016 SP2 Standard": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016SP2-WS2016",
+        "imageSKU": "Standard",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2016 SP2 Standard - BYOL": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016SP2-WS2016-BYOL",
+        "imageSKU": "Standard",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2016 SP2 Enterprise": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016SP2-WS2016",
+        "imageSKU": "Enterprise",
+        "version": "latest",
+        "type": "windows"
+      },
+      "Windows 2016 SQL Server 2016 SP2 Enterprise - BYOL": {
+        "imagePublisher": "MicrosoftSQLServer",
+        "imageOffer": "SQL2016SP2-WS2016-BYOL",
         "imageSKU": "Enterprise",
         "version": "latest",
         "type": "windows"
