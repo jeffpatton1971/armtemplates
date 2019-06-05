@@ -1615,11 +1615,11 @@
       }
     },
     {
-      "apiVersion": "2018-08-01",
+      "apiVersion": "2019-02-01",
       "type": "Microsoft.Network/networkSecurityGroups",
       "name": "[parameters('name')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [  ],
+      "dependsOn": [],
       "properties": {
         "securityRules": "[variables('SecurityRules')[parameters('DeploymentType')]]"
       },
