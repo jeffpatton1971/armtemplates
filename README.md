@@ -41,7 +41,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 01/29 : ~~Correct eventhub and servicebus templates to use name parameter~~
 - 01/24 : Add Location to all templates
 - 01/23 : Update documentation to reflect changes in network parameter
-- 01/23 : renumber NSG priorities
+- 01/23 : ~~renumber NSG priorities~~
 - 01/21 : ~~Update eventhub to include storageAccount object~~
 - 01/21 : ~~Update all Network object references to include updated property names~~
 - 01/15 : work out proper null array for empty zones
