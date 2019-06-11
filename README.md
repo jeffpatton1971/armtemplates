@@ -82,6 +82,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 06/10 : June Update
 - 06/05 : Updated NSG template to api version 2019-02-01 to support, comma seperated lists of ports
 - 06/03 : Change in storageAccount to encrypt by default, and enable/disable https only, based on encryption boolean
 - 05/28 : SQL SP2 just released 

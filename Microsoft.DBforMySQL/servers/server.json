@@ -1,6 +1,6 @@
 {
   "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
-  "contentVersion": "2019.05.01.0",
+  "contentVersion": "2019.06.01.0",
   "parameters": {
     "name": {
       "type": "string",
@@ -212,7 +212,7 @@
       "type": "object",
       "value": {
         "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-        "contentVersion": "2019.05.01.0",
+        "contentVersion": "2019.06.01.0",
         "parameters": {},
         "variables": {},
         "resources": "[createArray(variables('server'))]",
