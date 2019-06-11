@@ -36,15 +36,15 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 03/10 : ~~Fix diagnostic support~~
 - 02/28 : ~~Add support for VM Diagnostics~~
 - 02/11 : Pass in an array for sourcePrefix
-- 02/11 : Check CDN profile/endpoint template for naming
+- 02/11 : ~~Check CDN profile/endpoint template for naming~~
 - 02/07 : Update appgw to accept a nicname or nicname/resourcegroup to get a privateip for the pool
 - 01/29 : ~~Correct eventhub and servicebus templates to use name parameter~~
 - 01/24 : Add Location to all templates
-- 01/23 : Update documentation to reflect changes in network parameter
+- 01/23 : ~~Update documentation to reflect changes in network parameter~~
 - 01/23 : ~~renumber NSG priorities~~
 - 01/21 : ~~Update eventhub to include storageAccount object~~
 - 01/21 : ~~Update all Network object references to include updated property names~~
-- 01/15 : work out proper null array for empty zones
+- 01/15 : ~~work out proper null array for empty zones~~
 - 01/14 : ~~Add zones support for VM/VMSS~~
 - 01/07 : ~~Add Name parameter to NSg template~~
 - 01/07 : ~~Add Customtags object for templates~~
