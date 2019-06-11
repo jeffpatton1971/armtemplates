@@ -26,6 +26,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
+- 06/11 : Work through outstanding TODO's
+- 06/11 : Work on ARM API updates
 - 04/18 : ~~Add containerRegistry templates~~
 - 04/18 : ~~Add AKS Templates~~
 - 04/11 : ~~Update plan in VM/VMSS to work, per Corey email~~
