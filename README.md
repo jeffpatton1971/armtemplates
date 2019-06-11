@@ -59,7 +59,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 12/07 : Add additional redis resource templates
 - 12/07 : ~~Rediscache template~~
 - 11/26 : ~~Align NSG update templates with regular networkSecurityGroup template~~
-- 11/23 : Update serverFarms template from 2016-03-01 to 2018-02-01
+- 11/23 : ~~Update serverFarms template from 2016-03-01 to 2018-02-01~~
 - 11/23 : ~~Update VirtualNetworks template from 2017-09-01 to 2018-08-01~~
 - 11/23 : ~~Update VirtualNetworkGateways template from 2017-09-01 to 2018-08-01~~
 - 11/23 : ~~Add custom option for NSG for custom rules~~
@@ -84,6 +84,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 06/11 : Update serverFarms template from 2016-03-01 to 2018-02-01
 - 06/10 : June Update
 - 06/05 : Updated NSG template to api version 2019-02-01 to support, comma seperated lists of ports
 - 06/03 : Change in storageAccount to encrypt by default, and enable/disable https only, based on encryption boolean
