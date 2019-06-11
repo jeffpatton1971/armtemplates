@@ -49,7 +49,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 01/07 : ~~Add Name parameter to NSg template~~
 - 01/07 : ~~Add Customtags object for templates~~
 - 01/04 : Work on passing ipAddress to resources that can consume one
-- 12/21 : Add vnet peering templates
+- 12/21 : ~~Add vnet peering templates~~
 - 12/21 : ~~Add connections template for wiring up vpngw~~
 - 12/21 : ~~Add localNetworkGateway template~~
 - 12/20 : ~~VPN Gateway Template, if bgp false still get errors about bgpsettings being null~~
