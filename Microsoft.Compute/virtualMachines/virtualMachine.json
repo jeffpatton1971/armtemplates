@@ -1065,8 +1065,7 @@
       "name": "[variables('NetworkInterfaceName')]",
       "location": "[variables('location')]",
       "dependsOn": [
-        "[if(equals(variables('avset'),0),'NoAVSet',parameters('AvailabilitySetName'))]",
-        "[if(equals(parameters('privateIPAddress'),'Dynamic'),variables('ipAddress')[0],variables('ipAddress')[1])]"
+        "[if(equals(variables('avset'),0),'NoAVSet',parameters('AvailabilitySetName'))]"
       ],
       "properties": {
         "dnsSettings": {},
