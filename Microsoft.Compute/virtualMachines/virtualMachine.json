@@ -18,6 +18,10 @@
     "Diagnostics": {
       "type": "object"
     },
+    "privateIPAddress": {
+      "type": "string",
+      "defaultValue": "Dynamic"
+    },
     "LicenseType": {
       "type": "string",
       "allowedValues": [
@@ -1001,7 +1005,24 @@
       "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/availabilitySets/',parameters('AvailabilitySetName'))]"
     },
     "diskCount": "[if(empty(parameters('DataDisks')),1,length(parameters('DataDisks')))]",
-    "zones": "[if(empty(parameters('Zones')),createArray(''),parameters('Zones'))]"
+    "zones": "[if(empty(parameters('Zones')),createArray(''),parameters('Zones'))]",
+    "ipAddress": [
+      {
+        "privateIPAllocationMethod": "Dynamic",
+        "privateIPAddressVersion": "IPv4",
+        "subnet": {
+          "id": "[variables('SubnetId')]"
+        }
+      },
+      {
+        "privateIPAddress": "[parameters('privateIPAddress')]",
+        "privateIPAllocationMethod": "Static",
+        "privateIPAddressVersion": "IPv4",
+        "subnet": {
+          "id": "[variables('SubnetId')]"
+        }
+      }
+    ]
   },
   "resources": [
     {
@@ -1043,20 +1064,17 @@
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('NetworkInterfaceName')]",
       "location": "[variables('location')]",
-      "dependsOn": [ "[if(equals(variables('avset'),0),'NoAVSet',parameters('AvailabilitySetName'))]" ],
+      "dependsOn": [
+        "[if(equals(variables('avset'),0),'NoAVSet',parameters('AvailabilitySetName'))]",
+        "[if(equals(parameters('privateIPAddress'),'Dynamic'),variables('ipAddress')[0],variables('ipAddress')[1])]"
+      ],
       "properties": {
         "dnsSettings": {},
         "enableAcceleratedNetworking": false,
         "ipConfigurations": [
           {
             "name": "[variables('NetworkInterfaceIpConfigurationName')]",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "privateIPAddressVersion": "IPv4",
-              "subnet": {
-                "id": "[variables('SubnetId')]"
-              }
-            }
+            "properties": "[if(equals(parameters('privateIPAddress'),'Dynamic'),variables('ipAddress')[0],variables('ipAddress')[1])]"
           }
         ]
       },
@@ -1107,7 +1125,9 @@
       "apiVersion": "2017-05-10",
       "name": "[concat(parameters('name'),'_',variables('diskCount'),'_disks')]",
       "condition": "[greaterOrEquals(variables('isPresent'),1)]",
-      "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
+      "dependsOn": [
+        "[variables('NetworkInterfaceName')]"
+      ],
       "properties": {
         "mode": "Incremental",
         "template": {
@@ -1185,7 +1205,9 @@
       "apiVersion": "2017-05-10",
       "name": "[concat(parameters('name'),'_0_disks')]",
       "condition": "[equals(variables('isPresent'),0)]",
-      "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
+      "dependsOn": [
+        "[variables('NetworkInterfaceName')]"
+      ],
       "properties": {
         "mode": "Incremental",
         "template": {
