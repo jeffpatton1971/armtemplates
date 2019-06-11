@@ -84,6 +84,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 06/11 : Forgot to add the new parameter to the virtualmachine parameter file
 - 06/11 : Adding support for passing in PrivateIP Address for VirtualMachines
 - 06/11 : Update serverFarms template from 2016-03-01 to 2018-02-01
 - 06/10 : June Update
