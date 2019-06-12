@@ -1022,7 +1022,11 @@
           "id": "[variables('SubnetId')]"
         }
       }
-    ]
+    ],
+    "bootDiagnostics": {
+      "enabled": "[parameters('Diagnostics').BootDiagnostics]",
+      "storageUri": "[concat('http://', parameters('Diagnostics').StorageAccountName, '.blob.core.windows.net')]"
+    }
   },
   "resources": [
     {
@@ -1184,10 +1188,7 @@
                   ]
                 },
                 "diagnosticsProfile": {
-                  "bootDiagnostics": {
-                    "enabled": "[parameters('Diagnostics').BootDiagnostics]",
-                    "storageUri": "[concat('http://', parameters('Diagnostics').StorageAccountName, '.blob.core.windows.net')]"
-                  }
+                  "bootDiagnostics": "[if(parameters('Diagnostics').BootDiagnostics,variables('bootDiagnostics'),json('null'))]"
                 }
               },
               "resources": [],
@@ -1247,10 +1248,7 @@
                   ]
                 },
                 "diagnosticsProfile": {
-                  "bootDiagnostics": {
-                    "enabled": "[parameters('Diagnostics').BootDiagnostics]",
-                    "storageUri": "[concat('http://', parameters('Diagnostics').StorageAccountName, '.blob.core.windows.net')]"
-                  }
+                  "bootDiagnostics": "[if(parameters('Diagnostics').BootDiagnostics,variables('bootDiagnostics'),json('null'))]"
                 }
               },
               "resources": [],
