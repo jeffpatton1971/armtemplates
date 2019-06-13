@@ -11,19 +11,16 @@
     "applicationGatewayRules": {
       "type": "array"
     },
-    "Size": {
-      "type": "string",
-      "allowedValues": [
-        "Small",
-        "Medium",
-        "Large"
-      ]
-    },
     "Tier": {
       "type": "string",
       "allowedValues": [
-        "Standard",
-        "WAF"
+        "Standard_Small",
+        "Standard_Medium",
+        "Standard_Large",
+        "WAF_Medium",
+        "WAF_Large",
+        "Standard_v2",
+        "WAF_v2"
       ]
     },
     "Instances": {
@@ -113,8 +110,7 @@
     "location": "[if(empty(parameters('Location')),resourceGroup().location,parameters('Location'))]",
     "vnetId": "[resourceId(parameters('Network').ResourceGroupName, 'Microsoft.Network/virtualNetworks',parameters('Network').VirtualNetworkName)]",
     "subnetId": "[concat(variables('vnetId'),'/subnets/',parameters('Network').SubnetName)]",
-    "SkuNamePass1": "[concat(parameters('Tier'),'_',parameters('Size'))]",
-    "SkuName": "[if(equals(variables('SkuNamePass1'),'WAF_Small'),'WAF_Medium',variables('SkuNamePass1'))]",
+    "SkuName": "[parameters('Tier')]",
     "Sku": {
       "name": "[variables('SkuName')]",
       "tier": "[parameters('Tier')]",
