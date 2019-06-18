@@ -3,16 +3,45 @@
   "contentVersion": "2019.06.01.0",
   "parameters": {
     "name": {
-      "value": "$Default"
-    },
-    "Namespace": {
       "value": ""
     },
-    "Eventhub": {
+    "Location": {
       "value": ""
+    },
+    "TenantId": {
+      "value": ""
+    },
+    "sku": {
+      "value": "standard"
+    },
+    "enabledForDeployment": {
+      "value": false
+    },
+    "enabledForDiskEncryption": {
+      "value": true
+    },
+    "enabledForTemplateDeployment": {
+      "value": false
+    },
+    "enableSoftDelete": {
+      "value": true
+    },
+    "enablePurgeProtection": {
+      "value": false
     },
     "CustomObject": {
       "value": {}
+    },
+    "accessPolicies": {
+      "value": []
+    },
+    "networkAcls": {
+      "value": {
+        "defaultAction": "Allow",
+        "bypass": "AzureServices",
+        "virtualNetworkRules": [],
+        "ipRules": []
+      }
     },
     "environment": {
       "value": ""

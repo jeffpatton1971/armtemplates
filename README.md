@@ -85,6 +85,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 06/18 : Fleshed out template/parameters and documentation for keyvault
 - 06/18 : Stubbed in folder and files for keyvault
 - 06/13 : Updated AppGW to handle the new v2 SKU, removed the size and just leveraging the SKU Name to accomodate size
 - 06/12 : Passing false into bootDiagnostics still fails, as we're expecting a storage account to _not_ place it in

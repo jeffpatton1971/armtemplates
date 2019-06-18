@@ -3,14 +3,56 @@
   "contentVersion": "2019.06.01.0",
   "parameters": {
     "name": {
-      "defaultValue": "$Default",
       "type": "string"
     },
-    "Namespace": {
-      "type": "string"
+    "Location": {
+      "type": "string",
+      "defaultValue": ""
     },
-    "Eventhub": {
-      "type": "string"
+    "TenantId": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "sku": {
+      "type": "string",
+      "allowedValues": [
+        "standard",
+        "premium"
+      ],
+      "defaultValue": "standard"
+    },
+    "enabledForDeployment": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "enabledForDiskEncryption": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "enabledForTemplateDeployment": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "enableSoftDelete": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "enablePurgeProtection": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "accessPolicies": {
+      "type": "array",
+      "defaultValue": []
+    },
+    "networkAcls": {
+      "type": "object",
+      "defaultValue": {
+        "defaultAction": "Allow",
+        "bypass": "AzureServices",
+        "virtualNetworkRules": [],
+        "ipRules": []
+      }
     },
     "CustomObject": {
       "type": "object",
@@ -79,6 +121,8 @@
     }
   },
   "variables": {
+    "location": "[if(empty(parameters('Location')),resourceGroup().location,parameters('Location'))]",
+    "tenantId": "[if(empty(parameters('TenantId')),subscription().tenantId,parameters('TenantId'))]",
     "RackspaceTags": {
       "Environment": "[parameters('environment')]",
       "BuildDate": "[parameters('buildDate')]",
@@ -87,26 +131,32 @@
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
     "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
-    "consumergroup": {
-      "name": "[concat(parameters('Namespace'), '/', parameters('Eventhub'), '/', parameters('name'))]",
-      "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
-      "apiVersion": "2017-04-01",
-      "location": "[resourceGroup().location]",
-      "scale": null,
-      "properties": {},
-      "tags": "[variables('tags')]"
-    }
+    "vault": [
+      {
+        "name": "[parameters('name')]",
+        "type": "Microsoft.KeyVault/vaults",
+        "apiVersion": "2018-02-14",
+        "location": "[variables('location')]",
+        "tags": {},
+        "properties": {
+          "tenantId": "[variables('tenantId')]",
+          "sku": {
+            "family": "A",
+            "name": "[parameters('sku')]"
+          },
+          "accessPolicies": "[if(not(empty(parameters('accessPolicies'))),parameters('accessPolicies'),json('null'))]",
+          "enabledForDeployment": "[parameters('enabledForDeployment')]",
+          "enabledForDiskEncryption": "[parameters('enabledForDiskEncryption')]",
+          "enabledForTemplateDeployment": "[parameters('enabledForTemplateDeployment')]",
+          "enableSoftDelete": "[parameters('enableSoftDelete')]",
+          "enablePurgeProtection": "[parameters('enablePurgeProtection')]",
+          "networkAcls": "[if(not(empty(parameters('networkAcls'))),parameters('networkAcls'),json('null'))]"
+        },
+        "resources": []
+      }
+    ]
   },
   "resources": [
-    {
-      "name": "[concat(parameters('Namespace'), '/', parameters('Eventhub'), '/', parameters('name'))]",
-      "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
-      "apiVersion": "2017-04-01",
-      "location": "[resourceGroup().location]",
-      "scale": null,
-      "properties": {},
-      "tags": "[variables('tags')]"
-    }
   ],
   "outputs": {
     "armTemplate": {
@@ -116,7 +166,7 @@
         "contentVersion": "2019.06.01.0",
         "parameters": {},
         "variables": {},
-        "resources": "[createArray(variables('consumergroup'))]",
+        "resources": "[variables('vault')]",
         "outputs": {}
       }
     }
