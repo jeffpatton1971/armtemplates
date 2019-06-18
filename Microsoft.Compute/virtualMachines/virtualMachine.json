@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "2019.05.01.0",
+  "contentVersion": "2019.06.01.0",
   "parameters": {
     "name": {
       "type": "string"
@@ -17,6 +17,10 @@
     },
     "Diagnostics": {
       "type": "object"
+    },
+    "privateIPAddress": {
+      "type": "string",
+      "defaultValue": "Dynamic"
     },
     "LicenseType": {
       "type": "string",
@@ -1001,7 +1005,28 @@
       "id": "[resourceId(resourceGroup().name,'Microsoft.Compute/availabilitySets/',parameters('AvailabilitySetName'))]"
     },
     "diskCount": "[if(empty(parameters('DataDisks')),1,length(parameters('DataDisks')))]",
-    "zones": "[if(empty(parameters('Zones')),createArray(''),parameters('Zones'))]"
+    "zones": "[if(empty(parameters('Zones')),createArray(''),parameters('Zones'))]",
+    "ipAddress": [
+      {
+        "privateIPAllocationMethod": "Dynamic",
+        "privateIPAddressVersion": "IPv4",
+        "subnet": {
+          "id": "[variables('SubnetId')]"
+        }
+      },
+      {
+        "privateIPAddress": "[parameters('privateIPAddress')]",
+        "privateIPAllocationMethod": "Static",
+        "privateIPAddressVersion": "IPv4",
+        "subnet": {
+          "id": "[variables('SubnetId')]"
+        }
+      }
+    ],
+    "bootDiagnostics": {
+      "enabled": "[parameters('Diagnostics').BootDiagnostics]",
+      "storageUri": "[concat('http://', parameters('Diagnostics').StorageAccountName, '.blob.core.windows.net')]"
+    }
   },
   "resources": [
     {
@@ -1043,20 +1068,16 @@
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('NetworkInterfaceName')]",
       "location": "[variables('location')]",
-      "dependsOn": [ "[if(equals(variables('avset'),0),'NoAVSet',parameters('AvailabilitySetName'))]" ],
+      "dependsOn": [
+        "[if(equals(variables('avset'),0),'NoAVSet',parameters('AvailabilitySetName'))]"
+      ],
       "properties": {
         "dnsSettings": {},
         "enableAcceleratedNetworking": false,
         "ipConfigurations": [
           {
             "name": "[variables('NetworkInterfaceIpConfigurationName')]",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "privateIPAddressVersion": "IPv4",
-              "subnet": {
-                "id": "[variables('SubnetId')]"
-              }
-            }
+            "properties": "[if(equals(parameters('privateIPAddress'),'Dynamic'),variables('ipAddress')[0],variables('ipAddress')[1])]"
           }
         ]
       },
@@ -1107,7 +1128,9 @@
       "apiVersion": "2017-05-10",
       "name": "[concat(parameters('name'),'_',variables('diskCount'),'_disks')]",
       "condition": "[greaterOrEquals(variables('isPresent'),1)]",
-      "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
+      "dependsOn": [
+        "[variables('NetworkInterfaceName')]"
+      ],
       "properties": {
         "mode": "Incremental",
         "template": {
@@ -1165,10 +1188,7 @@
                   ]
                 },
                 "diagnosticsProfile": {
-                  "bootDiagnostics": {
-                    "enabled": "[parameters('Diagnostics').BootDiagnostics]",
-                    "storageUri": "[concat('http://', parameters('Diagnostics').StorageAccountName, '.blob.core.windows.net')]"
-                  }
+                  "bootDiagnostics": "[if(parameters('Diagnostics').BootDiagnostics,variables('bootDiagnostics'),json('null'))]"
                 }
               },
               "resources": [],
@@ -1185,7 +1205,9 @@
       "apiVersion": "2017-05-10",
       "name": "[concat(parameters('name'),'_0_disks')]",
       "condition": "[equals(variables('isPresent'),0)]",
-      "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
+      "dependsOn": [
+        "[variables('NetworkInterfaceName')]"
+      ],
       "properties": {
         "mode": "Incremental",
         "template": {
@@ -1226,10 +1248,7 @@
                   ]
                 },
                 "diagnosticsProfile": {
-                  "bootDiagnostics": {
-                    "enabled": "[parameters('Diagnostics').BootDiagnostics]",
-                    "storageUri": "[concat('http://', parameters('Diagnostics').StorageAccountName, '.blob.core.windows.net')]"
-                  }
+                  "bootDiagnostics": "[if(parameters('Diagnostics').BootDiagnostics,variables('bootDiagnostics'),json('null'))]"
                 }
               },
               "resources": [],

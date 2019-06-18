@@ -2,7 +2,6 @@
 Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that are used, and processes that are followed to deploy a customer environment into Azure.
 
 # New Additions
-- Azure Keyvault
 - Container Registry
 - AKS (managedClusters)
 - Diagnostics
@@ -27,7 +26,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
-- 06/18 : Add KeyVault template
+- 06/11 : Work through outstanding TODO's
+- 06/11 : Work on ARM API updates
 - 04/18 : ~~Add containerRegistry templates~~
 - 04/18 : ~~Add AKS Templates~~
 - 04/11 : ~~Update plan in VM/VMSS to work, per Corey email~~
@@ -36,20 +36,20 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 03/10 : ~~Fix diagnostic support~~
 - 02/28 : ~~Add support for VM Diagnostics~~
 - 02/11 : Pass in an array for sourcePrefix
-- 02/11 : Check CDN profile/endpoint template for naming
+- 02/11 : ~~Check CDN profile/endpoint template for naming~~
 - 02/07 : Update appgw to accept a nicname or nicname/resourcegroup to get a privateip for the pool
 - 01/29 : ~~Correct eventhub and servicebus templates to use name parameter~~
 - 01/24 : Add Location to all templates
-- 01/23 : Update documentation to reflect changes in network parameter
-- 01/23 : renumber NSG priorities
+- 01/23 : ~~Update documentation to reflect changes in network parameter~~
+- 01/23 : ~~renumber NSG priorities~~
 - 01/21 : ~~Update eventhub to include storageAccount object~~
 - 01/21 : ~~Update all Network object references to include updated property names~~
-- 01/15 : work out proper null array for empty zones
+- 01/15 : ~~work out proper null array for empty zones~~
 - 01/14 : ~~Add zones support for VM/VMSS~~
 - 01/07 : ~~Add Name parameter to NSg template~~
 - 01/07 : ~~Add Customtags object for templates~~
 - 01/04 : Work on passing ipAddress to resources that can consume one
-- 12/21 : Add vnet peering templates
+- 12/21 : ~~Add vnet peering templates~~
 - 12/21 : ~~Add connections template for wiring up vpngw~~
 - 12/21 : ~~Add localNetworkGateway template~~
 - 12/20 : ~~VPN Gateway Template, if bgp false still get errors about bgpsettings being null~~
@@ -59,7 +59,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 12/07 : Add additional redis resource templates
 - 12/07 : ~~Rediscache template~~
 - 11/26 : ~~Align NSG update templates with regular networkSecurityGroup template~~
-- 11/23 : Update serverFarms template from 2016-03-01 to 2018-02-01
+- 11/23 : ~~Update serverFarms template from 2016-03-01 to 2018-02-01~~
 - 11/23 : ~~Update VirtualNetworks template from 2017-09-01 to 2018-08-01~~
 - 11/23 : ~~Update VirtualNetworkGateways template from 2017-09-01 to 2018-08-01~~
 - 11/23 : ~~Add custom option for NSG for custom rules~~
@@ -84,6 +84,13 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 06/13 : Updated AppGW to handle the new v2 SKU, removed the size and just leveraging the SKU Name to accomodate size
+- 06/12 : Passing false into bootDiagnostics still fails, as we're expecting a storage account to _not_ place it in
+- 06/11 : Invalid dependency
+- 06/11 : Forgot to add the new parameter to the virtualmachine parameter file
+- 06/11 : Adding support for passing in PrivateIP Address for VirtualMachines
+- 06/11 : Update serverFarms template from 2016-03-01 to 2018-02-01
+- 06/10 : June Update
 - 06/05 : Updated NSG template to api version 2019-02-01 to support, comma seperated lists of ports
 - 06/03 : Change in storageAccount to encrypt by default, and enable/disable https only, based on encryption boolean
 - 05/28 : SQL SP2 just released 
