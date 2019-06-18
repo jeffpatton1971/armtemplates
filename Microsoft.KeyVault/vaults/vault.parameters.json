@@ -26,9 +26,6 @@
     "enableSoftDelete": {
       "value": true
     },
-    "CustomObject": {
-      "value": {}
-    },
     "accessPolicies": {
       "value": []
     },
@@ -39,6 +36,9 @@
         "virtualNetworkRules": [],
         "ipRules": []
       }
+    },
+    "CustomObject": {
+      "value": {}
     },
     "environment": {
       "value": ""
