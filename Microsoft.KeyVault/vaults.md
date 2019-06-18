@@ -38,9 +38,6 @@ Azure Key Vault can be used to Securely store and tightly control access to toke
     "enableSoftDelete": {
       "value": true
     },
-    "enablePurgeProtection": {
-      "value": false
-    },
     "CustomObject": {
       "value": {}
     },

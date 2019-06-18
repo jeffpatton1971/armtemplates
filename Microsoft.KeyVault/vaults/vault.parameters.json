@@ -26,9 +26,6 @@
     "enableSoftDelete": {
       "value": true
     },
-    "enablePurgeProtection": {
-      "value": false
-    },
     "CustomObject": {
       "value": {}
     },

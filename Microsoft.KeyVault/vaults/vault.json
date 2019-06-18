@@ -37,10 +37,6 @@
       "type": "bool",
       "defaultValue": true
     },
-    "enablePurgeProtection": {
-      "type": "bool",
-      "defaultValue": false
-    },
     "accessPolicies": {
       "type": "array",
       "defaultValue": []
@@ -149,7 +145,6 @@
           "enabledForDiskEncryption": "[parameters('enabledForDiskEncryption')]",
           "enabledForTemplateDeployment": "[parameters('enabledForTemplateDeployment')]",
           "enableSoftDelete": "[parameters('enableSoftDelete')]",
-          "enablePurgeProtection": "[parameters('enablePurgeProtection')]",
           "networkAcls": "[if(not(empty(parameters('networkAcls'))),parameters('networkAcls'),json('null'))]"
         },
         "resources": []
@@ -157,6 +152,27 @@
     ]
   },
   "resources": [
+    {
+      "name": "[parameters('name')]",
+      "type": "Microsoft.KeyVault/vaults",
+      "apiVersion": "2018-02-14",
+      "location": "[variables('location')]",
+      "tags": {},
+      "properties": {
+        "tenantId": "[variables('tenantId')]",
+        "sku": {
+          "family": "A",
+          "name": "[parameters('sku')]"
+        },
+        "accessPolicies": "[if(not(empty(parameters('accessPolicies'))),parameters('accessPolicies'),json('null'))]",
+        "enabledForDeployment": "[parameters('enabledForDeployment')]",
+        "enabledForDiskEncryption": "[parameters('enabledForDiskEncryption')]",
+        "enabledForTemplateDeployment": "[parameters('enabledForTemplateDeployment')]",
+        "enableSoftDelete": "[parameters('enableSoftDelete')]",
+        "networkAcls": "[if(not(empty(parameters('networkAcls'))),parameters('networkAcls'),json('null'))]"
+      },
+      "resources": []
+    }
   ],
   "outputs": {
     "armTemplate": {

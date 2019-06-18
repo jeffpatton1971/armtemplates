@@ -85,6 +85,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 06/18 : Removed purgeProtection, as setting at deployment to anything other than true results in error, setting it equal to softDelete that is a dependency could also cause it to be set to false, which is invalid
 - 06/18 : Fleshed out template/parameters and documentation for keyvault
 - 06/18 : Stubbed in folder and files for keyvault
 - 06/13 : Updated AppGW to handle the new v2 SKU, removed the size and just leveraging the SKU Name to accomodate size
