@@ -85,6 +85,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 06/19 : Added Profile to endpoint template
 - 06/19 : SKU names update for CDN Profile
 - 06/18 : Reording parameterfile
 - 06/18 : No need to test for empty on accessPolicies or networkACL as I'm passing in a default empty and basic networkAcl for azure services

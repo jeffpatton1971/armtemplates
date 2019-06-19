@@ -5,6 +5,9 @@
     "name": {
       "type": "string"
     },
+    "Profile": {
+      "type": "string"
+    },
     "originHostHeader": {
       "type": "string",
       "defaultValue": ""
