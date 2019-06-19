@@ -85,6 +85,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 06/19 : Mixed case between template and parameter file
 - 06/19 : Added Profile to endpoint template
 - 06/19 : SKU names update for CDN Profile
 - 06/18 : Reording parameterfile
