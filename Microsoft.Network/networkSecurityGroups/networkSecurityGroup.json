@@ -22,6 +22,7 @@
       "type": "string",
       "allowedValues": [
         "ApplicationGateway",
+        "ApplicationGateway_V2",
         "Bastion",
         "DomainController",
         "SitecoreCMS",
@@ -590,7 +591,7 @@
         }
       }
     ],
-    "agwRules": [
+    "agw_v2_Rules": [
       {
         "name": "[concat('Allow_LOCAL_SUBNET_INBOUND')]",
         "properties": {
@@ -710,6 +711,162 @@
           "protocol": "*",
           "sourcePortRange": "*",
           "destinationPortRange": "65200-65535",
+          "sourceAddressPrefix": "VirtualNetwork",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 135,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Deny_ALL_INBOUND_UDP')]",
+        "properties": {
+          "description": "Deny all inbound UDP",
+          "protocol": "Udp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "*",
+          "access": "Deny",
+          "priority": 4000,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Deny_ALL_INBOUND_TCP')]",
+        "properties": {
+          "description": "Deny all inbound TCP",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "*",
+          "access": "Deny",
+          "priority": 4001,
+          "direction": "Inbound"
+        }
+      }
+    ],
+    "agwRules": [
+      {
+        "name": "[concat('Allow_LOCAL_SUBNET_INBOUND')]",
+        "properties": {
+          "description": "Allows intra-subnet communication",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "[parameters('DestinationPrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 110,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_AZURE_LB_INBOUND')]",
+        "properties": {
+          "description": "Allows inbound traffic from Azure Load Balancer",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "*",
+          "sourceAddressPrefix": "AzureLoadBalancer",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 111,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_RDP_INBOUND')]",
+        "properties": {
+          "description": "Allows RDP inbound from local RBAST subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "3389",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 112,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_SSH_INBOUND')]",
+        "properties": {
+          "description": "Allows SSH inbound from local RBAST subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "22",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 113,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_WinRM_INBOUND')]",
+        "properties": {
+          "description": "Allows WinRM inbound from local RACK_BASTION subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "5986",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 114,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_RACK_BASTION_SFTBROKER_INBOUND')]",
+        "properties": {
+          "description": "Allows ScaleFT Broker agent inbound from local RACK_BASTION subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "4421",
+          "sourceAddressPrefix": "[parameters('BastionPrefix')]",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 115,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_Internet_Inbound_HTTP')]",
+        "properties": {
+          "description": "Allows inbound http to the Application Gateway subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "80",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 133,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_Internet_Inbound_HTTPS')]",
+        "properties": {
+          "description": "Allows inbound https to the Application Gateway subnet",
+          "protocol": "Tcp",
+          "sourcePortRange": "*",
+          "destinationPortRange": "443",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
+          "access": "Allow",
+          "priority": 134,
+          "direction": "Inbound"
+        }
+      },
+      {
+        "name": "[concat('Allow_TCP_UDP_65503_655344')]",
+        "properties": {
+          "description": "Allow TCP and UDP 65503_655344",
+          "protocol": "*",
+          "sourcePortRange": "*",
+          "destinationPortRange": "65503-655344",
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
@@ -1567,6 +1724,7 @@
     ],
     "SecurityRules": {
       "ApplicationGateway": "[if(not(empty(parameters('SecurityRules'))),concat(parameters('SecurityRules'),variables('agwRules')),variables('agwRules'))]",
+      "ApplicationGateway_V2": "[if(not(empty(parameters('SecurityRules'))),concat(parameters('SecurityRules'),variables('agw_v2_Rules')),variables('agw_v2_Rules'))]",      
       "Bastion": "[if(not(empty(parameters('SecurityRules'))),concat(parameters('SecurityRules'),variables('rbastRules')),variables('rbastRules'))]",
       "DomainController": "[if(not(empty(parameters('SecurityRules'))),concat(parameters('SecurityRules'),variables('dcRules')),variables('dcRules'))]",
       "SitecoreCMS": "[if(not(empty(parameters('SecurityRules'))),concat(parameters('SecurityRules'),variables('cmsRules')),variables('cmsRules'))]",

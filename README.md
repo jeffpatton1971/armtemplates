@@ -26,7 +26,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
-- 06/24 : Update NSG with Appgw2 option
+- 06/24 : ~~Update NSG with Appgw2 option~~
 - 06/24 : Update AppGW for v2
 - 06/24 : Update LB for Standard SKU outbound internet traffic (outboundRules)
 - 06/19 : Add missing readme for ContainerRegistry
@@ -90,6 +90,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 06/24 : Updated NSG to accomodate ApplicationGateway_V2 rules
 - 06/19 : Mixed case between template and parameter file
 - 06/19 : Added Profile to endpoint template
 - 06/19 : SKU names update for CDN Profile
