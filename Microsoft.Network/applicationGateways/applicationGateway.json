@@ -40,6 +40,16 @@
       "type": "string",
       "defaultValue": ""
     },
+    "zones": {
+      "type": "array",
+      "allowedValues": [
+        "",
+        "1",
+        "2",
+        "3"
+      ],
+      "defaultValue": []
+    },
     "CustomObject": {
       "type": "object",
       "defaultValue": {}
@@ -290,7 +300,8 @@
           }
         ],
         "webApplicationFirewallConfiguration": "[if(equals(parameters('Tier'),'WAF'),variables('webApplicationFirewallConfiguration'),json('null'))]"
-      }
+      },
+      "zones": "[parameters('zones')]"
     }
   },
   "resources": [
@@ -439,7 +450,8 @@
           }
         ],
         "webApplicationFirewallConfiguration": "[if(equals(parameters('Tier'),'WAF'),variables('webApplicationFirewallConfiguration'),json('null'))]"
-      }
+      },
+      "zones": "[parameters('zones')]"
     }
   ],
   "outputs": {

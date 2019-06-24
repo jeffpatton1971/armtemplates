@@ -20,6 +20,12 @@
     "RuleSet": {
       "value": "3.0"
     },
+    "Location": {
+      "value": ""
+    },
+    "zones": {
+      "value": []
+    },
     "CustomObject": {
       "value": {}
     },

@@ -90,6 +90,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 06/24 : Added zones parameter to appgw template
 - 06/24 : Updated NSG to accomodate ApplicationGateway_V2 rules
 - 06/19 : Mixed case between template and parameter file
 - 06/19 : Added Profile to endpoint template

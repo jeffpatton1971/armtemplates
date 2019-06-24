@@ -54,8 +54,11 @@ Azure Application Gateway is a web traffic load balancer that enables you to man
     "RuleSet": {
       "value": "3.0"
     },
-    "Location":{
+    "Location": {
       "value": ""
+    },
+    "zones": {
+      "value": []
     },
     "CustomObject": {
       "value": {
