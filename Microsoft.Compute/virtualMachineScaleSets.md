@@ -31,6 +31,15 @@ GalleryImage and ImageReferenceId are mutually exclusive, you will need to pick 
         "ResourceGroupName": "rsg-diags",
         "BootDiagnostics": true
       }
+    "OsDisk: {
+      "value": {
+          "name": "vm01-os",
+          "caching": "None",
+          "DiskSize": "p30",
+          "CreateOption": "FromImage",
+          "writeAcceleratorEnabled": false
+      }
+    },
     "DataDisks": {
       "value": [
         {

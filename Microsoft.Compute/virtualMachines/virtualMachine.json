@@ -12,6 +12,9 @@
     "Network": {
       "type": "object"
     },
+    "OsDisk": {
+      "type": "object"
+    },
     "DataDisks": {
       "type": "array"
     },
@@ -1152,10 +1155,11 @@
                 "storageProfile": {
                   "imageReference": "[variables('imageReference')]",
                   "osDisk": {
-                    "name": "[variables('OsDiskName')]",
-                    "caching": "ReadWrite",
-                    "writeAcceleratorEnabled": "[parameters('writeAcceleratorEnabled')]",
-                    "createOption": "FromImage"
+                    "name": "[parameters('OsDisk').Name]",
+                    "Caching": "[parameters('OsDisk').DiskSize]",
+                    "writeAcceleratorEnabled": "[parameters('OsDisk').writeAcceleratorEnabled]",
+                    "diskSizeGB": "[variables('Disk')[parameters('OsDisk').DiskSize].size]",
+                    "createOption": "[parameters('OsDisk').DiskSize]"
                   },
                   "copy": [
                     {
@@ -1229,10 +1233,11 @@
                 "storageProfile": {
                   "imageReference": "[variables('imageReference')]",
                   "osDisk": {
-                    "name": "[variables('OsDiskName')]",
-                    "caching": "ReadWrite",
-                    "writeAcceleratorEnabled": "[parameters('writeAcceleratorEnabled')]",
-                    "createOption": "FromImage"
+                    "name": "[parameters('OsDisk').Name]",
+                    "Caching": "[parameters('OsDisk').DiskSize]",
+                    "writeAcceleratorEnabled": "[parameters('OsDisk').writeAcceleratorEnabled]",
+                    "diskSizeGB": "[variables('Disk')[parameters('OsDisk').DiskSize].size]",
+                    "createOption": "[parameters('OsDisk').DiskSize]"
                   }
                 },
                 "additionalCapabilities": {

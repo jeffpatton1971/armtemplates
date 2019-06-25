@@ -35,6 +35,15 @@ GalleryImage and ImageReferenceId are mutually exclusive, you will need to pick 
         "BootDiagnostics": true
       }
     },
+    "OsDisk: {
+      "value": {
+          "name": "vm01-os",
+          "caching": "None",
+          "DiskSize": "p30",
+          "CreateOption": "FromImage",
+          "writeAcceleratorEnabled": false
+      }
+    },
     "DataDisks": {
       "value": [
         {
@@ -76,9 +85,6 @@ GalleryImage and ImageReferenceId are mutually exclusive, you will need to pick 
     },
     "AdminPassword": {
       "value": "P@ssword12345"
-    },
-    "writeAcceleratorEnabled": {
-      "value": false
     },
     "ultraSSDEnabled": {
       "value": false
@@ -136,6 +142,15 @@ GalleryImage and ImageReferenceId are mutually exclusive, you will need to pick 
         "ResourceGroupName": "rsg-diags",
         "BootDiagnostics": true
       }
+    "OsDisk: {
+      "value": {
+          "name": "vm01-os",
+          "caching": "None",
+          "DiskSize": "p30",
+          "CreateOption": "FromImage",
+          "writeAcceleratorEnabled": false
+      }
+    },
     "DataDisks": {
       "value": [
         {
@@ -183,9 +198,6 @@ GalleryImage and ImageReferenceId are mutually exclusive, you will need to pick 
     },
     "AdminPassword": {
       "value": "P@ssword12345"
-    },
-    "writeAcceleratorEnabled": {
-      "value": false
     },
     "ultraSSDEnabled": {
       "value": false
@@ -243,6 +255,15 @@ GalleryImage and ImageReferenceId are mutually exclusive, you will need to pick 
         "ResourceGroupName": "rsg-diags",
         "BootDiagnostics": true
       }
+    "OsDisk: {
+      "value": {
+          "name": "vm01-os",
+          "caching": "None",
+          "DiskSize": "p30",
+          "CreateOption": "FromImage",
+          "writeAcceleratorEnabled": false
+      }
+    },
     "DataDisks": {
       "value": [
         {
@@ -284,9 +305,6 @@ GalleryImage and ImageReferenceId are mutually exclusive, you will need to pick 
     },
     "AdminPassword": {
       "value": "P@ssword12345"
-    },
-    "writeAcceleratorEnabled": {
-      "value": false
     },
     "ultraSSDEnabled": {
       "value": false

@@ -11,6 +11,9 @@
     "Diagnostics": {
       "type": "object"
     },
+    "OsDisk": {
+      "type": "object"
+    },
     "DataDisks": {
       "type": "array"
     },
@@ -988,10 +991,8 @@
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
           "contentVersion": "2018.11.01.0",
-          "parameters": {
-          },
-          "variables": {
-          },
+          "parameters": {},
+          "variables": {},
           "resources": [
             {
               "type": "Microsoft.Compute/disks",
@@ -1011,8 +1012,7 @@
               }
             }
           ],
-          "outputs": {
-          }
+          "outputs": {}
         }
       }
     },
@@ -1021,7 +1021,9 @@
       "apiVersion": "2017-05-10",
       "name": "[concat(parameters('name'),'_',variables('diskCount'),'_disks')]",
       "condition": "[greaterOrEquals(variables('isPresent'),1)]",
-      "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
+      "dependsOn": [
+        "[variables('NetworkInterfaceName')]"
+      ],
       "properties": {
         "mode": "Incremental",
         "template": {
@@ -1047,9 +1049,11 @@
                   "storageProfile": {
                     "imageReference": "[variables('imageReference')]",
                     "osDisk": {
-                      "caching": "ReadWrite",
-                      "writeAcceleratorEnabled": "[parameters('writeAcceleratorEnabled')]",
-                      "createOption": "FromImage"
+                      "name": "[parameters('OsDisk').Name]",
+                      "Caching": "[parameters('OsDisk').DiskSize]",
+                      "writeAcceleratorEnabled": "[parameters('OsDisk').writeAcceleratorEnabled]",
+                      "diskSizeGB": "[variables('Disk')[parameters('OsDisk').DiskSize].size]",
+                      "createOption": "[parameters('OsDisk').DiskSize]"
                     },
                     "copy": [
                       {
@@ -1110,8 +1114,7 @@
               "zones": []
             }
           ],
-          "outputs": {
-          }
+          "outputs": {}
         }
       }
     },
@@ -1120,7 +1123,9 @@
       "apiVersion": "2017-05-10",
       "name": "[concat(parameters('name'),'_0_disks')]",
       "condition": "[equals(variables('isPresent'),0)]",
-      "dependsOn": [ "[variables('NetworkInterfaceName')]" ],
+      "dependsOn": [
+        "[variables('NetworkInterfaceName')]"
+      ],
       "properties": {
         "mode": "Incremental",
         "template": {
@@ -1146,9 +1151,11 @@
                   "storageProfile": {
                     "imageReference": "[variables('imageReference')]",
                     "osDisk": {
-                      "caching": "ReadWrite",
-                      "writeAcceleratorEnabled": "[parameters('writeAcceleratorEnabled')]",
-                      "createOption": "FromImage"
+                      "name": "[parameters('OsDisk').Name]",
+                      "Caching": "[parameters('OsDisk').DiskSize]",
+                      "writeAcceleratorEnabled": "[parameters('OsDisk').writeAcceleratorEnabled]",
+                      "diskSizeGB": "[variables('Disk')[parameters('OsDisk').DiskSize].size]",
+                      "createOption": "[parameters('OsDisk').DiskSize]"
                     }
                   },
                   "additionalCapabilities": {
@@ -1193,12 +1200,10 @@
               "zones": []
             }
           ],
-          "outputs": {
-          }
+          "outputs": {}
         }
       }
     }
   ],
-  "outputs": {
-  }
+  "outputs": {}
 }

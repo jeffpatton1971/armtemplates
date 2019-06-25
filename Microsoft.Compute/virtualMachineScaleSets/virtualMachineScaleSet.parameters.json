@@ -11,6 +11,9 @@
     "Diagnostics": {
       "value": {}
     },
+    "OsDisk": {
+      "value": {}
+    },
     "DataDisks": {
       "value": []
     },

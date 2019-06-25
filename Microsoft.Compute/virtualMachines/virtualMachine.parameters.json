@@ -17,6 +17,9 @@
     "privateIPAddress": {
       "value": "Dynamic"
     },
+    "OsDisk": {
+      "value": {}
+    },
     "DataDisks": {
       "value": []
     },
@@ -52,9 +55,6 @@
     },
     "platformFaultDomainCount": {
       "value": 3
-    },
-    "writeAcceleratorEnabled": {
-      "value": false
     },
     "ultraSSDEnabled": {
       "value": false
