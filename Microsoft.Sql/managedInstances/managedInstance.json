@@ -3159,7 +3159,15 @@
                 }
             }
         ],
-        "unionNSGs": "[if(and(parameters('publicDataEndpointEnabled'), not(empty(parameters('nsgForPublicEndpoint')))), union(variables('defaultNSGs'), variables(parameters('nsgForPublicEndpoint'))), variables('defaultNSGs'))]"
+        "unionNSGs": "[if(and(parameters('publicDataEndpointEnabled'), not(empty(parameters('nsgForPublicEndpoint')))), union(variables('defaultNSGs'), variables(parameters('nsgForPublicEndpoint'))), variables('defaultNSGs'))]",
+        "documentation": [
+          "1. delete the managed sql instance",
+          "2. delete the virt cluster via the rsg overview blade",
+          "3. disassociate nsg from subnet",
+          "4. disassociate routing table from subnet",
+          "5. delete nsg and routing table",
+          "per discussion with James Low"
+        ]
     },
     "resources": [
         {
