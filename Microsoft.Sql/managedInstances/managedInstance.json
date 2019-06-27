@@ -3166,7 +3166,11 @@
           "3. disassociate nsg from subnet",
           "4. disassociate routing table from subnet",
           "5. delete nsg and routing table",
-          "per discussion with James Low"
+          "per discussion with James Low",
+          "failover replica needs to be in the same resourcegroup",
+          "failover region vnet should be vnet-2-vnet (not peered) to main vnet",
+          "database deletion via portal/ssms takes 72hrs due to MS manual back-end task",
+          "per discussion with Sergey"
         ]
     },
     "resources": [
