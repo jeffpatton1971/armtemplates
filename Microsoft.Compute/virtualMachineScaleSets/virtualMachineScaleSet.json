@@ -1050,10 +1050,10 @@
                     "imageReference": "[variables('imageReference')]",
                     "osDisk": {
                       "name": "[parameters('OsDisk').Name]",
-                      "Caching": "[parameters('OsDisk').DiskSize]",
+                      "Caching": "[parameters('OsDisk').Caching]",
                       "writeAcceleratorEnabled": "[parameters('OsDisk').writeAcceleratorEnabled]",
                       "diskSizeGB": "[variables('Disk')[parameters('OsDisk').DiskSize].size]",
-                      "createOption": "[parameters('OsDisk').DiskSize]"
+                      "createOption": "[parameters('OsDisk').createOption]"
                     },
                     "copy": [
                       {
