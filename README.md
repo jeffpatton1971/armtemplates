@@ -26,6 +26,7 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - SqlDatabase template was an array of db names, it now only deploys a single dbs
 
 # TODO
+- 06/28 : Create SQL Managed Instance templates from stg
 - 06/24 : Leverage lookup sizing for new osDisk option p4 - p40
 - 06/24 : ~~Update NSG with Appgw2 option~~
 - 06/24 : Update AppGW for v2
