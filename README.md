@@ -92,6 +92,8 @@ Welcome to the Rackspace Build Team Wiki, within this wiki you will find details
 - 11/07 : ~~Update OMS regions~~
 
 # Change Log
+- 07/18 : Removed a trailing 5 from the appgw nsg rule
+- 07/18 : Removed extra comma in searchServices template
 - 06/28 : Corrected typo's in the osDisk for vm and vmss
 - 06/24 : Added support for OsDisk from schema for virtualMachine and VirtualMachineScalsets
 - 06/24 : Added zones parameter to appgw template

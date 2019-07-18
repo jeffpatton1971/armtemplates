@@ -119,7 +119,7 @@
       "BuildTicket": "[parameters('buildTicket')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
-    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",,
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
     "searchService": {
       "apiVersion": "2015-08-19",
       "name": "[parameters('name')]",

@@ -861,12 +861,12 @@
         }
       },
       {
-        "name": "[concat('Allow_TCP_UDP_65503_655344')]",
+        "name": "[concat('Allow_TCP_UDP_65503_65534')]",
         "properties": {
-          "description": "Allow TCP and UDP 65503_655344",
+          "description": "Allow TCP and UDP 65503_65534",
           "protocol": "*",
           "sourcePortRange": "*",
-          "destinationPortRange": "65503-655344",
+          "destinationPortRange": "65503-65534",
           "sourceAddressPrefix": "VirtualNetwork",
           "destinationAddressPrefix": "[parameters('DestinationPrefix')]",
           "access": "Allow",
