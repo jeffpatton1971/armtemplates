@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Azure Resource Manager Templates</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
 </head>
+
 <body>
   <section class="section has-background-dark has-text-grey-lighter">
     <div class="tabs is-left">
@@ -26,35 +28,31 @@
                 <p>Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that
                   are used, and processes that are followed to deploy a customer environment into Azure.</p>
                 <p class="title has-text-grey">New Additions</p>
-                <p>
-                  <ul>
-                    <li>Container Registry</li>
-                    <li>AKS (managedClusters)</li>
-                    <li>Diagnostics</li>
-                    <li>LoadBalancer now supports properties for AOAG</li>
-                    <li>Compute now supports E sizes for managed disk</li>
-                    <li>Compute now supports writeAcceleratorEnabled and ultraSSDEnabled</li>
-                    <li>Connection template has been added</li>
-                    <li>LocalNetworkGateway template has been added</li>
-                    <li>RedisCache template has been added</li>
-                    <li>NetworkInterface template has been added</li>
-                    <li>Application Service Environments template has been added</li>
-                    <li>MySql PaaS template had been added</li>
-                    <li>SendGrid template has been added</li>
-                    <li>PublicIp template has been added</li>
-                  </ul>
-                </p>
+                <ul>
+                  <li>Container Registry</li>
+                  <li>AKS (managedClusters)</li>
+                  <li>Diagnostics</li>
+                  <li>LoadBalancer now supports properties for AOAG</li>
+                  <li>Compute now supports E sizes for managed disk</li>
+                  <li>Compute now supports writeAcceleratorEnabled and ultraSSDEnabled</li>
+                  <li>Connection template has been added</li>
+                  <li>LocalNetworkGateway template has been added</li>
+                  <li>RedisCache template has been added</li>
+                  <li>NetworkInterface template has been added</li>
+                  <li>Application Service Environments template has been added</li>
+                  <li>MySql PaaS template had been added</li>
+                  <li>SendGrid template has been added</li>
+                  <li>PublicIp template has been added</li>
+                </ul>
                 <p class="title has-text-grey">Breaking Changes</p>
-                <p>
-                  <ul>
-                    <li>NetworkSecurityGroup template, now has a Default deploymentType where before it was VirtualMachine</li>
-                    <li>Eventhub will have a storageAccount object</li>
-                    <li>Network object across all templates will have updated property names</li>
-                    <li>VMSS template has an updated upgradePolicy object, based on the new API, please check the documentation file for an example</li>
-                    <li>All template parameter files will have blank values</li>
-                    <li>SqlDatabase template was an array of db names, it now only deploys a single dbs</li>
-                  </ul>
-                </p>
+                <ul>
+                  <li>NetworkSecurityGroup template, now has a Default deploymentType where before it was VirtualMachine</li>
+                  <li>Eventhub will have a storageAccount object</li>
+                  <li>Network object across all templates will have updated property names</li>
+                  <li>VMSS template has an updated upgradePolicy object, based on the new API, please check the documentation file for an example</li>
+                  <li>All template parameter files will have blank values</li>
+                  <li>SqlDatabase template was an array of db names, it now only deploys a single dbs</li>
+                </ul>
               </div>
             </article>
           </div>
@@ -76,7 +74,7 @@
                   <li>02/28 : Add support for VM Diagnostics</li>
                   <li>02/11 : Pass in an array for sourcePrefix</li>
                   <li>02/11 : Check CDN profile/endpoint template for naming</li>
-                  <li>02/07 : Update appgw to accept a nicname or nicname/resourcegroup to get a privateip for the pool</li>
+                  <li>02/07 : Update appgw to accept a nicname or nicname/resourcegroup to get a privateip for the pool </li>
                   <li>01/29 : Correct eventhub and servicebus templates to use name parameter</li>
                   <li>01/24 : Add Location to all templates</li>
                   <li>01/23 : Update documentation to reflect changes in network parameter</li>
@@ -144,4 +142,5 @@
     </div>
   </footer>
 </body>
+
 </html>
