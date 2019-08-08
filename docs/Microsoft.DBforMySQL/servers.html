@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Microsoft.Automation</title>
+  <title>Microsoft.DBforMySQL</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
 </head>
 
@@ -49,7 +49,7 @@
             </ul>
             <p class="menu-label">Microsoft.DBforMySQL</p>
             <ul class="menu-list">
-              <li><a href="../icrosoft.DBforMySQL/servers.html">servers</a></li>
+              <li><a class="is-active">servers</a></li>
             </ul>
             <p class="menu-label">Microsoft.DBforPostgreSQL</p>
             <ul class="menu-list">
@@ -119,54 +119,69 @@
       <div class="tile is-7 is-vertical is-parent">
         <div class="tile is-child">
           <div class="box has-background-dark">
-            <p class="title has-text-grey">AutomationAccounts</p>
-            <p class="has-text-light">Azure Automation delivers a cloud-based automation and configuration service that
-              provides consistent management across your Azure and non-Azure environments. It consists of process
-              automation, update management, and configuration features. Azure Automation provides complete control
-              during deployment, operations, and decommissioning of workloads and resources.</p>
+            <p class="title has-text-grey">Servers</p>
+            <p class="has-text-light">Azure Database for MySQL is a relational database service in the Microsoft cloud based on the MySQL Community Edition database engine, versions 5.6 and 5.7.</p>
           </div>
           <div class="box has-background-dark">
             <p class="title has-text-grey">Examples</p>
             <pre class="has-background-dark">
                 <code class="has-text-light">
-                  {
-                    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-                    "contentVersion": "2018.12.01.0",
-                    "parameters": {
-                      "name": {
-                        "value": ""
-                      },
-                      "Sku": {
-                        "value": "Basic"
-                      },
-                      "location": {
-                        "value": ""
-                      },
-                      "CustomObject": {
-                        "value": {
-                          "tags" : {
-                           "Tag1": "Value1",
-                           "Tag2": "Value2",
-                          }
+                    {
+                      "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+                      "contentVersion": "2018.12.01.0",
+                      "parameters": {
+                        "name": {
+                          "value": ""
                         },
-                      },
-                      "environment": {
-                        "value": "Development"
-                      },
-                      "buildDate": {
-                        "value": "12/01/2018"
-                      },
-                      "buildBy": {
-                        "value": "jeffrey.patton2@rackspace.com"
-                      },
-                      "buildTicket": {
-                        "value": "123456-78901"
-                      },
-                      "RaxAutomationExclude": {
-                        "value": "None"
+                        "administratorLogin": {
+                          "value": ""
+                        },
+                        "administratorLoginPassword": {
+                          "value": ""
+                        },
+                        "sku": {
+                          "value": ""
+                        },
+                        "size": {
+                          "value": "5120"
+                        },
+                        "version": {
+                          "value": "5.7"
+                        },
+                        "sslEnforcement": {
+                          "value": "Disabled"
+                        },
+                        "backupRetentionDays": {
+                          "value": 7
+                        },
+                        "geoRedundantBackup": {
+                          "value": "Disabled"
+                        },
+                        "CustomObject": {
+                          "value": {
+                            "tags" : {
+                             "Tag1": "Value1",
+                             "Tag2": "Value2",
+                            }
+                          },
+                        },
+                        "environment": {
+                          "value": "Development"
+                        },
+                        "buildDate": {
+                          "value": "12/01/2018"
+                        },
+                        "buildBy": {
+                          "value": "jeffrey.patton2@rackspace.com"
+                        },
+                        "buildTicket": {
+                          "value": "123456-78901"
+                        },
+                        "RaxAutomationExclude": {
+                          "value": "None"
+                        }
                       }
                     }
-                  }
                 </code>
               </pre>
           </div>
@@ -176,12 +191,12 @@
         <div class="tile is-child box has-background-dark">
           <p class="title has-text-grey">Links</p>
           <ul class="has-text-light">
-            <li><a target="_blank" href="https://docs.microsoft.com/en-us/rest/api/automation/automationaccount">API</a>
+            <li><a target="_blank" href="https://docs.microsoft.com/en-us/rest/api/mysql/servers">API</a>
             </li>
             <li><a target="_blank"
-                href="https://docs.microsoft.com/en-us/azure/templates/microsoft.automation/2015-10-31/automationaccounts">ARM</a>
+                href="https://docs.microsoft.com/en-us/azure/templates/microsoft.dbformysql/2017-12-01/servers">ARM</a>
             </li>
-            <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/automation/">DOC</a></li>
+            <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/mysql/">DOC</a></li>
           </ul>
         </div>
       </div>
