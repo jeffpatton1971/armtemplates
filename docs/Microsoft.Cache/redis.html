@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Microsoft.Cache</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+</head>
+
+<body>
+  <section class="section has-background-dark has-text-greyer">
+    <div class="tabs is-left">
+      <ul>
+        <li class="is-active"><a href="/armtemplates">Home</a></li>
+        <li><a href="/usage">Usage</a></li>
+      </ul>
+    </div>
+    <div class="tile is-ancestor">
+      <div class="tile is-2 is-vertical is-parent">
+        <div class="tile is-child box has-background-dark">
+          <p class="title has-text-grey">Documentation</p>
+          <aside class="menu">
+            <p class="menu-label">Microsoft.Automation</p>
+            <ul class="menu-list">
+              <li><a href="/docs/Microsoft.Automation/automationAccounts.html">automationAccounts</a></li>
+            </ul>
+            <p class="menu-label">Microsoft.Cache</p>
+            <ul class="menu-list">
+              <li><a class="is-active">redis</a></li>
+            </ul>
+            <p class="menu-label">Microsoft.Cdn</p>
+            <ul class="menu-list">
+              <li><a>endpoints</a></li>
+              <li><a>profiles</a></li>
+            </ul>
+            <p class="menu-label">Microsoft.Compute</p>
+            <ul class="menu-list">
+              <li><a>VirtualMachines</a></li>
+              <li><a>virtualMachineScaleSets</a></li>
+            </ul>
+            <p class="menu-label">Microsoft.ContainerRegistry</p>
+            <ul class="menu-list">
+              <li><a>registries</a></li>
+            </ul>
+            <p class="menu-label">Microsoft.ContainerService</p>
+            <ul class="menu-list">
+              <li><a>managedClusters</a></li>
+            </ul>
+            <p class="menu-label">Microsoft.DBforMySQL</p>
+            <ul class="menu-list">
+              <li><a>servers</a></li>
+            </ul>
+            <p class="menu-label">Microsoft.DBforPostgreSQL</p>
+            <ul class="menu-list">
+              <li><a>servers</a></li>
+            </ul>
+            <p class="menu-label">Microsoft.Eventhub</p>
+            <ul class="menu-list">
+              <li><a>consumergroups</a></li>
+              <li><a>eventhubs</a></li>
+              <li><a>namespaces</a></li>
+            </ul>
+            <p class="menu-label">Microsoft.Network</p>
+            <ul class="menu-list">
+              <li><a>applicationGateways</a></li>
+              <li><a>connections</a></li>
+              <li><a>loadBalancers</a></li>
+              <li><a>localNetworkGateways</a></li>
+              <li><a>networkInterfaces</a></li>
+              <li><a>networkSecurityGroups</a></li>
+              <li><a>publicIPAddresses</a></li>
+              <li><a>trafficmanagerprofiles</a></li>
+              <li><a>virtualNetworkGateways</a></li>
+              <li><a>virtualNetworks</a></li>
+            </ul>
+            <p class="menu-label">Microsoft.OperationalInsights</p>
+            <ul class="menu-list">
+              <li><a>workspaces</a></li>
+            </ul>
+            <p class="menu-label">Microsoft.RecoveryServices</p>
+            <ul class="menu-list">
+              <li><a>protectedItems</a></li>
+              <li><a>vaults</a></li>
+            </ul>
+            <p class="menu-label">Microsoft.Search</p>
+            <ul class="menu-list">
+              <li><a>searchServices</a></li>
+            </ul>
+            <p class="menu-label">Microsoft.ServiceBus</p>
+            <ul class="menu-list">
+              <li><a>namespaces</a></li>
+              <li><a>queues</a></li>
+              <li><a>topics</a></li>
+            </ul>
+            <p class="menu-label">Microsoft.Sql</p>
+            <ul class="menu-list">
+              <li><a>databases</a></li>
+              <li><a>elasticpools</a></li>
+              <li><a>servers</a></li>
+            </ul>
+            <p class="menu-label">Microsoft.Storage</p>
+            <ul class="menu-list">
+              <li><a>storageAccounts</a></li>
+            </ul>
+            <p class="menu-label">Microsoft.Web</p>
+            <ul class="menu-list">
+              <li><a>hostingEnvironments</a></li>
+              <li><a>serverfarms</a></li>
+              <li><a>sites</a></li>
+            </ul>
+            <p class="menu-label">Sendgrid.Email</p>
+            <ul class="menu-list">
+              <li><a>accounts</a></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+      <div class="tile is-7 is-vertical is-parent">
+        <div class="tile is-child">
+          <div class="box has-background-dark">
+            <p class="title has-text-grey">AutomationAccounts</p>
+            <p class="has-text-light">Azure Automation delivers a cloud-based automation and configuration service that
+              provides consistent management across your Azure and non-Azure environments. It consists of process
+              automation, update management, and configuration features. Azure Automation provides complete control
+              during deployment, operations, and decommissioning of workloads and resources.</p>
+          </div>
+          <div class="box has-background-dark">
+            <p class="title has-text-grey">Examples</p>
+            <pre class="has-background-dark">
+                <code class="has-text-light">
+                  {
+                    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+                    "contentVersion": "2018.12.01.0",
+                    "parameters": {
+                      "name": {
+                        "value": ""
+                      },
+                      "Sku": {
+                        "value": "Basic"
+                      },
+                      "location": {
+                        "value": ""
+                      },
+                      "CustomObject": {
+                        "value": {
+                          "tags" : {
+                           "Tag1": "Value1",
+                           "Tag2": "Value2",
+                          }
+                        },
+                      },
+                      "environment": {
+                        "value": "Development"
+                      },
+                      "buildDate": {
+                        "value": "12/01/2018"
+                      },
+                      "buildBy": {
+                        "value": "jeffrey.patton2@rackspace.com"
+                      },
+                      "buildTicket": {
+                        "value": "123456-78901"
+                      },
+                      "RaxAutomationExclude": {
+                        "value": "None"
+                      }
+                    }
+                  }
+                </code>
+              </pre>
+          </div>
+        </div>
+      </div>
+      <div class="tile is-3 is-vertical is-parent">
+        <div class="tile is-child box has-background-dark">
+          <p class="title has-text-grey">Links</p>
+          <ul class="has-text-light">
+            <li><a target="_blank" href="https://docs.microsoft.com/en-us/rest/api/automation/automationaccount">API</a>
+            </li>
+            <li><a target="_blank"
+                href="https://docs.microsoft.com/en-us/azure/templates/microsoft.automation/2015-10-31/automationaccounts">ARM</a>
+            </li>
+            <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/automation/">DOC</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <a href="https://bulma.io/"><img src="https://bulma.io/images/made-with-bulma.png" alt="Made with Bulma"
+            width="128" height="24"></a>
+        <a href="https://code.visualstudio.com/"><img
+            src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg"
+            alt="Written in vsCode" width="30" height="30"></a>
+        <a href="https://pages.github.com/"><img
+            src="https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png" alt="Hosted on GitHub"
+            width="84" height="30"></a>
+      </p>
+    </div>
+  </footer>
+</body>
+
+</html>
