@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Microsoft.Automation</title>
+  <title>Microsoft.ContainerService</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
 </head>
 
@@ -119,54 +119,64 @@
       <div class="tile is-7 is-vertical is-parent">
         <div class="tile is-child">
           <div class="box has-background-dark">
-            <p class="title has-text-grey">AutomationAccounts</p>
-            <p class="has-text-light">Azure Automation delivers a cloud-based automation and configuration service that
-              provides consistent management across your Azure and non-Azure environments. It consists of process
-              automation, update management, and configuration features. Azure Automation provides complete control
-              during deployment, operations, and decommissioning of workloads and resources.</p>
+            <p class="title has-text-grey">managedClusters</p>
+            <p class="has-text-light">Azure Kubernetes Service (AKS) manages your hosted Kubernetes environment, making it quick and easy to deploy and manage containerized applications without container orchestration expertise. It also eliminates the burden of ongoing operations and maintenance by provisioning, upgrading, and scaling resources on demand, without taking your applications offline.</p>
           </div>
           <div class="box has-background-dark">
             <p class="title has-text-grey">Examples</p>
             <pre class="has-background-dark">
                 <code class="has-text-light">
-                  {
-                    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-                    "contentVersion": "2018.12.01.0",
-                    "parameters": {
-                      "name": {
-                        "value": ""
-                      },
-                      "Sku": {
-                        "value": "Basic"
-                      },
-                      "location": {
-                        "value": ""
-                      },
-                      "CustomObject": {
-                        "value": {
-                          "tags" : {
-                           "Tag1": "Value1",
-                           "Tag2": "Value2",
-                          }
+                    {
+                      "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+                      "contentVersion": "2019.05.01.0",
+                      "parameters": {
+                        "name": {
+                          "value": ""
                         },
-                      },
-                      "environment": {
-                        "value": "Development"
-                      },
-                      "buildDate": {
-                        "value": "12/01/2018"
-                      },
-                      "buildBy": {
-                        "value": "jeffrey.patton2@rackspace.com"
-                      },
-                      "buildTicket": {
-                        "value": "123456-78901"
-                      },
-                      "RaxAutomationExclude": {
-                        "value": "None"
+                        "kubernetesVersion": {
+                          "value": "1.11.9"
+                        },
+                        "dnsPrefix": {
+                          "value": "None"
+                        },
+                        "agentPoolProfiles": {
+                          "value": []
+                        },
+                        "servicePrincipalProfile": {
+                          "value": {}
+                        },
+                        "addonProfiles": {
+                          "value": {}
+                        },
+                        "enableRBAC": {
+                          "value": false
+                        },
+                        "networkProfile": {
+                          "value": {}
+                        },
+                        "Location": {
+                          "value": ""
+                        },
+                        "CustomObject": {
+                          "value": {}
+                        },
+                        "environment": {
+                          "value": ""
+                        },
+                        "buildDate": {
+                          "value": ""
+                        },
+                        "buildBy": {
+                          "value": ""
+                        },
+                        "buildTicket": {
+                          "value": ""
+                        },
+                        "RaxAutomationExclude": {
+                          "value": ""
+                        }
                       }
                     }
-                  }
                 </code>
               </pre>
           </div>
@@ -176,12 +186,12 @@
         <div class="tile is-child box has-background-dark">
           <p class="title has-text-grey">Links</p>
           <ul class="has-text-light">
-            <li><a target="_blank" href="https://docs.microsoft.com/en-us/rest/api/automation/automationaccount">API</a>
+            <li><a target="_blank" href="https://docs.microsoft.com/en-us/rest/api/aks/managedclusters">API</a>
             </li>
             <li><a target="_blank"
-                href="https://docs.microsoft.com/en-us/azure/templates/microsoft.automation/2015-10-31/automationaccounts">ARM</a>
+                href="https://docs.microsoft.com/en-us/azure/templates/microsoft.containerservice/2019-02-01/managedclusters">ARM</a>
             </li>
-            <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/automation/">DOC</a></li>
+            <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/aks/">DOC</a></li>
           </ul>
         </div>
       </div>
