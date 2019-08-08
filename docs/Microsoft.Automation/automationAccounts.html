@@ -127,45 +127,46 @@
           </div>
           <div class="box has-background-dark">
             <p class="title has-text-grey">Examples</p>
-            <code>{
-                "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-                "contentVersion": "2018.12.01.0",
-                "parameters": {
-                  "name": {
-                    "value": ""
-                  },
-                  "Sku": {
-                    "value": "Basic"
-                  },
-                  "location": {
-                    "value": ""
-                  },
-                  "CustomObject": {
-                    "value": {
-                      "tags" : {
-                       "Tag1": "Value1",
-                       "Tag2": "Value2",
+            <div class="content">
+                <code>{
+                    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+                    "contentVersion": "2018.12.01.0",
+                    "parameters": {
+                      "name": {
+                        "value": ""
+                      },
+                      "Sku": {
+                        "value": "Basic"
+                      },
+                      "location": {
+                        "value": ""
+                      },
+                      "CustomObject": {
+                        "value": {
+                          "tags" : {
+                           "Tag1": "Value1",
+                           "Tag2": "Value2",
+                          }
+                        },
+                      },
+                      "environment": {
+                        "value": "Development"
+                      },
+                      "buildDate": {
+                        "value": "12/01/2018"
+                      },
+                      "buildBy": {
+                        "value": "jeffrey.patton2@rackspace.com"
+                      },
+                      "buildTicket": {
+                        "value": "123456-78901"
+                      },
+                      "RaxAutomationExclude": {
+                        "value": "None"
                       }
-                    },
-                  },
-                  "environment": {
-                    "value": "Development"
-                  },
-                  "buildDate": {
-                    "value": "12/01/2018"
-                  },
-                  "buildBy": {
-                    "value": "jeffrey.patton2@rackspace.com"
-                  },
-                  "buildTicket": {
-                    "value": "123456-78901"
-                  },
-                  "RaxAutomationExclude": {
-                    "value": "None"
-                  }
-                }
-              }</code>
-            <p class="has-text-light"></p>
+                    }
+                  }</code>
+            </div>
           </div>
         </div>
       </div>
