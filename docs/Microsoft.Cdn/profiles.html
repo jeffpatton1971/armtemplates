@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Microsoft.Automation</title>
+  <title>Microsoft.Cdn</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
 </head>
 
@@ -23,7 +23,7 @@
           <aside class="menu">
             <p class="menu-label">Microsoft.Automation</p>
             <ul class="menu-list">
-              <li><a class="is-active">automationAccounts</a></li>
+              <li><a href="../Microsoft.Automation/automationAccounts.html"automationAccounts</a></li>
             </ul>
             <p class="menu-label">Microsoft.Cache</p>
             <ul class="menu-list">
@@ -31,9 +31,9 @@
             </ul>
             <p class="menu-label">Microsoft.Cdn</p>
             <ul class="menu-list">
-                <li><a href="../Microsoft.Cdn/endpoints.html">endpoints</a></li>
-                <li><a href="../Microsoft.Cdn/profiles.html">profiles</a></li>
-              </ul>
+              <li><a href="../Microsoft.Cdn/endpoints.html">endpoints</a></li>
+              <li><a class="is-active">profiles</a></li>
+            </ul>
             <p class="menu-label">Microsoft.Compute</p>
             <ul class="menu-list">
               <li><a>VirtualMachines</a></li>
@@ -119,55 +119,48 @@
       <div class="tile is-7 is-vertical is-parent">
         <div class="tile is-child">
           <div class="box has-background-dark">
-            <p class="title has-text-grey">AutomationAccounts</p>
-            <p class="has-text-light">Azure Automation delivers a cloud-based automation and configuration service that
-              provides consistent management across your Azure and non-Azure environments. It consists of process
-              automation, update management, and configuration features. Azure Automation provides complete control
-              during deployment, operations, and decommissioning of workloads and resources.</p>
+            <p class="title has-text-grey">Profiles</p>
+            <p class="has-text-light">A content delivery network (CDN) is a distributed network of servers that can efficiently deliver web content to users. CDNs store cached content on edge servers in point-of-presence (POP) locations that are close to end users, to minimize latency.</p>
           </div>
           <div class="box has-background-dark">
             <p class="title has-text-grey">Examples</p>
             <pre class="has-background-dark">
                 <code class="has-text-light">
-                  {
-                    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-                    "contentVersion": "2018.12.01.0",
-                    "parameters": {
-                      "name": {
-                        "value": ""
-                      },
-                      "Sku": {
-                        "value": "Basic"
-                      },
-                      "location": {
-                        "value": ""
-                      },
-                      "CustomObject": {
-                        "value": {
-                          "tags" : {
-                           "Tag1": "Value1",
-                           "Tag2": "Value2",
-                          }
+                    {
+                      "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+                      "contentVersion": "2018.12.01.0",
+                      "parameters": {
+                        "name": {
+                          "value": ""
                         },
-                      },
-                      "environment": {
-                        "value": "Development"
-                      },
-                      "buildDate": {
-                        "value": "12/01/2018"
-                      },
-                      "buildBy": {
-                        "value": "jeffrey.patton2@rackspace.com"
-                      },
-                      "buildTicket": {
-                        "value": "123456-78901"
-                      },
-                      "RaxAutomationExclude": {
-                        "value": "None"
+                        "Sku": {
+                          "value": ""
+                        },
+                        "CustomObject": {
+                          "value": {
+                            "tags" : {
+                             "Tag1": "Value1",
+                             "Tag2": "Value2",
+                            }
+                          },
+                        },
+                        "environment": {
+                          "value": "Development"
+                        },
+                        "buildDate": {
+                          "value": "12/01/2018"
+                        },
+                        "buildBy": {
+                          "value": "jeffrey.patton2@rackspace.com"
+                        },
+                        "buildTicket": {
+                          "value": "123456-78901"
+                        },
+                        "RaxAutomationExclude": {
+                          "value": "None"
+                        }
                       }
-                    }
-                  }
-                </code>
+                    }                </code>
               </pre>
           </div>
         </div>
@@ -176,12 +169,12 @@
         <div class="tile is-child box has-background-dark">
           <p class="title has-text-grey">Links</p>
           <ul class="has-text-light">
-            <li><a target="_blank" href="https://docs.microsoft.com/en-us/rest/api/automation/automationaccount">API</a>
+            <li><a target="_blank" href="https://docs.microsoft.com/en-us/rest/api/cdn/profiles">API</a>
             </li>
             <li><a target="_blank"
-                href="https://docs.microsoft.com/en-us/azure/templates/microsoft.automation/2015-10-31/automationaccounts">ARM</a>
+                href="https://docs.microsoft.com/en-us/azure/templates/microsoft.cdn/2017-10-12/profiles">ARM</a>
             </li>
-            <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/automation/">DOC</a></li>
+            <li><a target="_blank" href="https://docs.microsoft.com/en-us/azure/cdn/">DOC</a></li>
           </ul>
         </div>
       </div>
