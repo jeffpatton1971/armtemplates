@@ -27,10 +27,11 @@
       <div class="tile is-8 is-vertical is-parent">
         <div class="tile is-child">
           <div class="box">
-          <p class="title has-text-grey">ARM Templates</p>
-          <p>Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that
-            are used, and processes that are followed to deploy a customer environment into Azure.</p>
+            <p class="title has-text-grey">ARM Templates</p>
+            <p>Welcome to the Rackspace Build Team Wiki, within this wiki you will find details about templates that
+              are used, and processes that are followed to deploy a customer environment into Azure.</p>
           </div>
+          <div class="box"></div>
           <p class="title has-text-grey">New Additions</p>
           <ul>
             <li>Container Registry</li>
@@ -48,78 +49,81 @@
             <li>SendGrid template has been added</li>
             <li>PublicIp template has been added</li>
           </ul>
-          <p class="title has-text-grey box">Breaking Changes</p>
-          <ul>
-            <li>NetworkSecurityGroup template, now has a Default deploymentType where before it was VirtualMachine</li>
-            <li>Eventhub will have a storageAccount object</li>
-            <li>Network object across all templates will have updated property names</li>
-            <li>VMSS template has an updated upgradePolicy object, based on the new API, please check the documentation file for an example</li>
-            <li>All template parameter files will have blank values</li>
-            <li>SqlDatabase template was an array of db names, it now only deploys a single dbs</li>
-          </ul>
         </div>
+        <div class="box"></div>
+        <p class="title has-text-grey box">Breaking Changes</p>
+        <ul>
+          <li>NetworkSecurityGroup template, now has a Default deploymentType where before it was VirtualMachine</li>
+          <li>Eventhub will have a storageAccount object</li>
+          <li>Network object across all templates will have updated property names</li>
+          <li>VMSS template has an updated upgradePolicy object, based on the new API, please check the documentation file for an example</li>
+          <li>All template parameter files will have blank values</li>
+          <li>SqlDatabase template was an array of db names, it now only deploys a single dbs</li>
+        </ul>
       </div>
-      <div class="tile is-2 is-vertical is-parent">
-        <div class="tile is-child box">
-          <p class="title has-text-grey">To-Do</p>
-          <ul>
-            <li>04/18 : Add containerRegistry templates</li>
-            <li>04/18 : Add AKS Templates</li>
-            <li>04/11 : Update plan in VM/VMSS to work, per Corey email</li>
-            <li>04/11 : Remove resourceGroup from vm diagnostics</li>
-            <li>04/04 : Add BuildTicket Tag</li>
-            <li>03/10 : Fix diagnostic support</li>
-            <li>02/28 : Add support for VM Diagnostics</li>
-            <li>02/11 : Pass in an array for sourcePrefix</li>
-            <li>02/11 : Check CDN profile/endpoint template for naming</li>
-            <li>02/07 : Update appgw to accept a nicname or nicname/resourcegroup to get a privateip for the pool</li>
-            <li>01/29 : Correct eventhub and servicebus templates to use name parameter</li>
-            <li>01/24 : Add Location to all templates</li>
-            <li>01/23 : Update documentation to reflect changes in network parameter</li>
-            <li>01/23 : renumber NSG priorities</li>
-            <li>01/21 : Update eventhub to include storageAccount object</li>
-            <li>01/21 : Update all Network object references to include updated property names</li>
-            <li>01/15 : work out proper null array for empty zones</li>
-            <li>01/14 : Add zones support for VM/VMSS</li>
-            <li>01/07 : Add Name parameter to NSg template</li>
-            <li>01/07 : Add Customtags object for templates</li>
-            <li>01/04 : Work on passing ipAddress to resources that can consume one</li>
-            <li>12/21 : Add vnet peering templates</li>
-            <li>12/21 : Add connections template for wiring up vpngw</li>
-            <li>12/21 : Add localNetworkGateway template</li>
-            <li>12/20 : VPN Gateway Template, if bgp false still get errors about bgpsettings being null</li>
-            <li>12/13 : Clean up Bastion rules in nsg template</li>
-            <li>12/12 : Update NSG template to be more customizable, choose deploymentType and define additional rules</li>
-            <li>12/11 : Rework AppGw template to be less load balancer and more appgw</li>
-            <li>12/07 : Add additional redis resource templates</li>
-            <li>12/07 : Rediscache template</li>
-            <li>11/26 : Align NSG update templates with regular networkSecurityGroup template</li>
-            <li>11/23 : Update serverFarms template from 2016-03-01 to 2018-02-01</li>
-            <li>11/23 : Update VirtualNetworks template from 2017-09-01 to 2018-08-01</li>
-            <li>11/23 : Update VirtualNetworkGateways template from 2017-09-01 to 2018-08-01</li>
-            <li>11/23 : Add custom option for NSG for custom rules</li>
-            <li>11/23 : Update networkSecurityGroups from 2015-05-01-preview tp 2018-08-01</li>
-            <li>11/23 : Update loadBalancers template from 2017-06-01 to 2018-08-01</li>
-            <li>11/23 : Update ApplicationGateway template from 2017-06-01 to 2018-08-01</li>
-            <li>11/23 : Update ScaleSets template from 2017-12-01 to 2018-10-01</li>
-            <li>11/23 : Update compute template from 2017-03-30 to 2018-10-01</li>
-            <li>11/23 : Move samples into the readme's for the resources</li>
-            <li>11/23 : Create a more fully formed VMSS template</li>
-            <li>11/21 : Scrub templates of default values</li>
-            <li>11/21 : All parameters should be present in parameter files</li>
-            <li>11/19 : Change nsg template to match schema</li>
-            <li>11/19 : Add DisasterRecovery to all templates for environment</li>
-            <li>11/19 : Change Q/A to QA for all templates</li>
-            <li>11/12 : Adjust casing of Name across all templates</li>
-            <li>11/10 : Add EastUS to automationAccount</li>
-            <li>11/08 : Add SendGrid template</li>
-            <li>11/08 : Need PIP template</li>
-            <li>11/08 : Remove SQL DB Names</li>
-            <li>11/07 : Basic NSG Template</li>
-            <li>11/07 : Update OMS regions</li>
-          </ul>
-        </div>
+    </div>
+    </div>
+    <div class="tile is-2 is-vertical is-parent">
+      <div class="tile is-child box">
+        <p class="title has-text-grey">To-Do</p>
+        <ul>
+          <li>04/18 : Add containerRegistry templates</li>
+          <li>04/18 : Add AKS Templates</li>
+          <li>04/11 : Update plan in VM/VMSS to work, per Corey email</li>
+          <li>04/11 : Remove resourceGroup from vm diagnostics</li>
+          <li>04/04 : Add BuildTicket Tag</li>
+          <li>03/10 : Fix diagnostic support</li>
+          <li>02/28 : Add support for VM Diagnostics</li>
+          <li>02/11 : Pass in an array for sourcePrefix</li>
+          <li>02/11 : Check CDN profile/endpoint template for naming</li>
+          <li>02/07 : Update appgw to accept a nicname or nicname/resourcegroup to get a privateip for the pool</li>
+          <li>01/29 : Correct eventhub and servicebus templates to use name parameter</li>
+          <li>01/24 : Add Location to all templates</li>
+          <li>01/23 : Update documentation to reflect changes in network parameter</li>
+          <li>01/23 : renumber NSG priorities</li>
+          <li>01/21 : Update eventhub to include storageAccount object</li>
+          <li>01/21 : Update all Network object references to include updated property names</li>
+          <li>01/15 : work out proper null array for empty zones</li>
+          <li>01/14 : Add zones support for VM/VMSS</li>
+          <li>01/07 : Add Name parameter to NSg template</li>
+          <li>01/07 : Add Customtags object for templates</li>
+          <li>01/04 : Work on passing ipAddress to resources that can consume one</li>
+          <li>12/21 : Add vnet peering templates</li>
+          <li>12/21 : Add connections template for wiring up vpngw</li>
+          <li>12/21 : Add localNetworkGateway template</li>
+          <li>12/20 : VPN Gateway Template, if bgp false still get errors about bgpsettings being null</li>
+          <li>12/13 : Clean up Bastion rules in nsg template</li>
+          <li>12/12 : Update NSG template to be more customizable, choose deploymentType and define additional rules</li>
+          <li>12/11 : Rework AppGw template to be less load balancer and more appgw</li>
+          <li>12/07 : Add additional redis resource templates</li>
+          <li>12/07 : Rediscache template</li>
+          <li>11/26 : Align NSG update templates with regular networkSecurityGroup template</li>
+          <li>11/23 : Update serverFarms template from 2016-03-01 to 2018-02-01</li>
+          <li>11/23 : Update VirtualNetworks template from 2017-09-01 to 2018-08-01</li>
+          <li>11/23 : Update VirtualNetworkGateways template from 2017-09-01 to 2018-08-01</li>
+          <li>11/23 : Add custom option for NSG for custom rules</li>
+          <li>11/23 : Update networkSecurityGroups from 2015-05-01-preview tp 2018-08-01</li>
+          <li>11/23 : Update loadBalancers template from 2017-06-01 to 2018-08-01</li>
+          <li>11/23 : Update ApplicationGateway template from 2017-06-01 to 2018-08-01</li>
+          <li>11/23 : Update ScaleSets template from 2017-12-01 to 2018-10-01</li>
+          <li>11/23 : Update compute template from 2017-03-30 to 2018-10-01</li>
+          <li>11/23 : Move samples into the readme's for the resources</li>
+          <li>11/23 : Create a more fully formed VMSS template</li>
+          <li>11/21 : Scrub templates of default values</li>
+          <li>11/21 : All parameters should be present in parameter files</li>
+          <li>11/19 : Change nsg template to match schema</li>
+          <li>11/19 : Add DisasterRecovery to all templates for environment</li>
+          <li>11/19 : Change Q/A to QA for all templates</li>
+          <li>11/12 : Adjust casing of Name across all templates</li>
+          <li>11/10 : Add EastUS to automationAccount</li>
+          <li>11/08 : Add SendGrid template</li>
+          <li>11/08 : Need PIP template</li>
+          <li>11/08 : Remove SQL DB Names</li>
+          <li>11/07 : Basic NSG Template</li>
+          <li>11/07 : Update OMS regions</li>
+        </ul>
       </div>
+    </div>
     </div>
   </section>
   <footer class="footer">
