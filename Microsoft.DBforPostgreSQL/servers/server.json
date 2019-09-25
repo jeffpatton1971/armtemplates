@@ -221,7 +221,32 @@
       "BuildTicket": "[parameters('buildTicket')]",
       "RaxAutomation|Exclude": "[parameters('RaxAutomationExclude')]"
     },
-    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]"
+    "tags": "[if(not(empty(parameters('CustomObject'))),union(variables('RackspaceTags'),parameters('CustomObject').tags),variables('RackspaceTags'))]",
+    "server": {
+      "apiVersion": "2017-12-01",
+      "type": "Microsoft.DBforPostgreSQL/servers",
+      "kind": "",
+      "location": "[resourceGroup().location]",
+      "name": "[tolower(parameters('name'))]",
+      "tags": "[variables('tags')]",
+      "properties": {
+        "version": "[parameters('version')]",
+        "administratorLogin": "[parameters('administratorLogin')]",
+        "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
+        "storageProfile": {
+          "storageMB": "[variables('size')]",
+          "backupRetentionDays": "[parameters('backupRetentionDays')]",
+          "geoRedundantBackup": "[parameters('geoRedundantBackup')]"
+        }
+      },
+      "sku": {
+        "name": "[variables('skuName')]",
+        "tier": "[parameters('tier')]",
+        "capacity": "[parameters('capacity')]",
+        "size": "[variables('size')]",
+        "family": "[parameters('family')]"
+      }
+    }
   },
   "resources": [
     {
@@ -258,7 +283,7 @@
         "contentVersion": "2019.06.01.0",
         "parameters": {},
         "variables": {},
-        "resources": "[createArray(variables('automationAccount'))]",
+        "resources": "[createArray(variables('server'))]",
         "outputs": {}
       }
     }
